@@ -14,11 +14,11 @@ export default {
     if (Meteor.isClient) {
       // Split the code on a different file when on a client
       require.ensure([], require => {
-        cb(null, require('./routes').default)
+        cb(null, require('./routes').default);
       }, 'admin');
     } else {
       // Save the chunk for server-rendering
-      global.__CHUNK_COLLECTOR__.push('admin')
+      global.__CHUNK_COLLECTOR__.push('admin');
       cb(null, require('./routes').default);
     }
   }

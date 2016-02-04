@@ -22,6 +22,6 @@ export default class AdminApp extends Component {
         <h1>Admin</h1>
         {this.props.children}
       </div>
-    )
+    );
   }
 }
