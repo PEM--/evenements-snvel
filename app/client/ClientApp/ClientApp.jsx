@@ -14,7 +14,7 @@ const muiTheme = getMuiTheme({
   avatar: {
     borderColor: null,
   },
-  // Check this maybe in the DDP connection?
+  // @TODO Check this maybe in the DDP connection?
   // userAgent: req.headers['user-agent']
 });
 
