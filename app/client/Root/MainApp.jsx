@@ -1,14 +1,6 @@
 import { createClass, Component } from 'react';
 import Helmet from 'react-helmet';
 
-/*
-
-Global components inside Router here! 
-
-This always renders inside the routing context, no matter the route.
-
- */
-
 export default createClass({
   render() {
 
@@ -22,6 +14,6 @@ export default createClass({
         {this.props.children}
 
       </div>
-    )
+    );
   }
-})
+});
