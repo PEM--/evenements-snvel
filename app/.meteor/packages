@@ -34,3 +34,4 @@ msavin:mongol
 aldeed:simple-schema
 dburles:collection-helpers
 gwendall:simple-schema-i18n
+dburles:mongo-collection-instances@0.3.5
