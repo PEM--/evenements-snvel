@@ -4,6 +4,7 @@ import AppBar from 'material-ui/lib/app-bar';
 const ClientApp = ({children}) => (
   <div>
     <Helmet
+      title='Evénements SNVEL'
       meta={[
         { name: 'viewport', content: 'width=device-width, initial-scale=1' }
       ]}
