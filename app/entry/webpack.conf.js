@@ -11,10 +11,12 @@ var normalize = require('postcss-normalize');
  */
 var configPath;
 if (process.env.NODE_ENV !== 'production' && !process.env.IS_MIRROR) {
-  configPath = path.join(__dirname, '..', 'client', 'Root', 'development');
+  configPath = path.join(__dirname, '.', 'client', 'development');
 } else {
-  configPath = path.join(__dirname, '..', 'client', 'Root', 'production');
+  configPath = path.join(__dirname, '.', 'client', 'production');
 }
+
+console.log('configPath', configPath);
 
 module.exports = {
   externals: {

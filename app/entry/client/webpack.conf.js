@@ -17,8 +17,6 @@ if (process.env.NODE_ENV !== 'production' && !process.env.IS_MIRROR) {
       transform: 'react-transform-catch-errors',
       imports: ['react', 'redbox-react']
     }]
-    // redbox-react is breaking the line numbers :-(
-    // you might want to disable it
   }]);
 }
 

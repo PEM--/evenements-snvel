@@ -1,4 +1,4 @@
-import routes from 'client/Root/routes';
+import routes from './routes';
 import Wrapper from 'RootEnv/reduxWrapper';
 import storeBuilder from 'RootEnv/storeBuilder';
 
