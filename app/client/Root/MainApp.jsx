@@ -5,25 +5,24 @@ import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
 import colors from 'material-ui/lib/styles/colors';
 import styles from './styles/MainApp.import.css';
-// import styles2 from '!style!stylus!css!./styles/MainApp.styl';
 
 injectTapEventPlugin();
 
-const muiTheme = getMuiTheme({
+let muiTheme = getMuiTheme({
   palette: {
     primary1Color: colors.deepPurple500,
     primary2Color: colors.deepOrange500,
-    primary3Color: colors.orange50
+    primary3Color: colors.orange50,
+    accent1Color: colors.deepOrange500
   },
 }, {
   avatar: {
     borderColor: null,
-  },
-  // @TODO Check this maybe in the DDP connection?
-  // userAgent: req.headers['user-agent']
+  }
 });
-
-// console.log('styles', styles);
+if (Meteor.isClient) {
+  muiTheme.userAgent = navigator.userAgent;
+}
 
 const MainApp = ({children}) => {
   console.log('MainApp');
