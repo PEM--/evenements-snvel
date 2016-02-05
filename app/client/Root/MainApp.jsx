@@ -5,6 +5,7 @@ import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
 import colors from 'material-ui/lib/styles/colors';
 import styles from './styles/MainApp.import.css';
+import styles2 from './styles/test.styl';
 
 injectTapEventPlugin();
 
@@ -24,6 +25,8 @@ if (Meteor.isClient) {
   muiTheme.userAgent = navigator.userAgent;
 }
 
+// console.log('styles2', styles2);
+
 const MainApp = ({children}) => {
   console.log('MainApp');
   return (
@@ -34,6 +37,7 @@ const MainApp = ({children}) => {
         ]}
       />
     <h1 className='tomato'>MainApp</h1>
+    <h2 className={styles2.stuff}>Inner header</h2>
     <p>Balblabla</p>
       {children}
     </div>

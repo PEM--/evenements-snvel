@@ -25,7 +25,7 @@ thereactivestack:blazetoreact
 accounts-ui
 accounts-password
 
-mquandalle:stylus
+# mquandalle:stylus
 reactrouter:react-router-ssr
 nfl:react-helmet
 msavin:mongol

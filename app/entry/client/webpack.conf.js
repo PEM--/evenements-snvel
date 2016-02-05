@@ -43,7 +43,7 @@ module.exports = {
     loaders: [
       { test: /\.jsx?$/, loader: 'babel', query: babelSettings, exclude: /node_modules/ },
       { test: /\.css$/, loader: cssLoader + '!postcss-loader' },
-      { test: /\.styl$/, loader: cssLoader + '!stylus!postcss-loader' },
+      { test: /\.styl$/, loader: cssLoader + '!postcss-loader!stylus-loader' },
       { test: /\.(png|jpe?g)(\?.*)?$/, loader: 'url?limit=8182' },
       { test: /\.(svg|ttf|woff|eot)(\?.*)?$/, loader: 'file' }
     ]
