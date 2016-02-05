@@ -1,4 +1,7 @@
 var webpack = require('webpack');
+var autoprefixer = require('autoprefixer');
+var normalize = require('postcss-normalize');
+
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var babelSettings = { presets: ['react', 'es2015', 'stage-0'] };
@@ -39,9 +42,12 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, loader: 'babel', query: babelSettings, exclude: /node_modules/ },
-      { test: /\.css$/, loader: cssLoader },
+      { test: /\.css$/, loader: cssLoader + '!postcss-loader' },
       { test: /\.(png|jpe?g)(\?.*)?$/, loader: 'url?limit=8182' },
       { test: /\.(svg|ttf|woff|eot)(\?.*)?$/, loader: 'file' }
     ]
+  },
+  postcss: function() {
+    return [autoprefixer, normalize];
   }
 };

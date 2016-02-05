@@ -1,5 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
+var autoprefixer = require('autoprefixer');
+var normalize = require('postcss-normalize');
 
 /*
     create an alias called 'RootEnv/' that leads to
@@ -41,5 +43,8 @@ module.exports = {
       RootEnv: configPath
     },
     extensions: ['', '.js', '.jsx', '.json', '.css', '.scss']
+  },
+  postcss: function() {
+    return [autoprefixer, normalize];
   }
 };
