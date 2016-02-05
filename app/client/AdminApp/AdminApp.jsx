@@ -1,8 +1,7 @@
 import { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import Helmet from 'react-helmet';
-
-import style from './css/AdminApp.import.css';
+import style from './styles/AdminApp.import.css';
 
 const AdminApp = ({children}) => (
   <div className={style.container}>

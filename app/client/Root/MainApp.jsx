@@ -4,9 +4,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
 import colors from 'material-ui/lib/styles/colors';
+import styles from './styles/MainApp.import.css';
 
 injectTapEventPlugin();
-
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -21,13 +21,6 @@ const muiTheme = getMuiTheme({
   // @TODO Check this maybe in the DDP connection?
   // userAgent: req.headers['user-agent']
 });
-
-const styles = {
-  body: {
-    height: '100vh',
-    background: 'red'
-  }
-};
 
 const MainApp = ({children}) => {
   console.log('MainApp');
