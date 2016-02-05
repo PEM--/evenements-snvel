@@ -6,7 +6,7 @@ Meteor.startup(() => {
   const clientOptions = {
     wrapper: Wrapper,
     createReduxStore: storeBuilder,
-  }
-  const serverOptions = { ...clientOptions }
+  };
+  const serverOptions = { ...clientOptions };
   ReactRouterSSR.Run(routes, clientOptions, serverOptions);
 });

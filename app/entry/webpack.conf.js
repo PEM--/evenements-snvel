@@ -2,12 +2,12 @@ var webpack = require('webpack');
 var path = require('path');
 
 /*
-    create an alias called 'RootEnv/' that leads to 
-    client/Root/development 
+    create an alias called 'RootEnv/' that leads to
+    client/Root/development
     or
     client/Root/production
  */
-var configPath
+var configPath;
 if (process.env.NODE_ENV !== 'production' && !process.env.IS_MIRROR) {
   configPath = path.join(__dirname, '..', 'client', 'Root', 'development');
 } else {
