@@ -25,10 +25,12 @@ thereactivestack:blazetoreact
 accounts-ui
 accounts-password
 
-
+mquandalle:stylus
 reactrouter:react-router-ssr
 nfl:react-helmet
 msavin:mongol
+thereactivestack:react-cookie
+
 
 # Collections
 aldeed:simple-schema

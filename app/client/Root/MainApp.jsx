@@ -5,6 +5,7 @@ import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
 import colors from 'material-ui/lib/styles/colors';
 import styles from './styles/MainApp.import.css';
+// import styles2 from '!style!stylus!css!./styles/MainApp.styl';
 
 injectTapEventPlugin();
 
@@ -22,15 +23,19 @@ const muiTheme = getMuiTheme({
   // userAgent: req.headers['user-agent']
 });
 
+// console.log('styles', styles);
+
 const MainApp = ({children}) => {
   console.log('MainApp');
   return (
-    <div style={styles.body}>
+    <div className={styles.myContent}>
       <Helmet
         meta={[
           { name: 'viewport', content: 'width=device-width, initial-scale=1' }
         ]}
       />
+    <h1 className='tomato'>MainApp</h1>
+    <p>Balblabla</p>
       {children}
     </div>
   );
