@@ -1,5 +1,5 @@
 import mainStyles from './main.styl';
-import Colors from 'material-ui/lib/styles/colors';
+import ColorManipulator from 'material-ui/lib/utils/color-manipulator';
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 
 const darkViolet = '#262a3f';
@@ -12,7 +12,14 @@ const palette = {
   primary1Color: darkViolet,
   primary2Color: orange,
   primary3Color: orange,
-  accent1Color: orange
+  accent1Color: orange,
+  accent2Color: cream,
+  accent3Color: lightViolet,
+  textColor: darkViolet,
+  alternateTextColor: cream,
+  canvasColor: cream,
+  borderColor: lightViolet,
+  disabledColor: ColorManipulator.fade(lightViolet, 0.3)
 };
 
 let muiTheme = getMuiTheme({ palette }, {
@@ -25,5 +32,6 @@ if (Meteor.isClient) {
 console.log('muiTheme', muiTheme);
 
 export {
-  muiTheme
+  muiTheme,
+  palette
 };
