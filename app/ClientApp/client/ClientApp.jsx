@@ -4,12 +4,12 @@ import Helmet from 'react-helmet';
 
 import MaximizedContainer from './components/MaximizedContainer';
 import Header from './components/Header';
-import Footer from './components/Header';
+import Footer from './components/Footer';
 
 const ClientApp = radium(({children}) => (
   <div
     style={[
-      // styles.fadeIn,
+      styles.transparent,
       {
         height: '100vh',
         display: 'flex',

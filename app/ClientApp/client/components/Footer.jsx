@@ -17,3 +17,5 @@ const Footer = radium(() => (
     </MaximizedContainer>
   </div>
 ));
+
+export default Footer;
