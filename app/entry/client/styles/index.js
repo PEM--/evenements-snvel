@@ -13,7 +13,7 @@ const cream = '#fff8e4';
 const palette = {
   primary1Color: darkViolet,
   primary2Color: orange,
-  primary3Color: orange,
+  primary3Color: lightViolet,
   accent1Color: orange,
   accent2Color: cream,
   accent3Color: lightViolet,

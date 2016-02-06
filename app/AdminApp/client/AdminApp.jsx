@@ -11,7 +11,7 @@ const AdminApp = ({children}) => (
         { name: 'description', content: 'This is the admin section!' }
       ]}
     />
-    <Link to="/">Back</Link>
+    <Link to='/'>Back</Link>
     <h1>Admin</h1>
     {children}
   </div>
