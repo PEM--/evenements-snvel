@@ -2,48 +2,9 @@ import radium from 'radium';
 import {palette, styles} from '../../entry/client/styles/index';
 import Helmet from 'react-helmet';
 
-const MaximizedContainer = radium(({children}) => (
-  <div
-    style={[
-      styles.maximized,
-      {
-        background: 'red',
-      }
-    ]}
-  >
-    {children}
-  </div>
-));
-
-const Header = radium(() => (
-  <div
-    style={[
-      styles.flexItemStaticSize,
-      {
-        background: 'white'
-      }
-    ]}
-  >
-    <MaximizedContainer>
-      <h1>Header</h1>
-    </MaximizedContainer>
-  </div>
-));
-
-const Footer = radium(() => (
-  <div
-    style={[
-      styles.flexItemStaticSize,
-      {
-        background: palette.primary2Color
-      }
-    ]}
-  >
-    <MaximizedContainer>
-      <h1>Footer</h1>
-    </MaximizedContainer>
-  </div>
-));
+import MaximizedContainer from './components/MaximizedContainer';
+import Header from './components/Header';
+import Footer from './components/Header';
 
 const ClientApp = radium(({children}) => (
   <div
