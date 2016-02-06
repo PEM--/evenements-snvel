@@ -29,8 +29,6 @@ if (Meteor.isClient) {
   muiTheme.userAgent = navigator.userAgent;
 }
 
-console.log('muiTheme', muiTheme);
-
 export {
   muiTheme,
   palette
