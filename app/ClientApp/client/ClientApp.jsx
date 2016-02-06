@@ -17,10 +17,12 @@ const MaximizedContainer = radium(({children}) => (
 
 const Header = radium(() => (
   <div
-    style={{
-      background: 'white',
-      flex: '0 0 auto'
-    }}
+    style={[
+      styles.flexItemStaticSize,
+      {
+        background: 'white'
+      }
+    ]}
   >
     <MaximizedContainer>
       <h1>Header</h1>
@@ -30,10 +32,12 @@ const Header = radium(() => (
 
 const Footer = radium(() => (
   <div
-    style={{
-      background: palette.primary2Color,
-      flex: '0 0 auto'
-    }}
+    style={[
+      styles.flexItemStaticSize,
+      {
+        background: palette.primary2Color
+      }
+    ]}
   >
     <MaximizedContainer>
       <h1>Footer</h1>
@@ -43,21 +47,31 @@ const Footer = radium(() => (
 
 const ClientApp = radium(({children}) => (
   <div
-    style={{
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      flexWrap: 'nowrap',
-      justifyContent: 'flex-start'
-    }}
+    style={[
+      // styles.fadeIn,
+      {
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'nowrap',
+        justifyContent: 'flex-start'
+      }
+    ]}
+    className='animated fadeIn'
   >
     <Helmet
       title='Evénements SNVEL'
     />
     <Header />
-    <MaximizedContainer>
-      {children}
-    </MaximizedContainer>
+    <div
+      style={[
+        styles.flexItemDynamicSize
+      ]}
+    >
+      <MaximizedContainer>
+        {children}
+      </MaximizedContainer>
+    </div>
     <Footer />
   </div>
 ));
