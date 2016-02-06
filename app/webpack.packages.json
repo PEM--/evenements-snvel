@@ -39,11 +39,11 @@
   "react-tap-event-plugin": "^0.2.2",
   "material-ui": "^0.14.4",
   "radium": "^0.16.5",
+  "animate.css": "^3.5.1",
 
   "react-flexbox-grid": "^0.9.4",
   "babel-polyfill": "^6.3.14",
   "classnames": "^2.2.3",
-  "flexboxgrid": "^6.3.0",
 
   "postcss": "^5.0.14",
   "postcss-loader": "^0.8.0",

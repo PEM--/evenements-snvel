@@ -1,4 +1,5 @@
 import mainStyles from './main.styl';
+import animate from 'animate.css/animate.css';
 import ColorManipulator from 'material-ui/lib/utils/color-manipulator';
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 
@@ -35,6 +36,11 @@ if (Meteor.isClient) {
 
 // Styles for inline styles and Radium
 const styles = {
+  maximized: {
+    maxWidth: '960px',
+    width: '100%',
+    margin: '0 auto'
+  }
   // h1
 };
 
