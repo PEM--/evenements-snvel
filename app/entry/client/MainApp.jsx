@@ -13,9 +13,6 @@ const MainApp = ({children}) => (
         { name: 'viewport', content: 'width=device-width, initial-scale=1' }
       ]}
     />
-    <h1 className='tomato'>MainApp</h1>
-    <h2>Inner header</h2>
-    <p>Balblabla</p>
     {children}
   </div>
 );
