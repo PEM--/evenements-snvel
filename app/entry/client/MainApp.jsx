@@ -25,7 +25,7 @@ if (Meteor.isClient) {
   muiTheme.userAgent = navigator.userAgent;
 }
 
-// console.log('styles2', styles2);
+console.log('styles', styles.myContent);
 
 const MainApp = ({children}) => {
   console.log('MainApp');
@@ -37,7 +37,7 @@ const MainApp = ({children}) => {
         ]}
       />
     <h1 className='tomato'>MainApp</h1>
-    <h2 className={styles2.stuff}>Inner header</h2>
+    <h2 style={styles2.stuff}>Inner header</h2>
     <p>Balblabla</p>
       {children}
     </div>

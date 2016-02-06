@@ -16,8 +16,6 @@ if (process.env.NODE_ENV !== 'production' && !process.env.IS_MIRROR) {
   configPath = path.join(__dirname, '.', 'client', 'production');
 }
 
-console.log('configPath', configPath);
-
 module.exports = {
   externals: {
     // Make sure we use Meteor package for jQuery, react and react-router

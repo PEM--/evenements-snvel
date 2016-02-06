@@ -9,6 +9,7 @@ const ClientApp = ({children}) => (
         { name: 'viewport', content: 'width=device-width, initial-scale=1' }
       ]}
     />
+    <h3>ClientApp</h3>
     <AppBar title='Evénements SNVEL' iconClassNameRight='muidocs-icon-navigation-expand-more' />
     {children}
   </div>
