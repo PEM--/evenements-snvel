@@ -4,7 +4,7 @@ del = require 'del'
 path = require 'path'
 
 settings =
-  src: 'config'
+  src: 'settings'
   files: '**/*.yml'
   temp: 'settings.dev.json'
   dest: 'app'
