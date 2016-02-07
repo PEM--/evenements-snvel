@@ -14,7 +14,7 @@ module.exports = {
       { test: /\.css$/, loader: 'css/locals?module&localIdentName=' + localIdentName + '!postcss-loader'},
       { test: /\.styl$/, loader: 'css/locals?module&localIdentName=' + localIdentName + '!postcss-loader!stylus-loader'},
       { test: /\.(png|jpe?g)(\?.*)?$/, loader: 'url?limit=8182' },
-      { test: /\.(svg|ttf|woff|eot)(\?.*)?$/, loader: 'file' }
+      { test: /\.(svg|ttf|woff|woff2|eot)(\?.*)?$/, loader: 'file' }
     ]
   },
   postcss: function() {
