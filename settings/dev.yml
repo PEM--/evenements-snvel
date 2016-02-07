@@ -1,0 +1,4 @@
+public:
+  mixpanel:
+    token: "adef656e7956e6322892b72f70ea4c5a"
+    identifyUsers: true
