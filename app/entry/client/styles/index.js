@@ -42,7 +42,15 @@ const styles = {
   },
   transparent: {opacity: 0},
   flexItemStaticSize: {flex: '0 0 auto'},
-  flexItemDynamicSize: {flex: '1 0 auto'}
+  flexItemDynamicSize: {flex: '1 0 auto'},
+  primary2Color: {
+    background: orange,
+    color: cream
+  },
+  whiteColor: {
+    background: 'white',
+    color: darkViolet
+  }
 };
 
 export { muiTheme, palette, styles };

@@ -7,9 +7,7 @@ const Header = radium(() => (
   <div
     style={[
       styles.flexItemStaticSize,
-      {
-        background: 'white'
-      }
+      styles.whiteColor
     ]}
   >
     <MaximizedContainer>

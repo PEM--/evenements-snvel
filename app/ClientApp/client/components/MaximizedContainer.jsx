@@ -4,10 +4,7 @@ import {palette, styles} from '../../../entry/client/styles/index';
 const MaximizedContainer = radium(({children}) => (
   <div
     style={[
-      styles.maximized,
-      {
-        background: 'red',
-      }
+      styles.maximized
     ]}
   >
     {children}
