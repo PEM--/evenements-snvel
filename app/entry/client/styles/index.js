@@ -50,7 +50,8 @@ const styles = {
   whiteColor: {
     background: 'white',
     color: darkViolet
-  }
+  },
+  lisibility: { textShadow: '0 0 1px black' }
 };
 
 export { muiTheme, palette, styles };

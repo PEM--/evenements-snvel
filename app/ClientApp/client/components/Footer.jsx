@@ -2,6 +2,7 @@ import radium from 'radium';
 import {palette, styles} from '../../../entry/client/styles/index';
 
 import FontAwesome from 'react-fontawesome';
+const Icon = radium(FontAwesome);
 
 import MaximizedContainer from './MaximizedContainer';
 
@@ -13,8 +14,8 @@ const Footer = radium(() => (
     ]}
   >
     <MaximizedContainer>
-      <h1>Footer</h1>
-      <FontAwesome name='rocket' size='2x' spin />
+      <h1 style={[styles.lisibility]}>Footer</h1>
+      <Icon name='rocket' size='2x' spin style={[styles.lisibility]} />
     </MaximizedContainer>
   </div>
 ));

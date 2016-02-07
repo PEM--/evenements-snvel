@@ -11,6 +11,9 @@ Site des événements SNVEL.
 * [Formsy-Material-UI](https://github.com/mbrookes/formsy-material-ui)
 * [React-Swipeable-Views](https://github.com/oliviertassinari/react-swipeable-views)
 * [Victory](http://victory.formidable.com/)
+* FontAwesome:
+  * http://fontawesome.io/
+  * https://github.com/danawoodman/react-fontawesome
 
 ## Autres en considération
 * https://github.com/danawoodman/react-fontawesome
