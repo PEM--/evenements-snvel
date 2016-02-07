@@ -16,7 +16,6 @@ const linkStyleCream = {
 import stylus from './AnimatedLink.styl';
 
 const AnimatedLink = radium(({children, to, isCream = false}) => {
-  console.log('isCream', isCream);
   const style = isCream ? linkStyleCream : linkStyleOrange;
   return (
     <RadiumizedLink

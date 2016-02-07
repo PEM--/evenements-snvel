@@ -1,9 +1,7 @@
 import radium from 'radium';
 import {palette, styles} from '../../../entry/client/styles/index';
 
-import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import { NavButton } from 'react-svg-buttons';
-import Isvg from 'react-inlinesvg';
 
 import MaximizedContainer from './MaximizedContainer';
 
@@ -26,7 +24,7 @@ const Header = radium(() => (
             width: '120px',
             margin: '4px auto 0 auto'
           }}>
-            <Isvg src='/img/snvel.svg' />
+            <img src='/img/snvel.svg' width='120px' height='48px' alt='Logo SNVEL'/>
           </div>
         </div>
         <div style={[
