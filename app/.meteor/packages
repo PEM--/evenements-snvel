@@ -19,10 +19,8 @@ react-runtime
 react-meteor-data
 
 webpack:webpack
-thereactivestack:blazetoreact
 
 # Accounts
-accounts-ui
 accounts-password
 
 # Styles
@@ -36,6 +34,4 @@ thereactivestack:react-cookie
 
 # Collections
 aldeed:simple-schema
-dburles:collection-helpers
-gwendall:simple-schema-i18n
-dburles:mongo-collection-instances@0.3.5
+reywood:publish-composite
