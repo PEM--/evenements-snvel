@@ -78,6 +78,7 @@ reactrouter:react-router@1.0.3
 reactrouter:react-router-ssr@1.2.1
 reload@1.1.4
 retry@1.0.4
+reywood:publish-composite@1.4.2
 routepolicy@1.0.6
 service-configuration@1.0.5
 session@1.1.1

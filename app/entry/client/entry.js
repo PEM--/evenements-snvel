@@ -1,9 +1,9 @@
 // app starts here!
 import './root';
 
-Accounts.ui.config({
-  passwordSignupFields: 'USERNAME_ONLY'
-});
+// Accounts.ui.config({
+//   passwordSignupFields: 'USERNAME_ONLY'
+// });
 
 // use ctrl+m to view these collections on the client
 // if (process.env.NODE_ENV !== 'production'){
