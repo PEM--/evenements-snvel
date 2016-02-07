@@ -16,7 +16,6 @@ Site des événements SNVEL.
   * https://github.com/danawoodman/react-fontawesome
 
 ## Autres en considération
-* https://github.com/danawoodman/react-fontawesome
 * https://github.com/negomi/react-burger-menu
 * https://github.com/gcanti/tcomb-react
 * https://github.com/istarkov/google-map-react
