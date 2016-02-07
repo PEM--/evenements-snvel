@@ -1,14 +1,14 @@
 import AnimatedLink from './AnimatedLink';
-import { RouteContext } from 'react-router';
 
-const ClientHome = RouteContext(() => {
-  console.log('ClientHome', this.context);
+const ClientHome = ({history, location}) => {
+  console.log('ClientHome history', history);
+  console.log('ClientHome location', location);
   return (
     <div className='animated fadeInUp'>
       <h2>ClientHome</h2>
       <AnimatedLink to='/admin'>Admin</AnimatedLink>
     </div>
   );
-});
+};
 
 export default ClientHome;
