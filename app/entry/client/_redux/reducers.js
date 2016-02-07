@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { syncHistory, routeReducer as routing } from 'react-router-redux';
+import { routeReducer as routing } from 'react-router-redux';
 import auth from './auth';
 
-export default combineReducers({
+export default combineReducers(Object.assign({}, {
   auth, routing
-});
+}));

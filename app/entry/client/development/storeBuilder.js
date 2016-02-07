@@ -2,7 +2,7 @@
 import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from '../_redux/reducers';
-import { syncHistory } from 'redux-simple-router';
+import { syncHistory } from 'react-router-redux';
 import { persistState } from 'redux-devtools';
 import DevTools from './reduxDevtools/devTools';
 
