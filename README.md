@@ -14,8 +14,10 @@ Site des événements SNVEL.
 * FontAwesome:
   * http://fontawesome.io/
   * https://github.com/danawoodman/react-fontawesome
+* [Hamburger button](https://github.com/plouc/react-svg-buttons)
 
 ## Autres en considération
+
 * https://github.com/negomi/react-burger-menu
 * https://github.com/gcanti/tcomb-react
 * https://github.com/istarkov/google-map-react

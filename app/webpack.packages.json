@@ -40,9 +40,9 @@
   "material-ui": "^0.14.4",
   "radium": "^0.16.5",
   "react-fontawesome": "^0.3.3",
-
   "react-burger-menu": "^1.5.1",
   "imports-loader": "^0.6.5",
+  "react-svg-buttons": "^0.2.1",
 
   "postcss": "^5.0.14",
   "postcss-loader": "^0.8.0",
