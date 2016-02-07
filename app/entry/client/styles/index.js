@@ -49,6 +49,8 @@ const styles = {
     background: cream,
     color: darkViolet
   },
+  // Simple directive
+  textCenter: { textAlign: 'center' },
   // Enhanced lisibility
   lisibility: { textShadow: '0 0 1px black' },
   // Flexbox styles

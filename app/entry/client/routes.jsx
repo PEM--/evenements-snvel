@@ -5,7 +5,7 @@ import AdminApp from '../../AdminApp/client';
 export default {
   component: MainApp,
   childRoutes: [
-    ClientApp,
-    AdminApp
+    AdminApp,
+    ClientApp
   ]
 };

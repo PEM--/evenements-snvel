@@ -16,14 +16,15 @@ const ClientApp = radium(({children}) => (
         styles.transparent,
         styles.flex,
         styles.flex.col,
-        {height: '100vh'}
+        {minHeight: '100vh'}
       ]}
       className='animated fadeIn'
     >
       <Header />
       <div
         style={[
-          styles.flexItemDynamicSize
+          styles.flexItemDynamicSize,
+          {height: '100%'}
         ]}
       >
         <MaximizedContainer>
