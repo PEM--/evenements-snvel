@@ -44,6 +44,9 @@ check
 audit-argument-checks
 alanning:roles
 
+# Utils
+underscorestring:underscore.string
+
 # Collections
 aldeed:simple-schema
 reywood:publish-composite
