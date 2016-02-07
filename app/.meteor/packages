@@ -15,10 +15,16 @@ tracker                 # Meteor's client-side reactive programming library
 standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 
+# Others MDG packages
 react-runtime
 react-meteor-data
+random
 
+# Build system and foreign packages importer
 webpack:webpack
+reactrouter:react-router-ssr
+nfl:react-helmet
+thereactivestack:react-cookie
 
 # Accounts
 accounts-password
@@ -27,10 +33,16 @@ accounts-password
 natestrauser:animate-css
 fortawesome:fontawesome
 
-reactrouter:react-router-ssr
-nfl:react-helmet
+# Development helpers
 msavin:mongol
-thereactivestack:react-cookie
+
+# Server-side routes
+meteorhacks:picker
+
+# Security
+check
+audit-argument-checks
+alanning:roles
 
 # Collections
 aldeed:simple-schema
@@ -39,3 +51,6 @@ reywood:publish-composite
 # Caching strategy
 appcache
 meteorhacks:subs-manager
+
+# Custom packages
+pierreeric:markdown

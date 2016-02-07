@@ -1,7 +1,9 @@
 accounts-base@1.2.2
 accounts-password@1.1.4
+alanning:roles@1.2.14
 aldeed:simple-schema@1.5.3
 appcache@1.0.6
+audit-argument-checks@1.0.4
 autoupdate@1.2.4
 babel-compiler@5.8.24_1
 babel-runtime@0.1.4
@@ -67,6 +69,7 @@ npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7
 ordered-dict@1.0.4
+pierreeric:markdown@0.0.1
 promise@0.5.1
 random@1.0.5
 rate-limit@1.0.0
