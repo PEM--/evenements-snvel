@@ -2,12 +2,6 @@ import routes from './routes';
 import Wrapper from 'RootEnv/reduxWrapper';
 import storeBuilder from 'RootEnv/storeBuilder';
 
-// Accounts options
-Accounts.config({
-  sendVerificationEmail: true,
-  forbidClientAccountCreation: false
-});
-
 // Global subscription
 
 

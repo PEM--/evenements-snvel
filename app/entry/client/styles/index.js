@@ -46,7 +46,7 @@ const styles = {
     color: cream
   },
   whiteColor: {
-    background: 'white',
+    background: cream,
     color: darkViolet
   },
   // Enhanced lisibility
