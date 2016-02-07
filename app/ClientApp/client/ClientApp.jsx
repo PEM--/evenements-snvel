@@ -14,13 +14,9 @@ const ClientApp = radium(({children}) => (
     <div
       style={[
         styles.transparent,
-        {
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          flexWrap: 'nowrap',
-          justifyContent: 'flex-start'
-        }
+        styles.flex,
+        styles.flex.col,
+        {height: '100vh'}
       ]}
       className='animated fadeIn'
     >

@@ -41,8 +41,6 @@ const styles = {
     margin: '0 auto'
   },
   transparent: {opacity: 0},
-  flexItemStaticSize: {flex: '0 0 auto'},
-  flexItemDynamicSize: {flex: '1 0 auto'},
   primary2Color: {
     background: orange,
     color: cream
@@ -51,7 +49,18 @@ const styles = {
     background: 'white',
     color: darkViolet
   },
-  lisibility: { textShadow: '0 0 1px black' }
+  // Enhanced lisibility
+  lisibility: { textShadow: '0 0 1px black' },
+  // Flexbox styles
+  flex: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    justifyContent: 'flex-start',
+    col: {flexDirection: 'column'},
+    row: {flexDirection: 'row'}
+  },
+  flexItemStaticSize: {flex: '0 0 auto'},
+  flexItemDynamicSize: {flex: '1 0 auto'}
 };
 
 export { muiTheme, palette, styles };

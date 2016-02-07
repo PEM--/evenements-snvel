@@ -1,9 +1,9 @@
-import { Link } from 'react-router';
+import AnimatedLink from './AnimatedLink';
 
 const ClientHome = () => (
   <div>
     <h2>ClientHome</h2>
-    <Link to='/admin'>Admin</Link>
+    <AnimatedLink to='/admin'>Admin</AnimatedLink>
   </div>
 );
 
