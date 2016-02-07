@@ -1,12 +1,12 @@
-const outdatedBrowserRework = require("outdated-browser-rework");
+const outdatedBrowserRework = require('outdated-browser-rework');
 
 outdatedBrowserRework({
   browserSupport: {
-    Chrome: 46, // Includes Chrome for mobile devices
+    Chrome: 48, // Includes Chrome for mobile devices
     IE: 11,
-    Safari: 8,
-    'Mobile Safari': 8,
-    Firefox: 41
+    Safari: 9,
+    'Mobile Safari': 9,
+    Firefox: 43
   },
   requireChromeOnAndroid: true,
   languagePath: '/outdatedbrowser/lang/fr.html'

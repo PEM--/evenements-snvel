@@ -8,18 +8,17 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   // NPM dependencies
   Npm.depends({
-    "body-parser": "1.13.3"
+    'body-parser': '1.14.2'
   });
   // Dependencies of this package
   api.use([
-    'spacedrop:namespaces',
-    'pierreeric:logger'
+    // 'pierreeric:namespaces'
   ]);
   // Dependencies server only
   api.use([
     'accounts-base',
     'meteorhacks:picker@1.0.3',
-    'pierreeric:payment'
+    // 'pierreeric:payment'
   ], 'server');
   // Included files in this packages
   // Server only

@@ -15,7 +15,7 @@ Package.onUse(function(api) {
     'ecmascript',
     'es5-shim',
     'alanning:roles@1.2.14',
-    'aldeed:collection2@2.5.0',
+    'aldeed:collection2@2.8.0',
     'aldeed:autoform@5.7.1',
     'dburles:collection-helpers@1.0.3',
     'spacedrop:namespaces',
