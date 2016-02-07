@@ -15,6 +15,9 @@ Site des événements SNVEL.
   * http://fontawesome.io/
   * https://github.com/danawoodman/react-fontawesome
 * [Hamburger button](https://github.com/plouc/react-svg-buttons)
+* Redux:
+  * [Redux](https://github.com/rackt/redux)
+  * [React-Redux (aka Provider)](https://github.com/rackt/react-redux)
 
 ## Autres en considération
 
