@@ -35,3 +35,7 @@ thereactivestack:react-cookie
 # Collections
 aldeed:simple-schema
 reywood:publish-composite
+
+# Caching strategy
+appcache
+meteorhacks:subs-manager
