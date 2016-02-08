@@ -14,52 +14,70 @@ tracker                 # Meteor's client-side reactive programming library
 
 standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
+ecmascript              # Enable ECMAScript2015+ syntax in app code
 
-# Others MDG packages
-react-runtime
-react-meteor-data
-random
 
-# Build system and foreign packages importer
-webpack:webpack
-reactrouter:react-router-ssr
-nfl:react-helmet
-thereactivestack:react-cookie
+pierreeric:namespaces
 
-# Accounts
-accounts-password
+# React
+react
+#atlewee:redux
+kadira:react-layout
 
-# Styles
-natestrauser:animate-css
+# Language & Import
+coffeescript
+cosmos:browserify
+mquandalle:bower
+
+# Mails
+email
+# devian:mailjet
+
+# CSS
+#izzilab:material-ui
+#markoshust:radium
+mquandalle:stylus
 fortawesome:fontawesome
+velocityjs:velocityjs
 
-# Development helpers
-msavin:mongol
+# Payment
+patrickml:braintree
 
-# Server-side routes
-pierreeric:server-side-routes
+# Router
+gadicohen:robots-txt
+gadicohen:sitemaps
+kadira:dochead
+kadira:flow-router-ssr
+# okgrow:analytics
 
-# Security
-check
-audit-argument-checks
+# Accounts & Security
+accounts-password
 alanning:roles
-
-# Utils
-underscorestring:underscore.string
+audit-argument-checks
+check
+browser-policy
+matteodem:easy-security
 
 # Collections
-aldeed:simple-schema
+aldeed:autoform
 aldeed:collection2
-reywood:publish-composite
-matb33:collection-hooks
-tmeasday:publish-counts
+aldeed:simple-schema
+dburles:collection-helpers
 
-# Caching strategy
-appcache
-meteorhacks:subs-manager
-meteorhacks:fast-render
-
-# Custom packages
+# Utils
+dburles:google-maps
+gadicohen:reactive-window
+momentjs:moment
+rzymek:moment-locale-fr
+numeral:numeral
+underscorestring:underscore.string
 pierreeric:markdown
-pierreeric:custom-basicpages
-pierreeric:custom-texts
+
+# Caching
+# appcache
+meteorhacks:fast-render
+meteorhacks:subs-manager
+
+# Server side routes
+meteorhacks:picker
+coniel:react-tap-event-plugin
