@@ -38,11 +38,11 @@ module.exports = {
   //   reload: true
   // },
   resolve: {
-    root: path.join(__dirname, '..'),
+    root: path.join(__dirname, '..', 'modules'),
     alias: {
       RootEnv: configPath
     },
-    extensions: ['', '.js', '.jsx', '.json', '.css', '.scss']
+    extensions: ['', '.js', '.jsx', '.json', '.css']
   },
   // postcss: function() {
   //   return [autoprefixer, normalize];

@@ -1,3 +1,0 @@
-// Common namespaces
-Schema = {};
-Col = {};

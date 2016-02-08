@@ -16,8 +16,8 @@ module.exports = {
       { test: /\.(png|jpe?g)(\?.*)?$/, loader: 'url?limit=8182' },
       { test: /\.(svg|ttf|woff|woff2|eot)(\?.*)?$/, loader: 'file' }
     ]
-  },
-  postcss: function() {
+  }
+  , postcss: function() {
     return [autoprefixer, normalize];
   }
 };

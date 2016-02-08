@@ -10,7 +10,6 @@ Site des événements SNVEL.
 * [Material-UI](http://www.material-ui.com/)
 * [Formsy-Material-UI](https://github.com/mbrookes/formsy-material-ui)
 * [React-Swipeable-Views](https://github.com/oliviertassinari/react-swipeable-views)
-* [Victory](http://victory.formidable.com/)
 * FontAwesome:
   * http://fontawesome.io/
   * https://github.com/danawoodman/react-fontawesome
@@ -21,12 +20,20 @@ Site des événements SNVEL.
   * [React-Redux (aka Provider)](https://github.com/rackt/react-redux)
 
 ## Autres en considération
+### Pour l'appli principale
 * https://github.com/gcanti/tcomb-react
 * https://github.com/istarkov/google-map-react
 * https://github.com/oncletom/Imager.jsx
 * https://github.com/chenglou/react-motion
-* http://wangzuo.github.io/react-medium-editor/
 * https://gist.github.com/maisano/8faf4bd123fa9842f4ea
+* https://github.com/gilbox/react-imation
+
+### Pour l'admin
+* https://mattketmo.github.io/darkroomjs/
+* http://react-components.com/component/react-image-crop
+* https://github.com/roadmanfong/react-cropper
+* http://wangzuo.github.io/react-medium-editor/
+* [Victory](http://victory.formidable.com/)
 
 ## Documentations
 * https://github.com/enaqx/awesome-react

@@ -1,3 +1,6 @@
+import 'ClientApp/both';
+import 'ClientApp/server/main';
+
 // Do server-rendering only in production mode
 if (process.env.NODE_ENV === 'production') {
   // Load Webpack infos for SSR

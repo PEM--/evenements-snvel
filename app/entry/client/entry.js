@@ -1,5 +1,6 @@
 // app starts here!
 import './root';
+import 'ClientApp/both';
 
 // use ctrl+m to view these collections on the client
 // if (process.env.NODE_ENV !== 'production'){

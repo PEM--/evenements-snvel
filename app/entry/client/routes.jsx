@@ -1,6 +1,6 @@
 import MainApp from './MainApp';
-import ClientApp from '../../ClientApp/client';
-import AdminApp from '../../AdminApp/client';
+import ClientApp from '../../modules/ClientApp/client';
+import AdminApp from '../../modules/AdminApp/client';
 
 export default {
   component: MainApp,

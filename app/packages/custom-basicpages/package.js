@@ -17,14 +17,12 @@ Package.onUse(function(api) {
   api.addFiles([
     'legal.js',
     'cookie.js',
-    'cgv.js',
-    'notfound.js'
+    'cgv.js'
   ], 'server');
   // Export default basic pages
   api.export([
     'DEFAULT_LEGAL',
     'DEFAULT_COOKIE',
-    'DEFAULT_CGV',
-    'DEFAULT_NOTFOUND'
+    'DEFAULT_CGV'
   ], 'server');
 });

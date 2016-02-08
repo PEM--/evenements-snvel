@@ -1,5 +1,5 @@
 import radium from 'radium';
-import {palette, styles} from '../../entry/client/styles/index';
+import {palette, styles} from '../../../entry/client/styles/index';
 import Helmet from 'react-helmet';
 
 import MainMenu from './components/MainMenu';

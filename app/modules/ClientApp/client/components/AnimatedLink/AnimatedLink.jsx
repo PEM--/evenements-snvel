@@ -1,5 +1,5 @@
 import radium from 'radium';
-import { styles, palette } from '../../../../entry/client/styles';
+import { styles, palette } from '../../../../../entry/client/styles';
 import { Link } from 'react-router';
 const RadiumizedLink = radium(Link);
 

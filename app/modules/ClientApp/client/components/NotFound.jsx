@@ -1,6 +1,6 @@
 import radium from 'radium';
 
-import {styles} from '../../../entry/client/styles/index';
+import {styles} from '../../../../entry/client/styles/index';
 import AnimatedLink from './AnimatedLink';
 
 const NotFound = radium(() => (
