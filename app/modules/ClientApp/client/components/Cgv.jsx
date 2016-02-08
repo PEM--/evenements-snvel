@@ -1,13 +1,14 @@
 import AnimatedLink from './AnimatedLink';
 import { BasicPages } from '../../both/basicPages';
-import { globalSubs } from '../../both/subscriptions';
+import globalSubs from '../../both/subscriptions';
+
+console.log('BasicPages', BasicPages, globalSubs);
 
 const Cgv = () => {
-  console.log('CGV', BasicPages.find().fetch());
-  console.log('Subscription', globalSubs);
+  const cgvContent = marked(BasicPages.findOne({slug: 'cgv'}).content);
   return (
     <div className='animated fadeInUp'>
-      <h2>CGV</h2>
+      <div dangerouslySetInnerHTML={{__html: cgvContent }} />
       <AnimatedLink to='/'>Retour</AnimatedLink>
     </div>
   );

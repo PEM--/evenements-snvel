@@ -29,4 +29,4 @@ if (Meteor.isServer) {
   });
 }
 
-export default { BasicPages, BasicPagesSchema };
+export { BasicPages, BasicPagesSchema };
