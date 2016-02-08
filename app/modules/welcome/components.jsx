@@ -1,7 +1,12 @@
+const { Header, Footer } = MainApp.Views;
+
 const MainComponent = ({children}) => (
   <div>
-    <h1>MainComponent</h1>
-    {children}
+    <Header />
+    <main>
+      {children}
+    </main>
+    <Footer />
   </div>
 );
 
@@ -14,7 +19,7 @@ const Welcome = () => (
 FlowRouter.route('/', {
   name: 'home',
   action() {
-    ReactLayout.render(MainComponent, { content: <Welcome /> });
+    ReactLayout.render(MainComponent, { children: <Welcome /> });
   }
 });
 

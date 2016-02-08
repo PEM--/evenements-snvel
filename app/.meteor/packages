@@ -21,7 +21,7 @@ pierreeric:namespaces
 
 # React
 react
-#atlewee:redux
+atlewee:redux
 kadira:react-layout
 
 # Language & Import
@@ -34,11 +34,11 @@ email
 # devian:mailjet
 
 # CSS
-#izzilab:material-ui
-#markoshust:radium
+izzilab:material-ui
 mquandalle:stylus
 fortawesome:fontawesome
 velocityjs:velocityjs
+natestrauser:animate-css
 
 # Payment
 patrickml:braintree
