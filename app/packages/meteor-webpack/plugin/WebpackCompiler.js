@@ -91,14 +91,14 @@ function runNpmInstall(target, files) {
     console.log('Installing local NPM...');
 
     Meteor.wrapAsync(function(done) {
-      npm.load({ loglevel: 'quiet' }, function(err) {
+      npm.load({ loglevel: 'warn' }, function(err) {
         if (err) {
           throw err;
         }
 
         // TODO: We have to stay on v2 until this is fixed or we get hundreds of warnings
         // https://github.com/npm/npm/issues/10013#issuecomment-164382806
-        npm.commands.install(WEBPACK_NPM, ['npm@2.14.15'], function(err) {
+        npm.commands.install(WEBPACK_NPM, ['npm@3.7.1'], function(err) {
           if (err) {
             throw err;
           }
