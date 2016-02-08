@@ -26,12 +26,16 @@ Meteor.startup(() => {
     rootElement: 'react-app',
     rootElementType: 'main',
     rootElementAttributes: [
-      ['style', `background-color: ${palette.primary1Color}; color: ${palette.alternateTextColor}; width: 100%; min-height: 100vh;`]
+      ['style', `background-color: ${palette.primary1Color}; color: ${palette.alternateTextColor}; width: 100%;`]
     ],
     props: {
       onUpdate() {
-        // Notify the page has been changed to Google Analytics
-        ga('send', 'pageview');
+        try {
+          // Notify the page has been changed to Google Analytics
+          ga('send', 'pageview');
+        } catch (error) {
+          console.warn('Google Analytics error', error);
+        }
       }
     },
     preRender: function(req, res) {
