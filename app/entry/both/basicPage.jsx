@@ -9,7 +9,14 @@ Schema.BasicPages = new SimpleSchema({
 Col.BasicPages.attachSchema(Schema.BasicPages);
 
 if (Meteor.isServer) {
+  // Indexes
+  // @TODO
+  // Fill the defaults
   if (Col.BasicPages.find({}, {fileds: {_id: 1}}).count() === 0) {
     console.log('Empty BasicPages, filling it with defaults');
   }
+  // Publish
+  Meteor.publish('basicPages', function() {
+    return Col.BasicPages.find();
+  });
 }

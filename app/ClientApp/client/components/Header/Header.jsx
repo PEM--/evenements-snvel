@@ -26,8 +26,8 @@ const Header = radium(() => (
           </div>
         </div>
         <div style={[
-          styles.flexItemStaticSize,
-          {margin: '12px 0', cursor: 'pointer'}
+          styles.flexItemStaticSize, styles.clickable,
+          {margin: '12px 0'}
         ]}>
           <NavButton
             size={40}

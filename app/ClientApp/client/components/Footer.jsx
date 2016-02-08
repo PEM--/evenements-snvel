@@ -39,7 +39,9 @@ const Footer = radium(() => (
           }
         ]}>
           { ['twitter', 'facebook', 'linkedin', 'envelope'].map(t => (
-            <Icon key={t} name={t} size='lg' style={[styles.flexItemStaticSize, styles.lisibility]} />
+            <Icon key={t} name={t} size='lg' style={[
+              styles.flexItemStaticSize, styles.lisibility, styles.clickable
+            ]} />
           ))}
         </div>
       </div>

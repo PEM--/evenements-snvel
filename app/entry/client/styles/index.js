@@ -51,6 +51,7 @@ const styles = {
   },
   // Simple directive
   textCenter: { textAlign: 'center' },
+  clickable: { cursor: 'pointer' },
   // Enhanced lisibility
   lisibility: { textShadow: '0 0 1px black' },
   // Flexbox styles
