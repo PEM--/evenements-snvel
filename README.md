@@ -15,12 +15,12 @@ Site des événements SNVEL.
   * http://fontawesome.io/
   * https://github.com/danawoodman/react-fontawesome
 * [Hamburger button](https://github.com/plouc/react-svg-buttons)
+* [Main menu](https://github.com/negomi/react-burger-menu)
 * Redux:
   * [Redux](https://github.com/rackt/redux)
   * [React-Redux (aka Provider)](https://github.com/rackt/react-redux)
 
 ## Autres en considération
-* https://github.com/negomi/react-burger-menu
 * https://github.com/gcanti/tcomb-react
 * https://github.com/istarkov/google-map-react
 * https://github.com/oncletom/Imager.jsx

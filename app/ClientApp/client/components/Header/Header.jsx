@@ -1,9 +1,9 @@
 import radium from 'radium';
-import {palette, styles} from '../../../entry/client/styles/index';
+import {palette, styles} from '../../../../entry/client/styles/index';
 
-import { NavButton } from 'react-svg-buttons';
+import NavButton from './NavButton.jsx';
 
-import MaximizedContainer from './MaximizedContainer';
+import MaximizedContainer from '../MaximizedContainer';
 
 const Header = radium(() => (
   <div
