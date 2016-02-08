@@ -1,3 +1,5 @@
+// Extracted from: https://github.com/plouc/react-svg-buttons
+
 import React, {PropTypes} from 'react';
 import tweenState, {easingTypes, stackBehavior} from 'react-tween-state';
 
