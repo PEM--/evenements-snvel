@@ -7,10 +7,8 @@ import MaximizedContainer from './MaximizedContainer';
 
 const Header = radium(() => (
   <div
-    style={[
-      styles.flexItemStaticSize,
-      styles.whiteColor
-    ]}
+    style={[styles.flexItemStaticSize, styles.whiteColor]}
+    className='animated fadeInDown'
   >
     <MaximizedContainer>
       <div style={[

@@ -10,13 +10,10 @@ import MaximizedContainer from './MaximizedContainer';
 const Footer = radium(() => (
   <div
     style={[
-      styles.flexItemStaticSize,
-      styles.primary2Color,
-      {
-        padding: '20px 0',
-        fontSize: '90%'
-      },
+      styles.flexItemStaticSize, styles.primary2Color,
+      {padding: '20px 0', fontSize: '90%'}
     ]}
+    className='animated fadeInUp'
   >
     <MaximizedContainer>
       <div style={[

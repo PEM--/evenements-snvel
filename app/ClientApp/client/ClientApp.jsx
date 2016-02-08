@@ -13,9 +13,7 @@ const ClientApp = radium(({children}) => (
     <MainMenu />
     <div
       style={[
-        styles.transparent,
-        styles.flex,
-        styles.flex.col,
+        styles.transparent, styles.flex, styles.flex.col,
         {minHeight: '100vh'}
       ]}
       className='animated fadeIn'
