@@ -1,4 +1,3 @@
 public:
-  mixpanel:
-    token: "adef656e7956e6322892b72f70ea4c5a"
-    identifyUsers: true
+  googleAnalytics:
+    UA: 'UA-73432166-1'
