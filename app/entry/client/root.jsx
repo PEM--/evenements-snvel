@@ -24,9 +24,9 @@ Meteor.startup(() => {
     wrapper: Wrapper,
     createReduxStore: storeBuilder,
     rootElement: 'react-app',
-    rootElementType: 'body',
+    rootElementType: 'main',
     rootElementAttributes: [
-      ['style', `background-color: ${palette.primary1Color}; color: ${palette.alternateTextColor}`]
+      ['style', `background-color: ${palette.primary1Color}; color: ${palette.alternateTextColor}; width: 100%; min-height: 100vh;`]
     ],
     props: {
       onUpdate() {
