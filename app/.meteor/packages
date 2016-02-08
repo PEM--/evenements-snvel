@@ -52,6 +52,7 @@ aldeed:simple-schema
 aldeed:collection2
 reywood:publish-composite
 matb33:collection-hooks
+tmeasday:publish-counts
 
 # Caching strategy
 appcache

@@ -38,10 +38,9 @@ const Footer = radium(() => (
             minWidth: '120px'
           }
         ]}>
-          <Icon name='twitter' size='lg' style={[styles.flexItemStaticSize, styles.lisibility]} />
-          <Icon name='facebook' size='lg' style={[styles.flexItemStaticSize, styles.lisibility]} />
-          <Icon name='linkedin' size='lg' style={[styles.flexItemStaticSize, styles.lisibility]} />
-          <Icon name='envelope' size='lg' style={[styles.flexItemStaticSize, styles.lisibility]} />
+          { ['twitter', 'facebook', 'linkedin', 'envelope'].map(t => (
+            <Icon key={t} name={t} size='lg' style={[styles.flexItemStaticSize, styles.lisibility]} />
+          ))}
         </div>
       </div>
     </MaximizedContainer>
