@@ -2,6 +2,8 @@ import routes from './routes';
 import Wrapper from 'RootEnv/reduxWrapper';
 import storeBuilder from 'RootEnv/storeBuilder';
 
+import { palette } from './styles';
+
 // Global subscription
 
 if (Meteor.isClient) {
@@ -21,6 +23,11 @@ Meteor.startup(() => {
   const clientOptions = {
     wrapper: Wrapper,
     createReduxStore: storeBuilder,
+    rootElement: 'react-app',
+    rootElementType: 'body',
+    rootElementAttributes: [
+      ['style', `background-color: ${palette.primary1Color}; color: ${palette.alternateTextColor}`]
+    ],
     props: {
       onUpdate() {
         // Notify the page has been changed to Google Analytics

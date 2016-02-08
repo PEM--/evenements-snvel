@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
-var autoprefixer = require('autoprefixer');
-var normalize = require('postcss-normalize');
+// var autoprefixer = require('autoprefixer');
+// var normalize = require('postcss-normalize');
 
 /*
     create an alias called 'RootEnv/' that leads to
@@ -18,7 +18,7 @@ if (process.env.NODE_ENV !== 'production' && !process.env.IS_MIRROR) {
 
 module.exports = {
   externals: {
-    // Make sure we use Meteor package for jQuery, react and react-router
+  //   // Make sure we use Meteor package for jQuery, react and react-router
     'jquery': '$',
     'react': 'React',
     'react-router': 'ReactRouter',
@@ -34,9 +34,9 @@ module.exports = {
     // You can change this to your server IP address to access it remotely
     host: 'localhost'
   },
-  hotMiddleware: {
-    reload: true
-  },
+  // hotMiddleware: {
+  //   reload: true
+  // },
   resolve: {
     root: path.join(__dirname, '..'),
     alias: {
@@ -44,7 +44,7 @@ module.exports = {
     },
     extensions: ['', '.js', '.jsx', '.json', '.css', '.scss']
   },
-  postcss: function() {
-    return [autoprefixer, normalize];
-  }
+  // postcss: function() {
+  //   return [autoprefixer, normalize];
+  // }
 };

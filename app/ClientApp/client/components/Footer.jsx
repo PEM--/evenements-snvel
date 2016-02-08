@@ -19,7 +19,7 @@ const Footer = radium(() => (
       <div style={[
         styles.flex, styles.flex.row, {flexWrap: 'wrap'}
       ]}>
-        <div style={[
+        <nav style={[
           styles.flexItemDynamicSize, styles.flex, styles.flex.row,
           {
             justifyContent: 'space-between',
@@ -29,7 +29,7 @@ const Footer = radium(() => (
           <AnimatedLink to='/legal-mentions' isCream={true}>Mentions légales</AnimatedLink>
           <AnimatedLink to='/cookies' isCream={true}>Confidentialité</AnimatedLink>
           <AnimatedLink to='/cgv' isCream={true}>Conditions de ventes</AnimatedLink>
-        </div>
+        </nav>
         <div style={[
           styles.flexItemStaticSize,
           styles.flex, styles.flex.row,

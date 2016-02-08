@@ -49,11 +49,14 @@ underscorestring:underscore.string
 
 # Collections
 aldeed:simple-schema
+aldeed:collection2
 reywood:publish-composite
+matb33:collection-hooks
 
 # Caching strategy
 appcache
 meteorhacks:subs-manager
+meteorhacks:fast-render
 
 # Custom packages
 pierreeric:markdown

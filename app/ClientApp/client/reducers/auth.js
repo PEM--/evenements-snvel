@@ -10,12 +10,12 @@ export default function(state = initialState, action) {
 
   switch (type) {
   case USER_DATA:
-    return assign({}, state, {
+    return Object.assign({}, state, {
       user: data,
     });
 
   case USER_LOGGING_IN:
-    return assign({}, state, {
+    return Object.assign({}, state, {
       loggingIn: data,
     });
 

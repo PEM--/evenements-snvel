@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { routeReducer as routing } from 'react-router-redux';
-import auth from './auth';
+import auth from '../../../ClientApp/client/reducers/auth';
 
 export default combineReducers(Object.assign({}, {
   auth, routing
