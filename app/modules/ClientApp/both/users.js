@@ -11,5 +11,5 @@ if (Meteor.users.find().count() === 0) {
     password: admin.password,
     email: admin.email
   });
-  Roles.addUsersToRoles(adminid, ['admin']);
+  Roles.addUsersToRoles(adminId, ['admin']);
 }
