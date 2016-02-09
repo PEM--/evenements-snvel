@@ -1,19 +1,45 @@
 const { Header, Footer } = MainApp.Views;
 
-const MainComponent = ({children}) => (
-  <div>
-    <Header />
-    <main>
+const MainComponent = React.createClass({
+  getInitialState() {
+    return {
+      isMenuOpen: false
+    };
+  },
+  onMenuToggle() {
+    this.state.setState({isMenuOpen: !this.state.isMenuOpen});
+  },
+  render() {
+    return (
+      <MainBody onMenuToggle={this.onMenuToggle}>
+        {this.props.children}
+      </MainBody>
+    );
+  }
+});
+
+const MainMenu = ({isMenuOpen}) => (
+  <nav>
+    <p>Menu items</p>
+  </nav>
+);
+
+const MainBody = ({children, onMenuToggle}) => (
+  <div className='flex col' style={{height: '100vh'}} >
+    <Header onMenuToggle={onMenuToggle} />
+    <main className='flexItemDynamicSize'>
       {children}
     </main>
-    <Footer />
+    <Footer className='flexItemStaticSize primary2Color' />
   </div>
 );
 
 MainApp.Views.MainApp = MainComponent;
 
 const Welcome = () => (
-  <h1>Welcome page</h1>
+  <section className='maximized'>
+    <h1>Welcome page</h1>
+  </section>
 );
 
 FlowRouter.route('/', {

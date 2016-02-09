@@ -69,8 +69,10 @@ matteodem:easy-security@0.1.5
 mdg:validation-error@0.2.0
 meteor@1.1.10
 meteor-base@1.0.1
+meteorhacks:async@1.0.0
 meteorhacks:fast-render@2.11.0
 meteorhacks:inject-data@1.4.1
+meteorhacks:npm@1.5.0
 meteorhacks:picker@1.0.3
 meteorhacks:subs-manager@1.6.3
 minifiers@1.1.7
@@ -85,6 +87,7 @@ mquandalle:stylus@1.1.1
 mrt:isolate-value@2.0.2
 natestrauser:animate-css@3.4.0
 npm-bcrypt@0.7.8_2
+npm-container@1.2.0
 npm-mongo@1.4.39_1
 numeral:numeral@1.5.3_1
 observe-sequence@1.0.7

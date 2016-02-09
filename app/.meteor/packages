@@ -28,6 +28,7 @@ kadira:react-layout
 coffeescript
 cosmos:browserify
 mquandalle:bower
+meteorhacks:npm
 
 # Mails
 email
@@ -81,3 +82,6 @@ meteorhacks:subs-manager
 # Server side routes
 meteorhacks:picker
 coniel:react-tap-event-plugin
+
+
+npm-container
