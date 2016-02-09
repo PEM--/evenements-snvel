@@ -1,3 +1,5 @@
+@import 'modules/styles/colors.import.styl'
+
 .MainMenu
   display absolute
   position fixed
@@ -7,8 +9,9 @@
   height 100vh
   z-index 10
   box-shadow 0 0 3px black
-  background black
-  color white
+  background darkViolet
+  border-left 1px solid violet
+  color cream
   transition transform .3s ease-in-out
   transform translate3d(200px, 0, 0)
   &.isOpen
@@ -16,5 +19,4 @@
   button
     background transparent
     border none
-    color white
-    text-shadow 0 0 3px black
+    color orange
