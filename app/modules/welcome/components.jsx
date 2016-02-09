@@ -3,7 +3,7 @@ const { Header, Footer, MainMenu } = MainApp.Views;
 const MainComponent = React.createClass({
   getInitialState() {
     return {
-      isMenuOpen: true
+      isMenuOpen: false
     };
   },
   onMenuToggle() {
