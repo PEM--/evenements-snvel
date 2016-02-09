@@ -7,30 +7,39 @@ const MainComponent = React.createClass({
     };
   },
   onMenuToggle() {
-    this.state.setState({isMenuOpen: !this.state.isMenuOpen});
+    this.setState({isMenuOpen: !this.state.isMenuOpen});
   },
   render() {
     return (
-      <MainBody onMenuToggle={this.onMenuToggle}>
+      <MainBody onMenuToggle={this.onMenuToggle} isMenuOpen={this.state.isMenuOpen} >
         {this.props.children}
       </MainBody>
     );
   }
 });
 
-const MainMenu = ({isMenuOpen}) => (
-  <nav>
-    <p>Menu items</p>
-  </nav>
-);
+const MainMenu = ({isMenuOpen, onMenuToggle}) => {
+  console.log('isMenuOpen', isMenuOpen);
+  return (
+    <nav className={classNames('MainMenu', {isOpen: isMenuOpen})} >
+      <button>
+        <i className='fa fa-times fa-2x' onClick={onMenuToggle}></i>
+      </button>
+      <p>Menu items</p>
+    </nav>
+  );
+};
 
-const MainBody = ({children, onMenuToggle}) => (
-  <div className='flex col' style={{height: '100vh'}} >
-    <Header onMenuToggle={onMenuToggle} />
-    <main className='flexItemDynamicSize'>
-      {children}
-    </main>
-    <Footer className='flexItemStaticSize primary2Color' />
+const MainBody = ({children, onMenuToggle, isMenuOpen}) => (
+  <div>
+    <MainMenu isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle} />
+    <div className='flex col' style={{height: '100vh'}} >
+      <Header onMenuToggle={onMenuToggle} />
+      <main className='flexItemDynamicSize'>
+        {children}
+      </main>
+      <Footer className='flexItemStaticSize primary2Color' />
+    </div>
   </div>
 );
 
