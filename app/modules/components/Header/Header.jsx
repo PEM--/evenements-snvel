@@ -11,7 +11,7 @@ const Header = ({onMenuToggle}) => (
       </div>
       <div className='flexItemStaticSize' style={{width: '40px'}}>
         <button onClick={onMenuToggle} className='clickable'>
-          <i className='fa fa-bars fa-2x'></i>
+          <i className='fa fa-bars fa-2x expandToParent'></i>
         </button>
       </div>
     </div>
