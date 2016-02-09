@@ -1,6 +1,8 @@
 // Last file loaded
 // Initilize collections and publications
-initBasicPages();
+if (Meteor.isServer) {
+  initBasicPages();
+}
 // Initialize subscriptions
 initSubscriptionCache();
 // Start routing

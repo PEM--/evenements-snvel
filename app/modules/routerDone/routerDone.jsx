@@ -22,15 +22,27 @@ const setBasicPageRoutes = () => {
 
 initRouterDone = () => {
   if (Meteor.isClient) {
-    setBasicPageRoutes();
     // Release router for routing once all routes are declared
     Meteor.startup(() => {
-      FlowRouter.initialize();
-      console.log('Router done');
+      Tracker.autorun((comp) => {
+        console.log('Waiting for initial subscriptions');
+        areSubsReady = globalSubs.ready();
+        if (globalSubs.ready()) {
+          console.log('MainApp', MainApp);
+          initBasicPages();
+          setBasicPageRoutes();
+          FlowRouter.initialize();
+          console.log('Initial subscription read! Router started.');
+          console.log('comp', comp);
+          comp.stop();
+        }
+      });
     });
   }
   if (Meteor.isServer) {
-    setBasicPageRoutes();
-    initSitemap();
+    Meteor.startup(() => {
+      setBasicPageRoutes();
+      initSitemap();
+    });
   }
 };

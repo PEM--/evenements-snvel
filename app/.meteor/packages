@@ -21,7 +21,7 @@ pierreeric:namespaces
 
 # React
 react
-atlewee:redux
+# atlewee:redux
 kadira:react-layout
 
 # Language & Import
@@ -35,7 +35,7 @@ email
 # devian:mailjet
 
 # CSS
-izzilab:material-ui
+# izzilab:material-ui
 mquandalle:stylus
 fortawesome:fontawesome
 velocityjs:velocityjs
@@ -81,7 +81,6 @@ meteorhacks:subs-manager
 
 # Server side routes
 meteorhacks:picker
-coniel:react-tap-event-plugin
-
+# coniel:react-tap-event-plugin
 
 npm-container

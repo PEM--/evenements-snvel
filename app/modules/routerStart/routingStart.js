@@ -12,8 +12,8 @@ if (Meteor.isClient) {
 
 // Routing rules for SSR
 if (Meteor.isServer) {
-  // Cache is set on 10s
-  const TIME_IN_MS = 1000 * 10;
+  // Cache is set on 100s
+  const TIME_IN_MS = 1000 * 100;
   FlowRouter.setPageCacheTimeout(TIME_IN_MS);
   // Defer Script loading
   FlowRouter.setDeferScriptLoading(true);

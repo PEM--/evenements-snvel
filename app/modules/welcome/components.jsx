@@ -36,6 +36,7 @@ MainApp.Views.MainApp = MainComponent;
 const Welcome = () => (
   <section className='maximized'>
     <h1>Welcome page</h1>
+    <a href='/cgv'>Conditions générales de ventes</a>
   </section>
 );
 
