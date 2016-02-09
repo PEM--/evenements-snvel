@@ -8,7 +8,7 @@
   width 200px
   height 100vh
   z-index 10
-  box-shadow 0 0 3px black
+  box-shadow 0 0 10px black
   background darkViolet
   border-left 1px solid violet
   color cream
@@ -17,6 +17,29 @@
   &.isOpen
     transform none
   button
+    width 100%
     background transparent
     border none
     color orange
+    margin-bottom 10px
+    transition color .3s ease-in-out
+    text-align left
+    &:hover
+      color ligthen(orange, 10%)
+
+.MenuItem
+  color cream
+  display block
+  width: 100%
+  font-weight bold
+  text-decoration none
+  padding 5px 10px
+  border-bottom 1px solid violet
+  background transparent
+  transition background-color .3s ease-in-out
+  &:hover
+    background-color alpha(violet, 20%)
+  i
+    color orange
+  span
+    margin-left 10px
