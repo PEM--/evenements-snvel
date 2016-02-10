@@ -1,11 +1,10 @@
-const { Views, Col } = MainApp;
-const { AnimatedLink } = Views;
+const { Views, Col, Utils } = MainApp;
+const { prettyLink } = Utils;
 
 const DumbBasicPages = ({title, content}) => {
-  const htmlContent = marked(content);
+  const htmlContent = Utils.prettyLink(marked(content));
   return (
-    <div className='maximized animated fadeIn'>
-      <AnimatedLink to='/'>Retour</AnimatedLink>
+    <div className='BasicPages maximized animated fadeIn lisibility'>
       <h1>{title}</h1>
       <div dangerouslySetInnerHTML={{__html: htmlContent }} />
     </div>

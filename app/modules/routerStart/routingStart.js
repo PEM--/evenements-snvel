@@ -3,9 +3,6 @@
 // Create a logger
 // Block the routing untill all routes are defined (see routing-defined)
 if (Meteor.isClient) {
-  const IS_ROUTER_STARTED = 'isRouterStarted';
-  MainApp.Utils.IS_ROUTER_STARTED = IS_ROUTER_STARTED;
-  Session.setDefault(IS_ROUTER_STARTED, false);
   FlowRouter.wait();
   console.log('Routing blocked');
 }
