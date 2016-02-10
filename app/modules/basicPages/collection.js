@@ -18,16 +18,12 @@ initBasicPages = () => {
         {title: 'Confidentialité', slug: 'cookie', content: DEFAULT_COOKIE},
         {title: 'Mentions légales', slug: 'legal', content: DEFAULT_LEGAL}
       ].forEach(p => BasicPages.insert({...p}));
-      //   title: p.title,
-      //   slug: p.slug,
-      //   content: p.content
-      // }))
     }
     // Publish
     Meteor.publish('basicPages.all', function() {
       return BasicPages.find();
     });
-    console.log('Basic pages filled and exposed');
+    console.log('BasicPages filled and exposed');
     // Indexes
     Meteor.startup(function() {
       console.log('Setting up BasicPages index');

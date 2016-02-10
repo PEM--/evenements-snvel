@@ -5,5 +5,7 @@ if (Meteor.isServer) {
 }
 // Initialize subscriptions
 initSubscriptionCache();
+// Initiliaze subscription that doesn't produce pages
+initSocialLinks();
 // Start routing
 initRouterDone();
