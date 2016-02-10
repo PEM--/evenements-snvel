@@ -1,5 +1,7 @@
 @import 'modules/styles/colors.import.styl'
 
+defaultFont = 'San Francisco', 'Helvetica Neue', Roboto, Helvetica, Arial, sans-serif
+
 // Global settings
 html, #react-root
   min-height 100vh
@@ -8,7 +10,7 @@ html, body
   padding 0
   width 100%
   font-weight 300
-  font-family 'Helvetica Neue', Roboto, Helvetica, Arial, sans-serif
+  font-family defaultFont
   background darkViolet
   color cream
 
@@ -42,7 +44,7 @@ html, body
 
 // Default typography
 h1, h2, h3, h4, h5, h6
-  font-family Impact, Roboto, Helvetica, Arial, sans-serif
+  font-family Impact, defaultFont
   font-weight 300
 p
   font-weight 100
