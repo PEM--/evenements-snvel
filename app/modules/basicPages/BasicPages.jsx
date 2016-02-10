@@ -9,7 +9,7 @@ const prettyLink = (text) => {
 };
 
 const DumbBasicPages = ({title, content}) => {
-  const htmlContent = Utils.prettyLink(marked(content));
+  const htmlContent = prettyLink(marked(content));
   return (
     <div className='BasicPages maximized animated fadeIn lisibility'>
       <h1>{title}</h1>
