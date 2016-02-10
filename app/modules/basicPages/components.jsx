@@ -1,13 +1,13 @@
 const { Views, Col } = MainApp;
+const { AnimatedLink } = Views;
 
 const DumbBasicPages = ({title, content}) => {
   const htmlContent = marked(content);
   return (
-    <div className='animated fadeInUp'>
-      <a href='/'>Retour</a>
+    <div className='maximized animated fadeIn'>
+      <AnimatedLink to='/'>Retour</AnimatedLink>
       <h1>{title}</h1>
       <div dangerouslySetInnerHTML={{__html: htmlContent }} />
-      {/*<AnimatedLink to='/'>Retour</AnimatedLink>*/}
     </div>
   );
 };

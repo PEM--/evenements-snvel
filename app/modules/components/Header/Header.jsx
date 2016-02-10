@@ -6,7 +6,7 @@ const Header = ({onMenuToggle}) => (
     <div className='maximized flex row'>
       <div className='flexItemDynamicSize textCenter'>
         <a href='/'>
-          <img src='/img/snvel.svg' width='120px' height='48px' alt='Logo SNVEL'/>
+          <img src='/img/snvel.svg' width='100px' height='48px' alt='Logo SNVEL'/>
         </a>
       </div>
       <div className='flexItemStaticSize' style={{width: '40px'}}>

@@ -21,7 +21,6 @@ pierreeric:namespaces
 
 # React
 react
-# atlewee:redux
 kadira:react-layout
 
 # Language & Import
@@ -40,6 +39,7 @@ mquandalle:stylus
 fortawesome:fontawesome
 velocityjs:velocityjs
 natestrauser:animate-css
+#materialize:materialize
 
 # Payment
 patrickml:braintree
