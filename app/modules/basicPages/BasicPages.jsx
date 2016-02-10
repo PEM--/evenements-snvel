@@ -20,7 +20,7 @@ class BasicPages extends Views.BaseReactMeteor {
       const handle = Meteor.subscribe('basicPages.all');
     }
     return Col.BasicPages.findOne(
-      {slug: 'cgv'}, {fields: {title: 1, content: 1}}
+      {slug: this.props.slug}, {fields: {title: 1, content: 1}}
     );
   }
   render() {

@@ -13,11 +13,15 @@ initBasicPages = () => {
   if (Meteor.isServer) {
     if (BasicPages.find({}, {fields: {_id: 1}}).count() === 0) {
       console.log('Empty BasicPages, filling it with defaults');
-      BasicPages.insert({
-        title: 'Conditions générales de ventes',
-        slug: 'cgv',
-        content: DEFAULT_CGV
-      });
+      [
+        {title: 'Conditions génèrales de ventes', slug: 'cgv', content: DEFAULT_CGV},
+        {title: 'Confidentialité', slug: 'cookie', content: DEFAULT_COOKIE},
+        {title: 'Mentions légales', slug: 'legal', content: DEFAULT_LEGAL}
+      ].forEach(p => BasicPages.insert({...p}));
+      //   title: p.title,
+      //   slug: p.slug,
+      //   content: p.content
+      // }))
     }
     // Publish
     Meteor.publish('basicPages.all', function() {
