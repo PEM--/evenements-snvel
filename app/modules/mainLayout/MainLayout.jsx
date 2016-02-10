@@ -1,7 +1,7 @@
 const { Views, Col } = MainApp;
 const { Header, Footer, MainMenu } = Views;
 
-const MainBody = ({children, onMenuToggle, isMenuOpen}) => (
+const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages}) => (
   <div style={{height: '100vh'}}>
     <MainMenu isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle} />
     <div
@@ -12,7 +12,10 @@ const MainBody = ({children, onMenuToggle, isMenuOpen}) => (
       <main className='flexItemDynamicSize height100'>
         {children}
       </main>
-      <Footer className='flexItemStaticSize primary2Color' />
+      <Footer
+        className='flexItemStaticSize primary2Color'
+        basicPages={basicPages}
+      />
     </div>
   </div>
 );
@@ -154,7 +157,10 @@ class MainLayout extends Views.BaseReactMeteor {
     // }
     return (
       <MainBody
-        onMenuToggle={this.onMenuToggle} isMenuOpen={this.state.isMenuOpen} >
+        onMenuToggle={this.onMenuToggle}
+        isMenuOpen={this.state.isMenuOpen}
+        basicPages={this.data.basicPages}
+      >
         {this.props.children}
       </MainBody>
     );
