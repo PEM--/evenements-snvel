@@ -22,7 +22,7 @@ initSocialLinks = () => {
         console.warn('Contact default subject not defined in settings');
       }
       const mailUrl = `mailto:${Meteor.settings.public.contact.email}` +
-        (!defaultSubject ? `subject:${Meteor.settings.public.contact.defaultSubject}` : '') +
+        (defaultSubject ? `subject:${Meteor.settings.public.contact.defaultSubject}` : '') +
         `?body=Bonjour`;
       [
         {iconName: 'twitter', link: '#'},
