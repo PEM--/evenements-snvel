@@ -1,5 +1,12 @@
 const { Views, Col, Utils } = MainApp;
-const { prettyLink } = Utils;
+
+// Link modifier
+const prettyLink = (text) => {
+  return text
+    .replace(/href/g, 'class="AnimatedLink basic" href')
+    .replace(/SNVEL/g,
+      '<a class="AnimatedLink basic" href="http://www.snvel.fr" target="_blank">SNVEL</a>');
+};
 
 const DumbBasicPages = ({title, content}) => {
   const htmlContent = Utils.prettyLink(marked(content));

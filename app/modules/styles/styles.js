@@ -28,11 +28,3 @@ palette = {
 // if (Meteor.isClient) {
 //   muiTheme.userAgent = navigator.userAgent;
 // }
-
-// Link modifier
-MainApp.Utils.prettyLink = (text) => {
-  return text
-    .replace(/href/g, 'class="AnimatedLink basic" href')
-    .replace(/SNVEL/g,
-      '<a class="AnimatedLink basic" href="http://www.snvel.fr" target="_blank">SNVEL</a>');
-};
