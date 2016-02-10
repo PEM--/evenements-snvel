@@ -11,7 +11,7 @@ const prettyLink = (text) => {
 const DumbBasicPages = ({title, content}) => {
   const htmlContent = prettyLink(marked(content));
   return (
-    <div className='BasicPages maximized animated fadeIn lisibility'>
+    <div className='MainContent BasicPages maximized animated fadeIn lisibility'>
       <h1>{title}</h1>
       <div dangerouslySetInnerHTML={{__html: htmlContent }} />
     </div>

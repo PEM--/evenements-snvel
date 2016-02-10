@@ -1,7 +1,7 @@
 const { AnimatedLink } = MainApp.Views;
 
 const Welcome = () => (
-  <section className='maximized animated fadeIn'>
+  <section className='maximized MainContent animated fadeInUp'>
     <h1>Welcome page</h1>
     <p>
       <AnimatedLink to='/cgv'>Conditions génèrales de ventes</AnimatedLink>

@@ -75,7 +75,7 @@ underscorestring:underscore.string
 pierreeric:markdown
 
 # Caching
-appcache
+#appcache
 meteorhacks:fast-render
 meteorhacks:subs-manager
 
