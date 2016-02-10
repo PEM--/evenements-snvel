@@ -9,7 +9,7 @@ const setBasicPageRoutes = () => {
     FlowRouter.route(`/${page.slug}`, {
       name: page.slug,
       action() {
-        ReactLayout.render(Views.MainApp, {
+        ReactLayout.render(Views.MainLayout, {
           children: <Views.BasicPages slug={page.slug} />
         });
       }

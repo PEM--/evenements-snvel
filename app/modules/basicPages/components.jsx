@@ -1,8 +1,6 @@
-const { Col } = MainApp;
+const { Views, Col } = MainApp;
 
 const DumbBasicPages = ({title, content}) => {
-  // const cgvContent = Col.BasicPages.findOne({slug: 'cgv'});
-  // console.log('cgvContent', cgvContent);
   const htmlContent = marked(content);
   return (
     <div className='animated fadeInUp'>
@@ -14,7 +12,7 @@ const DumbBasicPages = ({title, content}) => {
   );
 };
 
-class BasicPages extends MainApp.Views.BaseReactMeteor {
+class BasicPages extends Views.BaseReactMeteor {
   constructor(props) {
     super(props);
   }
@@ -32,6 +30,5 @@ class BasicPages extends MainApp.Views.BaseReactMeteor {
     );
   }
 }
-
 
 MainApp.Views.BasicPages = BasicPages;

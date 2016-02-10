@@ -1,12 +1,5 @@
 initSubscriptionCache = () => {
   console.log('Subscription caching');
   globalSubs = new SubsManager();
-  // if (Meteor.isClient) {
-    globalSubs.subscribe('basicPages.all');
-  // }
-  // if (Meteor.isServer) {
-  //   FastRender.onAllRoutes(function(path) {
-  //     globalSubs.subscribe('basicPages.all');
-  //   });
-  // }
+  globalSubs.subscribe('basicPages.all');
 };
