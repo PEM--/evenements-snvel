@@ -14,7 +14,7 @@ const Footer = ({basicPages}) => (
           ))
         }
       </div>
-      <div className='flexItemStaticItem'>
+      <div className='flexItemStaticSize'>
         <Views.SocialLinks />
       </div>
     </nav>
