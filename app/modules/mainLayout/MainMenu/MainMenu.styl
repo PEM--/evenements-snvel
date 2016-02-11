@@ -1,0 +1,51 @@
+@import 'modules/styles/colors.import.styl'
+
+menuWidth = 300px
+
+.MainMenu
+  display absolute
+  position fixed
+  top 0
+  right 0
+  width menuWidth
+  height 100vh
+  z-index 10
+  box-shadow 0 0 10px black
+  background darkViolet
+  border-left 1px solid violet
+  color cream
+  font-size 120%
+  transition transform .3s ease-in-out
+  transform translate3d((menuWidth + 50px), 0, 0)
+  &.isOpen
+    transform none
+  button
+    width 100%
+    background transparent
+    border none
+    color cream
+    margin-bottom 10px
+    font-size 140%
+    text-shadow 0 0 3px black
+    transition color .3s ease-in-out, text-shadow .3s ease-in-out
+    text-align left
+    &:hover
+      color orange
+      text-shadow 0 0 3px cream
+
+.MenuItem
+  color cream
+  display block
+  width: 100%
+  font-weight bold
+  text-decoration none
+  padding 10px 5px 10px 20px
+  border-bottom 1px solid violet
+  background transparent
+  transition background-color .3s ease-in-out
+  &:hover
+    background-color alpha(violet, 20%)
+  i
+    color orange
+  span
+    margin-left 10px
