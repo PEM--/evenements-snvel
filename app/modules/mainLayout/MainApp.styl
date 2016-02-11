@@ -1,10 +1,49 @@
 @import 'modules/styles/colors.import.styl'
 
 .MainContent
+  overflow-x hidden
   background darkViolet
   background radial-gradient(ellipse at center, darkViolet 0%, darken(darkViolet, 15%) 100%);
   border-radius 3px
-  min-height calc(100vh - 135px)
+  min-height calc(100vh - 125px)
   margin 5px 10px 10px 10px
   padding 10px
   box-shadow 0px 5px 15px black
+
+@media only screen and (max-width: 960px)
+  .MainContent.maximized, header .maximized, footer .maximized
+    width calc(100% - 20px)
+    margin-left 10px
+    margin-right 10px
+
+@media only screen and (max-width: 800px)
+  footer
+    nav
+      padding 20px 0
+      align-items center
+      text-overflow ellipsis
+      >div:first-of-type
+        background green
+        flex 1 1 auto
+        // max-width 300px
+        // white-space nowrap
+        text-overflow ellipsis
+        .BasicPagesLinks
+          display block
+          padding-bottom 10px
+          // max-width 300px
+          margin-right 5px
+          a
+            display block
+            overflow-x hidden
+            white-space nowrap
+            text-overflow ellipsis
+      .SocialLinks
+        min-width 100px
+        background red
+
+@media only screen and (max-width: 320px)
+  footer
+    nav
+      >div:first-of-type
+        max-width 220px
