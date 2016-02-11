@@ -16,8 +16,17 @@ standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
-
+# Expose global namespaces
 pierreeric:namespaces
+
+# Modules in tests
+universe:modules
+universe:collection
+# universe:admin
+universe:react-widgets
+universe:react-markdown-wysiwyg
+# universe:react-bootstrap
+universe:react-grid-layout
 
 # React
 react
@@ -28,6 +37,7 @@ coffeescript
 cosmos:browserify
 mquandalle:bower
 meteorhacks:npm
+npm-container
 
 # Mails
 email
@@ -39,7 +49,7 @@ mquandalle:stylus
 fortawesome:fontawesome
 velocityjs:velocityjs
 natestrauser:animate-css
-#materialize:materialize
+kyleking:customizable-bootstrap-stylus
 
 # Payment
 patrickml:braintree
@@ -56,8 +66,8 @@ accounts-password
 alanning:roles
 audit-argument-checks
 check
-browser-policy
-matteodem:easy-security
+# browser-policy
+# matteodem:easy-security
 
 # Collections
 aldeed:autoform
@@ -80,6 +90,3 @@ meteorhacks:subs-manager
 
 # Server side routes
 meteorhacks:picker
-# coniel:react-tap-event-plugin
-
-npm-container
