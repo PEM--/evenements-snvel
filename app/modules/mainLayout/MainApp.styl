@@ -22,30 +22,29 @@
       padding 20px 0
       align-items center
       text-overflow ellipsis
-      >div:first-of-type
-        flex 1 1 auto
+      .BasicPagesLinks
         width inherit
         margin-right 0
-        width calc(100% - 70px)
-        text-overflow ellipsis
-        .BasicPagesLinks
+        width calc(100% - 80px)
+        .BasicPagesLink
           display block
           width 100%
           padding-bottom 10px
           margin-right 0
+          overflow-x hidden
+          white-space nowrap
           a
-            width inherit
-            display block
-            overflow-x hidden
-            white-space nowrap
+            display inline-block
             text-overflow ellipsis
+            overflow-x hidden
+            max-width 100%
       .SocialLinks
-        width 70px
-        font-size 135%
+        width 80px
+        font-size 180%
         a
           display inline-block
           margin-left 0
           width 50%
           text-align center
           &:nth-child(1), &:nth-child(2)
-            padding-bottom 10px
+            padding-bottom 5px
