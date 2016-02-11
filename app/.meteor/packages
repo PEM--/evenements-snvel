@@ -34,7 +34,7 @@ email
 # devian:mailjet
 
 # CSS
-# izzilab:material-ui
+meyerweb-reset
 mquandalle:stylus
 fortawesome:fontawesome
 velocityjs:velocityjs
@@ -67,7 +67,6 @@ dburles:collection-helpers
 
 # Utils
 dburles:google-maps
-gadicohen:reactive-window
 momentjs:moment
 rzymek:moment-locale-fr
 numeral:numeral
