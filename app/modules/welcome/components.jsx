@@ -9,7 +9,7 @@ const animate = () => {
 
 const Welcome = () => (
   <section className='maximized MainContent animated fadeInUp'>
-    <div className='headlines'>
+    <div className='headlines lisibility'>
       <h1 className='headline'>
         <Textfit
           style={{width: '100%', maxWidth: '600px', lineHeight: '100%', display: 'inline-block'}}
@@ -18,7 +18,7 @@ const Welcome = () => (
           Universités SNVEL
         </Textfit>
       </h1>
-      <h2 className='headline'>
+      <h2 className='headline lisibility'>
         <Textfit
           style={{width: '100%', maxWidth: '600px', lineHeight: '100%', display: 'inline-block'}}
           mode={'single'} onReady={animate}
