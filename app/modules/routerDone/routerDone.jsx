@@ -28,10 +28,11 @@ initRouterDone = () => {
         console.log('Waiting for initial subscriptions');
         areSubsReady = globalSubs.ready();
         if (globalSubs.ready()) {
-          console.log('MainApp', MainApp);
+          console.log('MainApp received subscription', MainApp);
           initBasicPages();
           setBasicPageRoutes();
-          FlowRouter.initialize();
+          // Delay router initialization for iOS and Safari
+          Meteor.setTimeout(() => FlowRouter.initialize(), 300);
           console.log('Initial subscription read! Router started.');
           console.log('comp', comp);
           comp.stop();

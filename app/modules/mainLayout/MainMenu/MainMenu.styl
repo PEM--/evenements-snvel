@@ -6,7 +6,7 @@ menuWidth = 300px
   display absolute
   position fixed
   top 0
-  right 0
+  right -(menuWidth + 50px)
   width menuWidth
   height 100vh
   z-index 10
@@ -16,9 +16,8 @@ menuWidth = 300px
   color cream
   font-size 120%
   transition transform .3s ease-in-out
-  transform translate3d((menuWidth + 50px), 0, 0)
   &.isOpen
-    transform none
+    transform translate3d(-(menuWidth + 50px), 0, 0)
   button
     width 100%
     background transparent

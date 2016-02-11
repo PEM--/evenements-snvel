@@ -22,12 +22,12 @@ const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages}) => (
 
 class MainLayout extends Views.BaseReactMeteor {
   getMeteorData() {
-    if (Meteor.isServer) {
-      const handle = Meteor.subscribe('basicPages.all');
+    if (Meteor.isServer) { const handle = Meteor.subscribe('basicPages.all'); }
+    if (Meteor.isClient) {
+      if (!globalSubs.ready()) { return { basicPages: [] }; }
     }
     return {
-      basicPages: Col.BasicPages.find(
-        {}, {fields: {title: 1, slug: 1}}).fetch()
+      basicPages: Col.BasicPages.find({}, {fields: {title: 1, slug: 1}}).fetch()
     };
   }
   constructor(props) {
@@ -39,6 +39,7 @@ class MainLayout extends Views.BaseReactMeteor {
     this.render.bind(this);
   }
   render() {
+    console.log('Render MainLayout');
     // Title
     const TITLE = 'Evènements SNVEL';
     DocHead.setTitle(TITLE);
