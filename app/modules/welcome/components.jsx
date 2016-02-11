@@ -7,7 +7,6 @@ const animate = () => {
   }, 1000);
 };
 
-
 const Welcome = () => (
   <section className='maximized MainContent animated fadeInUp'>
     <div className='headlines lisibility'>
@@ -30,12 +29,6 @@ const Welcome = () => (
     </div>
   </section>
 );
-
-System.import('{universe:react-widgets}').then(ReactWidgets => {
-  // use widgets over here, e.g.
-  Calendar = ReactWidgets.Calendar;
-  console.log('Widgets are ready');
-});
 
 FlowRouter.route('/', {
   name: 'home',

@@ -20,13 +20,13 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 pierreeric:namespaces
 
 # Modules in tests
-universe:modules
-universe:collection
+# universe:modules
+# universe:collection
 # universe:admin
-universe:react-widgets
-universe:react-markdown-wysiwyg
+# universe:react-widgets
+# universe:react-markdown-wysiwyg
 # universe:react-bootstrap
-universe:react-grid-layout
+# universe:react-grid-layout
 
 # React
 react
@@ -49,7 +49,7 @@ mquandalle:stylus
 fortawesome:fontawesome
 velocityjs:velocityjs
 natestrauser:animate-css
-kyleking:customizable-bootstrap-stylus
+# kyleking:customizable-bootstrap-stylus
 
 # Payment
 patrickml:braintree
