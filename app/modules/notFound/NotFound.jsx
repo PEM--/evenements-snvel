@@ -1,7 +1,7 @@
 const { MainLayout, AnimatedLink } = MainApp.Views;
 
 const NotFound = () => (
-  <div className='NotFound MainContent animated bounceIn flex col textCenter'>
+  <div className='NotFound MainContent maximized animated bounceIn flex col textCenter'>
     <div className='flexItemStaticSize'>
       <img src='/img/snvel.svg' width='200px' height='96px' alt='Logo SNVEL'/>
     </div>
