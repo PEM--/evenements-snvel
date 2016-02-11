@@ -2,14 +2,14 @@ const { Views, Col } = MainApp;
 const { Header, Footer, MainMenu } = Views;
 
 const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages}) => (
-  <div style={{height: '100vh'}}>
+  <div style={{minHeight: '100vh'}}>
     <MainMenu isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle} />
     <div
       className='flex col'
       style={{minHeight: '100%'}}
     >
       <Header onMenuToggle={onMenuToggle} />
-      <main className='flexItemDynamicSize height100'>
+      <main className='flexItemDynamicSize'>
         {children}
       </main>
       <Footer
