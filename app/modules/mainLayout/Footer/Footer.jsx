@@ -6,7 +6,7 @@ const Footer = ({basicPages}) => (
       <div className='flexItemDynamicSize'>
         {
           basicPages.map(bp => (
-            <div key={bp._id}>
+            <div key={bp._id} className='BasicPagesLinks'>
               <Views.AnimatedLink to={bp.slug} isCream={true} >
                 {bp.title}
               </Views.AnimatedLink>
