@@ -28,6 +28,8 @@ html, body
   backface-visibility hidden
   &:hover, &:focus, &:active
     outline none
+  // Force hardware acceleration on all elements
+  transform translateZ(0)
 
 @font-face {
   font-family: 'Impact';
