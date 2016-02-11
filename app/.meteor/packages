@@ -20,13 +20,12 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 pierreeric:namespaces
 
 # Modules in tests
-# universe:modules
+universe:modules
 # universe:collection
 # universe:admin
-# universe:react-widgets
-# universe:react-markdown-wysiwyg
-# universe:react-bootstrap
-# universe:react-grid-layout
+universe:react-widgets
+universe:react-markdown-wysiwyg
+universe:react-grid-layout
 
 # React
 react
