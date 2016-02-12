@@ -1,4 +1,4 @@
-const { Button, CheckBox, Radio, Table } = MainApp.Views;
+const { Button, CheckBox, Radio, Input, Table } = MainApp.Views;
 
 class Tests extends React.Component {
   constructor(props) {
@@ -10,11 +10,15 @@ class Tests extends React.Component {
       isChecked4: true,
       radioSelected: 'choice1',
       table1: 'choice2',
-      table2: 'choice3'
+      table2: 'choice3',
+      text: '',
+      email: 'pemarchandet@gmail.com',
+      password: ''
     };
     [
       'onChange1', 'onChange2', 'onChange3', 'onChange4', 'onSelectedRadio',
-      'selectTable1', 'selectTable2'
+      'selectTable1', 'selectTable2', 'onTextChange', 'onEmailChange',
+      'onPasswordChange'
     ].map(f => this[f] = this[f].bind(this));
   }
   onChange1() { this.setState({isChecked1: !this.state.isChecked1}); }
@@ -22,8 +26,20 @@ class Tests extends React.Component {
   onChange3() { this.setState({isChecked3: !this.state.isChecked3}); }
   onChange4() { this.setState({isChecked4: !this.state.isChecked4}); }
   onSelectedRadio(e) { this.setState({radioSelected: e.target.value}); }
-  selectTable1(e) { this.setState({table1: e.target.value }); }
-  selectTable2(e) { this.setState({table2: e.target.value }); }
+  selectTable1(e) { this.setState({table1: e.target.value}); }
+  selectTable2(e) { this.setState({table2: e.target.value}); }
+  onTextChange(e) {
+    console.log('Text', e.target.value);
+    this.setState({text: e.target.value});
+  }
+  onEmailChange(e) {
+    console.log('Email', e.target.value);
+    this.setState({email: e.target.value});
+  }
+  onPasswordChange(e) {
+    console.log('Password', e.target.value);
+    this.setState({password: e.target.value});
+  }
   render() {
     console.log('Test component');
     return (
@@ -58,21 +74,27 @@ class Tests extends React.Component {
         <form>
           <fieldset>
             <div className='fieldsContainer'>
-              <div className='formGroup'>
-                <label htmlFor='inputText'>Enter your text here: </label>
-                <input id='inputText' type='text' placeholder='Enter your text here' />
-                <span className='errorText'>This field is mandatory</span>
-              </div>
-              <div className='formGroup'>
-                <label htmlFor='inputEmail'>Enter your email here: </label>
-                <input id='inputEmail' type='email' placeholder='Enter your email here' />
-                <span className='errorText'>This field is mandatory</span>
-              </div>
-              <div className='formGroup'>
-                <label htmlFor='inputPassword'>Enter your password here: </label>
-                <input id='inputPassword' type='password' placeholder='Enter your password here' />
-                <span className='errorText'>This field is mandatory</span>
-              </div>
+              <Input
+                type='text' label='Enter your text here: '
+                placeholder='Enter your text here'
+                errorText='This field is mandatory'
+                value={this.state.text}
+                onChange={this.onTextChange}
+              />
+              <Input
+                type='email' label='Enter your email here: '
+                placeholder='Enter your email here'
+                errorText='This field is mandatory'
+                value={this.state.email}
+                onChange={this.onEmailChange}
+              />
+              <Input
+                type='password' label='Enter your password here: '
+                placeholder='Enter your password here'
+                errorText='This field is mandatory'
+                value={this.state.password}
+                onChange={this.onPasswordChange}
+              />
             </div>
             <CheckBox
               isChecked={this.state.isChecked1}
