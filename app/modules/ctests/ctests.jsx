@@ -1,3 +1,5 @@
+const { Button } = MainApp.Views;
+
 const Tests = () => {
   console.log('Test component');
   DocHead.setTitle('Test component');
@@ -63,22 +65,18 @@ const Tests = () => {
         <label htmlFor='inputInline'>Enter your date here: </label>
         <input id='inputInline' type='date' placeholder='Enter your date here' />
       </fieldset>
-      <button>
-        <i className='fa fa-check'></i>
-        <span>Default Submit</span>
-      </button>
-      <button disabled>
-        <i className='fa fa-check'></i>
-        <span>Default disabled submit</span>
-      </button>
-      <button className='primary'>
-        <i className='fa fa-check'></i>
-        <span>Primary submit</span>
-      </button>
-      <button className='primary' disabled>
-        <i className='fa fa-check'></i>
-        <span>Primary disabled submit</span>
-      </button>
+      <Button iconName='times'>
+        Default Submit
+      </Button>
+      <Button iconName='shopping-cart' isDisabled={true}>
+        Default disabled submit
+      </Button>
+      <Button isPrimary={true}>
+        Primary submit
+      </Button>
+      <Button isPrimary={true} isDisabled={true}>
+        Primary disabled submit
+      </Button>
     </form>
     <h2>Error form</h2>
     <form >
