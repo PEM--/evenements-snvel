@@ -13,15 +13,18 @@ form button, .btn
   button(cream, 15px, darkViolet)
   click-down()
   border-radius $radius
+  margin-right 10px
   transition color defaultTransition,
     background-color defaultTransition,
     opacity defaultTransition
   &.primary
     button(orange, 15px, cream)
   &:disabled
-    opacity .6
+    opacity .4
     font-weight 200
     italic()
+    &.primary
+      color darkViolet
 
 +html5-inputs()
   autofill(alpha(orange, 30%), darkViolet)
@@ -30,10 +33,24 @@ form button, .btn
   background-color cream
   border-color alpha(orange, 50%)
   color darkViolet
-  margin-bottom 25px
+  margin-bottom 5px
+  font-weight 400
+  transition color defaultAnimation,
+    border-color defaultAnimation,
+    margin-bottom defaultAnimation,
+    background-color defaultAnimation
   border-width 2px
   &:focus
     border-width 2px
+    background-color white
+
+form.error
+  +html5-inputs()
+    margin-bottom 25px
+    border-width 2px
+    &:focus
+      border-width 2px
+
 
 fieldset
   border 1px solid alpha(cream, .5)
@@ -43,8 +60,10 @@ fieldset
   margin-bottom 5px
 
 label
-  label()
+  font-weight 400
+  font-size 14px
   margin-right 10px
 
 fieldset.multiline
-  label block
+  label
+    display block

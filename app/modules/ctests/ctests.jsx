@@ -67,10 +67,6 @@ const Tests = () => {
         <input id='inputPassword' type='password' placeholder='Enter your password here' />
         <br />
       </fieldset>
-      <button type='submit'>Default Submit</button>
-    <button type='submit' disabled>Default disabled submit</button>
-      <button className='primary' type='submit'>Primary submit</button>
-      <button className='primary' type='submit' disabled>Primary disabled submit</button>
     </form>
     <hr />
   <h1 className='lisibility'>Table</h1>
