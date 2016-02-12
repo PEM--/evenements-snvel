@@ -1,5 +1,19 @@
 // Tables
 table
-  table()
-  text-shadow 0 0 2px black
-  transition all defaultAnimation
+  table(orange, false)
+  border-color orange
+  thead th
+    text-shadow 0 0 2px black
+    background orange
+    color cream
+  tbody
+    text-shadow 0 0 2px black
+    tr
+      transition background-color defaultTransition
+      &:hover
+        background-color alpha(cream, 10%)
+      &:nth-child(even)
+        background-color alpha(cream, 5%)
+  tfoot
+    background mix(orange, cream)
+    color darkViolet
