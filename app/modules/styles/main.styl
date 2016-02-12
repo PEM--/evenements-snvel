@@ -1,13 +1,27 @@
-@import 'modules/styles/axis.import.styl'
+@import 'modules/styles/axis.import'
 
 global-reset()
 normalize-css()
 
+// Common styles
+@import 'modules/styles/colors.import'
+@import 'modules/styles/body.import'
+@import 'modules/styles/typography.import'
+@import 'modules/styles/sharedSimple.import'
 
+// Specific to components
+// Reused components
+@import 'modules/components/animatedLink/AnimatedLink.import'
+// MainApp
+@import 'modules/mainLayout/MainApp.import'
+@import 'modules/mainLayout/Header/Header.import'
+@import 'modules/mainLayout/Footer/Footer.import'
+// MainMenu
+@import 'modules/mainLayout/MainMenu/MainMenu.import'
+// Pages
+@import 'modules/Welcome/Welcome.import'
+@import 'modules/basicPages/BasicPages.import'
+@import 'modules/notFound/NotFound.import'
 
-
-
-
-
-
+// End of stylesheets (lower priority)
 print-styles()

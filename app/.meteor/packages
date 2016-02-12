@@ -19,9 +19,12 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 # Expose global namespaces
 pierreeric:namespaces
 
-# React
-react
-kadira:react-layout
+# CSS
+siyfion:webfontloader
+mquandalle:stylus
+fortawesome:fontawesome
+velocityjs:velocityjs
+natestrauser:animate-css
 
 # Language & Import
 coffeescript
@@ -34,21 +37,13 @@ npm-container
 email
 # devian:mailjet
 
-# CSS
-mquandalle:stylus
-fortawesome:fontawesome
-velocityjs:velocityjs
-natestrauser:animate-css
-
 # Payment
 patrickml:braintree
 
-# Router
-gadicohen:robots-txt
-gadicohen:sitemaps
-kadira:dochead
-kadira:flow-router-ssr
-# okgrow:analytics
+# Caching
+#appcache
+meteorhacks:fast-render
+meteorhacks:subs-manager
 
 # Accounts & Security
 accounts-password
@@ -72,10 +67,16 @@ numeral:numeral
 underscorestring:underscore.string
 pierreeric:markdown
 
-# Caching
-#appcache
-meteorhacks:fast-render
-meteorhacks:subs-manager
+# React
+react
+kadira:react-layout
 
 # Server side routes
 meteorhacks:picker
+
+# Router
+gadicohen:robots-txt
+gadicohen:sitemaps
+kadira:dochead
+kadira:flow-router-ssr
+# okgrow:analytics
