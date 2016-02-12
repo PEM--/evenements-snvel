@@ -35,12 +35,10 @@ email
 # devian:mailjet
 
 # CSS
-meyerweb-reset
 mquandalle:stylus
 fortawesome:fontawesome
 velocityjs:velocityjs
 natestrauser:animate-css
-# kyleking:customizable-bootstrap-stylus
 
 # Payment
 patrickml:braintree
