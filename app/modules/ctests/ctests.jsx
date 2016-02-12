@@ -1,4 +1,4 @@
-const { Button, CheckBox, Table } = MainApp.Views;
+const { Button, CheckBox, Radio, Table } = MainApp.Views;
 
 class Tests extends React.Component {
   constructor(props) {
@@ -7,7 +7,8 @@ class Tests extends React.Component {
       isChecked1: false,
       isChecked2: true,
       isChecked3: false,
-      isChecked4: true
+      isChecked4: true,
+      radioSelected: 'choice1'
     };
     this.onChange1 = this.onChange1.bind(this);
     this.onChange2 = this.onChange2.bind(this);
@@ -18,6 +19,9 @@ class Tests extends React.Component {
   onChange2() { this.setState({isChecked2: !this.state.isChecked2}); }
   onChange3() { this.setState({isChecked3: !this.state.isChecked3}); }
   onChange4() { this.setState({isChecked4: !this.state.isChecked4}); }
+  onSelectedRadio(e) {
+    console.log(e);
+  }
   render() {
     console.log('Test component');
     return (
@@ -80,13 +84,15 @@ class Tests extends React.Component {
             >
               Opt-out checkbox (check by default)
             </CheckBox>
-            <label htmlFor='radio'>Select among these choices</label>
-            <input id='radio1' type='radio' name='radio' value='choice1' />
-            <label htmlFor='radio1'>Choice 1</label>
-            <input id='radio2' type='radio' name='radio' value='choice2' />
-            <label htmlFor='radio2'>Choice 2</label>
-            <input id='radio3' type='radio' name='radio' value='choice2' />
-            <label htmlFor='radio3'>Choice 3</label>
+            <Radio
+              value={this.state.radioSelected}
+              onChange={this.onSelectedRadio}
+              label='Choose one formula' options={[
+                {label: 'Choice 1', value: 'choice1'},
+                {label: 'Choice 2', value: 'choice2'},
+                {label: 'Choice 3', value: 'choice3'}
+              ]}
+            />
           </fieldset>
           <fieldset className='multiline'>
             <label htmlFor='inputInline'>Enter your date here: </label>
@@ -152,7 +158,19 @@ class Tests extends React.Component {
             [
               <CheckBox isChecked={this.state.isChecked3} onChange={this.onChange3} />,
               <CheckBox isChecked={this.state.isChecked4} onChange={this.onChange4} />
-            ]
+            ],
+            // [
+            //   <Radio options={[
+            //     {label: 'Choice 1', value: 'choice1'},
+            //     {label: 'Choice 2', value: 'choice2'},
+            //     {label: 'Choice 3', value: 'choice3'}
+            //   ]}/>,
+            //   <Radio options={[
+            //     {label: 'Choice 1', value: 'choice1'},
+            //     {label: 'Choice 2', value: 'choice2'},
+            //     {label: 'Choice 3', value: 'choice3'}
+            //   ]}/>
+            // ]
           ]}
         />
       </div>
