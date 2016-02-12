@@ -33,6 +33,13 @@ const Tests = () => {
       <fieldset>
         <label htmlFor='inputText'>Enter your text here: </label>
         <input id='inputText' type='text' placeholder='Enter your text here' />
+        <br />
+        <label htmlFor='inputEmail'>Enter your email here: </label>
+        <input id='inputEmail' type='email' placeholder='Enter your email here' />
+        <br />
+        <label htmlFor='inputPassword'>Enter your password here: </label>
+        <input id='inputPassword' type='password' placeholder='Enter your password here' />
+        <br />
       </fieldset>
       <button type='submit'>Default Submit</button>
     <button type='submit' disabled>Default disabled submit</button>
