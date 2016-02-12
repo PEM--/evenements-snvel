@@ -33,23 +33,14 @@ form button, .btn
   background-color cream
   border-color alpha(orange, 50%)
   color darkViolet
-  margin-bottom 5px
   font-weight 400
   transition color defaultAnimation,
     border-color defaultAnimation,
-    margin-bottom defaultAnimation,
     background-color defaultAnimation
   border-width 2px
   &:focus
     border-width 2px
     background-color white
-
-form.error
-  +html5-inputs()
-    margin-bottom 25px
-    border-width 2px
-    &:focus
-      border-width 2px
 
 fieldset
   border 1px solid alpha(cream, .5)
@@ -61,7 +52,6 @@ fieldset
 label
   font-weight 400
   font-size 14px
-  margin-right 10px
 
 fieldset.multiline
   label
@@ -148,3 +138,40 @@ input[type='radio']
     transform scale3d(1, 1, 1)
   &:focus + label::before
     border-color mix(orange, cream)
+
+.fieldsContainer
+  margin 0 -5px -5px -5px
+.formGroup
+  position relative
+  display inline-block
+  width calc(50% - 10px)
+  height 40px
+  margin 0 5px
+  transition height defaultTransition
+  label
+    display inline-block
+    width 200px
+    transition color defaultTransition
+  +html5-inputs()
+    width calc(100% - 200px)
+  span.errorText
+    position absolute
+    display inline-block
+    overflow hidden
+    top 31px
+    color red
+    font-weight 900
+    font-size 14px
+    font-style italic
+    left 200px
+    opacity 0
+    transition opacity defaultTransition
+.formGroup.error
+  height 58px
+  field-error()
+  +html5-inputs()
+    border-width 2px
+    &:focus
+      border-width 2px
+  span.errorText
+    opacity 1

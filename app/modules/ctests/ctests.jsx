@@ -32,15 +32,23 @@ const Tests = () => {
     <h2>Basic form</h2>
     <form>
       <fieldset>
-        <label htmlFor='inputText'>Enter your text here: </label>
-        <input id='inputText' type='text' placeholder='Enter your text here' />
-        <br />
-        <label htmlFor='inputEmail'>Enter your email here: </label>
-        <input id='inputEmail' type='email' placeholder='Enter your email here' />
-        <br />
-        <label htmlFor='inputPassword'>Enter your password here: </label>
-        <input id='inputPassword' type='password' placeholder='Enter your password here' />
-        <br />
+        <div className='fieldsContainer'>
+          <div className='formGroup'>
+            <label htmlFor='inputText'>Enter your text here: </label>
+            <input id='inputText' type='text' placeholder='Enter your text here' />
+            <span className='errorText'>This field is mandatory</span>
+          </div>
+          <div className='formGroup'>
+            <label htmlFor='inputEmail'>Enter your email here: </label>
+            <input id='inputEmail' type='email' placeholder='Enter your email here' />
+            <span className='errorText'>This field is mandatory</span>
+          </div>
+          <div className='formGroup'>
+            <label htmlFor='inputPassword'>Enter your password here: </label>
+            <input id='inputPassword' type='password' placeholder='Enter your password here' />
+            <span className='errorText'>This field is mandatory</span>
+          </div>
+        </div>
         <input id='checkbox' type='checkbox' />
         <label htmlFor='checkbox'>Opt-in checkbox</label>
         <label htmlFor='radio'>Select among these choices</label>
@@ -64,17 +72,20 @@ const Tests = () => {
       <button className='primary' type='submit' disabled>Primary disabled submit</button>
     </form>
     <h2>Error form</h2>
-    <form className='error'>
+    <form >
       <fieldset>
-        <label htmlFor='inputText'>Enter your text here: </label>
-        <input id='inputText' type='text' placeholder='Enter your text here' />
-        <br />
-        <label htmlFor='inputEmail'>Enter your email here: </label>
-        <input id='inputEmail' type='email' placeholder='Enter your email here' />
-        <br />
-        <label htmlFor='inputPassword'>Enter your password here: </label>
-        <input id='inputPassword' type='password' placeholder='Enter your password here' />
-        <br />
+        <div className='fieldsContainer'>
+          <div className='formGroup error'>
+            <label htmlFor='inputText'>Enter your text here: </label>
+            <input id='inputText' type='text' placeholder='Enter your text here' />
+            <span className='errorText'>This field is mandatory</span>
+          </div>
+          <div className='formGroup'>
+            <label htmlFor='inputEmail'>Enter your email here: </label>
+            <input id='inputEmail' type='email' placeholder='Enter your email here' />
+            <span className='errorText'>This field is mandatory</span>
+          </div>
+        </div>
       </fieldset>
     </form>
     <hr />
