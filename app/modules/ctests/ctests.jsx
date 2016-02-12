@@ -63,13 +63,22 @@ const Tests = () => {
         <label htmlFor='inputInline'>Enter your date here: </label>
         <input id='inputInline' type='date' placeholder='Enter your date here' />
       </fieldset>
-      <button type='submit'>
+      <button>
         <i className='fa fa-check'></i>
-        Default Submit
+        <span>Default Submit</span>
       </button>
-      <button type='submit' disabled>Default disabled submit</button>
-      <button className='primary' type='submit'>Primary submit</button>
-      <button className='primary' type='submit' disabled>Primary disabled submit</button>
+      <button disabled>
+        <i className='fa fa-check'></i>
+        <span>Default disabled submit</span>
+      </button>
+      <button className='primary'>
+        <i className='fa fa-check'></i>
+        <span>Primary submit</span>
+      </button>
+      <button className='primary' disabled>
+        <i className='fa fa-check'></i>
+        <span>Primary disabled submit</span>
+      </button>
     </form>
     <h2>Error form</h2>
     <form >
