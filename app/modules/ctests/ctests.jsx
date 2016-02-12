@@ -3,18 +3,23 @@ const Tests = () => {
   DocHead.setTitle('Test component');
   return (
     <div className='MainContent maximized'>
-      <hr />
       <h1 className='lisibility'>Typography</h1>
       <h2 className='lisibility'>Header2</h2>
       <p className='lisibility'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <hr />
     <h1 className='lisibility'>Forms</h1>
     <form>
       <fieldset>
         <label htmlFor='inputText'>Enter your text here: </label>
         <input id='inputText' type='text' placeholder='Enter your text here' />
       </fieldset>
-      <button type='submit'>Submit</button>
+      <button type='submit'>Default Submit</button>
+    <button type='submit' disabled>Default disabled submit</button>
+      <button className='primary' type='submit'>Primary submit</button>
+      <button className='primary' type='submit' disabled>Primary disabled submit</button>
     </form>
+    <hr />
+  <h1 className='lisibility'>Table</h1>
     <table>
       <thead>
         <tr>
@@ -39,8 +44,8 @@ const Tests = () => {
       </tbody>
       <tfoot>
         <tr>
-          <td>Content 2 - 1</td>
-          <td>Content 2 - 2</td>
+          <td>Footer 1</td>
+        <td>Footer 2</td>
         </tr>
 
       </tfoot>
