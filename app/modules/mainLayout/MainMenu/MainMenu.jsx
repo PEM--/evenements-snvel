@@ -9,7 +9,7 @@ const MainMenu = ({isMenuOpen, onMenuToggle}) => {
   return (
     <nav className={classNames('MainMenu', {isOpen: isMenuOpen}, 'lisibility')} >
       <button onClick={onMenuToggle}>
-        <i className='fa fa-times expandToParent' />
+        <i className='fa fa-times' />
       </button>
       {
         [

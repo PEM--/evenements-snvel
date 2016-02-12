@@ -9,8 +9,8 @@ const Header = ({onMenuToggle}) => (
         </a>
       </div>
       <div className='flexItemStaticSize' style={{width: '40px'}}>
-        <button onClick={onMenuToggle} className='clickable'>
-          <i className='fa fa-bars expandToParent'></i>
+        <button onClick={onMenuToggle}>
+          <i className='fa fa-bars'></i>
         </button>
       </div>
     </div>
