@@ -13,7 +13,7 @@ menuWidth = 300px
   border-left 1px solid violet
   color cream
   font-size 120%
-  transition transform .3s ease-in-out
+  transition transform defaultTransition
   &.isOpen
     transform translate3d(-(menuWidth + 50px), 0, 0)
   button
@@ -24,7 +24,7 @@ menuWidth = 300px
     margin-bottom 10px
     font-size 140%
     text-shadow 0 0 3px black
-    transition color .3s ease-in-out, text-shadow .3s ease-in-out
+    transition color defaultTransition, text-shadow defaultTransition
     text-align left
     &:hover
       color orange
@@ -39,7 +39,7 @@ menuWidth = 300px
   padding 10px 5px 10px 20px
   border-bottom 1px solid violet
   background transparent
-  transition background-color .3s ease-in-out
+  transition background-color defaultTransition
   &:hover
     background-color alpha(violet, 20%)
   i

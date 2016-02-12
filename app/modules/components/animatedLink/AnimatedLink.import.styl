@@ -3,7 +3,7 @@
   font-weight 900
   text-decoration none
   position relative
-  transition color .3s ease-in-out
+  transition color defaultTransition
   position relative
   &::after
     content ' '
@@ -13,7 +13,7 @@
     width 100%
     height 1px
     transform scale3d(0, 1, 1)
-    transition transform .3s ease-in-out
+    transition transform defaultTransition
   // Animated underline links
   &:hover
     &::after

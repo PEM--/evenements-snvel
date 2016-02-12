@@ -3,6 +3,23 @@
 +html5-inputs()
   input()
 
+button
+  button()
+  transition color defaultTransition, background-color defaultTransition
+
 form
-  input
-    autofill(orange, darkViolet)
+  border 1px solid alpha(orange, .5)
+  border-radius 3px
+  padding 5px
+  background alpha(cream, 5%)
+  text-shadow 0 0 2px black
+
+fieldset
+  border 1px solid alpha(cream, .5)
+  border-radius 3px
+  padding 5px
+  background alpha(cream, 5%)
+  margin-bottom 5px
+
+input
+  autofill(orange, darkViolet)
