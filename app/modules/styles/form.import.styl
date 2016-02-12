@@ -51,7 +51,6 @@ form.error
     &:focus
       border-width 2px
 
-
 fieldset
   border 1px solid alpha(cream, .5)
   border-radius $radius
@@ -67,3 +66,43 @@ label
 fieldset.multiline
   label
     display block
+
+input[type='checkbox']
+  position absolute
+  left -9999px
+  & + label
+    display block
+    position relative
+    margin 10px 0
+    padding-left 25px
+    cursor pointer
+    no-select()
+    &::before, &::after
+      position absolute
+    &::before
+      top 2px
+      left 0
+      width 16px
+      height 16px
+      border-radius $radius
+      border 2px solid cream
+      background transparent
+      content ' '
+      transition border-color defaultTransition
+    &::after
+      top 4px
+      left 2px
+      width 12px
+      height 12px
+      background transparent
+      color cream
+      font-family FontAwesome
+      content '\f00c'
+      line-height 11px
+      transition transform defaultTransition, background-color .3s .3s ease-in-out
+      transform scale3d(0, 0, 1)
+  &:checked + label::after
+    background orange
+    transform scale3d(1, 1, 1)
+  &:focus + label::before
+    border-color mix(orange, cream)

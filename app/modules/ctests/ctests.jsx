@@ -41,6 +41,8 @@ const Tests = () => {
         <label htmlFor='inputPassword'>Enter your password here: </label>
         <input id='inputPassword' type='password' placeholder='Enter your password here' />
         <br />
+        <input id='checkbox' type='checkbox' />
+        <label htmlFor='checkbox'>Opt-in checkbox</label>
       </fieldset>
       <fieldset className='multiline'>
         <label htmlFor='inputInline'>Enter your date here: </label>
@@ -90,14 +92,12 @@ const Tests = () => {
           <td>Content 2 - 1</td>
           <td>Content 2 - 2</td>
         </tr>
-
       </tbody>
       <tfoot>
         <tr>
           <td>Footer 1</td>
-        <td>Footer 2</td>
+          <td>Footer 2</td>
         </tr>
-
       </tfoot>
     </table>
     </div>
