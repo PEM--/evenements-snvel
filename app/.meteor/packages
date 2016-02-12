@@ -19,14 +19,6 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 # Expose global namespaces
 pierreeric:namespaces
 
-# Modules in tests
-universe:modules
-# universe:collection
-# universe:admin
-universe:react-widgets
-universe:react-markdown-wysiwyg
-universe:react-grid-layout
-
 # React
 react
 kadira:react-layout
@@ -65,7 +57,7 @@ accounts-password
 alanning:roles
 audit-argument-checks
 check
-# browser-policy
+browser-policy
 # matteodem:easy-security
 
 # Collections

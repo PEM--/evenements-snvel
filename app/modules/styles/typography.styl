@@ -1,0 +1,54 @@
+@import 'modules/styles/colors.import.styl'
+
+@font-face {
+  font-family: 'Impact';
+  src: url('/fonts/unicode.impact-webfont.eot');
+  src: url('/fonts/unicode.impact-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/unicode.impact-webfont.woff2') format('woff2'),
+       url('/fonts/unicode.impact-webfont.woff') format('woff'),
+       url('/fonts/unicode.impact-webfont.ttf') format('truetype'),
+       url('/fonts/unicode.impact-webfont.svg#impactregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Default typography
+b, strong
+  font-weight 600
+h1, h2, h3, h4, h5, h6
+  font-family Impact, defaultFont
+  font-weight 400
+p
+  font-weight 200
+  margin-bottom 16px
+  line-height 20px
+  text-align justify
+h1
+  font-size 30px
+  margin 8px 0
+  line-height 32px
+h2
+  font-size 24px
+  margin 8px 0
+  line-height 26px
+h3
+  font-size 22px
+  margin-bottom 6px
+  line-height 24px
+h4
+  font-size 20px
+  margin-bottom 4px
+  line-height 22px
+h5
+  font-size 18px
+  margin-bottom 2px
+  line-height 20px
+h6, p, ul, li, div
+  font-size 16px
+  line-height 20px
+
+// Axis configuration
+$font-stack = defaultFont
+$font-size = 16
+$font-color = darkViolet
+$text-selection = orange
