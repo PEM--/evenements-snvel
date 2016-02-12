@@ -1,18 +1,5 @@
 @import 'modules/styles/axis.import.styl'
 
-button
-  button(cream, 15px, darkViolet)
-  border-radius $radius
-  transition color defaultTransition,
-    background-color defaultTransition,
-    opacity defaultTransition
-  &:disabled
-    opacity .8
-    font-weight 200
-    italic()
-  &.primary
-    button(orange, 15px, cream)
-
 form
   border 1px solid alpha(orange, .5)
   border-radius $radius
@@ -22,6 +9,32 @@ form
   &.error
     field-error()
 
+form button, .btn
+  button(cream, 15px, darkViolet)
+  click-down()
+  border-radius $radius
+  transition color defaultTransition,
+    background-color defaultTransition,
+    opacity defaultTransition
+  &.primary
+    button(orange, 15px, cream)
+  &:disabled
+    opacity .6
+    font-weight 200
+    italic()
+
++html5-inputs()
+  autofill(alpha(orange, 30%), darkViolet)
+  input orange
+  padding 5px
+  background-color cream
+  border-color alpha(orange, 50%)
+  color darkViolet
+  margin-bottom 25px
+  border-width 2px
+  &:focus
+    border-width 2px
+
 fieldset
   border 1px solid alpha(cream, .5)
   border-radius $radius
@@ -29,8 +42,9 @@ fieldset
   background alpha(cream, 5%)
   margin-bottom 5px
 
-+html5-inputs()
-  input()
+label
+  label()
+  margin-right 10px
 
-input
-  autofill(orange, darkViolet)
+fieldset.multiline
+  label block

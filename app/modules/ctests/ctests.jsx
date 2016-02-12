@@ -29,7 +29,33 @@ const Tests = () => {
       </ol>
     <hr />
     <h1 className='lisibility'>Forms</h1>
+    <h2>Basic form</h2>
     <form>
+      <fieldset>
+        <label htmlFor='inputText'>Enter your text here: </label>
+        <input id='inputText' type='text' placeholder='Enter your text here' />
+        <br />
+        <label htmlFor='inputEmail'>Enter your email here: </label>
+        <input id='inputEmail' type='email' placeholder='Enter your email here' />
+        <br />
+        <label htmlFor='inputPassword'>Enter your password here: </label>
+        <input id='inputPassword' type='password' placeholder='Enter your password here' />
+        <br />
+      </fieldset>
+      <fieldset className='multiline'>
+        <label htmlFor='inputInline'>Enter your date here: </label>
+        <input id='inputInline' type='date' placeholder='Enter your date here' />
+      </fieldset>
+      <button type='submit'>
+        <i className='fa fa-check'></i>
+        Default Submit
+      </button>
+      <button type='submit' disabled>Default disabled submit</button>
+      <button className='primary' type='submit'>Primary submit</button>
+      <button className='primary' type='submit' disabled>Primary disabled submit</button>
+    </form>
+    <h2>Error form</h2>
+    <form className='error'>
       <fieldset>
         <label htmlFor='inputText'>Enter your text here: </label>
         <input id='inputText' type='text' placeholder='Enter your text here' />
