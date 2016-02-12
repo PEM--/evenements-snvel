@@ -15,7 +15,7 @@ const Radio = ({label, options, value, onChange}) => {
               type='radio' name={`radio_${mainReactKey}`}
               value={o.value}
               checked={o.value === value}
-              onChange={onChange(o.value)}
+              onChange={onChange}
             />
             <label htmlFor={`radio_${mainReactKey}_${idx++}`}>{o.label}</label>
           </div>

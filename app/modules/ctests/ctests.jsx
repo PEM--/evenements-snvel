@@ -8,20 +8,22 @@ class Tests extends React.Component {
       isChecked2: true,
       isChecked3: false,
       isChecked4: true,
-      radioSelected: 'choice1'
+      radioSelected: 'choice1',
+      table1: 'choice2',
+      table2: 'choice3'
     };
-    this.onChange1 = this.onChange1.bind(this);
-    this.onChange2 = this.onChange2.bind(this);
-    this.onChange3 = this.onChange3.bind(this);
-    this.onChange4 = this.onChange4.bind(this);
+    [
+      'onChange1', 'onChange2', 'onChange3', 'onChange4', 'onSelectedRadio',
+      'selectTable1', 'selectTable2'
+    ].map(f => this[f] = this[f].bind(this));
   }
   onChange1() { this.setState({isChecked1: !this.state.isChecked1}); }
   onChange2() { this.setState({isChecked2: !this.state.isChecked2}); }
   onChange3() { this.setState({isChecked3: !this.state.isChecked3}); }
   onChange4() { this.setState({isChecked4: !this.state.isChecked4}); }
-  onSelectedRadio(e) {
-    console.log(e);
-  }
+  onSelectedRadio(e) { this.setState({radioSelected: e.target.value}); }
+  selectTable1(e) { this.setState({table1: e.target.value }); }
+  selectTable2(e) { this.setState({table2: e.target.value }); }
   render() {
     console.log('Test component');
     return (
@@ -159,18 +161,24 @@ class Tests extends React.Component {
               <CheckBox isChecked={this.state.isChecked3} onChange={this.onChange3} />,
               <CheckBox isChecked={this.state.isChecked4} onChange={this.onChange4} />
             ],
-            // [
-            //   <Radio options={[
-            //     {label: 'Choice 1', value: 'choice1'},
-            //     {label: 'Choice 2', value: 'choice2'},
-            //     {label: 'Choice 3', value: 'choice3'}
-            //   ]}/>,
-            //   <Radio options={[
-            //     {label: 'Choice 1', value: 'choice1'},
-            //     {label: 'Choice 2', value: 'choice2'},
-            //     {label: 'Choice 3', value: 'choice3'}
-            //   ]}/>
-            // ]
+            [
+              <Radio
+                value={this.state.table1} onChange={this.selectTable1}
+                options={[
+                  {label: 'Choice 1', value: 'choice1'},
+                  {label: 'Choice 2', value: 'choice2'},
+                  {label: 'Choice 3', value: 'choice3'}
+                ]}
+              />,
+              <Radio
+                value={this.state.table2} onChange={this.selectTable2}
+                options={[
+                  {label: 'Choice 1', value: 'choice1'},
+                  {label: 'Choice 2', value: 'choice2'},
+                  {label: 'Choice 3', value: 'choice3'}
+                ]}
+              />
+            ]
           ]}
         />
       </div>
