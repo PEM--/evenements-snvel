@@ -9,42 +9,6 @@ form
   &.error
     field-error()
 
-form button, .btn
-  button(cream, 15px, darkViolet)
-  click-down()
-  border-radius $radius
-  margin-right 10px
-  transition color defaultTransition,
-    background-color defaultTransition,
-    opacity defaultTransition
-  width 300px
-  padding 11px 3px 11px 11px
-  hover-darken()
-  i
-    display inline-block
-    font-size 22px !important
-    line-height: 12px !important;
-    width 10px
-    color orange
-    margin-left 5px
-  span
-    display inline-block
-    width calc(100% - 15px)
-  &.primary
-    // button(orange, 15px, cream)
-    background-color orange
-    color cream
-    hover-lighten()
-    i
-      color darkViolet
-  &:disabled
-    opacity .4
-    font-weight 200
-    italic()
-    pointer-events none
-    &.primary
-      color darkViolet
-
 +html5-inputs()
   autofill(alpha(orange, 30%), darkViolet)
   input orange
@@ -76,6 +40,7 @@ fieldset.multiline
   label
     display block
 
+// Checkbox
 input[type='checkbox']
   position absolute
   left -9999px
@@ -116,6 +81,7 @@ input[type='checkbox']
   &:focus + label::before
     border-color mix(orange, cream)
 
+// Radio
 input[type='radio']
   position absolute
   left -9999px
@@ -212,7 +178,3 @@ input[type='radio']
       span
         top 50px
         left 10px
-  button
-    width 100%
-    &:not(:last-child)
-      margin-bottom 5px
