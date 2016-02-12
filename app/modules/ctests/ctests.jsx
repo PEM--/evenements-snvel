@@ -121,7 +121,7 @@ const Tests = () => {
       />
       <Table
         items={[
-          ['Content 1 - 1', 'Content 1 - 2'],
+          [<b>Test comp 1</b>, <b>Test comp 2</b>],
           ['Content 2 - 1', 'Content 2 - 2']
         ]}
       />
