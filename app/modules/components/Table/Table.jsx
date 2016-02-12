@@ -16,7 +16,7 @@ const TableFooter = ({footer}) => (
   </tfoot>
 );
 
-const TableLine = ({col}) => ( <td key={reactKey++}>{col}</td> );
+const TableLine = ({col}) => (<td key={reactKey++}>{col}</td>);
 
 const Table = ({header, items, footer}) => (
   <table>
