@@ -8,8 +8,8 @@ const MenuItem = ({icon, text, link}) => (
 const MainMenu = ({isMenuOpen, onMenuToggle}) => {
   return (
     <nav className={classNames('MainMenu', {isOpen: isMenuOpen}, 'lisibility')} >
-      <button className='clickable'>
-        <i className='fa fa-times expandToParent' onClick={onMenuToggle}></i>
+      <button onClick={onMenuToggle}>
+        <i className='fa fa-times expandToParent' />
       </button>
       {
         [
