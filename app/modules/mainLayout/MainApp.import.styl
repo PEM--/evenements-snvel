@@ -13,34 +13,35 @@
 
 @media only screen and (max-width: 800px)
   .MainContent
-    min-height calc(100vh - 202px)
-  footer
-    nav
-      padding 20px 0
-      text-overflow ellipsis
-      .BasicPagesLinks
-        width inherit
+    min-height calc(100vh - 217px)
+  footer nav
+    padding 20px 0
+    text-overflow ellipsis
+    .BasicPagesLinks
+      width inherit
+      margin-right 0
+      width calc(100% - 80px)
+      .BasicPagesLink
+        display block
+        width 100%
+        padding-bottom 10px
         margin-right 0
-        width calc(100% - 80px)
-        .BasicPagesLink
-          display block
-          width 100%
-          padding-bottom 10px
-          margin-right 0
-          overflow-x hidden
-          white-space nowrap
-          a
-            display inline-block
-            text-overflow ellipsis
-            overflow-x hidden
-            max-width 100%
-      .SocialLinks
-        width 80px
+        overflow-x hidden
+        white-space nowrap
         a
           display inline-block
-          margin-left 0
-          width 50%
-          text-align center
-          font-size 26px
-          &:nth-child(1), &:nth-child(2)
-            padding-bottom 5px
+          text-overflow ellipsis
+          overflow-x hidden
+          max-width 100%
+    .SocialLinks
+      width 80px
+      a
+        width 50%
+        text-align center
+        font-size 26px
+        &:nth-child(1), &:nth-child(2)
+          padding-bottom 20px
+
+@media only screen and (min-width: 801px)
+  footer nav .SocialLinks a
+    margin-left 20px
