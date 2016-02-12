@@ -154,7 +154,7 @@ input[type='radio']
     transition color defaultTransition
   +html5-inputs()
     width calc(100% - 200px)
-  span.errorText
+  span
     position absolute
     display inline-block
     overflow hidden
@@ -166,6 +166,7 @@ input[type='radio']
     left 200px
     opacity 0
     transition opacity defaultTransition
+// Form in error
 .formGroup.error
   height 58px
   field-error()
@@ -173,5 +174,26 @@ input[type='radio']
     border-width 2px
     &:focus
       border-width 2px
-  span.errorText
+  span
     opacity 1
+
+@media only screen and (max-width: 800px)
+  .formGroup
+    width calc(100% - 10px)
+@media only screen and (max-width: 550px)
+  .formGroup
+    height 60px
+    label
+      display block
+      width 100%
+    +html5-inputs()
+      width 100%
+    &.error
+      height 78px
+      span
+        top 50px
+        left 10px
+  button
+    width 100%
+    &:not(:last-child)
+      margin-bottom 5px
