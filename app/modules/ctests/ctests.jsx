@@ -43,6 +43,13 @@ const Tests = () => {
         <br />
         <input id='checkbox' type='checkbox' />
         <label htmlFor='checkbox'>Opt-in checkbox</label>
+        <label htmlFor='radio'>Select among these choices</label>
+        <input id='radio1' type='radio' name='radio' value='choice1' />
+        <label htmlFor='radio1'>Choice 1</label>
+        <input id='radio2' type='radio' name='radio' value='choice2' />
+        <label htmlFor='radio2'>Choice 2</label>
+        <input id='radio3' type='radio' name='radio' value='choice2' />
+        <label htmlFor='radio3'>Choice 3</label>
       </fieldset>
       <fieldset className='multiline'>
         <label htmlFor='inputInline'>Enter your date here: </label>
