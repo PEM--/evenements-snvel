@@ -20,7 +20,6 @@ class Tests extends React.Component {
   onChange4() { this.setState({isChecked4: !this.state.isChecked4}); }
   render() {
     console.log('Test component');
-    DocHead.setTitle('Test component');
     return (
       <div className='MainContent maximized'>
         <h1 className='lisibility'>Typography</h1>
@@ -81,11 +80,6 @@ class Tests extends React.Component {
             >
               Opt-out checkbox (check by default)
             </CheckBox>
-            <br />
-            <CheckBox isChecked={this.state.isChecked3} onChange={this.onChange3} />
-            <br />
-            <CheckBox isChecked={this.state.isChecked4} onChange={this.onChange4} />
-            <br />
             <label htmlFor='radio'>Select among these choices</label>
             <input id='radio1' type='radio' name='radio' value='choice1' />
             <label htmlFor='radio1'>Choice 1</label>
@@ -155,7 +149,10 @@ class Tests extends React.Component {
         <Table
           items={[
             [<b>Test comp 1</b>, <b>Test comp 2</b>],
-            ['Content 2 - 1', 'Content 2 - 2']
+            [
+              <CheckBox isChecked={this.state.isChecked3} onChange={this.onChange3} />,
+              <CheckBox isChecked={this.state.isChecked4} onChange={this.onChange4} />
+            ]
           ]}
         />
       </div>
@@ -167,6 +164,7 @@ FlowRouter.route('/ctests', {
   name: 'ctests',
   action() {
     console.log('Tests route');
+    DocHead.setTitle('Test component');
     ReactLayout.render(MainApp.Views.MainLayout, {
       children: <Tests />
     });

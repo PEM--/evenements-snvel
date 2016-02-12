@@ -3,10 +3,12 @@ input[type='checkbox']
   position absolute
   left -9999px
   & + label
-    display block
+    display inline-block
     position relative
-    margin 10px 0
+    margin 5px 0
     padding-left 25px
+    min-width 16px
+    min-height 16px
     cursor pointer
     no-select()
     &::before, &::after

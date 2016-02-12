@@ -16,7 +16,11 @@ const Table = ({header, items, footer}) => (
         items.map((line) => (
           <tr key={reactKey++}>
             {
-              line.map(col => <td key={reactKey++}>{col}</td>)
+              line.map(col => (
+                <td key={reactKey++}>
+                  <div>{col}</div>
+                </td>
+              ))
             }
           </tr>
         ))
