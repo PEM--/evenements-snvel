@@ -13,12 +13,15 @@ class Tests extends React.Component {
       table2: 'choice3',
       text: '',
       email: 'pemarchandet@gmail.com',
-      password: ''
+      password: '',
+      errorText: false,
+      errorEmail: true,
+      errorPassword: false
     };
     [
       'onChange1', 'onChange2', 'onChange3', 'onChange4', 'onSelectedRadio',
       'selectTable1', 'selectTable2', 'onTextChange', 'onEmailChange',
-      'onPasswordChange'
+      'onPasswordChange', 'onErrorText', 'onErrorEmail', 'onErrorPassword'
     ].map(f => this[f] = this[f].bind(this));
   }
   onChange1() { this.setState({isChecked1: !this.state.isChecked1}); }
@@ -40,6 +43,9 @@ class Tests extends React.Component {
     console.log('Password', e.target.value);
     this.setState({password: e.target.value});
   }
+  onErrorText() { this.setState({errorText: !this.state.errorText}); }
+  onErrorEmail() { this.setState({errorEmail: !this.state.errorEmail}); }
+  onErrorPassword() { this.setState({errorPassword: !this.state.errorPassword}); }
   render() {
     console.log('Test component');
     return (
@@ -73,10 +79,17 @@ class Tests extends React.Component {
         <h2>Basic form</h2>
         <form>
           <fieldset>
+            <label>Error setter</label>
+              <CheckBox isChecked={this.state.errorText} onChange={this.onErrorText}>Error in Text: </CheckBox>
+              <CheckBox isChecked={this.state.errorEmail} onChange={this.onErrorEmail}>Error in Email: </CheckBox>
+              <CheckBox isChecked={this.state.errorPassword} onChange={this.onErrorPassword}>Error in Password: </CheckBox>
+          </fieldset>
+          <fieldset>
             <div className='fieldsContainer'>
               <Input
                 type='text' label='Enter your text here: '
                 placeholder='Enter your text here'
+                hasError={this.state.errorText}
                 errorText='This field is mandatory'
                 value={this.state.text}
                 onChange={this.onTextChange}
@@ -84,6 +97,7 @@ class Tests extends React.Component {
               <Input
                 type='email' label='Enter your email here: '
                 placeholder='Enter your email here'
+                hasError={this.state.errorEmail}
                 errorText='This field is mandatory'
                 value={this.state.email}
                 onChange={this.onEmailChange}
@@ -91,6 +105,7 @@ class Tests extends React.Component {
               <Input
                 type='password' label='Enter your password here: '
                 placeholder='Enter your password here'
+                hasError={this.state.errorPassword}
                 errorText='This field is mandatory'
                 value={this.state.password}
                 onChange={this.onPasswordChange}

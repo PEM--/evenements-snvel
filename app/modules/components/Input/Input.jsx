@@ -1,7 +1,7 @@
 const reactKey = 0;
 
-const Input = ({type, label, placeholder, errorText, value, onChange}) => (
-  <div className='formGroup'>
+const Input = ({type, label, placeholder, hasError, errorText, value, onChange}) => (
+  <div className={classNames('formGroup', {'error': hasError})}>
     {
       label ? <label htmlFor={`reactKey_${reactKey}`}>{label}</label> : ''
     }
