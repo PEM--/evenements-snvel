@@ -3,6 +3,7 @@
 const { Col, Views } = MainApp;
 
 const declareRoutes = () => {
+  if (Meteor.isClient) { Session.setDefault('isMenuOpen', false); }
   [ {route: '/', name: 'home', children: <Views.Welcome /> },
     {route: '/signon', name: 'signon', children: <Views.SignOnUp /> },
     {route: '/signup', name: 'signup', children: <Views.SignOnUp isSignUp={true} /> }
@@ -32,6 +33,10 @@ const declareRoutes = () => {
       console.log(`Route: ${page.slug} declared`);
     }
   });
+  FlowRouter.triggers.exit([
+    // Close menu on route change
+    () => {if (Meteor.isClient) { Session.set('isMenuOpen', false); }}
+  ]);
   // Not found
   FlowRouter.notFound = {
     action() {

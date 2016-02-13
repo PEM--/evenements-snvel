@@ -26,14 +26,14 @@ class BasicPages extends Views.BaseReactMeteor {
     if (Meteor.isServer) {
       const handle = Meteor.subscribe('basicPages.all');
     }
-    return Col.BasicPages.findOne(
-      {slug: this.props.slug}, {fields: {title: 1, content: 1}}
-    );
+    return Col.BasicPages.findOne({slug: this.props.slug});
   }
   render() {
     console.log('BasicPages: Rendering page');
     return (
-      <DumbBasicPages title={this.data.title} content={this.data.content} />
+      <DumbBasicPages
+        key={this.data.slug} title={this.data.title} content={this.data.content}
+      />
     );
   }
 }

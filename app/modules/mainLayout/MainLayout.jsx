@@ -1,7 +1,7 @@
 const { Views, Col } = MainApp;
 const { Header, Footer, MainMenu } = Views;
 
-const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages}) => (
+const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages, user}) => (
   <div style={{minHeight: '100vh'}}>
     <MainMenu isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle} />
     <div
@@ -28,17 +28,17 @@ class MainLayout extends Views.BaseReactMeteor {
       if (!globalSubs.ready()) { return { basicPages: [] }; }
     }
     return {
-      basicPages: Col.BasicPages.find({}, {fields: {title: 1, slug: 1}}).fetch()
+      basicPages: Col.BasicPages.find({}, {fields: {title: 1, slug: 1}}).fetch(),
+      user: Meteor.user(),
+      isMenuOpen: Meteor.isClient ? Session.get('isMenuOpen') : false
     };
   }
   constructor(props) {
     super(props);
-    console.log('MainLayout c-tor');
-    this.state = { isMenuOpen: false };
-    this.onMenuToggle = () => {
-      this.setState({isMenuOpen: !this.state.isMenuOpen});
-    };
-    this.render.bind(this);
+    this.onMenuToggle.bind(this);
+  }
+  onMenuToggle() {
+    Session.set('isMenuOpen', !Session.get('isMenuOpen'));
   }
   render() {
     console.log('Render MainLayout');
@@ -161,8 +161,9 @@ class MainLayout extends Views.BaseReactMeteor {
     return (
       <MainBody
         onMenuToggle={this.onMenuToggle}
-        isMenuOpen={this.state.isMenuOpen}
+        isMenuOpen={this.data.isMenuOpen}
         basicPages={this.data.basicPages}
+        user={this.data.user}
       >
         {this.props.children}
       </MainBody>
