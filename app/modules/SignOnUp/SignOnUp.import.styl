@@ -1,8 +1,23 @@
 .MainContent.SignOnUp
-  max-width 290px
+  width 300px
   .linkActions
     margin-top 10px
     i
-      margin 0 10px
+      margin 0 10px 0 30px
     i, a
       font-size 80%
+  .formGroup
+    width calc(100% - 10px)
+    height 60px
+    label
+      display block
+      width 100%
+    +html5-inputs()
+      width 100%
+    &.error
+      height 78px
+      span
+        top 50px
+        left 10px
+  form button, .btn
+    width 100%
