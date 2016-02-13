@@ -35,14 +35,17 @@ class SignOnUp extends React.Component {
             !isSignUp ? (
               <div className='linkActions'>
                 <div>
-                  <AnimatedLink to='/password-change'>Mot de passe oublié</AnimatedLink>
+                  <i className='fa fa-question-circle'></i>
+                  <AnimatedLink to='/password-change'>J'ai oublié mon mot de passe</AnimatedLink>
                 </div>
                 <div>
+                  <i className='fa fa-info-circle'></i>
                   <AnimatedLink to='/signup'>Je n'ai pas encore de compte</AnimatedLink>
                 </div>
               </div>
             ) : (
               <div className='linkActions'>
+                <i className='fa fa-info-circle'></i>
                 <AnimatedLink to='/signon'>J'ai déjà un compte</AnimatedLink>
               </div>
             )
