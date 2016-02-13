@@ -2,8 +2,22 @@
 
 const { Col, Views } = MainApp;
 
-// Routing bor BasicPages
-const setBasicPageRoutes = () => {
+const declareRoutes = () => {
+  [ {route: '/', name: 'home', children: <Views.Welcome /> },
+    {route: '/signon', name: 'signon', children: <Views.SignOnUp /> },
+    {route: '/signup', name: 'signup', children: <Views.SignOnUp isSignUp={true} /> }
+  ].forEach((r) => {
+    FlowRouter.route(r.route, {
+      name: r.name,
+      action() {
+        ReactLayout.render(Views.MainLayout, {
+          children: r.children
+        });
+      }
+    });
+    console.log(`Route ${r.name} declared`);
+  });
+  // Routing bor BasicPages
   const basicPages = Col.BasicPages.find({}, {fields: {slug: 1}}).fetch();
   basicPages.forEach(page => {
     FlowRouter.route(`/${page.slug}`, {
@@ -15,15 +29,15 @@ const setBasicPageRoutes = () => {
       }
     });
     if (Meteor.isServer) {
-      console.log(`Route ${page.slug} declared`);
+      console.log(`Route: ${page.slug} declared`);
     }
   });
-};
-
-const declareRoutes = () => {
-  setNotFoundRoute();
-  setBasicPageRoutes();
-  setWelcomeRoute();
+  // Not found
+  FlowRouter.notFound = {
+    action() {
+      ReactLayout.render(Views.MainLayout, { children: <Views.NotFound /> });
+    }
+  };
 };
 
 initRouterDone = () => {

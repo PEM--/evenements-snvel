@@ -33,6 +33,7 @@ class MainLayout extends Views.BaseReactMeteor {
   }
   constructor(props) {
     super(props);
+    console.log('MainLayout c-tor');
     this.state = { isMenuOpen: false };
     this.onMenuToggle = () => {
       this.setState({isMenuOpen: !this.state.isMenuOpen});

@@ -13,11 +13,3 @@ const NotFound = () => (
 );
 
 MainApp.Views.NotFound = NotFound;
-
-setNotFoundRoute = () => {
-  FlowRouter.notFound = {
-    action() {
-      ReactLayout.render(MainApp.Views.MainLayout, { children: <MainApp.Views.NotFound /> });
-    }
-  };
-};

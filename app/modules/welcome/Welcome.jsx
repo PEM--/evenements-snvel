@@ -31,15 +31,3 @@ const Welcome = () => (
 );
 
 MainApp.Views.Welcome = Welcome;
-
-setWelcomeRoute = () => {
-  FlowRouter.route('/', {
-    name: 'home',
-    action() {
-      ReactLayout.render(MainApp.Views.MainLayout, {
-        children: <MainApp.Views.Welcome />
-      });
-    }
-  });
-  console.log('Home route declared');
-};

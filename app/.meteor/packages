@@ -39,7 +39,7 @@ email
 patrickml:braintree
 
 # Caching
-appcache
+#appcache
 meteorhacks:fast-render
 meteorhacks:subs-manager
 
