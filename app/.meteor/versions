@@ -43,7 +43,6 @@ ejson@1.0.7
 email@1.0.8
 es5-shim@4.1.14
 fastclick@1.0.7
-fortawesome:fontawesome@4.5.0
 gadicohen:robots-txt@0.0.10
 gadicohen:sitemaps@0.0.23
 geojson-utils@1.0.4
@@ -61,6 +60,7 @@ launch-screen@1.0.4
 livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
+matteodem:easy-security@0.1.5
 mdg:validation-error@0.2.0
 meteor@1.1.10
 meteor-base@1.0.1
@@ -107,7 +107,6 @@ rzymek:moment-locale-fr@2.9.0
 service-configuration@1.0.5
 session@1.1.1
 sha@1.0.4
-siyfion:webfontloader@1.5.18
 spacebars@1.0.7
 spacebars-compiler@1.0.7
 srp@1.0.4

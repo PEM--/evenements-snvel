@@ -20,9 +20,7 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 pierreeric:namespaces
 
 # CSS
-siyfion:webfontloader
 mquandalle:stylus
-fortawesome:fontawesome
 velocityjs:velocityjs
 natestrauser:animate-css
 
@@ -51,7 +49,7 @@ alanning:roles
 audit-argument-checks
 check
 browser-policy
-# matteodem:easy-security
+matteodem:easy-security
 
 # Collections
 aldeed:autoform

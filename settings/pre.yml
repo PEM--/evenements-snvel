@@ -1,6 +1,6 @@
 public:
   proxy:
-    url: http://localhost:3000/
+    url: https://evenements-snvel.meteor.com/
   googleAnalytics:
     UA: 'UA-73432166-1'
   contact:
