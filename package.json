@@ -15,6 +15,6 @@
     "gulp": "^3.9.0",
     "gulp-load-plugins": "^1.1.0",
     "gulp-plumber-notifier": "0.0.2",
-    "gulp-yaml-dirs": "^1.0.0"
+    "gulp-yaml-dirs": "^1.1.0"
   }
 }
