@@ -17,7 +17,7 @@ class SignOnUp extends React.Component {
       isSignUp: this.props.isSignUp ? this.props.isSignUp : false
     };
     [
-      'onEmailChange', 'onPasswordChange', 'onConfirmChange'
+      'onEmailChange', 'onPasswordChange', 'onConfirmChange', 'onCsoNumberChange'
     ].map(f => this[f] = this[f].bind(this));
   }
   onCsoNumberChange(e) {
@@ -36,6 +36,14 @@ class SignOnUp extends React.Component {
           <form>
             <fieldset>
               <div className='fieldsContainer'>
+                {
+                  isSignUp ? <Input
+                    type='text' placeholder='Entrez votre n° CSO'
+                    hasError={this.state.csoNumberError}
+                    value={this.state.csoNumber}
+                    onChange={this.onCsoNumberChange}
+                  /> : ''
+                }
                 <Input
                   type='email' placeholder='Entrez votre email'
                   hasError={this.state.errorEmail}
