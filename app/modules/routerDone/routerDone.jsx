@@ -20,6 +20,12 @@ const setBasicPageRoutes = () => {
   });
 };
 
+const declareRoutes = () => {
+  setNotFoundRoute();
+  setBasicPageRoutes();
+  setWelcomeRoute();
+};
+
 initRouterDone = () => {
   if (Meteor.isClient) {
     // Release router for routing once all routes are declared
@@ -30,9 +36,12 @@ initRouterDone = () => {
         if (areSubsReady) {
           console.log('MainApp received subscription');
           initBasicPages();
-          setBasicPageRoutes();
-          // Delay router initialization for iOS and Safari
-          Meteor.setTimeout(() => FlowRouter.initialize(), 300);
+          declareRoutes();
+          FlowRouter.initialize();
+          Meteor.defer(() => {
+            const routeName = FlowRouter.getRouteName(window.location.pathname);
+            FlowRouter.go(routeName ? window.location.pathname : 'not-found');
+          });
           console.log('Initial subscription read! Router started.');
           comp.stop();
         }
@@ -41,7 +50,7 @@ initRouterDone = () => {
   }
   if (Meteor.isServer) {
     Meteor.startup(() => {
-      setBasicPageRoutes();
+      declareRoutes();
       initSitemap();
     });
   }

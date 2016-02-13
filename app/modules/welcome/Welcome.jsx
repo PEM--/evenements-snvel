@@ -30,13 +30,16 @@ const Welcome = () => (
   </section>
 );
 
-FlowRouter.route('/', {
-  name: 'home',
-  action() {
-    ReactLayout.render(MainApp.Views.MainLayout, {
-      children: <Welcome />
-    });
-  }
-});
+MainApp.Views.Welcome = Welcome;
 
-console.log('Home route declared');
+setWelcomeRoute = () => {
+  FlowRouter.route('/', {
+    name: 'home',
+    action() {
+      ReactLayout.render(MainApp.Views.MainLayout, {
+        children: <MainApp.Views.Welcome />
+      });
+    }
+  });
+  console.log('Home route declared');
+};

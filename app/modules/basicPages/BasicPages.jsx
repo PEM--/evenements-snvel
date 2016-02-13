@@ -22,6 +22,7 @@ class BasicPages extends Views.BaseReactMeteor {
     super(props);
   }
   getMeteorData() {
+    console.log('BasicPages: Getting data');
     if (Meteor.isServer) {
       const handle = Meteor.subscribe('basicPages.all');
     }
@@ -30,6 +31,7 @@ class BasicPages extends Views.BaseReactMeteor {
     );
   }
   render() {
+    console.log('BasicPages: Rendering page');
     return (
       <DumbBasicPages title={this.data.title} content={this.data.content} />
     );

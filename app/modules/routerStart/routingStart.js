@@ -1,6 +1,5 @@
 // Routing
 
-// Create a logger
 // Block the routing untill all routes are defined (see routing-defined)
 if (Meteor.isClient) {
   FlowRouter.wait();

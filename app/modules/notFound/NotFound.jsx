@@ -1,4 +1,4 @@
-const { MainLayout, AnimatedLink } = MainApp.Views;
+const { AnimatedLink } = MainApp.Views;
 
 const NotFound = () => (
   <div className='NotFound MainContent maximized animated bounceIn flex col textCenter'>
@@ -12,8 +12,12 @@ const NotFound = () => (
   </div>
 );
 
-FlowRouter.notFound = {
-  action() {
-    ReactLayout.render(MainLayout, { children: <NotFound /> });
-  }
+MainApp.Views.NotFound = NotFound;
+
+setNotFoundRoute = () => {
+  FlowRouter.notFound = {
+    action() {
+      ReactLayout.render(MainApp.Views.MainLayout, { children: <MainApp.Views.NotFound /> });
+    }
+  };
 };

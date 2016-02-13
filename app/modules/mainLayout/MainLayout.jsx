@@ -24,6 +24,7 @@ class MainLayout extends Views.BaseReactMeteor {
   getMeteorData() {
     if (Meteor.isServer) { const handle = Meteor.subscribe('basicPages.all'); }
     if (Meteor.isClient) {
+      console.log('MainLayout: getting data');
       if (!globalSubs.ready()) { return { basicPages: [] }; }
     }
     return {
