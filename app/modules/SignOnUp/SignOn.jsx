@@ -6,21 +6,32 @@ formFromSchema = (form, schema, initialState = null) => {
   let state = initialState ? initialState : MainApp.Schema[schema].clean({});
   const keys = MainApp.Schema[schema].objectKeys();
   keys.reduce((acc, k) => {
-    acc[`error${s.capitalize(k)}`] = null;
+    // acc[`error${s.capitalize(k)}`] = null;
     return acc;
   }, state);
-  state.isValidForm = false;
   form.state = state;
   // Create the state manipulation functions
   let functions = keys.forEach(k => {
     form[`onChange${s.capitalize(k)}`] = function(e) {
       let stateModifier = {};
       stateModifier[k] = e;
-      console.log('setState', k, e, stateModifier, form.state[k]);
       form.setState(stateModifier);
-    };
-    form[`onChange${s.capitalize(k)}`] = form[`onChange${s.capitalize(k)}`].bind(form);
+    }.bind(form);
   });
+  // Create a form checking function
+  form.validateForm = function() {
+    try {
+      MainApp.Schema[schema].validate(this.state);
+      return { isValidForm: true };
+    } catch (error) {
+      let result = {
+        isValidForm: false
+      };
+      result[error.errors[0].name] = error.reason;
+      return result;
+    }
+    return result;
+  }.bind(form);
   // Create nodes filled with widget
   form.nodes = keys.map(k => {
     const def = MainApp.Schema[schema].getDefinition(k);
@@ -30,11 +41,14 @@ formFromSchema = (form, schema, initialState = null) => {
         return acc;
       }, {
         key: `${schema}.${k}`,
-        name: k,
         onChange: form[`onChange${s.capitalize(k)}`]
       });
-    const widget = React.createElement(MainApp.Views[def.view.name], props);
-    return widget;
+    return {
+      name: k,
+      create: supProps => React.createElement(
+        MainApp.Views[def.view.name], Object.assign({}, props, supProps)
+      )
+    };
   });
 };
 
@@ -44,7 +58,7 @@ class SignOn extends React.Component {
     formFromSchema(this, 'SignOnSchema');
   }
   render() {
-    console.log('SignOn rendering with state', this.state);
+    const formStatus = this.validateForm();
     return (
       <section className='maximized MainContent SignOn animated fadeInDown'>
         <h1>Connexion</h1>
@@ -52,13 +66,16 @@ class SignOn extends React.Component {
           <fieldset>
             <div className='fieldsContainer'>
               { this.nodes.map(n => {
-                n.props[n.name] = this.state[n.name];
-                console.log('n', n);
-                return n;
+                console.log('State', n.name, this.state);
+                let addProps = { value: this.state[n.name] };
+                if (formStatus.hasOwnProperty(n.name) && this.state[n.name].length > 0) {
+                  addProps.errorText = formStatus[n.name];
+                }
+                return n.create(addProps);
               }) }
             </div>
           </fieldset>
-          <Button isDisabled={!this.state.isValidForm}>Je me connecte</Button>
+          <Button isDisabled={!formStatus.isValidForm}>Je me connecte</Button>
         </form>
         <div className='linkActions'>
           <div>

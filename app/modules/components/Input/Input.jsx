@@ -3,11 +3,8 @@ const reactKey = 0;
 const Input = ({type, label = null, placeholder, errorText = null, value, onChange}) => {
   const inLabel = label ? label : `${placeholder} :`;
   const inError = errorText !== null;
-  const interceptor = (e) => {
-    console.log('Input e', e.target.value);
-    onChange(e.target.value);
-  };
-  console.log('Rendering Input', type, value);
+  const interceptor = (e) => onChange(e.target.value);
+  console.log('Input', value, errorText);
   return (
     <div className={classNames('formGroup', {'error': inError})}>
       {

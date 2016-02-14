@@ -1,3 +1,6 @@
+if Meteor.isClient
+  TAPi18n.setLanguage 'fr'
+
 SimpleSchema.extendOptions
   view: Match.Optional Object
   require: Match.Optional String
