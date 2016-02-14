@@ -9,8 +9,11 @@ class Password extends React.Component {
   onInnerChange(e) {
     const strength = zxcvbn(e.target.value).score;
     this.setState({ password: e.target.value, strength });
-    if (strength.strength > 2) {
+    if (strength > 2) {
       this.props.onChange(e.target.value);
+    // Former state
+    } else if (strength <= 2 && this.state.strength > 2) {
+      this.props.onChange('');
     }
   }
   render() {
