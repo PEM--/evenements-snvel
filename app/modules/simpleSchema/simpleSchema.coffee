@@ -1,3 +1,7 @@
+SimpleSchema.extendOptions
+  view: Match.Optional String
+  require: Match.Optional String
+
 addSimpleSchemaMessages = ->
   SimpleSchema.messages {
     csoNumberError: 'Votre n° ordinal n\'est pas valide'

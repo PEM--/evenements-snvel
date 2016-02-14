@@ -45,32 +45,35 @@ const declareRoutes = () => {
   };
 };
 
-initRouterDone = () => {
-  if (Meteor.isClient) {
-    // Release router for routing once all routes are declared
-    Meteor.startup(() => {
-      Tracker.autorun((comp) => {
-        console.log('Waiting for initial subscriptions');
-        areSubsReady = globalSubs.ready();
-        if (areSubsReady) {
-          console.log('MainApp received subscription');
-          initBasicPages();
-          declareRoutes();
-          FlowRouter.initialize();
-          Meteor.defer(() => {
-            const routeName = FlowRouter.getRouteName(window.location.pathname);
-            FlowRouter.go(routeName ? window.location.pathname : 'not-found');
-          });
-          console.log('Initial subscription read! Router started.');
-          comp.stop();
-        }
-      });
-    });
-  }
-  if (Meteor.isServer) {
-    Meteor.startup(() => {
-      declareRoutes();
-      initSitemap();
-    });
-  }
+appStartup = () => {
+  initBasicPages();
+  initUsers();
+  initSocialLinks();
+  declareRoutes();
 };
+
+// Release router for routing once all routes are declared
+Meteor.startup(() => {
+  if (Meteor.isClient) {
+    initSubscriptionCache();
+    Tracker.autorun((comp) => {
+      console.log('Waiting for initial subscriptions');
+      areSubsReady = globalSubs.ready();
+      if (areSubsReady) {
+        console.log('MainApp received subscription');
+        appStartup();
+        FlowRouter.initialize();
+        Meteor.defer(() => {
+          const routeName = FlowRouter.getRouteName(window.location.pathname);
+          FlowRouter.go(routeName ? window.location.pathname : 'not-found');
+        });
+        console.log('Initial subscription read! Router started.');
+        comp.stop();
+      }
+    });
+  } else {
+    initSubscriptionCache();
+    appStartup();
+    initSitemap();
+  }
+});
