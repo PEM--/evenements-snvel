@@ -26,9 +26,9 @@ initSocialLinks = () => {
         body: 'Bonjour'
       });
       [
-        {iconName: 'twitter', link: '#'},
-        {iconName: 'facebook', link: '#'},
-        {iconName: 'linkedin', link: '#'},
+        {iconName: 'twitter', link: Meteor.settings.public.socialLinks.twitter},
+        {iconName: 'facebook', link: Meteor.settings.public.socialLinks.facebook},
+        {iconName: 'linkedin', link: Meteor.settings.public.socialLinks.linkedin},
         {iconName: 'envelope', link: mailUrl}
       ].forEach(p => SocialLinks.insert({...p}));
     }
