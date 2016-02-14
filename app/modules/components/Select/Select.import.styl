@@ -1,0 +1,78 @@
+/**
+ * React Select
+ * ============
+ * Created by Jed Watson and Joss Mackison for KeystoneJS, http =//www.keystonejs.com/
+ * https =//twitter.com/jedwatson https =//twitter.com/jossmackison https =//twitter.com/keystonejs
+ * MIT License = https =//github.com/keystonejs/react-select
+*/
+
+// Variables
+// ------------------------------
+
+// control options
+// $select-input-bg =                  #fff !default;
+$select-input-bg =                  cream
+$select-input-bg-disabled =         #f9f9f9
+// $select-input-border-color =        #ccc !default;
+$select-input-border-color =        mix(cream, orange)
+// $select-input-border-radius =       4px !default;
+$select-input-border-radius =       $radius
+$select-input-border-focus =        orange
+$select-input-border-width =        2px
+$select-input-height =              36px
+$select-input-internal-height =     ($select-input-height - ($select-input-border-width * 2))
+$select-input-placeholder =         lighten(darkViolet, 20%)
+$select-text-color =                darkViolet
+$select-link-hover-color =          $select-input-border-focus
+
+$select-padding-vertical =          8px
+$select-padding-horizontal =        10px
+
+// menu options
+$select-menu-zindex =               10
+$select-menu-max-height =           200px
+
+$select-option-color =              lighten($select-text-color, 20%)
+$select-option-bg =                 $select-input-bg
+$select-option-focused-color =      $select-text-color
+$select-option-focused-bg =         mix(cream, orange)
+$select-option-disabled-color =     lighten($select-text-color, 60%)
+
+$select-noresults-color =           lighten($select-text-color, 40%)
+
+// clear "x" button
+$select-clear-size =                floor($select-input-height / 2)
+$select-clear-color =               mix(cream, orange)
+$select-clear-hover-color =         red
+$select-clear-width =               ($select-input-internal-height / 2)
+
+// arrow indicator
+$select-arrow-color =               mix(cream, orange)
+$select-arrow-color-hover =         orange
+$select-arrow-width =               5px
+
+// loading indicator
+$select-loading-size =              16px
+$select-loading-color =             $select-text-color
+$select-loading-color-bg =          $select-input-border-color
+
+// multi-select item
+$select-item-border-radius =        2px
+$select-item-gutter =               5px
+$select-item-padding-vertical =     2px
+$select-item-padding-horizontal =   5px
+$select-item-font-size =            .9em
+$select-item-color =                orange
+$select-item-bg =                   cream
+$select-item-border-color =         darken($select-item-bg, 10%)
+$select-item-hover-color =          darken($select-item-color, 5%)
+$select-item-hover-bg =             darken($select-item-bg, 5%)
+$select-item-disabled-color =       #333
+$select-item-disabled-bg =          #fcfcfc
+$select-item-disabled-border-color = darken($select-item-disabled-bg, 10%)
+
+@import 'modules/components/Select/client/mixins.import.styl'
+@import 'modules/components/Select/client/spinner.import.styl'
+@import 'modules/components/Select/client/control.import.styl'
+@import 'modules/components/Select/client/menu.import.styl'
+@import 'modules/components/Select/client/multi.import.styl'

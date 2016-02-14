@@ -4,24 +4,19 @@ class Tests extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isChecked1: false,
-      isChecked2: true,
-      isChecked3: false,
-      isChecked4: true,
+      isChecked1: false, isChecked2: true, isChecked3: false, isChecked4: true,
       radioSelected: 'choice1',
-      table1: 'choice2',
-      table2: 'choice3',
-      text: '',
-      email: 'pemarchandet@gmail.com',
-      password: '',
-      errorText: false,
-      errorEmail: true,
-      errorPassword: false
+      table1: 'choice2', table2: 'choice3',
+      text: '', errorText: false,
+      email: 'pemarchandet@gmail.com', errorEmail: true,
+      password: '', errorPassword: false,
+      select: 'one'
     };
     [
       'onChange1', 'onChange2', 'onChange3', 'onChange4', 'onSelectedRadio',
       'selectTable1', 'selectTable2', 'onTextChange', 'onEmailChange',
-      'onPasswordChange', 'onErrorText', 'onErrorEmail', 'onErrorPassword'
+      'onPasswordChange', 'onErrorText', 'onErrorEmail', 'onErrorPassword',
+      'onSelectChange'
     ].map(f => this[f] = this[f].bind(this));
   }
   onChange1() { this.setState({isChecked1: !this.state.isChecked1}); }
@@ -46,10 +41,24 @@ class Tests extends React.Component {
   onErrorText() { this.setState({errorText: !this.state.errorText}); }
   onErrorEmail() { this.setState({errorEmail: !this.state.errorEmail}); }
   onErrorPassword() { this.setState({errorPassword: !this.state.errorPassword}); }
+  onSelectChange(e) {
+    console.log('onSelectChange', e);
+    this.setState({select: e});
+  }
   render() {
     console.log('Test component');
     return (
       <div className='MainContent maximized'>
+        <Select
+          name='select'
+          value='one'
+          onChange={this.onSelectChange}
+          placeholder='Sélectionner une option'
+          options={[
+            { value: 'one', label: 'One' },
+            { value: 'two', label: 'Two' }
+          ]}
+        />
         <h1 className='lisibility'>Typography</h1>
         <p className='lisibility'>Repeated paragraphs.</p>
         <p className='lisibility'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
