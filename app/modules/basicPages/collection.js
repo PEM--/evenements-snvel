@@ -2,7 +2,7 @@ initBasicPages = () => {
   const BasicPages = new Mongo.Collection('basicPages');
   const BasicPagesSchema = new SimpleSchema({
     title: { label: 'Titre', type: String, max: 256 },
-    slug: { label: 'URL', type: String, min: 3, max: 256},
+    slug: { label: 'URL', type: String, min: 3, max: 256, unique: true, index: true},
     content: {label: 'Contenu', type: String, min: 3, max: 16384 }
   });
   BasicPages.attachSchema(BasicPagesSchema);
@@ -24,10 +24,5 @@ initBasicPages = () => {
       return BasicPages.find();
     });
     console.log('BasicPages filled and exposed');
-    // Indexes
-    Meteor.startup(function() {
-      console.log('Setting up BasicPages index');
-      BasicPages._ensureIndex({_id: 1, slug: 1});
-    });
   }
 };

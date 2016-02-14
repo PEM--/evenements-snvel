@@ -1,4 +1,4 @@
-const { Button, CheckBox, Radio, Input, Table } = MainApp.Views;
+const { Button, CheckBox, Radio, Input, Password, Table } = MainApp.Views;
 
 class Tests extends React.Component {
   constructor(props) {
@@ -49,6 +49,7 @@ class Tests extends React.Component {
     console.log('Test component');
     return (
       <div className='MainContent maximized'>
+        <Password />
         <Select
           name='select'
           value='one'
