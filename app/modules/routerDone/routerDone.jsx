@@ -5,8 +5,8 @@ const { Col, Views } = MainApp;
 const declareRoutes = () => {
   if (Meteor.isClient) { Session.setDefault('isMenuOpen', false); }
   [ {route: '/', name: 'home', children: <Views.Welcome /> },
-    {route: '/signon', name: 'signon', children: <Views.SignOnUp /> },
-    {route: '/signup', name: 'signup', children: <Views.SignOnUp isSignUp={true} /> }
+    {route: '/signon', name: 'signon', children: <Views.SignOn /> },
+    {route: '/signup', name: 'signup', children: <Views.SignUp /> }
   ].forEach((r) => {
     FlowRouter.route(r.route, {
       name: r.name,
