@@ -16,20 +16,21 @@ formFromSchema = (form, schema, initialState = null) => {
     form[`onChange${s.capitalize(k)}`] = function(e) {
       let stateModifier = {};
       stateModifier[k] = e;
+      console.log('setState', k, e, stateModifier, form.state[k]);
       form.setState(stateModifier);
     };
     form[`onChange${s.capitalize(k)}`] = form[`onChange${s.capitalize(k)}`].bind(form);
   });
   // Create nodes filled with widget
-  form.nodes = keys.map((k, idx) => {
+  form.nodes = keys.map(k => {
     const def = MainApp.Schema[schema].getDefinition(k);
     const props = Object.keys(def.view).filter(prop => prop !== 'name')
       .reduce((acc, prop) => {
         acc[prop] = def.view[prop];
         return acc;
       }, {
-        key: `schema.${k}.${idx}`,
-        value: form.state[k],
+        key: `${schema}.${k}`,
+        name: k,
         onChange: form[`onChange${s.capitalize(k)}`]
       });
     const widget = React.createElement(MainApp.Views[def.view.name], props);
@@ -43,17 +44,21 @@ class SignOn extends React.Component {
     formFromSchema(this, 'SignOnSchema');
   }
   render() {
-    console.log('this', this);
+    console.log('SignOn rendering with state', this.state);
     return (
       <section className='maximized MainContent SignOn animated fadeInDown'>
         <h1>Connexion</h1>
         <form>
           <fieldset>
             <div className='fieldsContainer'>
-              { this.nodes }
+              { this.nodes.map(n => {
+                n.props[n.name] = this.state[n.name];
+                console.log('n', n);
+                return n;
+              }) }
             </div>
           </fieldset>
-          <Button isDisabled={!this.state.isValidForm} >Je me connecte</Button>
+          <Button isDisabled={!this.state.isValidForm}>Je me connecte</Button>
         </form>
         <div className='linkActions'>
           <div>
