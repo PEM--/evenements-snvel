@@ -1,4 +1,4 @@
-const { Select, Input, Button, AnimatedLink } = MainApp.Views;
+const { Select, Input, Password, Button, AnimatedLink } = MainApp.Views;
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class SignUp extends React.Component {
     const { isSignUp } = this.props;
     return (
       <section className='maximized MainContent SignUp animated fadeIn'>
-        <h1>'Création de compte'</h1>
+        <h1>Création de compte</h1>
         <form>
           <fieldset>
             <div className='fieldsContainer'>
@@ -41,16 +41,15 @@ class SignUp extends React.Component {
                 value={this.state.csoNumber}
                 onChange={this.onCsoNumberChange}
                 />
+            </div>
+            <div className='fieldsContainer'>
               <Input
                 type='email' placeholder='Entrez votre email'
                 hasError={this.state.errorEmail}
                 value={this.state.email}
                 onChange={this.onEmailChange}
               />
-              <Input
-                type='password' placeholder='Entrez votre mot de passe'
-                hasError={this.state.errorPassword}
-                errorText={this.state.errorPassword}
+              <Password
                 onChange={this.onPasswordChange}
               />
               <Input
@@ -61,7 +60,9 @@ class SignUp extends React.Component {
               />
             </div>
           </fieldset>
-          <Button isDisabled={this.state.isValidForm} >Je crée mon compte</Button>
+          <div className='buttons'>
+            <Button isDisabled={!this.state.isValidForm} >Je crée mon compte</Button>
+          </div>
         </form>
         <div className='linkActions'>
           <i className='fa fa-info-circle'></i>

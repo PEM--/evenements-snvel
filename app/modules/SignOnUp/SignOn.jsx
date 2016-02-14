@@ -38,7 +38,7 @@ class SignOn extends React.Component {
               />
             </div>
           </fieldset>
-          <Button isDisabled={this.state.isValidForm} >Je me connecte</Button>
+          <Button isDisabled={!this.state.isValidForm} >Je me connecte</Button>
         </form>
         <div className='linkActions'>
           <div>
