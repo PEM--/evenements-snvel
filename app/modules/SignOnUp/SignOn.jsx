@@ -20,7 +20,19 @@ formFromSchema = (form, schema) => {
     };
     form[`onChange${s.capitalize(k)}`] = form[`onChange${s.capitalize(k)}`].bind(form);
   });
-  // Create a node filled with widget
+  // Create nodes filled with widget
+  form.nodes = keys.map((k, idx) => {
+    const def = MainApp.Schema[schema].getDefinition(k);
+    const props = Object.keys(def.view).filter(prop => prop !== 'name')
+      .reduce((acc, prop) => {
+        acc[prop] = def.view[prop];
+        return acc;
+      }, {
+        key: `schema.${k}.${idx}`
+      });
+    const widget = React.createElement(MainApp.Views[def.view.name], props);
+    return widget;
+  });
 };
 
 class SignOn extends React.Component {
@@ -29,24 +41,14 @@ class SignOn extends React.Component {
     formFromSchema(this, 'SignOnSchema');
   }
   render() {
+    console.log('this', this);
     return (
       <section className='maximized MainContent SignOn animated fadeInDown'>
         <h1>Connexion</h1>
         <form>
           <fieldset>
             <div className='fieldsContainer'>
-              <Input
-                type='email' placeholder='Entrez votre email'
-                errorText={this.state.errorEmail}
-                value={this.state.email}
-                onChange={this.onChangeEmail}
-              />
-              <Input
-                type='password' placeholder='Entrez votre mot de passe'
-                errorText={this.state.errorPassword}
-                value={this.state.password}
-                onChange={this.onChangePassword}
-              />
+              { this.nodes }
             </div>
           </fieldset>
           <Button isDisabled={!this.state.isValidForm} >Je me connecte</Button>

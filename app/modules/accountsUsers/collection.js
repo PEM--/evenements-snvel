@@ -46,12 +46,18 @@ initUsers = () => {
 
   const SignOnSchema = new SimpleSchema({
     email: {
-      type: String, label: 'Email', regEx: SimpleSchema.RegEx.Email,
-      defaultValue: '', view: 'Input'
+      type: String, regEx: SimpleSchema.RegEx.Email,
+      defaultValue: '', view: {
+        name: 'Input', type: 'email', label: 'Entrez votre email :',
+        placeholder: 'Votre email'
+      }
     },
     password: {
       type: String, label: 'Mot de passe', min: 6, max: 128,
-      defaultValue: '', view: 'Input'
+      defaultValue: '', view: {
+        name: 'Input', type: 'password', label: 'Entrez votre mot de passe :',
+        placeholder: 'Votre mot de passe'
+      }
     }
   });
   MainApp.Schema.SignOnSchema = SignOnSchema;

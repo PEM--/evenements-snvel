@@ -1,5 +1,5 @@
 SimpleSchema.extendOptions
-  view: Match.Optional String
+  view: Match.Optional Object
   require: Match.Optional String
 
 addSimpleSchemaMessages = ->
