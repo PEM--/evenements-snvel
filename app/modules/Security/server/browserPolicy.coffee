@@ -12,8 +12,8 @@ console.log 'Settings Browser Policy'
 for origin in [
   '*.meteor.com'
   '*.meteor.com/*'
-  Meteor.settings.public.proxy.url.split('://')[1]
-  "#{Meteor.settings.public.proxy.url.split('://')[1]}*"
+  Meteor.settings.proxy.url.split('://')[1]
+  "#{Meteor.settings.proxy.url.split('://')[1]}*"
   Meteor.absoluteUrl().split('://')[1]
   Meteor.absoluteUrl('*').split('://')[1]
 ]

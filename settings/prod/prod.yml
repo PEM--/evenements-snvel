@@ -1,8 +1,2 @@
-public:
-  proxy:
-    url: https://evenements-snvel.fr/
-  googleAnalytics:
-    UA: 'UA-73432166-1'
-  contact:
-    email: 'evenements@snvel.fr'
-    defaultSubject: "Evènements SNVEL - Demande d'informations"
+proxy:
+  url: https://evenements-snvel.fr/
