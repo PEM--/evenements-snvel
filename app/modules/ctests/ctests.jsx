@@ -23,20 +23,23 @@ class Tests extends React.Component {
   onChange2() { this.setState({isChecked2: !this.state.isChecked2}); }
   onChange3() { this.setState({isChecked3: !this.state.isChecked3}); }
   onChange4() { this.setState({isChecked4: !this.state.isChecked4}); }
-  onSelectedRadio(e) { this.setState({radioSelected: e.target.value}); }
+  onSelectedRadio(e) {
+    console.log('Radio', e);
+    this.setState({radioSelected: e});
+  }
   selectTable1(e) { this.setState({table1: e.target.value}); }
   selectTable2(e) { this.setState({table2: e.target.value}); }
   onTextChange(e) {
-    console.log('Text', e.target.value);
-    this.setState({text: e.target.value});
+    console.log('Text', e);
+    this.setState({text: e});
   }
   onEmailChange(e) {
-    console.log('Email', e.target.value);
-    this.setState({email: e.target.value});
+    console.log('Email', e);
+    this.setState({email: e});
   }
   onPasswordChange(e) {
-    console.log('Password', e.target.value);
-    this.setState({password: e.target.value});
+    console.log('Password', e);
+    this.setState({password: e});
   }
   onErrorText() {
     this.setState({

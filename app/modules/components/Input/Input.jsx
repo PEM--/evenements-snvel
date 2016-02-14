@@ -3,6 +3,7 @@ const reactKey = 0;
 const Input = ({type, label = null, placeholder, errorText = null, value, onChange}) => {
   const inLabel = label ? label : `${placeholder} :`;
   const inError = errorText !== null;
+  const interceptor = (e) => onChange(e.target.value);
   return (
     <div className={classNames('formGroup', {'error': inError})}>
       {
@@ -10,7 +11,7 @@ const Input = ({type, label = null, placeholder, errorText = null, value, onChan
       }
       <input
         id={`reactKey_${reactKey}`} type={type} placeholder={placeholder}
-        value={value} onChange={onChange}
+        value={value} onChange={interceptor}
       />
       {
         errorText ? <span className='errorText animated shake'>{errorText}</span> : ''

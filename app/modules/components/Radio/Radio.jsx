@@ -2,6 +2,7 @@ let mainReactKey = 0;
 
 const Radio = ({label, options, value, onChange}) => {
   mainReactKey++;
+  const interceptor = (e) => onChange(e.target.value);
   return (
     <div>
       {
@@ -15,7 +16,7 @@ const Radio = ({label, options, value, onChange}) => {
               type='radio' name={`radio_${mainReactKey}`}
               value={o.value}
               checked={o.value === value}
-              onChange={onChange}
+              onChange={interceptor}
             />
             <label htmlFor={`radio_${mainReactKey}_${idx++}`}>{o.label}</label>
           </div>

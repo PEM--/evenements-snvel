@@ -1,9 +1,9 @@
 const { Views } = MainApp;
 const { Input, Button, AnimatedLink } = Views;
 
-formFromSchema = (form, schema) => {
+formFromSchema = (form, schema, initialState = null) => {
   // Create the initial state
-  let state = MainApp.Schema[schema].clean({});
+  let state = initialState ? initialState : MainApp.Schema[schema].clean({});
   const keys = MainApp.Schema[schema].objectKeys();
   keys.reduce((acc, k) => {
     acc[`error${s.capitalize(k)}`] = null;
@@ -15,7 +15,7 @@ formFromSchema = (form, schema) => {
   let functions = keys.forEach(k => {
     form[`onChange${s.capitalize(k)}`] = function(e) {
       let stateModifier = {};
-      stateModifier[k] = e.target.value;
+      stateModifier[k] = e;
       form.setState(stateModifier);
     };
     form[`onChange${s.capitalize(k)}`] = form[`onChange${s.capitalize(k)}`].bind(form);
@@ -28,7 +28,9 @@ formFromSchema = (form, schema) => {
         acc[prop] = def.view[prop];
         return acc;
       }, {
-        key: `schema.${k}.${idx}`
+        key: `schema.${k}.${idx}`,
+        value: form.state[k],
+        onChange: form[`onChange${s.capitalize(k)}`]
       });
     const widget = React.createElement(MainApp.Views[def.view.name], props);
     return widget;
