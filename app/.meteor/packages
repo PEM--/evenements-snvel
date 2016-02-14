@@ -56,6 +56,9 @@ aldeed:autoform
 aldeed:collection2
 aldeed:simple-schema
 dburles:collection-helpers
+gwendall:simple-schema-i18n
+tap:i18n
+tap:i18n-bundler
 
 # Utils
 dburles:google-maps

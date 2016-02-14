@@ -1,4 +1,4 @@
-const { CheckBox, Input, Button, AnimatedLink } = MainApp.Views;
+const { Select, Input, Button, AnimatedLink } = MainApp.Views;
 
 class SignOnUp extends React.Component {
   constructor(props) {

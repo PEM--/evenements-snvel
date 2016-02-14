@@ -24,6 +24,7 @@ browser-policy-framing@1.0.6
 caching-compiler@1.0.0
 caching-html-compiler@1.0.2
 callback-hook@1.0.4
+cfs:http-methods@0.0.30
 check@1.1.0
 chuangbo:cookie@1.1.0
 coffeescript@1.0.11
@@ -46,6 +47,7 @@ fastclick@1.0.7
 gadicohen:robots-txt@0.0.10
 gadicohen:sitemaps@0.0.23
 geojson-utils@1.0.4
+gwendall:simple-schema-i18n@0.2.1
 hot-code-push@1.0.0
 html-tools@1.0.5
 htmljs@1.0.5
@@ -70,6 +72,7 @@ meteorhacks:inject-data@1.4.1
 meteorhacks:npm@1.5.0
 meteorhacks:picker@1.0.3
 meteorhacks:subs-manager@1.6.3
+meteorspark:util@0.2.0
 minifiers@1.1.7
 minimongo@1.0.10
 mobile-experience@1.0.1
@@ -111,6 +114,8 @@ spacebars@1.0.7
 spacebars-compiler@1.0.7
 srp@1.0.4
 standard-minifiers@1.0.2
+tap:i18n@1.5.1
+tap:i18n-bundler@0.1.0
 templating@1.1.5
 templating-tools@1.0.0
 tracker@1.0.9

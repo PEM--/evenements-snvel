@@ -1,6 +1,6 @@
 // Accounts options
 console.log('Configure accounts');
 Accounts.config({
-  sendVerificationEmail: true,
+  sendVerificationEmail: false,
   forbidClientAccountCreation: false
 });

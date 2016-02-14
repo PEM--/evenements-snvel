@@ -1,0 +1,1 @@
+mailTo = require('mailtolink');

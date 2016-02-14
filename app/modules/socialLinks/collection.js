@@ -21,9 +21,10 @@ initSocialLinks = () => {
       if (!defaultSubject) {
         console.warn('Contact default subject not defined in settings');
       }
-      const mailUrl = `mailto:${Meteor.settings.public.contact.email}` +
-        (defaultSubject ? `subject:${Meteor.settings.public.contact.defaultSubject}` : '') +
-        `?body=Bonjour`;
+      const mailUrl = mailTo(Meteor.settings.public.contact.email, {
+        subject: Meteor.settings.public.contact.defaultSubject,
+        body: 'Bonjour'
+      });
       [
         {iconName: 'twitter', link: '#'},
         {iconName: 'facebook', link: '#'},
