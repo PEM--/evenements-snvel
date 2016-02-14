@@ -2,5 +2,7 @@
   "classnames": "2.2.3",
   "exposify": "0.5.0",
   "react-select": "0.9.1",
-  "mailtolink": "0.1.0"
+  "mailtolink": "0.1.0",
+  "google-libphonenumber": "1.0.12",
+  "world-countries": "v1.7.7"
 }

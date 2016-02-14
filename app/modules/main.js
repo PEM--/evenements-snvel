@@ -7,7 +7,7 @@ Meteor.startup(() => {
   // Initialize subscriptions
   initSubscriptionCache();
   // Initiliaze subscription that doesn't produce pages
-  initUsers();
+  // initUsers();
   initSocialLinks();
   // Start routing
   initRouterDone();
