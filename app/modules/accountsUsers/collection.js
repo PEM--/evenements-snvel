@@ -13,15 +13,17 @@ initUsers = () => {
         'Membre du CA SNVEL'
       ],
       autoValue: function() {
-        return this.definition.allowedValues[0];
+        const allowedValues = MainApp.Schema.ProfileSchema.getAllowedValuesForKey('category');
+        return allowedValues[0];
       }
     },
     csoNumber: {
       type: String, optional: true, label: 'N° ordinal',
       custom: function() {
         const def = this.field('category');
-        if (def.value === 'Adhérent SNVEL') {
-          if (this.value.length < 1 && this.value.length > 7) {
+        const allowedValues = MainApp.Schema.ProfileSchema.getAllowedValuesForKey('category');
+        if (def.value === allowedValues[0]) {
+          if (!this.value || (this.value.length < 1 && this.value.length > 7)) {
             return 'csoNumberError';
           }
         }
