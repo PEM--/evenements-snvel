@@ -7,16 +7,16 @@ class Tests extends React.Component {
       isChecked1: false, isChecked2: true, isChecked3: false, isChecked4: true,
       radioSelected: 'choice1',
       table1: 'choice2', table2: 'choice3',
-      text: '', errorText: false,
-      email: 'pemarchandet@gmail.com', errorEmail: true,
-      password: '', errorPassword: false,
+      text: '', errorText: null,
+      email: 'pemarchandet@gmail.com', errorEmail: null,
+      password: '', errorPassword: null,
       select: 'one'
     };
     [
       'onChange1', 'onChange2', 'onChange3', 'onChange4', 'onSelectedRadio',
       'selectTable1', 'selectTable2', 'onTextChange', 'onEmailChange',
       'onPasswordChange', 'onErrorText', 'onErrorEmail', 'onErrorPassword',
-      'onSelectChange'
+      'onSelectChange', 'onBetterPassword'
     ].map(f => this[f] = this[f].bind(this));
   }
   onChange1() { this.setState({isChecked1: !this.state.isChecked1}); }
@@ -38,28 +38,32 @@ class Tests extends React.Component {
     console.log('Password', e.target.value);
     this.setState({password: e.target.value});
   }
-  onErrorText() { this.setState({errorText: !this.state.errorText}); }
-  onErrorEmail() { this.setState({errorEmail: !this.state.errorEmail}); }
-  onErrorPassword() { this.setState({errorPassword: !this.state.errorPassword}); }
+  onErrorText() {
+    this.setState({
+      errorText: this.state.errorText ? null : 'Erreur dans le texte'
+    });
+  }
+  onErrorEmail() {
+    this.setState({
+      errorEmail: this.state.errorEmail ? null : 'Email incorrect'
+    });
+  }
+  onErrorPassword() {
+    this.setState({
+      errorPassword: this.state.errorPassword ? null : 'Mot de passe incorrect'
+    });
+  }
   onSelectChange(e) {
     console.log('onSelectChange', e);
     this.setState({select: e});
+  }
+  onBetterPassword(e) {
+    console.log(`onBetterPassword: '${e}'`);
   }
   render() {
     console.log('Test component');
     return (
       <div className='MainContent maximized'>
-        <Password />
-        <Select
-          name='select'
-          value='one'
-          onChange={this.onSelectChange}
-          placeholder='Sélectionner une option'
-          options={[
-            { value: 'one', label: 'One' },
-            { value: 'two', label: 'Two' }
-          ]}
-        />
         <h1 className='lisibility'>Typography</h1>
         <p className='lisibility'>Repeated paragraphs.</p>
         <p className='lisibility'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -86,7 +90,7 @@ class Tests extends React.Component {
         </ol>
         <hr />
         <h1 className='lisibility'>Forms</h1>
-        <h2>Basic form</h2>
+        <h2 className='lisibility'>Basic form</h2>
         <form>
           <fieldset>
             <label>Error setter</label>
@@ -95,28 +99,36 @@ class Tests extends React.Component {
               <CheckBox isChecked={this.state.errorPassword} onChange={this.onErrorPassword}>Error in Password: </CheckBox>
           </fieldset>
           <fieldset>
+            <Select
+              name='select'
+              value='one'
+              onChange={this.onSelectChange}
+              placeholder='Sélectionner une option'
+              options={[
+                { value: 'one', label: 'One' },
+                { value: 'two', label: 'Two' }
+              ]}
+            />
             <div className='fieldsContainer'>
+              <Password onChange={this.onBetterPassword} />
               <Input
                 type='text' label='Enter your text here: '
                 placeholder='Enter your text here'
-                hasError={this.state.errorText}
-                errorText='This field is mandatory'
+                errorText={this.state.errorText}
                 value={this.state.text}
                 onChange={this.onTextChange}
               />
               <Input
                 type='email' label='Enter your email here: '
                 placeholder='Enter your email here'
-                hasError={this.state.errorEmail}
-                errorText='This field is mandatory'
+                errorText={this.state.errorEmail}
                 value={this.state.email}
                 onChange={this.onEmailChange}
               />
               <Input
                 type='password' label='Enter your password here: '
                 placeholder='Enter your password here'
-                hasError={this.state.errorPassword}
-                errorText='This field is mandatory'
+                errorText={this.state.errorPassword}
                 value={this.state.password}
                 onChange={this.onPasswordChange}
               />
