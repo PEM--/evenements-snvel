@@ -1,27 +1,32 @@
 const { Views, Col } = MainApp;
 const { Header, Footer, MainMenu } = Views;
 
-const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages, user}) => (
-  <div style={{minHeight: '100vh'}}>
-    <MainMenu
-      isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle}
-      user={user}
-    />
-    <div
-      className='flex col'
-      style={{minHeight: '100%'}}
-    >
-      <Header onMenuToggle={onMenuToggle} />
-      <main className='flexItemDynamicSize'>
-        {children}
-      </main>
-      <Footer
-        className='flexItemStaticSize primary2Color'
-        basicPages={basicPages}
+const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages, user}) => {
+  console.log('children', children)
+  let enhancedChildren = Object.assign({}, children);
+  enhancedChildren.props = {user};
+  return (
+    <div style={{minHeight: '100vh'}}>
+      <MainMenu
+        isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle}
+        user={user}
       />
+      <div
+        className='flex col'
+        style={{minHeight: '100%'}}
+      >
+        <Header onMenuToggle={onMenuToggle} />
+        <main className='flexItemDynamicSize'>
+          {enhancedChildren}
+        </main>
+        <Footer
+          className='flexItemStaticSize primary2Color'
+          basicPages={basicPages}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 class MainLayout extends Views.BaseReactMeteor {
   getMeteorData() {

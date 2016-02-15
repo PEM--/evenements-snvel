@@ -24,6 +24,7 @@ const MenuItem = ({icon, text, name}) => {
 };
 
 const MainMenu = ({isMenuOpen, onMenuToggle, user}) => {
+  console.log('MainMenu', user);
   const items = [ {needSignOn: 0, icon: 'home', text: 'Accueil', name: 'home'},
     {needSignOn: 1, admin: 0, icon: 'user', text: 'Connexion', name: 'signon'},
     {needSignOn: 1, admin: 0, icon: 'edit', text: 'Créer votre compte', name: 'signup'},
@@ -39,7 +40,6 @@ const MainMenu = ({isMenuOpen, onMenuToggle, user}) => {
     }
   }).filter(m => {
     if (m.admin) {
-      console.log('user', user, user.isAdmin());
       return user && user.isAdmin();
     }
     return true;

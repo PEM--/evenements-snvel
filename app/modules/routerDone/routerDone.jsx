@@ -10,13 +10,11 @@ const declareRoutes = () => {
     {route: '/presentation', name: 'presentation', children: <Views.Presentation /> },
     {route: '/subscribe', name: 'subscribe', children: <Views.Subscribe /> },
     {route: '/admin', name: 'admin', children: <Views.Admin /> }
-  ].forEach((r) => {
+  ].forEach(r => {
     FlowRouter.route(r.route, {
       name: r.name,
       action() {
-        ReactLayout.render(Views.MainLayout, {
-          children: r.children
-        });
+        ReactLayout.render(Views.MainLayout, { children: r.children });
       }
     });
     console.log(`Route ${r.name} declared`);
@@ -36,10 +34,26 @@ const declareRoutes = () => {
       console.log(`Route: ${page.slug} declared`);
     }
   });
+  // FlowRouter.triggers.enter([
+  //   function(context, redirect) {
+  //     if (!Meteor.userId()) {
+  //       redirect('signon');
+  //     }
+  //   }
+  // ], {only: ['admin', 'subscribe']});
   FlowRouter.triggers.exit([
     // Close menu on route change
     () => {if (Meteor.isClient) { Session.set('isMenuOpen', false); }}
   ]);
+  if (Meteor.isClient) {
+    Accounts.onLogin(function() {
+      console.log('*** USER IS LOGGED-IN !!!');
+      const name = FlowRouter.current().name;
+      if (name === 'signon') {
+        FlowRouter.go('/');
+      }
+    });
+  }
   // Not found
   FlowRouter.notFound = {
     action() {
