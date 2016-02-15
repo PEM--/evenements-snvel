@@ -101,6 +101,9 @@ initUsers = () => {
     }
   });
   Meteor.users.attachSchema(UsersSchema);
+  Meteor.users.helpers({
+    isAdmin() { return Roles.userIsInRole(this._id, 'admin'); }
+  });
 
   MainApp.Schema.UsersSchema = UsersSchema;
 };

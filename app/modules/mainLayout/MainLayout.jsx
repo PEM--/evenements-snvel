@@ -3,7 +3,10 @@ const { Header, Footer, MainMenu } = Views;
 
 const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages, user}) => (
   <div style={{minHeight: '100vh'}}>
-    <MainMenu isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle} />
+    <MainMenu
+      isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle}
+      user={user}
+    />
     <div
       className='flex col'
       style={{minHeight: '100%'}}
