@@ -13,7 +13,7 @@ formFromSchema = (form, schema, initialState = null) => {
       let stateModifier = {};
       stateModifier[k] = e;
       form.setState(stateModifier);
-    }.bind(form);
+    };
   });
   // Create a form checking function
   form.validateForm = function() {
@@ -27,7 +27,6 @@ formFromSchema = (form, schema, initialState = null) => {
       result[error.errors[0].name] = error.reason;
       return result;
     }
-    return result;
   }.bind(form);
   // Create nodes filled with widget
   form.nodes = keys.map(k => {
@@ -41,7 +40,6 @@ formFromSchema = (form, schema, initialState = null) => {
         onChange: form[`onChange${s.capitalize(k)}`]
       });
     return (currentState, formStatus) => {
-      console.log('Node', k, currentState[k], schema, def.view.name);
       let addProps = { value: currentState[k] };
       if (formStatus.hasOwnProperty(k) && currentState[k].length > 0) {
         addProps.errorText = formStatus[k];
