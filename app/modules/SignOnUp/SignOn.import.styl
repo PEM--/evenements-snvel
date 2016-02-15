@@ -1,5 +1,26 @@
 .MainContent.SignOn
   width 300px
+  .formError
+    display inline-block
+    width 100%
+    height 0
+    opacity 0
+    transition height defaultTransition, opacity defaultTransition
+    i
+      display inline-block
+      width 16px
+      height 0
+      color orange
+      margin-right 10px
+    span
+      color red
+      font-weight bold
+      font-size 90%
+    &.active
+      height 60px
+      opacity 1
+      i
+        height 16px
   .linkActions
     margin-top 10px
     i

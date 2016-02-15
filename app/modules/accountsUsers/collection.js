@@ -13,7 +13,8 @@ initUsers = () => {
         'Membre du CA SNVEL'
       ],
       autoValue: function() {
-        const allowedValues = MainApp.Schema.ProfileSchema.getAllowedValuesForKey('category');
+        const allowedValues = MainApp.Schema.ProfileSchema
+          .getDefinition('category').allowedValues;
         return allowedValues[0];
       }
     },
@@ -22,7 +23,8 @@ initUsers = () => {
       index: true, unique: true,
       custom: function() {
         const def = this.field('category');
-        const allowedValues = MainApp.Schema.ProfileSchema.getAllowedValuesForKey('category');
+        const allowedValues = MainApp.Schema.ProfileSchema
+          .getDefinition('category').allowedValues;
         if (def.value === allowedValues[0]) {
           if (!this.value || (this.value.length < 1 && this.value.length > 7)) {
             return 'csoNumberError';

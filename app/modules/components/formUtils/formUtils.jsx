@@ -18,12 +18,13 @@ formFromSchema = (form, schema, initialState = null) => {
   // Create a form checking function
   form.validateForm = function() {
     try {
-      MainApp.Schema[schema].validate(this.state);
+      const formState = MainApp.Schema[schema].clean(
+        Object.assign({}, this.state)
+      );
+      MainApp.Schema[schema].validate(formState);
       return { isValidForm: true };
     } catch (error) {
-      let result = {
-        isValidForm: false
-      };
+      let result = { isValidForm: false };
       result[error.errors[0].name] = error.reason;
       return result;
     }

@@ -5,10 +5,18 @@ class SignOn extends React.Component {
   constructor(props) {
     super(props);
     formFromSchema(this, 'SignOnSchema');
+    this.state.formError = null;
     this.onClick = this.onClick.bind(this);
   }
   onClick() {
-    console.log('Validating form', this.state);
+    Meteor.loginWithPassword(this.state.email, this.state.password, (error) => {
+      if (error) {
+        console.warn('Login error', error);
+        this.setState({formError: 'Nous ne vous avons pas identifié'});
+      } else {
+        FlowRouter.go('/');
+      }
+    });
   }
   render() {
     const formStatus = this.validateForm();
@@ -21,6 +29,16 @@ class SignOn extends React.Component {
               { this.nodes.map(n => n(this.state, formStatus)) }
             </div>
           </fieldset>
+          {
+            <div
+              className={classNames('formError', {
+                active: this.state.formError
+              })}
+            >
+              <i className='fa fa-warning'></i>
+              <span>{this.state.formError}</span>
+            </div>
+          }
           <Button
             isDisabled={!formStatus.isValidForm}
             onClick={this.onClick}
