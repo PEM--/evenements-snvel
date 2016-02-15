@@ -106,4 +106,15 @@ initUsers = () => {
   });
 
   MainApp.Schema.UsersSchema = UsersSchema;
+
+  if (Meteor.isServer) {
+    // Publish
+    Meteor.publish('users.me', function() {
+      if (!this.userId) {
+        return this.ready();
+      }
+      return Meteor.users.find(this.userId);
+    });
+    // console.log('BasicPages filled and exposed');
+  }
 };

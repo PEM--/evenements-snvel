@@ -1,23 +1,17 @@
 const { Views, Col } = MainApp;
 const { Header, Footer, MainMenu } = Views;
 
-const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages, user}) => {
-  console.log('children', children)
-  let enhancedChildren = Object.assign({}, children);
-  enhancedChildren.props = {user};
+const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages}) => {
   return (
     <div style={{minHeight: '100vh'}}>
-      <MainMenu
-        isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle}
-        user={user}
-      />
+      <MainMenu isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle} />
       <div
         className='flex col'
         style={{minHeight: '100%'}}
       >
         <Header onMenuToggle={onMenuToggle} />
         <main className='flexItemDynamicSize'>
-          {enhancedChildren}
+          {children}
         </main>
         <Footer
           className='flexItemStaticSize primary2Color'
@@ -31,13 +25,12 @@ const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages, user}) => {
 class MainLayout extends Views.BaseReactMeteor {
   getMeteorData() {
     if (Meteor.isServer) { const handle = Meteor.subscribe('basicPages.all'); }
-    if (Meteor.isClient) {
-      console.log('MainLayout: getting data');
-      if (!globalSubs.ready()) { return { basicPages: [] }; }
-    }
+    // if (Meteor.isClient) {
+    //   console.log('MainLayout: getting data');
+    //   if (!globalSubs.ready()) { return { basicPages: [] }; }
+    // }
     return {
       basicPages: Col.BasicPages.find({}, {fields: {title: 1, slug: 1}}).fetch(),
-      user: Meteor.user(),
       isMenuOpen: Meteor.isClient ? Session.get('isMenuOpen') : false
     };
   }
@@ -171,7 +164,6 @@ class MainLayout extends Views.BaseReactMeteor {
         onMenuToggle={this.onMenuToggle}
         isMenuOpen={this.data.isMenuOpen}
         basicPages={this.data.basicPages}
-        user={this.data.user}
       >
         {this.props.children}
       </MainBody>

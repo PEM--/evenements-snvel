@@ -23,7 +23,7 @@ const MenuItem = ({icon, text, name}) => {
   );
 };
 
-const MainMenu = ({isMenuOpen, onMenuToggle, user}) => {
+const DumbMainMenu = ({isMenuOpen, onMenuToggle, user}) => {
   console.log('MainMenu', user);
   const items = [ {needSignOn: 0, icon: 'home', text: 'Accueil', name: 'home'},
     {needSignOn: 1, admin: 0, icon: 'user', text: 'Connexion', name: 'signon'},
@@ -38,6 +38,7 @@ const MainMenu = ({isMenuOpen, onMenuToggle, user}) => {
     case 1: { return user ? false : true; }
     default: { return user ? true : false; }
     }
+    return true;
   }).filter(m => {
     if (m.admin) {
       return user && user.isAdmin();
@@ -55,5 +56,24 @@ const MainMenu = ({isMenuOpen, onMenuToggle, user}) => {
     </nav>
   );
 };
+
+class MainMenu extends MainApp.Views.BaseReactMeteor {
+  constructor(props) {
+    super(props);
+  }
+  getMeteorData() {
+    if (Meteor.isServer) { const handle = Meteor.subscribe('users.me'); }
+    // if (Meteor.isClient) {
+    //   if (!globalSubs.ready()) { return { user: null }; }
+    // }
+    return { user: Meteor.user() };
+  }
+  render() {
+    // return <nav className='MainMenu'>En attente</nav>;
+    const { isMenuOpen, onMenuToggle } = this.props;
+    return <DumbMainMenu isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle} user={this.data.user} />;
+  }
+}
+
 
 MainApp.Views.MainMenu = MainMenu;

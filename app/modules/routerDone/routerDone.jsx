@@ -45,15 +45,15 @@ const declareRoutes = () => {
     // Close menu on route change
     () => {if (Meteor.isClient) { Session.set('isMenuOpen', false); }}
   ]);
-  if (Meteor.isClient) {
-    Accounts.onLogin(function() {
-      console.log('*** USER IS LOGGED-IN !!!');
+  Accounts.onLogin(function() {
+    console.log('*** USER IS LOGGED-IN !!!');
+    if (Meteor.isClient) {
       const name = FlowRouter.current().name;
       if (name === 'signon') {
         FlowRouter.go('/');
       }
-    });
-  }
+    }
+  });
   // Not found
   FlowRouter.notFound = {
     action() {
