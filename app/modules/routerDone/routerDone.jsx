@@ -46,7 +46,6 @@ const declareRoutes = () => {
     () => {if (Meteor.isClient) { Session.set('isMenuOpen', false); }}
   ]);
   Accounts.onLogin(function() {
-    console.log('*** USER IS LOGGED-IN !!!');
     if (Meteor.isClient) {
       const name = FlowRouter.current().name;
       if (name === 'signon') {

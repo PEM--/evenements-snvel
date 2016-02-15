@@ -24,7 +24,6 @@ const MenuItem = ({icon, text, name}) => {
 };
 
 const DumbMainMenu = ({isMenuOpen, onMenuToggle, user}) => {
-  console.log('MainMenu', user);
   const items = [ {needSignOn: 0, icon: 'home', text: 'Accueil', name: 'home'},
     {needSignOn: 1, admin: 0, icon: 'user', text: 'Connexion', name: 'signon'},
     {needSignOn: 1, admin: 0, icon: 'edit', text: 'Créer votre compte', name: 'signup'},
@@ -63,9 +62,6 @@ class MainMenu extends MainApp.Views.BaseReactMeteor {
   }
   getMeteorData() {
     if (Meteor.isServer) { const handle = Meteor.subscribe('users.me'); }
-    // if (Meteor.isClient) {
-    //   if (!globalSubs.ready()) { return { user: null }; }
-    // }
     return { user: Meteor.user() };
   }
   render() {
@@ -74,6 +70,5 @@ class MainMenu extends MainApp.Views.BaseReactMeteor {
     return <DumbMainMenu isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle} user={this.data.user} />;
   }
 }
-
 
 MainApp.Views.MainMenu = MainMenu;
