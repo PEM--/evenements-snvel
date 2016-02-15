@@ -14,7 +14,10 @@ class SignOn extends React.Component {
         console.warn('Login error', error);
         this.setState({formError: 'Nous ne vous avons pas identifié'});
       } else {
-        FlowRouter.go('/');
+        const beforeSignon = Session.get('beforeSignon');
+        const nextPath = !beforeSignon || beforeSignon === '/signon' ? '/' : beforeSignon;
+        Session.set(beforeSignon, null);
+        FlowRouter.go(nextPath);
       }
     });
   }

@@ -34,25 +34,19 @@ const declareRoutes = () => {
       console.log(`Route: ${page.slug} declared`);
     }
   });
-  // FlowRouter.triggers.enter([
-  //   function(context, redirect) {
-  //     if (!Meteor.userId()) {
-  //       redirect('signon');
-  //     }
-  //   }
-  // ], {only: ['admin', 'subscribe']});
+  FlowRouter.triggers.enter([
+    function(context, redirect) {
+      console.log('Tigger', context.path);
+      if (!Meteor.userId()) {
+        Session.set('beforeSignon', context.path);
+        redirect('signon');
+      }
+    }
+  ], {only: ['admin', 'subscribe']});
   FlowRouter.triggers.exit([
     // Close menu on route change
     () => {if (Meteor.isClient) { Session.set('isMenuOpen', false); }}
   ]);
-  Accounts.onLogin(function() {
-    if (Meteor.isClient) {
-      const name = FlowRouter.current().name;
-      if (name === 'signon') {
-        FlowRouter.go('/');
-      }
-    }
-  });
   // Not found
   FlowRouter.notFound = {
     action() {
