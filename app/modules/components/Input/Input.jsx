@@ -4,7 +4,6 @@ const Input = ({type, label = null, placeholder, errorText = null, value, onChan
   const inLabel = label ? label : `${placeholder} :`;
   const inError = errorText !== null;
   const interceptor = (e) => onChange(e.target.value);
-  console.log('Input', value, errorText);
   return (
     <div className={classNames('formGroup', {'error': inError})}>
       {
