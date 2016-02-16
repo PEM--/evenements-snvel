@@ -2,10 +2,6 @@ formFromSchema = (form, schema, initialState = null) => {
   // Create the initial state
   let state = initialState ? initialState : MainApp.Schema[schema].clean({});
   const keys = MainApp.Schema[schema].objectKeys();
-  keys.reduce((acc, k) => {
-    // acc[`error${s.capitalize(k)}`] = null;
-    return acc;
-  }, state);
   form.state = state;
   // Create the state manipulation functions
   let functions = keys.forEach(k => {

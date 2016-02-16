@@ -1,67 +1,28 @@
-const { Select, Input, Password, Button, AnimatedLink } = MainApp.Views;
+const { Views } = MainApp;
+const { Input, Button, AnimatedLink } = Views;
 
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isSubscriber: false,
-      csoNumber: '',
-      csoNumberError: null,
-      email: '',
-      emailError: null,
-      password: '',
-      passwordError: 'Un minimum de 6 caractères',
-      confirm: '',
-      confirmError: null,
-      isValidForm: false,
-      isSignUp: this.props.isSignUp ? this.props.isSignUp : false
-    };
-    [
-      'onEmailChange', 'onPasswordChange', 'onConfirmChange', 'onCsoNumberChange'
-    ].map(f => this[f] = this[f].bind(this));
+    formFromSchema(this, 'SignUpSchema');
   }
-  onCsoNumberChange(e) {
-    console.log('e', e);
-    this.setState({csoNumber: e.target.value });
-  }
-  onEmailChange(e) { this.setState({email: e.target.value }); }
-  onPasswordChange(e) { this.setState({password: e.target.value }); }
-  onConfirmChange(e) { this.setState({confirm: e.target.value }); }
   render() {
-    const { isSignUp } = this.props;
+    const formStatus = this.validateForm();
     return (
       <section className='maximized MainContent SignUp animated fadeIn'>
         <h1>Création de compte</h1>
         <form>
           <fieldset>
             <div className='fieldsContainer'>
-              <Input
-                type='text' placeholder='Entrez votre n° CSO'
-                hasError={this.state.csoNumberError}
-                value={this.state.csoNumber}
-                onChange={this.onCsoNumberChange}
-                />
-            </div>
-            <div className='fieldsContainer'>
-              <Input
-                type='email' placeholder='Entrez votre email'
-                hasError={this.state.errorEmail}
-                value={this.state.email}
-                onChange={this.onEmailChange}
-              />
-              <Password
-                onChange={this.onPasswordChange}
-              />
-              <Input
-                type='password' placeholder='Confirmer votre mot de passe'
-                errorText={this.state.errorConfirm}
-                value={this.state.confirm}
-                onChange={this.onConfirmChange}
-              />
+              { this.nodes.map(n => n(this.state, formStatus)) }
             </div>
           </fieldset>
           <div className='buttons'>
-            <Button isDisabled={!this.state.isValidForm} >Je crée mon compte</Button>
+            <Button
+              isDisabled={!formStatus.isValidForm}
+            >
+              Je crée mon compte
+            </Button>
           </div>
         </form>
         <div className='linkActions'>

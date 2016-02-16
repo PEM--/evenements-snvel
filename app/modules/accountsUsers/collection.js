@@ -16,6 +16,9 @@ initUsers = () => {
         const allowedValues = MainApp.Schema.ProfileSchema
           .getDefinition('category').allowedValues;
         return allowedValues[0];
+      }, view: {
+        name: 'Input', type: 'text', label: 'Sélectionner votre catégorie :',
+        placeholder: 'Votre catégorie'
       }
     },
     csoNumber: {
@@ -31,16 +34,53 @@ initUsers = () => {
           }
         }
         return true;
+      }, defaultValue: '', view: {
+        name: 'Input', type: 'text', label: 'Entrez votre n° ordinal :',
+        placeholder: 'Votre n° ordinal'
       }
     },
-    company: { type: String, label: 'Nom de l\'entreprise', min: 1, max: 256 },
-    lastName: { type: String, label: 'Nom du contact', min: 1, max: 256 },
-    firstName: { type: String, label: 'Prénom du contact', min: 1, max: 256 },
-    address: {
-      type: Object, label: 'Adresse de facturation'
+    company: {
+      type: String, label: 'Nom de l\'entreprise', /*min: 1, max: 256, */
+      defaultValue: '', view: {
+        name: 'Input', type: 'text', label: 'Entrez le nom de notre entreprise :',
+        placeholder: 'Votre entreprise'
+      }
     },
-    phone: { type: String, label: 'N° de téléphone fixe', min: 1, max: 256, optional: true },
-    mobile: { type: String, label: 'N° de mobile', min: 1, max: 256, optional: true },
+    lastName: {
+      type: String, label: 'Nom du contact', min: 1, max: 256,
+      defaultValue: '', view: {
+        name: 'Input', type: 'text', label: 'Entrez le nom de votre représentant :',
+        placeholder: 'Votre nom'
+      }
+    },
+    firstName: {
+      type: String, label: 'Prénom du contact', min: 1, max: 256,
+      defaultValue: '', view: {
+        name: 'Input', type: 'text', label: 'Votre prénom :',
+        placeholder: 'Votre prénom'
+      }
+    },
+    address: {
+      type: Object, label: 'Adresse de facturation',
+      defaultValue: '', view: {
+        name: 'Input', type: 'text', label: 'Votre adresse de facturation :',
+        placeholder: 'Votre rue'
+      }
+    },
+    phone: {
+      type: String, label: 'N° de téléphone fixe', min: 1, max: 256,
+      optional: true, defaultValue: '', view: {
+        name: 'Input', type: 'text', label: 'Entrez notre n° de ligne fixe :',
+        placeholder: 'Votre n° de téléphone fixe'
+      }
+    },
+    mobile: {
+      type: String, label: 'N° de mobile', min: 1, max: 256, optional: true,
+      defaultValue: '', view: {
+        name: 'Input', type: 'text', label: 'Entrez n° de mobile :',
+        placeholder: 'Votre n° mobile'
+      }
+    }
   };
 
   const ProfileSchema = new SimpleSchema(Profile);
@@ -65,8 +105,20 @@ initUsers = () => {
   MainApp.Schema.SignOnSchema = SignOnSchema;
 
   const SignUpSchema = new SimpleSchema(Object.assign({
-    email: { type: String, label: 'Email', regEx: SimpleSchema.RegEx.Email },
-    password: { type: String, label: 'Mot de passe', min: 6, max: 128 },
+    email: {
+      type: String, label: 'Email', regEx: SimpleSchema.RegEx.Email,
+      defaultValue: '', view: {
+        name: 'Input', type: 'email', label: 'Entrez votre email :',
+        placeholder: 'Votre email'
+      }
+    },
+    password: {
+      type: String, label: 'Mot de passe', min: 6, max: 128,
+      defaultValue: '', view: {
+        name: 'Password', label: 'Choisissez un mot de passe :',
+        placeholder: 'Votre mot de passe'
+      }
+    },
     confirm: {
       type: String, label: 'Confirmation', min: 6, max: 128,
       custom: function() {
@@ -75,6 +127,10 @@ initUsers = () => {
           return 'passwordNotConfirmMatch';
         }
         return true;
+      }, defaultValue: '', view: {
+        name: 'Input', type: 'password',
+        label: 'Confirmer votre mot de passe :',
+        placeholder: 'Votre mot de passe'
       }
     }
   }, Profile));
@@ -92,7 +148,7 @@ initUsers = () => {
       optional: true,
       blackbox: true
     },
-    roles: { type: [String], label: 'Rôles', optional: true, defaultValue: ['public']},
+    roles: {type: [String], label: 'Rôles', optional: true, defaultValue: ['public']},
     lastConnection: {type: Date, label: 'Dernière connexion réalisée le', defaultValue: new Date()},
     profile: {
       type: MainApp.Schema.ProfileSchema,

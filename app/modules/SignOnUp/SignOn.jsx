@@ -32,16 +32,14 @@ class SignOn extends React.Component {
               { this.nodes.map(n => n(this.state, formStatus)) }
             </div>
           </fieldset>
-          {
-            <div
-              className={classNames('formError', {
-                active: this.state.formError
-              })}
-            >
-              <i className='fa fa-warning'></i>
-              <span>{this.state.formError}</span>
-            </div>
-          }
+          <div
+            className={classNames('formError', {
+              active: this.state.formError
+            })}
+          >
+            <i className='fa fa-warning'></i>
+            <span>{this.state.formError}</span>
+          </div>
           <Button
             isDisabled={!formStatus.isValidForm}
             onClick={this.onClick}
