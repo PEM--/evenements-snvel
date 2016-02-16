@@ -1,9 +1,7 @@
 initUsers = () => {
   const Profile = {
     category: {
-      label: 'Catégorie',
-      type: String,
-      allowedValues: [
+      label: 'Catégorie', type: String, allowedValues: [
         'Adhérent SNVEL',
         'Conférencier',
         'Partenaire',
@@ -17,13 +15,13 @@ initUsers = () => {
           .getDefinition('category').allowedValues;
         return allowedValues[0];
       }, view: {
-        name: 'Input', type: 'text', label: 'Sélectionner votre catégorie :',
+        name: 'Select', label: 'Sélectionner votre catégorie :',
         placeholder: 'Votre catégorie'
       }
     },
     csoNumber: {
       type: String, optional: true, label: 'N° ordinal',
-      index: true, unique: true,
+      index: true, unique: true, min: 1, max: 8,
       custom: function() {
         const def = this.field('category');
         const allowedValues = MainApp.Schema.ProfileSchema
@@ -40,7 +38,7 @@ initUsers = () => {
       }
     },
     company: {
-      type: String, label: 'Nom de l\'entreprise', /*min: 1, max: 256, */
+      type: String, label: 'Nom de l\'entreprise', min: 1, max: 256,
       defaultValue: '', view: {
         name: 'Input', type: 'text', label: 'Entrez le nom de notre entreprise :',
         placeholder: 'Votre entreprise'
@@ -61,7 +59,7 @@ initUsers = () => {
       }
     },
     address: {
-      type: Object, label: 'Adresse de facturation',
+      type: String, label: 'Adresse de facturation', min: 1, max: 256,
       defaultValue: '', view: {
         name: 'Input', type: 'text', label: 'Votre adresse de facturation :',
         placeholder: 'Votre rue'
@@ -116,7 +114,8 @@ initUsers = () => {
       type: String, label: 'Mot de passe', min: 6, max: 128,
       defaultValue: '', view: {
         name: 'Password', label: 'Choisissez un mot de passe :',
-        placeholder: 'Votre mot de passe'
+        placeholder: 'Votre mot de passe',
+        hint: 'Votre mot de passe devrait contenir plusieurs majuscules, minuscules, chiffres et symboles.'
       }
     },
     confirm: {

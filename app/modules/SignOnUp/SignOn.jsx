@@ -1,5 +1,5 @@
 const { Views } = MainApp;
-const { Input, Button, AnimatedLink } = Views;
+const { Button, AnimatedLink } = Views;
 
 class SignOn extends React.Component {
   constructor(props) {
@@ -62,4 +62,4 @@ class SignOn extends React.Component {
   }
 }
 
-MainApp.Views.SignOn = SignOn;
+Views.SignOn = SignOn;

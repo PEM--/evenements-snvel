@@ -20,8 +20,8 @@ class Password extends React.Component {
     return (
       <div className='password'>
         <Input
-          type='password' label='Définissez votre mot de passe'
-          placeholder='Votre mot de passe'
+          type='password' label={this.props.label}
+          placeholder={this.props.placeholder}
           value={this.state.password}
           onChange={this.onInnerChange}
         />
@@ -32,9 +32,7 @@ class Password extends React.Component {
           strong: this.state.strength > 2,
           flash: this.state.strength > 2,
         })} />
-        <div className='hint'>
-          Votre mot de passe devrait contenir plusieurs majuscules, minuscules, chiffres et symboles.
-        </div>
+        <div className='hint'>{this.props.hint}</div>
       </div>
     );
   }

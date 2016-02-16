@@ -1,5 +1,5 @@
 const { Views } = MainApp;
-const { Input, Button, AnimatedLink } = Views;
+const { Button, AnimatedLink } = Views;
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -34,4 +34,4 @@ class SignUp extends React.Component {
   }
 }
 
-MainApp.Views.SignUp = SignUp;
+Views.SignUp = SignUp;

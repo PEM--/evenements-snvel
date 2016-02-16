@@ -1,1 +1,1 @@
-Select = Meteor.npmRequire('react-select');
+MainApp.Views.Select = Meteor.npmRequire('react-select');
