@@ -46,19 +46,19 @@ meteorhacks:subs-manager
 # Accounts & Security
 accounts-password
 alanning:roles
-audit-argument-checks
+#audit-argument-checks
 check
 browser-policy
 matteodem:easy-security
 
 # Collections
-aldeed:autoform
 aldeed:collection2
 aldeed:simple-schema
 dburles:collection-helpers
-gwendall:simple-schema-i18n
+tmeasday:publish-counts
 tap:i18n
 tap:i18n-bundler
+gwendall:simple-schema-i18n
 
 # Utils
 dburles:google-maps

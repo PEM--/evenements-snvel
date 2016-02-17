@@ -1,13 +1,11 @@
 accounts-base@1.2.2
 accounts-password@1.1.4
 alanning:roles@1.2.14
-aldeed:autoform@5.8.1
 aldeed:collection2@2.8.0
 aldeed:collection2-core@1.0.0
 aldeed:schema-deny@1.0.1
 aldeed:schema-index@1.0.1
 aldeed:simple-schema@1.5.3
-audit-argument-checks@1.0.4
 autoupdate@1.2.4
 babel-compiler@5.8.24_1
 babel-runtime@0.1.4
@@ -119,6 +117,7 @@ tap:i18n@1.7.0
 tap:i18n-bundler@0.3.0
 templating@1.1.5
 templating-tools@1.0.0
+tmeasday:publish-counts@0.7.3
 tracker@1.0.9
 ui@1.0.8
 underscore@1.0.4

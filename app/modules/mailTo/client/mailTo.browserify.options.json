@@ -1,12 +1,13 @@
 {
   "transforms": {
-      "exposify": {
-          "global": true,
-          "expose": {
-              "jquery": "jQuery",
-              "react": "React",
-              "react/addons": "React"
-          }
+    "exposify": {
+      "global": true,
+      "expose": {
+        "jquery": "jQuery",
+        "react": "React",
+        "react/addons": "React",
+        "react-dom": "ReactDOM"
       }
+    }
   }
 }

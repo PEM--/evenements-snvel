@@ -1,4 +1,4 @@
-const { Button, CheckBox, Radio, Input, Password, Table } = MainApp.Views;
+const { Button, CheckBox, Radio, Input, Password, Table, Select } = MainApp.Views;
 
 class Tests extends React.Component {
   constructor(props) {
@@ -10,7 +10,8 @@ class Tests extends React.Component {
       text: '', errorText: null,
       email: 'pemarchandet@gmail.com', errorEmail: null,
       password: '', errorPassword: null,
-      select: 'one'
+      select: 'one',
+      showSubComponent: 0
     };
     [
       'onChange1', 'onChange2', 'onChange3', 'onChange4', 'onSelectedRadio',
@@ -65,9 +66,23 @@ class Tests extends React.Component {
   }
   render() {
     console.log('Test component');
+    const fakeData = [
+      { "id": 0, "name": "Pierre-Eric", "city": "Reims" },
+      { "id": 2, "name": "Anne", "city": "Paris" },
+      { "id": 3, "name": "Louis", "city": "Paris" },
+    ];
     return (
       <div className='MainContent maximized'>
-        <h1 className='lisibility'>Typography</h1>
+        {/*<Griddle results={fakeData} />*/}
+        <MeteorGriddle
+          publication='basicPages.all'
+          collection={MainApp.Col.BasicPages}
+          matchingResultsCount='basicPages.counter'
+          filteredFields={['_id', 'title', 'slug']} />
+        {/*<ReactVelocity.VelocityComponent animation={{ opacity: this.state.showSubComponent ? 1 : 0 }} duration={500}>
+          <h1 className='lisibility'>Typography</h1>
+        </ReactVelocity.VelocityComponent>*/}
+
         <p className='lisibility'>Repeated paragraphs.</p>
         <p className='lisibility'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         <h2 className='lisibility'>Header2</h2>
