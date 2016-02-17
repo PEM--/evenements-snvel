@@ -1,18 +1,12 @@
 {
   "transforms": {
-    "externalify": {
-      "global": true,
-      "external": {
-        "react": "React.require",
-        "react-dom": "React.require",
-        "react/addons": "React"
-      }
-    },
     "exposify": {
       "global": true,
       "expose": {
-        "underscore": "_",
-        "jquery": "jQuery"
+        "jquery": "jQuery",
+        "react": "React",
+        "reac-dom": "ReactDOM",
+        "react/addons": "React"
       }
     }
   }
