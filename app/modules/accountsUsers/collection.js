@@ -35,21 +35,20 @@ initUsers = () => {
         }
         return true;
       }, defaultValue: '', view: {
-        name: 'Input', type: 'text', label: 'Entrez votre n° ordinal :',
-        placeholder: 'Votre n° ordinal'
+        name: 'Input', type: 'text', placeholder: 'Votre n° ordinal'
       }
     },
     company: {
       type: String, label: 'Nom de l\'entreprise', min: 1, max: 256,
       defaultValue: '', view: {
-        name: 'Input', type: 'text', label: 'Entrez le nom de notre entreprise :',
+        name: 'Input', type: 'text', label: 'Votre entreprise :',
         placeholder: 'Votre entreprise'
       }
     },
     lastName: {
       type: String, label: 'Nom du contact', min: 1, max: 256,
       defaultValue: '', view: {
-        name: 'Input', type: 'text', label: 'Entrez le nom de votre représentant :',
+        name: 'Input', type: 'text', label: 'Votre représentant :',
         placeholder: 'Votre nom'
       }
     },
