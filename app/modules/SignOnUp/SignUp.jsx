@@ -7,14 +7,25 @@ class SignUp extends React.Component {
     formFromSchema(this, 'SignUpSchema');
   }
   render() {
+    const filter1stFields = ['email', 'password', 'confirm'];
     const formStatus = this.validateForm();
+    console.log(this.nodes)
     return (
       <section className='maximized MainContent SignUp animated fadeIn'>
         <h1>Création de compte</h1>
         <form>
           <fieldset>
             <div className='fieldsContainer'>
-              { this.nodes.map(n => n(this.state, formStatus)) }
+              { this.nodes.filter(n => filter1stFields.indexOf(n.name) !== -1)
+                .map(n => n.widget(this.state, formStatus))
+              }
+            </div>
+          </fieldset>
+          <fieldset>
+            <div className='fieldsContainer'>
+              { this.nodes.filter(n => filter1stFields.indexOf(n.name) === -1)
+                .map(n => n.widget(this.state, formStatus))
+              }
             </div>
           </fieldset>
           <div className='buttons'>

@@ -36,14 +36,17 @@ formFromSchema = (form, schema, initialState = null) => {
         key: `${schema}.${k}`,
         onChange: form[`onChange${s.capitalize(k)}`]
       });
-    return (currentState, formStatus) => {
-      let addProps = { value: currentState[k] };
-      if (formStatus.hasOwnProperty(k) && currentState[k].length > 0) {
-        addProps.errorText = formStatus[k];
+    return {
+      name: k,
+      widget: (currentState, formStatus) => {
+        let addProps = { value: currentState[k] };
+        if (formStatus.hasOwnProperty(k) && currentState[k].length > 0) {
+          addProps.errorText = formStatus[k];
+        }
+        return React.createElement(
+          MainApp.Views[def.view.name], Object.assign({}, props, addProps)
+        );
       }
-      return React.createElement(
-        MainApp.Views[def.view.name], Object.assign({}, props, addProps)
-      );
     };
   });
 };

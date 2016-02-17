@@ -29,7 +29,7 @@ class SignOn extends React.Component {
         <form>
           <fieldset>
             <div className='fieldsContainer'>
-              { this.nodes.map(n => n(this.state, formStatus)) }
+              { this.nodes.map(n => n.widget(this.state, formStatus)) }
             </div>
           </fieldset>
           <div
