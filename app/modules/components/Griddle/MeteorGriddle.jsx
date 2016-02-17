@@ -76,7 +76,10 @@ MeteorGriddle = React.createClass({
     // figure out how many pages we have based on the number of total results matching the cursor
     const maxPages = Math.round(this.data.matchingResults / this.state.externalResultsPerPage);
     const columnMetadata = this.props.columns.map(c => {
-      return { columnName: this.props.collection.simpleSchema().label(c) };
+      return {
+        columnName: c,
+        displayName: this.props.collection.simpleSchema().label(c)
+      };
     });
     console.log('columnMetadata', columnMetadata);
     return <Griddle
@@ -90,6 +93,8 @@ MeteorGriddle = React.createClass({
       showSettings={false}
       settingsText='Réglages'
       tableClassName='table'
+      columns={this.props.columns}
+      columnMetadata={columnMetadata}
       results={this.data.results}
       externalSetPage={this.setPage}
       externalChangeSort={this.changeSort}
