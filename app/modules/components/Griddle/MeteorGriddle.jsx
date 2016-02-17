@@ -50,7 +50,6 @@ MeteorGriddle = React.createClass({
     Meteor.subscribe(this.props.publication, query, _.extend({skip: skip}, options));
     // create the cursor
     var results = this.props.collection.find(query, options).fetch();
-    console.log('Query', query, options);
     // return data
     return {
       results: results,
@@ -75,23 +74,23 @@ MeteorGriddle = React.createClass({
   },
   render() {
     // figure out how many pages we have based on the number of total results matching the cursor
-    var maxPages = Math.round(this.data.matchingResults / this.state.externalResultsPerPage);
+    const maxPages = Math.round(this.data.matchingResults / this.state.externalResultsPerPage);
+    const columnMetadata = this.props.columns.map(c => {
+      return { columnName: this.props.collection.simpleSchema().label(c) };
+    });
     return <Griddle
       {...this.props}
-      sortAscendingComponent={<span className="fa fa-sort-alpha-asc"></span>}
-      sortDescendingComponent={<span className="fa fa-sort-alpha-desc"></span>}
-      columnMetadata={this.props.columns.map(c => {
-        return { columnName: this.props.collection.simpleSchema().label(c) };
-      })}
+      sortAscendingComponent={<span className='fa fa-sort-alpha-asc'></span>}
+      sortDescendingComponent={<span className='fa fa-sort-alpha-desc'></span>}
       useGriddleStyles={false}
       filteredFields={this.props.columns}
+      columnMetadata={columnMetadata}
       showFilter={true}
       filterPlaceholderText={'Taper votre recherche'}
       showSettings={false}
       settingsText='Réglages'
       tableClassName='table'
       results={this.data.results}
-      columnMetadata={this.props.columnMetadata}
       externalSetPage={this.setPage}
       externalChangeSort={this.changeSort}
       externalSetFilter={this.setFilter}
