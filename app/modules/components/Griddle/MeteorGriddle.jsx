@@ -80,6 +80,16 @@ MeteorGriddle = React.createClass({
       {...this.props}
       sortAscendingComponent={<span className="fa fa-sort-alpha-asc"></span>}
       sortDescendingComponent={<span className="fa fa-sort-alpha-desc"></span>}
+      columnMetadata={this.props.columns.map(c => {
+        return { columnName: this.props.collection.simpleSchema().label(c) };
+      })}
+      useGriddleStyles={false}
+      filteredFields={this.props.columns}
+      showFilter={true}
+      filterPlaceholderText={'Taper votre recherche'}
+      showSettings={false}
+      settingsText='Réglages'
+      tableClassName='table'
       results={this.data.results}
       columnMetadata={this.props.columnMetadata}
       externalSetPage={this.setPage}

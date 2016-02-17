@@ -78,14 +78,8 @@ class Tests extends React.Component {
           publication='basicPages.all'
           collection={MainApp.Col.BasicPages}
           matchingResultsCount='basicPages.counter'
-          columnMetadata={[
-            MainApp.Col.BasicPages.simpleSchema().label('title'),
-            MainApp.Col.BasicPages.simpleSchema().label('slug')
-          ]}
-          showFilter={true}
-          showSettings={true}
           columns={['title', 'slug']}
-          filteredFields={['title', 'slug']} />
+        />
         {/*<ReactVelocity.VelocityComponent animation={{ opacity: this.state.showSubComponent ? 1 : 0 }} duration={500}>
           <h1 className='lisibility'>Typography</h1>
         </ReactVelocity.VelocityComponent>*/}
