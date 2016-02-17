@@ -21,9 +21,8 @@ initBasicPages = () => {
     }
     // Publish
     Meteor.publish('basicPages.all', function() {
-      const cursor = BasicPages.find();
-      Counts.publish(this, 'basicPages.counter', cursor);
-      return cursor;
+      Counts.publish(this, 'basicPages.counter', BasicPages.find());
+      return BasicPages.find();
     });
     console.log('BasicPages filled and exposed');
   }

@@ -19,7 +19,7 @@ MeteorGriddle = React.createClass({
     };
   },
   getMeteorData() {
-    var query = {};
+    let query = {};
     // get a count of the number of items matching the current filter
     // if no filter is set it will return the total number of items in the collection
     var matchingResults = Meteor.isClient ? Counts.get(this.props.matchingResultsCount) :
@@ -50,6 +50,7 @@ MeteorGriddle = React.createClass({
     Meteor.subscribe(this.props.publication, query, _.extend({skip: skip}, options));
     // create the cursor
     var results = this.props.collection.find(query, options).fetch();
+    console.log('Query', query, options);
     // return data
     return {
       results: results,
@@ -77,7 +78,8 @@ MeteorGriddle = React.createClass({
     var maxPages = Math.round(this.data.matchingResults / this.state.externalResultsPerPage);
     return <Griddle
       {...this.props}
-      tableClassName="table"
+      sortAscendingComponent={<span className="fa fa-sort-alpha-asc"></span>}
+      sortDescendingComponent={<span className="fa fa-sort-alpha-desc"></span>}
       results={this.data.results}
       columnMetadata={this.props.columnMetadata}
       externalSetPage={this.setPage}
