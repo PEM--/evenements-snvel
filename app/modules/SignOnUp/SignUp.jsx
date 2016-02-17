@@ -9,7 +9,6 @@ class SignUp extends React.Component {
   render() {
     const filter1stFields = ['email', 'password', 'confirm'];
     const formStatus = this.validateForm();
-    console.log(this.nodes)
     return (
       <section className='maximized MainContent SignUp animated fadeIn'>
         <h1>Création de compte</h1>
@@ -28,6 +27,14 @@ class SignUp extends React.Component {
               }
             </div>
           </fieldset>
+          <div
+            className={classNames('formError', {
+              active: this.state.formError
+            })}
+          >
+            <i className='fa fa-warning'></i>
+            <span>{this.state.formError}</span>
+          </div>
           <div className='buttons'>
             <Button
               isDisabled={!formStatus.isValidForm}
