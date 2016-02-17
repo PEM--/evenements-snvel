@@ -1,1 +1,0 @@
-ReactVelocity = require('velocity-react');

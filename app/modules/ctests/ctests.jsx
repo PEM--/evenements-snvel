@@ -71,6 +71,7 @@ class Tests extends React.Component {
           publication='basicPages.all'
           collection={MainApp.Col.BasicPages}
           matchingResultsCount='basicPages.counter'
+          columnMetadata={[{columnName: 'Yo'}, {columnName: 'Yi'}]}
           columns={['title', 'slug']}
         />
         <ReactVelocity.VelocityComponent animation={{ opacity: this.state.showSubComponent ? 1 : 0 }} duration={500}>
