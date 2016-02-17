@@ -1,22 +1,24 @@
+const PROFILE_CATEGORY = [
+  'Adhérent SNVEL',
+  'Conférencier',
+  'Partenaire',
+  'Filiale SNVEL',
+  'Etudiant adhérent SNVEL junior',
+  'Organisateur',
+  'Membre du CA SNVEL'
+];
+
 initUsers = () => {
   const Profile = {
     category: {
-      label: 'Catégorie', type: String, allowedValues: [
-        'Adhérent SNVEL',
-        'Conférencier',
-        'Partenaire',
-        'Filiale SNVEL',
-        'Etudiant adhérent SNVEL junior',
-        'Organisateur',
-        'Membre du CA SNVEL'
-      ],
+      label: 'Catégorie', type: String, allowedValues: PROFILE_CATEGORY,
       autoValue: function() {
         const allowedValues = MainApp.Schema.ProfileSchema
           .getDefinition('category').allowedValues;
         return allowedValues[0];
       }, view: {
         name: 'Select', label: 'Sélectionner votre catégorie :',
-        placeholder: 'Votre catégorie'
+        placeholder: 'Votre catégorie', options: PROFILE_CATEGORY
       }
     },
     csoNumber: {
@@ -68,14 +70,14 @@ initUsers = () => {
     phone: {
       type: String, label: 'N° de téléphone fixe', min: 1, max: 256,
       optional: true, defaultValue: '', view: {
-        name: 'Input', type: 'text', label: 'Entrez notre n° de ligne fixe :',
+        name: 'Input', type: 'tel', label: 'Entrez notre n° de ligne fixe :',
         placeholder: 'Votre n° de téléphone fixe'
       }
     },
     mobile: {
       type: String, label: 'N° de mobile', min: 1, max: 256, optional: true,
       defaultValue: '', view: {
-        name: 'Input', type: 'text', label: 'Entrez n° de mobile :',
+        name: 'Input', type: 'tel', label: 'Entrez n° de mobile :',
         placeholder: 'Votre n° mobile'
       }
     }

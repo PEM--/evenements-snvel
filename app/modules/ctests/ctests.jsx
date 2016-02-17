@@ -67,12 +67,6 @@ class Tests extends React.Component {
   render() {
     return (
       <div className='MainContent maximized'>
-        <MeteorGriddle
-          publication='basicPages.all'
-          collection={MainApp.Col.BasicPages}
-          columns={['title', 'slug']}
-          matchingResultsCount='basicPages.counter'
-        />
         <h1 className='lisibility'>Typography</h1>
         <p className='lisibility'>Repeated paragraphs.</p>
         <p className='lisibility'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -109,7 +103,6 @@ class Tests extends React.Component {
           </fieldset>
           <fieldset>
             <Select
-              name='select'
               value='one'
               onChange={this.onSelectChange}
               placeholder='Sélectionner une option'
@@ -119,7 +112,7 @@ class Tests extends React.Component {
               ]}
             />
             <div className='fieldsContainer'>
-              <Password onChange={this.onBetterPassword} />
+              <Password placeholder='Password creation' onChange={this.onBetterPassword} />
               <Input
                 type='text' label='Enter your text here: '
                 placeholder='Enter your text here'
@@ -248,6 +241,12 @@ class Tests extends React.Component {
               />
             ]
           ]}
+        />
+        <MeteorGriddle
+          publication='basicPages.all'
+          collection={MainApp.Col.BasicPages}
+          columns={['title', 'slug']}
+          matchingResultsCount='basicPages.counter'
         />
       </div>
     );

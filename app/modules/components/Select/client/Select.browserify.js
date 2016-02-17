@@ -1,1 +1,1 @@
-MainApp.Views.Select = require('react-select');
+ReactSelect = require('react-select');

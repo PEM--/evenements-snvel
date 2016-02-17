@@ -21,17 +21,17 @@ $select-input-border-color =        mix(cream, orange)
 $select-input-border-radius =       $radius
 $select-input-border-focus =        orange
 $select-input-border-width =        2px
-$select-input-height =              36px
+$select-input-height =              32px
 $select-input-internal-height =     ($select-input-height - ($select-input-border-width * 2))
 $select-input-placeholder =         lighten(darkViolet, 20%)
 $select-text-color =                darkViolet
 $select-link-hover-color =          $select-input-border-focus
 
-$select-padding-vertical =          8px
-$select-padding-horizontal =        10px
+$select-padding-vertical =          4px
+$select-padding-horizontal =        8px
 
 // menu options
-$select-menu-zindex =               10
+$select-menu-zindex =               100
 $select-menu-max-height =           200px
 
 $select-option-color =              lighten($select-text-color, 20%)
@@ -78,3 +78,6 @@ $select-item-disabled-border-color = darken($select-item-disabled-bg, 10%)
 @import 'modules/components/Select/client/control.import.styl'
 @import 'modules/components/Select/client/menu.import.styl'
 @import 'modules/components/Select/client/multi.import.styl'
+
+// .formGroup
+//   margin-
