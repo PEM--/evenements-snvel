@@ -42,6 +42,7 @@ class SignOn extends React.Component {
           </div>
           <Button
             isDisabled={!formStatus.isValidForm}
+            isPrimary={true}
             onClick={this.onClick}
           >
             Je me connecte

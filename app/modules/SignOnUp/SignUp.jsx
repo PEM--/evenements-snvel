@@ -5,7 +5,13 @@ class SignUp extends React.Component {
   constructor(props) {
     super(props);
     formFromSchema(this, 'SignUpSchema');
+    this.onCreate = this.onCreate.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
+  onCreate() {
+
+  }
+  onCancel() { FlowRouter.go('/'); }
   render() {
     const filter1stFields = ['email', 'password', 'confirm'];
     const filterAddress = [
@@ -55,18 +61,17 @@ class SignUp extends React.Component {
           <div className='buttons'>
             <Button
               isDisabled={!formStatus.isValidForm}
+              isPrimary={true}
+              iconName='user-plus'
+              onClick={this.onCreate}
             >
-              Je crée mon compte et crée mon inscription
+              Je crée mon compte
             </Button>
             <Button
-              isDisabled={!formStatus.isValidForm}
+              iconName='times'
+              onClick={this.onCancel}
             >
-              Je crée mon compte et continuerait mon inscription plus tard
-            </Button>
-            <Button
-              isDisabled={!formStatus.isValidForm}
-            >
-              J'annule ma création de compte
+              J'annule
             </Button>
 
           </div>
