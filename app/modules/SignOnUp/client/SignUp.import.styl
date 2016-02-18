@@ -3,7 +3,6 @@
     text-align center
   .invoiceAddress
     .formGroup
-      // width calc(100% - 200px)
       label
         width 190px
       input, .Select
@@ -26,3 +25,21 @@
           width 80px
         input
           width calc(100% - 80px)
+
+@media only screen and (max-width: 720px)
+  .MainContent.SignUp .invoiceAddress .formGroup
+    &:nth-of-type(3)
+      width 100%
+    &:nth-of-type(4)
+      width 100%
+      label
+        width 190px
+      input
+        width calc(100% - 200px)
+
+@media only screen and (max-width: 550px)
+  .MainContent.SignUp .invoiceAddress .formGroup
+    input
+      width calc(100% - 10px) !important
+    .Select
+      width 100% !important

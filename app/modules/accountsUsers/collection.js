@@ -43,7 +43,8 @@ initUsers = () => {
     company: {
       type: String, label: 'Nom de l\'entreprise', min: 1, max: 256,
       defaultValue: '', view: {
-        name: 'Input', type: 'text', placeholder: 'Votre entreprise'
+        name: 'Input', type: 'text', label: 'Votre entreprise :',
+        placeholder: 'Nom de l\'entreprise ou de la structure'
       }
     },
     lastName: {
