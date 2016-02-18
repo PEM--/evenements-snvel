@@ -8,7 +8,6 @@ formFromSchema = (form, schema, initialState = null) => {
     form[`onChange${s.capitalize(k)}`] = function(e) {
       let stateModifier = {};
       stateModifier[k] = e;
-      console.log(`onChange${s.capitalize(k)}`, e, stateModifier);
       form.setState(stateModifier);
     };
   });
@@ -46,7 +45,7 @@ formFromSchema = (form, schema, initialState = null) => {
           addProps.errorText = formStatus[k];
         }
         return React.createElement(
-          MainApp.Views[def.view.name], Object.assign({}, props, addProps)
+          MainApp.Views[def.view.name], Object.assign({name: k}, props, addProps)
         );
       }
     };

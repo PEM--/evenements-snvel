@@ -50,7 +50,7 @@ initUsers = () => {
         placeholder: 'Nom de l\'entreprise ou de la structure'
       }
     },
-    lastName: {
+    name: {
       type: String, label: 'Nom du contact', min: 1, max: 256,
       defaultValue: '', view: {
         name: 'Input', type: 'text', label: 'Votre représentant :',
@@ -70,14 +70,14 @@ initUsers = () => {
       }
     },
     addressComplementary: {
-      type: String, label: 'Complément d\'adresse', min: 1, max: 256,
+      type: String, label: 'Complément d\'adresse', min: 0, max: 256,
       optional: true, defaultValue: '', view: {
         name: 'Input', type: 'text', label: 'Complément d\'adresse :',
         placeholder: 'Bâtiments, voirie, lieu-dit, ...'
       }
     },
     postalCode: {
-      type: String, label: 'Code postal', min: 1, max: 5,
+      type: String, label: 'Code postal', min: 1, max: 7,
       defaultValue: '', view: {
         name: 'Input', type: 'text', label: 'Votre code postal :',
         placeholder: 'Code postal'
@@ -98,14 +98,14 @@ initUsers = () => {
       }
     },
     phone: {
-      type: String, label: 'N° de ligne fixe', min: 1, max: 16,
-      optional: true, defaultValue: '', regEx: PHONE_NUMBER_REGEX, view: {
+      type: String, label: 'N° de ligne fixe', min: 0, max: 16,
+      optional: true, defaultValue: '', view: {
         name: 'Input', type: 'tel', placeholder: 'Votre n° de téléphone fixe'
       }
     },
     mobile: {
-      type: String, label: 'N° de mobile', min: 1, max: 16,
-      optional: true, defaultValue: '', regEx: PHONE_NUMBER_REGEX, view: {
+      type: String, label: 'N° de mobile', min: 6, max: 16,
+      defaultValue: '', regEx: PHONE_NUMBER_REGEX, view: {
         name: 'Input', type: 'tel', placeholder: 'Votre n° mobile'
       }
     }

@@ -21,7 +21,7 @@ class SignUp extends React.Component {
     return (
       <section className='maximized MainContent SignUp animated fadeIn'>
         <h1>Création de compte</h1>
-        <form>
+        <form autoComplete='on'>
           <fieldset>
             <legend>Compte sur la plateforme</legend>
             <div className='fieldsContainer'>

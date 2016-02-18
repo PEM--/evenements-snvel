@@ -1,6 +1,7 @@
 const reactKey = 0;
 const Input = ({
   type,
+  name,
   label = null, placeholder,
   errorText = null,
   disabled = false,
@@ -21,7 +22,7 @@ const Input = ({
         inLabel ? <label htmlFor={`reactKey_${reactKey}`}>{inLabel}</label> : ''
       }
       <input
-        id={`reactKey_${reactKey}`} type={type} placeholder={placeholder}
+        id={`reactKey_${reactKey}`} name={name} type={type} placeholder={placeholder}
         value={value} onChange={interceptor}
         disabled={disabled}
       />

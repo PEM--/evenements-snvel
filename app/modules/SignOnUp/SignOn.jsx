@@ -26,7 +26,7 @@ class SignOn extends React.Component {
     return (
       <section className='maximized MainContent SignOn animated fadeInDown'>
         <h1>Connexion</h1>
-        <form>
+        <form autoComplete='on'>
           <fieldset>
             <div className='fieldsContainer'>
               { this.nodes.map(n => n.widget(this.state, formStatus)) }

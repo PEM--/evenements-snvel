@@ -1,15 +1,9 @@
 const reactKey = 0;
-const Select = ({label, placeholder, errorText = null, value, options, onChange}) => {
+const Select = ({name, label, placeholder, errorText = null, value, options, onChange}) => {
   const inLabel = label ? label : `${placeholder} :`;
   const inError = errorText !== null;
   const labeledOptions = typeof options[0] === 'object' ?
-    options : options.map(o => {
-      return { label: o, value: o };
-    });
-  const interception = (e) => {
-    console.log('Select', e)
-    return onChange(e);
-  }
+    options : options.map(o => ({ label: o, value: o }));
   return (
     <div className={classNames('formGroup formGroupSelect', {'error': inError})}>
       {
@@ -17,11 +11,12 @@ const Select = ({label, placeholder, errorText = null, value, options, onChange}
       }
       <ReactSelect
         id={`reactKey_${reactKey}`}
+        name={name}
         placeholder={placeholder}
         clearable={false}
         options={labeledOptions}
         value={value}
-        onChange={interception}
+        onChange={onChange}
       />
       {
         errorText ? <span className='errorText animated shake'>{errorText}</span> : ''
