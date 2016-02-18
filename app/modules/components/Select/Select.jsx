@@ -6,6 +6,10 @@ const Select = ({label, placeholder, errorText = null, value, options, onChange}
     options : options.map(o => {
       return { label: o, value: o };
     });
+  const interception = (e) => {
+    console.log('Select', e)
+    return onChange(e);
+  }
   return (
     <div className={classNames('formGroup formGroupSelect', {'error': inError})}>
       {
@@ -17,7 +21,7 @@ const Select = ({label, placeholder, errorText = null, value, options, onChange}
         clearable={false}
         options={labeledOptions}
         value={value}
-        onChange={onChange}
+        onChange={interception}
       />
       {
         errorText ? <span className='errorText animated shake'>{errorText}</span> : ''

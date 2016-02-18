@@ -15,9 +15,12 @@ initUsers = () => {
     category: {
       label: 'Catégorie', type: String, allowedValues: PROFILE_CATEGORY,
       autoValue: function() {
-        const allowedValues = MainApp.Schema.ProfileSchema
-          .getDefinition('category').allowedValues;
-        return allowedValues[0];
+        if (!this.value) {
+          const allowedValues = MainApp.Schema.ProfileSchema
+            .getDefinition('category').allowedValues;
+          return allowedValues[0];
+        }
+        return this.value;
       }, view: {
         name: 'Select', label: 'Sélectionner votre catégorie :',
         placeholder: 'Votre catégorie', options: PROFILE_CATEGORY
@@ -25,7 +28,7 @@ initUsers = () => {
     },
     csoNumber: {
       type: String, optional: true, label: 'N° ordinal',
-      index: true, unique: true, min: 1, max: 8,
+      index: true, unique: true, min: 0, max: 8,
       custom: function() {
         const def = this.field('category');
         const allowedValues = MainApp.Schema.ProfileSchema
@@ -40,7 +43,7 @@ initUsers = () => {
         name: 'Input', type: 'text', placeholder: 'Votre n° ordinal'
       }
     },
-    company: {
+    organization: {
       type: String, label: 'Nom de l\'entreprise', min: 1, max: 256,
       defaultValue: '', view: {
         name: 'Input', type: 'text', label: 'Votre entreprise :',
@@ -60,13 +63,13 @@ initUsers = () => {
         name: 'Input', type: 'text', placeholder: 'Votre prénom'
       }
     },
-    street: {
+    address: {
       type: String, label: 'Adresse', min: 1, max: 256,
       defaultValue: '', view: {
         name: 'Input', type: 'text', placeholder: 'Votre rue'
       }
     },
-    streetComplementary: {
+    addressComplementary: {
       type: String, label: 'Complément d\'adresse', min: 1, max: 256,
       optional: true, defaultValue: '', view: {
         name: 'Input', type: 'text', label: 'Complément d\'adresse :',

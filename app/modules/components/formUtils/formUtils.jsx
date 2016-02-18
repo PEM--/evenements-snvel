@@ -8,6 +8,7 @@ formFromSchema = (form, schema, initialState = null) => {
     form[`onChange${s.capitalize(k)}`] = function(e) {
       let stateModifier = {};
       stateModifier[k] = e;
+      console.log(`onChange${s.capitalize(k)}`, e, stateModifier);
       form.setState(stateModifier);
     };
   });
@@ -17,6 +18,7 @@ formFromSchema = (form, schema, initialState = null) => {
       const formState = MainApp.Schema[schema].clean(
         Object.assign({}, this.state)
       );
+      console.log('formState', formState);
       MainApp.Schema[schema].validate(formState);
       return { isValidForm: true };
     } catch (error) {

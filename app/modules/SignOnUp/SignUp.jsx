@@ -15,7 +15,7 @@ class SignUp extends React.Component {
   render() {
     const filter1stFields = ['email', 'password', 'confirm'];
     const filterAddress = [
-      'street', 'streetComplementary', 'postalCode', 'city', 'country'
+      'address', 'addressComplementary', 'postalCode', 'city', 'country'
     ];
     const formStatus = this.validateForm();
     return (
