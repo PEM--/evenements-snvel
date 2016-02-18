@@ -46,7 +46,7 @@ meteorhacks:subs-manager
 # Accounts & Security
 accounts-password
 alanning:roles
-#audit-argument-checks
+audit-argument-checks
 check
 browser-policy
 matteodem:easy-security
@@ -68,6 +68,7 @@ numeral:numeral
 underscorestring:underscore.string
 pierreeric:markdown
 codetheweb:zxcvbn
+ongoworks:google-spreadsheets
 
 # React
 react

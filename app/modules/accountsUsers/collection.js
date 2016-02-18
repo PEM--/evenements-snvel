@@ -14,7 +14,7 @@ initUsers = () => {
   const Profile = {
     category: {
       label: 'Catégorie', type: String, allowedValues: PROFILE_CATEGORY,
-      autoValue: function() {
+      autoValue() {
         if (!this.value) {
           const allowedValues = MainApp.Schema.ProfileSchema
             .getDefinition('category').allowedValues;
@@ -29,7 +29,7 @@ initUsers = () => {
     csoNumber: {
       type: String, optional: true, label: 'N° ordinal',
       index: true, unique: true, min: 0, max: 8,
-      custom: function() {
+      custom() {
         const def = this.field('category');
         const allowedValues = MainApp.Schema.ProfileSchema
           .getDefinition('category').allowedValues;
@@ -37,6 +37,10 @@ initUsers = () => {
           if (!this.value || (this.value.length < 1 && this.value.length > 7)) {
             return 'csoNumberError';
           }
+        }
+        if (Meteor.isServer) {
+          // return 'csoAlreadyDeclared';
+          return 'csoAlreadyDeclared';
         }
         return true;
       }, defaultValue: '', view: {
@@ -192,6 +196,34 @@ initUsers = () => {
 
   MainApp.Schema.UsersSchema = UsersSchema;
 
+  Meteor.methods({
+    'users.create': user => {
+      check(user, SignUpSchema);
+      if (this.userId) {
+        const internaleUser = Meteor.users.find(this.userId);
+        if (!internaleUser.isAdmin()) {
+          throw new Meteor.Error('unauthorized');
+        }
+      }
+      const newProfile = MainApp.Schema.ProfileSchema.objectKeys()
+        .reduce((acc, k) => {
+          acc[k] = user[k];
+          return acc;
+        }, {});
+      const _id = Accounts.createUser({
+        email: user.email,
+        password: user.password,
+        profile: newProfile
+      });
+      Roles.addUsersToRoles(_id, ['public']);
+      console.log('User created:', user.email);
+      this.unblock();
+      Accounts.sendVerificationEmail(_id);
+      console.log('Verification email sent for:', accountInfo.login.email);
+      return true;
+    }
+  });
+
   if (Meteor.isServer) {
     // Publish
     Meteor.publish('users.me', function() {
@@ -200,6 +232,6 @@ initUsers = () => {
       }
       return Meteor.users.find(this.userId);
     });
-    // console.log('BasicPages filled and exposed');
+    console.log('BasicPages filled and exposed');
   }
 };

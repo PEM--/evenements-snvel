@@ -59,6 +59,7 @@ appStartup = () => {
   initBasicPages();
   initUsers();
   initSocialLinks();
+  initSubscribers();
   declareRoutes();
 };
 
