@@ -20,7 +20,7 @@
   width calc(50% - 10px)
   height 40px
   margin 0 5px
-  transition height defaultTransition
+  transition height defaultTransition, opacity defaultTransition
   label
     pointer-events none
     display inline-block
@@ -41,6 +41,14 @@
     left 10px
     opacity 0
     transition opacity defaultTransition
+
+// Form disabled
+.formGroup.disabled
+  opacity .4
+  font-weight 200
+  italic()
+  pointer-events none
+
 // Form in error
 .formGroup.error
   height 58px

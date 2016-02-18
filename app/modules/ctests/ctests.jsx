@@ -10,14 +10,14 @@ class Tests extends React.Component {
       text: '', errorText: null,
       email: 'pemarchandet@gmail.com', errorEmail: null,
       password: '', errorPassword: null,
-      select: 'one',
-      showSubComponent: 0
+      select: 'one', showSubComponent: 0,
+      isDisabled: false
     };
     [
       'onChange1', 'onChange2', 'onChange3', 'onChange4', 'onSelectedRadio',
       'selectTable1', 'selectTable2', 'onTextChange', 'onEmailChange',
       'onPasswordChange', 'onErrorText', 'onErrorEmail', 'onErrorPassword',
-      'onSelectChange', 'onBetterPassword'
+      'onSelectChange', 'onBetterPassword', 'onDisabled'
     ].map(f => this[f] = this[f].bind(this));
   }
   onChange1() { this.setState({isChecked1: !this.state.isChecked1}); }
@@ -64,9 +64,19 @@ class Tests extends React.Component {
   onBetterPassword(e) {
     console.log(`onBetterPassword: '${e}'`);
   }
+  onDisabled() {
+    console.log('Disabling ?', this.state.isDisabled);
+    this.setState({isDisabled: !this.state.isDisabled});
+  }
   render() {
     return (
       <div className='MainContent maximized'>
+        <CheckBox isChecked={this.state.isDisabled} onChange={this.onDisabled}>Disabled: </CheckBox>
+        <Input
+          type='text' placeholder='Disabled on demand'
+          disabled={this.state.isDisabled}
+          onChange={() => {}}
+        />
         <h1 className='lisibility'>Typography</h1>
         <p className='lisibility'>Repeated paragraphs.</p>
         <p className='lisibility'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
