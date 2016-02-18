@@ -14,6 +14,7 @@ class SignUp extends React.Component {
         <h1>Création de compte</h1>
         <form>
           <fieldset>
+            <legend>Compte sur la plateforme</legend>
             <div className='fieldsContainer'>
               { this.nodes.filter(n => filter1stFields.indexOf(n.name) !== -1)
                 .map(n => n.widget(this.state, formStatus))
@@ -21,6 +22,7 @@ class SignUp extends React.Component {
             </div>
           </fieldset>
           <fieldset>
+            <legend>Vos informations personelles</legend>
             <div className='fieldsContainer'>
               { this.nodes.filter(n => filter1stFields.indexOf(n.name) === -1)
                 .map(n => n.widget(this.state, formStatus))
