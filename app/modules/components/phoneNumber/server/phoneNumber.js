@@ -1,1 +1,1 @@
-phoneNumber = Meteor.npmRequire('google-libphonenumber');
+// phoneNumber = Meteor.npmRequire('google-libphonenumber');

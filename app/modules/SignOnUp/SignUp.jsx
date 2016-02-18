@@ -56,8 +56,19 @@ class SignUp extends React.Component {
             <Button
               isDisabled={!formStatus.isValidForm}
             >
-              Je crée mon compte
+              Je crée mon compte et crée mon inscription
             </Button>
+            <Button
+              isDisabled={!formStatus.isValidForm}
+            >
+              Je crée mon compte et continuerait mon inscription plus tard
+            </Button>
+            <Button
+              isDisabled={!formStatus.isValidForm}
+            >
+              J'annule ma création de compte
+            </Button>
+
           </div>
         </form>
         <div className='linkActions'>
