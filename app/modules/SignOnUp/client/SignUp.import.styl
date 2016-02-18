@@ -1,9 +1,28 @@
 .MainContent.SignUp
   form .buttons
     text-align center
-  .linkActions
-    margin-top 10px
-    i
-      margin 0 10px 0 30px
-    i, a
-      font-size 80%
+  .invoiceAddress
+    .formGroup
+      // width calc(100% - 200px)
+      label
+        width 190px
+      input, .Select
+        width calc(100% - 190px)
+      // street and complementary
+      &:nth-of-type(1), &:nth-of-type(2)
+        display block
+        width 100%
+        +html5-inputs()
+          width calc(100% - 200px)
+      // postal code
+      &:nth-of-type(3)
+        width 300px
+        input
+          max-width 100px
+      // city
+      &:nth-of-type(4)
+        width calc(100% - 320px)
+        label
+          width 80px
+        input
+          width calc(100% - 80px)

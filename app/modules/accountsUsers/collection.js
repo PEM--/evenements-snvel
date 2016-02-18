@@ -8,6 +8,8 @@ const PROFILE_CATEGORY = [
   'Membre du CA SNVEL'
 ];
 
+const PHONE_NUMBER_REGEX = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/;
+
 initUsers = () => {
   const Profile = {
     category: {
@@ -41,8 +43,7 @@ initUsers = () => {
     company: {
       type: String, label: 'Nom de l\'entreprise', min: 1, max: 256,
       defaultValue: '', view: {
-        name: 'Input', type: 'text', label: 'Votre entreprise :',
-        placeholder: 'Votre entreprise'
+        name: 'Input', type: 'text', placeholder: 'Votre entreprise'
       }
     },
     lastName: {
@@ -55,29 +56,53 @@ initUsers = () => {
     firstName: {
       type: String, label: 'Prénom du contact', min: 1, max: 256,
       defaultValue: '', view: {
-        name: 'Input', type: 'text', label: 'Votre prénom :',
-        placeholder: 'Votre prénom'
+        name: 'Input', type: 'text', placeholder: 'Votre prénom'
       }
     },
-    address: {
-      type: String, label: 'Adresse de facturation', min: 1, max: 256,
+    street: {
+      type: String, label: 'Adresse', min: 1, max: 256,
       defaultValue: '', view: {
-        name: 'Input', type: 'text', label: 'Votre adresse de facturation :',
-        placeholder: 'Votre rue'
+        name: 'Input', type: 'text', placeholder: 'Votre rue'
+      }
+    },
+    streetComplementary: {
+      type: String, label: 'Complément d\'adresse', min: 1, max: 256,
+      optional: true, defaultValue: '', view: {
+        name: 'Input', type: 'text', label: 'Complément d\'adresse :',
+        placeholder: 'Bâtiments, voirie, lieu-dit, ...'
+      }
+    },
+    postalCode: {
+      type: String, label: 'Code postal', min: 1, max: 5,
+      defaultValue: '', view: {
+        name: 'Input', type: 'text', label: 'Votre code postal :',
+        placeholder: 'Code postal'
+      }
+    },
+    city: {
+      type: String, label: 'Votre ville', min: 1, max: 128,
+      defaultValue: '', view: {
+        name: 'Input', type: 'text', placeholder: 'Votre ville'
+      }
+    },
+    country: {
+      type: String, label: 'Votre pays', min: 1, max: 128,
+      defaultValue: 'France', allowedValues: countries.names(),
+      view: {
+        name: 'Select', label: 'Sélectionner votre pays :',
+        placeholder: 'Votre pays', options: countries.names()
       }
     },
     phone: {
-      type: String, label: 'N° de téléphone fixe', min: 1, max: 256,
-      optional: true, defaultValue: '', view: {
-        name: 'Input', type: 'tel', label: 'Entrez notre n° de ligne fixe :',
-        placeholder: 'Votre n° de téléphone fixe'
+      type: String, label: 'N° de ligne fixe', min: 1, max: 16,
+      optional: true, defaultValue: '', regEx: PHONE_NUMBER_REGEX, view: {
+        name: 'Input', type: 'tel', placeholder: 'Votre n° de téléphone fixe'
       }
     },
     mobile: {
-      type: String, label: 'N° de mobile', min: 1, max: 256, optional: true,
-      defaultValue: '', view: {
-        name: 'Input', type: 'tel', label: 'Entrez n° de mobile :',
-        placeholder: 'Votre n° mobile'
+      type: String, label: 'N° de mobile', min: 1, max: 16,
+      optional: true, defaultValue: '', regEx: PHONE_NUMBER_REGEX, view: {
+        name: 'Input', type: 'tel', placeholder: 'Votre n° mobile'
       }
     }
   };

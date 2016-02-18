@@ -8,6 +8,9 @@ class SignUp extends React.Component {
   }
   render() {
     const filter1stFields = ['email', 'password', 'confirm'];
+    const filterAddress = [
+      'street', 'streetComplementary', 'postalCode', 'city', 'country'
+    ];
     const formStatus = this.validateForm();
     return (
       <section className='maximized MainContent SignUp animated fadeIn'>
@@ -24,10 +27,22 @@ class SignUp extends React.Component {
           <fieldset>
             <legend>Vos informations personelles</legend>
             <div className='fieldsContainer'>
-              { this.nodes.filter(n => filter1stFields.indexOf(n.name) === -1)
+              { this.nodes
+                .filter(n => filter1stFields.indexOf(n.name) === -1)
+                .filter(n => filterAddress.indexOf(n.name) === -1)
                 .map(n => n.widget(this.state, formStatus))
               }
             </div>
+            <fieldset className='invoiceAddress'>
+              <legend>Votre adresse de facturation</legend>
+              <div className='fieldsContainer'>
+                { this.nodes
+                  .filter(n => filter1stFields.indexOf(n.name) === -1)
+                  .filter(n => filterAddress.indexOf(n.name) !== -1)
+                  .map(n => n.widget(this.state, formStatus))
+                }
+              </div>
+            </fieldset>
           </fieldset>
           <div
             className={classNames('formError', {
