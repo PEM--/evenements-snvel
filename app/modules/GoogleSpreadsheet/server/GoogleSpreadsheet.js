@@ -3,6 +3,22 @@ const serviceEmail = 'evenements-snvel@evenements-snvel.iam.gserviceaccount.com'
 const { Utils, Col } = MainApp;
 
 Object.assign(Utils, {
+  // importDiscounts() {
+  //   const spreadsheetName = 'Evènements SNVEL - Remises';
+  //   console.log('Fetching data from Google Drive:', spreadsheetName);
+  //   const result = Meteor.call('spreadsheet/fetch2', spreadsheetName, '1', {email: serviceEmail});
+  //   Object.keys(result.rows)
+  //     .filter((k, idx) => idx !== 0)
+  //     .forEach((k, idx) => {
+  //       const r = result.rows[k];
+  //       const userType = {
+  //         title: s(r[1]).trim().value(),
+  //         restricted: r[2] ? true : false
+  //       };
+  //       console.log('Insert user type from line', idx, 'and', userType, userType.restricted);
+  //       Col.UserTypes.insert(userType);
+  //     });
+  // },
   importUserTypes() {
     const spreadsheetName = 'Evènements SNVEL - Typologie participants';
     console.log('Fetching data from Google Drive:', spreadsheetName);
