@@ -4,5 +4,6 @@ initSubscriptionCache = () => {
   globalSubs.subscribe('socialLinks.all');
   globalSubs.subscribe('basicPages.all');
   globalSubs.subscribe('programs.all');
+  globalSubs.subscribe('userTypes.all');
   globalSubs.subscribe('users.me');
 };

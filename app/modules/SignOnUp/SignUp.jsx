@@ -1,7 +1,11 @@
-const { Views } = MainApp;
+const { Col, Views } = MainApp;
 const { Button, AnimatedLink } = Views;
 
-class SignUp extends React.Component {
+class SignUp extends Views.BaseReactMeteor {
+  getMeteorData() {
+    if (Meteor.isServer) { Meteor.subscribe('userTypes.all'); }
+    return { userTypes: Col.UserTypes.find().fetch() };
+  }
   constructor(props) {
     super(props);
     formFromSchema(this, 'SignUpSchema');

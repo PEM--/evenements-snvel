@@ -2,8 +2,10 @@ const reactKey = 0;
 const Select = ({name, label, placeholder, errorText = null, value, options, onChange}) => {
   const inLabel = label ? label : `${placeholder} :`;
   const inError = errorText !== null;
-  const labeledOptions = typeof options[0] === 'object' ?
-    options : options.map(o => ({ label: o, value: o }));
+  const resultOptions = typeof options === 'function' ? options() : options;
+  console.log('Options', resultOptions, typeof options);
+  const labeledOptions = typeof resultOptions[0] === 'object' ?
+    resultOptions : resultOptions.map(o => ({ label: o, value: o }));
   return (
     <div className={classNames('formGroup formGroupSelect', {'error': inError})}>
       {

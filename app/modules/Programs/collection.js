@@ -1,3 +1,5 @@
+const { Utils, Schema, Col } = MainApp;
+
 initPrograms = () => {
   const Programs = new Mongo.Collection('programs');
   const ConferencesSchema = new SimpleSchema({
@@ -28,8 +30,7 @@ initPrograms = () => {
     lattidure: {type: String, label: 'Lattitude', min: 2, max: 16},
     longitude: {type: String, label: 'Longitude', min: 2, max: 16},
     zoom: {type: String, label: 'Zoom', min: 1, max: 2, allowedValues: (() => {
-      let count = 2;
-      let res = [];
+      let count = 2, res = [];
       while (count++ < 21) {
         res.push(String(count));
       }
@@ -38,17 +39,17 @@ initPrograms = () => {
     events: { type: [EventsSchema], label: 'Evènements', minCount: 1, maxCount: 512 }
   });
   Meteor.users.attachSchema(ProgramsSchema);
-  MainApp.Schema.ProgramsSchema = ProgramsSchema;
-  MainApp.Schema.EventsSchema = EventsSchema;
-  MainApp.Schema.ConferencesSchema = ConferencesSchema;
-  MainApp.Schema.SessionsSchema = SessionsSchema;
-  MainApp.Schema.EventsSchema = EventsSchema;
-  MainApp.Col.Programs = Programs;
+  Schema.ProgramsSchema = ProgramsSchema;
+  Schema.EventsSchema = EventsSchema;
+  Schema.ConferencesSchema = ConferencesSchema;
+  Schema.SessionsSchema = SessionsSchema;
+  Schema.EventsSchema = EventsSchema;
+  Col.Programs = Programs;
   // Fill collection with default if necessary
   if (Meteor.isServer) {
     if (Programs.find().count() === 0) {
       console.log('Importing programs...');
-      MainApp.Utils.importPrograms();
+      Utils.importPrograms();
     }
     // Publish
     Meteor.publish('programs.all', function() {

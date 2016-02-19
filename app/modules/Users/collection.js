@@ -1,29 +1,49 @@
-const PROFILE_CATEGORY = [
-  'Adhérent SNVEL',
-  'Conférencier',
-  'Partenaire',
-  'Filiale SNVEL',
-  'Etudiant adhérent SNVEL junior',
-  'Organisateur',
-  'Membre du CA SNVEL'
-];
-
 const PHONE_NUMBER_REGEX = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/;
 
+const { Schema, Col, Utils } = MainApp;
+
 initUsers = () => {
+  const UserTypes = new Mongo.Collection('userTypes');
+  const UserTypesSchema = new SimpleSchema({
+    title: { type: String, min: 2, max: 64, index: true, unique: true },
+    restricted: { type: Boolean, defaultValue: false, index: true }
+  });
+  UserTypes.attachSchema(UserTypesSchema);
+  Schema.UserTypesSchema = UserTypesSchema;
+  Col.UserTypes = UserTypes;
+  // Fill collection with default if necessary
+  if (Meteor.isServer) {
+    if (UserTypes.find().count() === 0) {
+      console.log('Importing user types...');
+      Utils.importUserTypes();
+    }
+    // Publish
+    Meteor.publish('userTypes.all', function() {
+      const user = Meteor.users.findOne(this.userId);
+      const query = user && user.isAdmin() ? {} : {restricted: false};
+      console.log('Publishing for', query, this.userId, user);
+      return UserTypes.find(query);
+    });
+  }
+  console.log('User types filled and exposed');
+
   const Profile = {
     category: {
-      label: 'Catégorie', type: String, allowedValues: PROFILE_CATEGORY,
+      label: 'Catégorie', type: String, allowedValues() {
+        return UserTypes.find().fetch().map(u => u.title);
+      },
       autoValue() {
         if (!this.value) {
-          const allowedValues = MainApp.Schema.ProfileSchema
+          const allowedValues = Schema.ProfileSchema
             .getDefinition('category').allowedValues;
           return allowedValues[0];
         }
         return this.value;
       }, view: {
         name: 'Select', label: 'Sélectionner votre catégorie :',
-        placeholder: 'Votre catégorie', options: PROFILE_CATEGORY
+        placeholder: 'Votre catégorie', options() {
+          return UserTypes.find().fetch().map(u => u.title);
+        }
       }
     },
     csoNumber: {
@@ -31,7 +51,7 @@ initUsers = () => {
       index: true, unique: true, min: 0, max: 8,
       custom() {
         const def = this.field('category');
-        const allowedValues = MainApp.Schema.ProfileSchema
+        const allowedValues = Schema.ProfileSchema
           .getDefinition('category').allowedValues;
         if (def.value === allowedValues[0]) {
           if (!this.value || (this.value.length < 1 && this.value.length > 7)) {
@@ -116,7 +136,7 @@ initUsers = () => {
   };
 
   const ProfileSchema = new SimpleSchema(Profile);
-  MainApp.Schema.ProfileSchema = ProfileSchema;
+  Schema.ProfileSchema = ProfileSchema;
 
   const SignOnSchema = new SimpleSchema({
     email: {
@@ -134,7 +154,7 @@ initUsers = () => {
       }
     }
   });
-  MainApp.Schema.SignOnSchema = SignOnSchema;
+  Schema.SignOnSchema = SignOnSchema;
 
   const SignUpSchema = new SimpleSchema(Object.assign({
     email: {
@@ -167,7 +187,7 @@ initUsers = () => {
       }
     }
   }, Profile));
-  MainApp.Schema.SignUpSchema = SignUpSchema;
+  Schema.SignUpSchema = SignUpSchema;
 
   const UsersSchema = new SimpleSchema({
     emails: {type: [Object], label: 'Emails'},
@@ -184,7 +204,7 @@ initUsers = () => {
     roles: {type: [String], label: 'Rôles', optional: true, defaultValue: ['public']},
     lastConnection: {type: Date, label: 'Dernière connexion réalisée le', defaultValue: new Date()},
     profile: {
-      type: MainApp.Schema.ProfileSchema,
+      type: Schema.ProfileSchema,
       label: 'Information utilisateur',
       optional: true
     }
@@ -194,7 +214,7 @@ initUsers = () => {
     isAdmin() { return Roles.userIsInRole(this._id, 'admin'); }
   });
 
-  MainApp.Schema.UsersSchema = UsersSchema;
+  Schema.UsersSchema = UsersSchema;
 
   Meteor.methods({
     'users.create': user => {
@@ -205,7 +225,7 @@ initUsers = () => {
           throw new Meteor.Error('unauthorized');
         }
       }
-      const newProfile = MainApp.Schema.ProfileSchema.objectKeys()
+      const newProfile = Schema.ProfileSchema.objectKeys()
         .reduce((acc, k) => {
           acc[k] = user[k];
           return acc;
