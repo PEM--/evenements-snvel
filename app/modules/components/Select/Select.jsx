@@ -3,7 +3,6 @@ const Select = ({name, label, placeholder, errorText = null, value, options, onC
   const inLabel = label ? label : `${placeholder} :`;
   const inError = errorText !== null;
   const resultOptions = typeof options === 'function' ? options() : options;
-  console.log('Options', resultOptions, typeof options);
   const labeledOptions = typeof resultOptions[0] === 'object' ?
     resultOptions : resultOptions.map(o => ({ label: o, value: o }));
   return (
