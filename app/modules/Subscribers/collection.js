@@ -1,3 +1,5 @@
+const { Schema, Col, Utils } = MainApp;
+
 initSubscribers = () => {
   const Subscribers = new Mongo.Collection('subscribers');
   const SubscribersSchema = new SimpleSchema({
@@ -20,12 +22,35 @@ initSubscribers = () => {
     vetenaryStatus: { type: String, label: 'Statut vétérinaire', min: 1, max: 64 }
   });
   Meteor.users.attachSchema(SubscribersSchema);
-  MainApp.Schema.SubscribersSchema = SubscribersSchema;
-  MainApp.Col.Subscribers = Subscribers;
+  Schema.SubscribersSchema = SubscribersSchema;
+  Col.Subscribers = Subscribers;
   // Fill collection with default if necessary
   if (Meteor.isServer && Subscribers.find().count() === 0) {
     console.log('Importing subscribers...');
-    MainApp.Utils.importSubscribers();
+    const result = Utils.importSpreadSheet('Evènements SNVEL - Adhérents');
+    Object.keys(result.rows)
+      .filter((k, idx) => idx !== 0)
+      .forEach((k, idx) => {
+        const r = result.rows[k];
+        const subscriber = {
+          csoNumber: s(r[1]).trim().value(),
+          name: s(r[2]).trim().toLowerCase().titleize().value(),
+          firstName: s(r[3]).trim().toLowerCase().titleize().value(),
+          ssd: s(r[4]).trim().value(),
+          postalCode: s(r[5]).trim().value(),
+          city: s(r[6]).trim().toLowerCase().titleize().value(),
+          email: r[7] ? s(r[7]).trim().toLowerCase().value() : '',
+          status: s(r[8]).trim().toLowerCase().capitalize().value(),
+          lastSubscription: s(r[9]).trim().value(),
+          subscriptionType: s(r[10]).trim().toLowerCase().value(),
+          tacitAgreement: s(r[11]).trim().value(),
+          birthdayDate: s(r[12]).trim().value(),
+          webSubscription: r[13] ? s(r[13]).trim().value() : '',
+          vetenaryStatus: s(r[14]).trim().toLowerCase().capitalize().value()
+        };
+        console.log('Insert subscriber from line', idx, 'and CSO', subscriber.csoNumber);
+        Col.Subscribers.insert(subscriber);
+      });
   }
   console.log('Subscribers filled and exposed');
 };
