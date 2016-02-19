@@ -19,8 +19,9 @@ initUsers = () => {
     }
     // Publish
     Meteor.publish('userTypes.all', function() {
-      const user = Meteor.users.findOne(this.userId);
+      const user = this.userId ? Meteor.users.findOne(this.userId) : null;
       const query = user && user.isAdmin() ? {} : {restricted: false};
+      console.log('Publishing for', query, this.userId, user);
       return UserTypes.find(query);
     });
   }
