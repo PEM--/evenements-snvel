@@ -43,6 +43,52 @@ gulp.task 'settings.build.prod', ->
 gulp.task 'settings.watch', ->
   gulp.watch settings.files, ['settings.build']
 
+
+# Resize images
+# See breakpoints in site.variables.import.less
+profiles =
+  widescreenMonitor: 1920
+  largeMonitor: 1200
+  computer: 992
+  tablet: 768
+  mobile: 320
+
+
+
+# _ = require 'underscore'
+# types = _.keys profiles
+# for type in types
+#   do (type) ->
+#     gulp.task "resize-#{type}", ->
+#       gulp.src 'src/*.jpg'
+#         .pipe p.imageResize width: profiles[type]
+#         .pipe p.rename (path) -> path.basename += "_#{type}"
+#         .pipe gulp.dest imgDist
+#
+# targets = _.map types, (type) -> "resize-#{type}"
+#
+# # Optimize images
+# gulp.task 'imagemin', targets, ->
+#   gulp.src "#{imgDist}/*.{jpg,png,gif,svg}"
+#     .pipe p.imagemin
+#       progressive: true
+#       svgoPlugins: [{removeViewBox: false}]
+#       use: [pngquant()]
+#     .pipe gulp.dest imgDist
+#
+# # Create all webp images
+# gulp.task 'webp', ['imagemin'], ->
+#   gulp.src "#{imgDist}/*.jpg"
+#     .pipe p.webp()
+#     .pipe gulp.dest imgDist
+#
+# # Default task call every tasks created so far
+# gulp.task 'default', ['webp']
+
+
+
+
+
 gulp.task 'clean', ['settings.clean']
 gulp.task 'build', [
   'settings.build.dev', 'settings.build.pre', 'settings.build.prod'
