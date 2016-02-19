@@ -60,6 +60,7 @@ appStartup = () => {
   initUsers();
   initSocialLinks();
   initSubscribers();
+  initPrograms();
   declareRoutes();
 };
 
