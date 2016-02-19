@@ -10,4 +10,4 @@ Site des évènements SNVEL.
 
 ## Pages utiles du manuel de Github
 
-* [Manuel de Github](https://help.github.com/articles/creating-an-issue/)
+* [Créer un ticket](https://help.github.com/articles/creating-an-issue/)
