@@ -1,4 +1,5 @@
-const { Input } = MainApp.Views;
+const { Views } = MainApp;
+const { Input } = Views;
 
 class Password extends React.Component {
   constructor(props) {
@@ -38,4 +39,4 @@ class Password extends React.Component {
   }
 }
 
-MainApp.Views.Password = Password;
+Views.Password = Password;

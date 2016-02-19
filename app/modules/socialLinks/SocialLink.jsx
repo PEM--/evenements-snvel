@@ -29,4 +29,4 @@ class SocialLinks extends Views.BaseReactMeteor {
   }
 }
 
-MainApp.Views.SocialLinks = SocialLinks;
+Views.SocialLinks = SocialLinks;

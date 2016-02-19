@@ -1,4 +1,5 @@
-const { AnimatedLink } = MainApp.Views;
+const { Views } = MainApp;
+const { AnimatedLink } = Views;
 
 const Admin = ({user}) => (
   <section className='maximized MainContent animated fadeIn'>
@@ -11,4 +12,4 @@ const Admin = ({user}) => (
   </section>
 );
 
-MainApp.Views.Admin = Admin;
+Views.Admin = Admin;

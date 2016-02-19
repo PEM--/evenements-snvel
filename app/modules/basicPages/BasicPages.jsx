@@ -38,4 +38,4 @@ class BasicPages extends Views.BaseReactMeteor {
   }
 }
 
-MainApp.Views.BasicPages = BasicPages;
+Views.BasicPages = BasicPages;

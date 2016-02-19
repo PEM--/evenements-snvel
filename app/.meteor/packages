@@ -46,7 +46,6 @@ meteorhacks:subs-manager
 # Accounts & Security
 accounts-password
 alanning:roles
-#audit-argument-checks
 check
 browser-policy
 matteodem:easy-security

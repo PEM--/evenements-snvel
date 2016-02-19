@@ -45,9 +45,15 @@ initPrograms = () => {
   MainApp.Schema.EventsSchema = EventsSchema;
   MainApp.Col.Programs = Programs;
   // Fill collection with default if necessary
-  if (Meteor.isServer && Programs.find().count() === 0) {
-    console.log('Importing programs...');
-    MainApp.Utils.importPrograms();
+  if (Meteor.isServer) {
+    if (Programs.find().count() === 0) {
+      console.log('Importing programs...');
+      MainApp.Utils.importPrograms();
+    }
+    // Publish
+    Meteor.publish('programs.all', function() {
+      return Programs.find();
+    });
   }
   console.log('Programs filled and exposed');
 };

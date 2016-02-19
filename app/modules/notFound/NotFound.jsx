@@ -1,4 +1,5 @@
-const { AnimatedLink } = MainApp.Views;
+const { Views } = MainApp;
+const { AnimatedLink } = Views;
 
 const NotFound = () => (
   <div className='NotFound MainContent maximized animated bounceIn flex col textCenter'>
@@ -12,4 +13,4 @@ const NotFound = () => (
   </div>
 );
 
-MainApp.Views.NotFound = NotFound;
+Views.NotFound = NotFound;
