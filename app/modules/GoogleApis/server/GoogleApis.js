@@ -94,9 +94,10 @@ Object.assign(Utils, {
     });
     return fut.wait();
   },
-  getDriveFile(fileName = 'Evènements SNVEL - Mentions légales') {
+  getDriveFile(fileName) {
     const fut = new Future();
     const drive = GoogleApis.drive('v3');
+    console.log('Getting list of files on drive...');
     drive.files.list({
       auth: jwtClient
     }, (err, list) => {
@@ -105,6 +106,7 @@ Object.assign(Utils, {
         return fut.return(false);
       }
       const item = list.files.find(l => l.name === fileName);
+      console.log(`Getting ${fileName} from drive...`);
       drive.files.get({
         fileId: item.id, alt: 'media', auth: jwtClient
       }, (errGet, content) => {
@@ -112,6 +114,7 @@ Object.assign(Utils, {
           console.warn('Error getting file', fileName, 'with', errGet);
           return fut.return(false);
         }
+        console.log(`${fileName} extracted from drive`);
         return fut.return(content);
       });
     });
