@@ -5,5 +5,9 @@
   "react-select": "0.9.1",
   "mailtolink": "0.1.0",
   "world-countries": "v1.7.7",
-  "griddle-react": "0.3.1"
+  "griddle-react": "0.3.1",
+  "googleclientlogin": "0.2.8",
+  "edit-google-spreadsheet": "0.2.21",
+  "googleapis": "2.1.7",
+  "google-auth-library": "0.9.7"
 }

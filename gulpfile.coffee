@@ -53,8 +53,6 @@ profiles =
   tablet: 768
   mobile: 320
 
-
-
 # _ = require 'underscore'
 # types = _.keys profiles
 # for type in types
