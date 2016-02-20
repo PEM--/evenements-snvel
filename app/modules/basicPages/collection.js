@@ -1,3 +1,5 @@
+const { Col, Schema, Utils } = MainApp;
+
 initBasicPages = () => {
   const BasicPages = new Mongo.Collection('basicPages');
   const BasicPagesSchema = new SimpleSchema({
@@ -7,16 +9,25 @@ initBasicPages = () => {
   });
   BasicPages.attachSchema(BasicPagesSchema);
 
-  MainApp.Col.BasicPages = BasicPages;
-  MainApp.Schema.BasicPagesSchema = BasicPagesSchema;
+  Col.BasicPages = BasicPages;
+  Schema.BasicPagesSchema = BasicPagesSchema;
 
   if (Meteor.isServer) {
     if (BasicPages.find({}, {fields: {_id: 1}}).count() === 0) {
       console.log('Empty BasicPages, filling it with defaults');
       [
-        {title: 'Conditions génèrales de ventes', slug: 'cgv', content: DEFAULT_CGV},
-        {title: 'Confidentialité', slug: 'cookie', content: DEFAULT_COOKIE},
-        {title: 'Mentions légales', slug: 'legal', content: DEFAULT_LEGAL}
+        {
+          title: 'Conditions génèrales de ventes', slug: 'cgv',
+          content: Utils.getDriveFile('Evènements SNVEL - Conditions générales de ventes')
+        },
+        {
+          title: 'Confidentialité', slug: 'cookie',
+          content: Utils.getDriveFile('Evènements SNVEL - Confidentialité')
+        },
+        {
+          title: 'Mentions légales', slug: 'legal',
+          content: Utils.getDriveFile('Evènements SNVEL - Mentions légales')
+        }
       ].forEach(p => BasicPages.insert({...p}));
     }
     // Publish

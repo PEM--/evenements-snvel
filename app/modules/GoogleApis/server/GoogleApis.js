@@ -71,7 +71,6 @@ Object.assign(Utils, {
     const token = authorize();
     const fut = new Future();
     EditGoogleSpreadsheet.load({
-      //debug: true,
       spreadsheetName: spreadsheetName,
       worksheetId: String(workSheet),
       accessToken: {
@@ -88,10 +87,32 @@ Object.assign(Utils, {
       spreadsheet.send(function(errSend) {
         if (err) {
           console.warn(errSend);
-          fut.return(false);
-        } else {
-          fut.return(true);
+          return fut.return(false);
         }
+        return fut.return(true);
+      });
+    });
+    return fut.wait();
+  },
+  getDriveFile(fileName = 'Evènements SNVEL - Mentions légales') {
+    const fut = new Future();
+    const drive = GoogleApis.drive('v3');
+    drive.files.list({
+      auth: jwtClient
+    }, (err, list) => {
+      if (err) {
+        console.warn('Error extracting list', errSend);
+        return fut.return(false);
+      }
+      const item = list.files.find(l => l.name === fileName);
+      drive.files.get({
+        fileId: item.id, alt: 'media', auth: jwtClient
+      }, (errGet, content) => {
+        if (errGet) {
+          console.warn('Error getting file', fileName, 'with', errGet);
+          return fut.return(false);
+        }
+        return fut.return(content);
       });
     });
     return fut.wait();
