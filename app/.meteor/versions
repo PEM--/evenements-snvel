@@ -87,7 +87,7 @@ npm-container@1.2.0
 npm-mongo@1.4.39_1
 numeral:numeral@1.5.3_1
 observe-sequence@1.0.7
-ongoworks:google-spreadsheets@0.4.2_4
+ongoworks:google-spreadsheets@0.5.8
 ordered-dict@1.0.4
 patrickml:braintree@1.32.0
 pierreeric:markdown@0.0.1
