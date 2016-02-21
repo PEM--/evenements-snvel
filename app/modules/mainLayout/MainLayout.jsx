@@ -22,6 +22,45 @@ const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages}) => {
   );
 };
 
+if (Meteor.isClient) {
+  const menuToggle = (isMenuOpen) => {
+    console.log('menuToggle');
+    const $Menu = $('.MainMenu');
+    const $button = $Menu.find('button');
+    const $MenuItems = $Menu.find('.MenuItem');
+    const seqIn = [
+      {e: $Menu, p: 'transition.slideRightIn', o: {
+        duration: 100, easing: 'ease-in-out'
+      }},
+      {e: $MenuItems, p: 'transition.slideRightIn', o: {
+        duration: 100, stagger: 50, easing: 'ease-in-out'
+      }},
+      {e: $button, p: 'transition.slideDownIn', o: {
+        duration: 60, easing: 'ease-in-out'
+      }}
+    ];
+    const seqOut = [
+      {e: $button, p: 'transition.slideUpOut', o: {
+        display: 'block', duration: 60, easing: 'ease-in-out'
+      }},
+      {e: $MenuItems, p: 'transition.slideRightOut', o: {
+        duration: 100, stagger: 50, easing: 'ease-in-out'
+      }},
+      {e: $Menu, p: 'transition.slideRightOut', o: {
+        duration: 100, easing: 'ease-in-out'
+      }}
+    ];
+    $.Velocity.RunSequence(isMenuOpen ? seqIn : seqOut);
+  };
+  Tracker.autorun((comp) => {
+    const isMenuOpen = Session.get('isMenuOpen');
+    if (!comp.firstRun) {
+      menuToggle(isMenuOpen);
+    }
+  });
+}
+
+
 class MainLayout extends Views.BaseReactMeteor {
   getMeteorData() {
     if (Meteor.isServer) {
@@ -37,45 +76,10 @@ class MainLayout extends Views.BaseReactMeteor {
   }
   constructor(props) {
     super(props);
-    this.onMenuToggle.bind(this);
+    this.onMenuToggle = this.onMenuToggle.bind(this);
   }
   onMenuToggle() {
-    console.log('onMenuToggle');
-    const $Menu = $('.MainMenu');
-    const $button = $Menu.find('button');
-    const $MenuItems = $Menu.find('.MenuItem');
-    const isMenuOpen = Session.get('isMenuOpen');
-    const seqIn = [
-      {e: $Menu, p: 'transition.slideRightIn', o: {
-        duration: 100
-      }},
-      {e: $MenuItems, p: 'transition.slideRightIn', o: {
-        duration: 100, stagger: 50
-      }},
-      {e: $button, p: 'transition.slideDownIn', o: {
-        duration: 60,
-        complete() {
-          console.log('seqIn isMenuOpen', isMenuOpen)
-          Session.set('isMenuOpen', true);
-        }
-      }}
-    ];
-    const seqOut = [
-      {e: $button, p: 'transition.slideUpOut', o: {
-        display: 'block', duration: 60
-      }},
-      {e: $MenuItems, p: 'transition.slideRightOut', o: {
-        duration: 100, stagger: 50
-      }},
-      {e: $Menu, p: 'transition.slideRightOut', o: {
-        duration: 100,
-        complete() {
-          console.log('seqOut isMenuOpen', isMenuOpen)
-          Session.set('isMenuOpen', false);
-        }
-      }}
-    ];
-    $.Velocity.RunSequence(isMenuOpen ? seqOut : seqIn);
+    Session.set('isMenuOpen', !Session.get('isMenuOpen'));
   }
   render() {
     console.log('Render MainLayout');
