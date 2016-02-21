@@ -1,3 +1,5 @@
+const { Views } = MainApp;
+
 const signOff = (e) => {
   e.preventDefault();
   Meteor.logout();
@@ -23,7 +25,7 @@ const MenuItem = ({icon, text, name}) => {
   );
 };
 
-const DumbMainMenu = ({isMenuOpen, onMenuToggle, user}) => {
+const DumbMainMenu = ({onMenuToggle, user}) => {
   const items = [ {needSignOn: 0, icon: 'home', text: 'Accueil', name: 'home'},
     {needSignOn: 1, admin: 0, icon: 'user', text: 'Connexion', name: 'signon'},
     {needSignOn: 1, admin: 0, icon: 'edit', text: 'Créer votre compte', name: 'signup'},
@@ -45,7 +47,7 @@ const DumbMainMenu = ({isMenuOpen, onMenuToggle, user}) => {
     return true;
   });
   return (
-    <nav className={classNames('MainMenu', {isOpen: isMenuOpen}, 'lisibility')} >
+    <nav className='MainMenu lisibility'>
       <button onClick={onMenuToggle}>
         <i className='fa fa-times' />
       </button>
@@ -56,7 +58,7 @@ const DumbMainMenu = ({isMenuOpen, onMenuToggle, user}) => {
   );
 };
 
-class MainMenu extends MainApp.Views.BaseReactMeteor {
+class MainMenu extends Views.BaseReactMeteor {
   constructor(props) {
     super(props);
   }
@@ -65,10 +67,9 @@ class MainMenu extends MainApp.Views.BaseReactMeteor {
     return { user: Meteor.user() };
   }
   render() {
-    // return <nav className='MainMenu'>En attente</nav>;
     const { isMenuOpen, onMenuToggle } = this.props;
-    return <DumbMainMenu isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle} user={this.data.user} />;
+    return <DumbMainMenu onMenuToggle={onMenuToggle} user={this.data.user} />;
   }
 }
 
-MainApp.Views.MainMenu = MainMenu;
+Views.MainMenu = MainMenu;

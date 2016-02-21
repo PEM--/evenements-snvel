@@ -40,7 +40,42 @@ class MainLayout extends Views.BaseReactMeteor {
     this.onMenuToggle.bind(this);
   }
   onMenuToggle() {
-    Session.set('isMenuOpen', !Session.get('isMenuOpen'));
+    console.log('onMenuToggle');
+    const $Menu = $('.MainMenu');
+    const $button = $Menu.find('button');
+    const $MenuItems = $Menu.find('.MenuItem');
+    const isMenuOpen = Session.get('isMenuOpen');
+    const seqIn = [
+      {e: $Menu, p: 'transition.slideRightIn', o: {
+        duration: 100
+      }},
+      {e: $MenuItems, p: 'transition.slideRightIn', o: {
+        duration: 100, stagger: 50
+      }},
+      {e: $button, p: 'transition.slideDownIn', o: {
+        duration: 60,
+        complete() {
+          console.log('seqIn isMenuOpen', isMenuOpen)
+          Session.set('isMenuOpen', true);
+        }
+      }}
+    ];
+    const seqOut = [
+      {e: $button, p: 'transition.slideUpOut', o: {
+        display: 'block', duration: 60
+      }},
+      {e: $MenuItems, p: 'transition.slideRightOut', o: {
+        duration: 100, stagger: 50
+      }},
+      {e: $Menu, p: 'transition.slideRightOut', o: {
+        duration: 100,
+        complete() {
+          console.log('seqOut isMenuOpen', isMenuOpen)
+          Session.set('isMenuOpen', false);
+        }
+      }}
+    ];
+    $.Velocity.RunSequence(isMenuOpen ? seqOut : seqIn);
   }
   render() {
     console.log('Render MainLayout');

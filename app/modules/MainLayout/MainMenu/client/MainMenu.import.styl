@@ -4,18 +4,17 @@ menuWidth = 300px
   display absolute
   position fixed
   top 0
-  right -(menuWidth + 50px)
+  right 0
   width menuWidth
   height 100vh
   z-index 10
-  box-shadow 0 0 10px black
-  background darkViolet
+  box-shadow 0 0 20px black
+  background alpha(darkViolet, 97%)
   border-left 1px solid violet
   color cream
   font-size 120%
-  transition transform defaultTransition
-  &.isOpen
-    transform translate3d(-(menuWidth + 50px), 0, 0)
+  transform translateX(350px)
+  opacity 0
   button
     width 100%
     background transparent
@@ -26,8 +25,10 @@ menuWidth = 300px
     text-shadow 0 0 3px black
     transition color defaultTransition, text-shadow defaultTransition
     text-align left
+    transform translateY(-100%)
+    opacity 0
     &:hover
-      color orange
+      color red
       text-shadow 0 0 3px cream
 
 .MenuItem
@@ -40,6 +41,8 @@ menuWidth = 300px
   border-bottom 1px solid violet
   background transparent
   transition background-color defaultTransition
+  transform translateX(100%)
+  opacity 0
   &:hover
     background-color alpha(violet, 20%)
   i

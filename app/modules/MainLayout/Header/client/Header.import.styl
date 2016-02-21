@@ -1,4 +1,4 @@
-buttonSize = 40px
+buttonSize = 30px
 thickness = 6px
 radius = $radius
 
@@ -9,7 +9,8 @@ header
     display inline-block
     transform translate3d(20px, 0, 0)
   button
-    margin 10px 0
+    margin 0
+    padding 15px 20px 15px 10px
     position relative
     display inline-block
     border none
@@ -45,7 +46,7 @@ header
     top $top
 
   .hamburger
-    position absolute
+    position relative
     width buttonSize
     height buttonSize
     top 0
@@ -57,7 +58,7 @@ header
       icon(thickness, buttonSize)
       border-top-left-radius radius
       border-bottom-left-radius radius
-      left 0px
+      left 1px
       &:before
         icon-before((- ceil(buttonSize / 3)))
       &:after
@@ -67,7 +68,7 @@ header
         left inherit
     .right
       icon(thickness, buttonSize)
-      right 0
+      right 1px
       border-top-right-radius radius
       border-bottom-right-radius radius
       &:before
