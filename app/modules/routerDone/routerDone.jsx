@@ -45,9 +45,17 @@ const declareRoutes = () => {
   ], {only: ['admin', 'subscribe']});
   FlowRouter.triggers.exit([
     // Close menu on route change
-    () => {if (Meteor.isClient) { Session.set('isMenuOpen', false); }}
+    () => {
+      if (Meteor.isClient) {
+        if (Session.get('isMenuOpen')) {
+          Session.set('isMenuOpen', false);
+        }
+      }
+    }
   ]);
-  // Not found
+};
+
+const initNotFoundRoute = () => {
   FlowRouter.notFound = {
     action() {
       ReactLayout.render(Views.MainLayout, { children: <Views.NotFound /> });
@@ -74,8 +82,10 @@ Meteor.startup(() => {
       if (areSubsReady) {
         console.log('MainApp received subscription');
         appStartup();
-        FlowRouter.initialize();
         Meteor.defer(() => {
+          FlowRouter.initialize();
+          initNotFoundRoute();
+          console.log('window.location.pathname', window.location.pathname);
           const routeName = FlowRouter.getRouteName(window.location.pathname);
           FlowRouter.go(routeName ? window.location.pathname : 'not-found');
         });
@@ -83,9 +93,11 @@ Meteor.startup(() => {
         comp.stop();
       }
     });
-  } else {
+  }
+  if (Meteor.isServer) {
     initSubscriptionCache();
     appStartup();
     initSitemap();
+    initNotFoundRoute();
   }
 });

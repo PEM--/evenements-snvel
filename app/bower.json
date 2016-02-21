@@ -6,6 +6,9 @@
     "card": "1.2.2",
     "braintree-web": "2.20.0"
   },
+  "ignoredDependencies": [
+    "jquery"
+  ],
   "private": true,
   "overrides": {
     "card": { "arch": [ "client" ] },
