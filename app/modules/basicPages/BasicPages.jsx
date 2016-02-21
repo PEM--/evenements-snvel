@@ -24,7 +24,7 @@ class BasicPages extends Views.BaseReactMeteor {
   getMeteorData() {
     console.log('BasicPages: Getting data');
     if (Meteor.isServer) {
-      const handle = Meteor.subscribe('basicPages.all');
+      Meteor.subscribe('basicPages.all');
     }
     return Col.BasicPages.findOne({slug: this.props.slug});
   }

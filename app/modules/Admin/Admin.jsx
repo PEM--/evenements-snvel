@@ -1,20 +1,45 @@
-const { Views } = MainApp;
-const { AnimatedLink, Spinner } = Views;
+const { Views, Utils } = MainApp;
+const { AnimatedLink, Spinner, Table, Button } = Views;
 
-const Admin = ({user}) => (
-  <section className='maximized MainContent animated fadeIn'>
-    {
-      user ? (
-        <div className='animated fadeIn lisibility'>
-          <h1>Admin</h1>
-          <p>Permissions accordées</p>
-          <AnimatedLink to='/'>Revenir à l'accueil</AnimatedLink>
-        </div>
-      ) : (
-        <Spinner />
-      )
+class Admin extends Views.BaseReactMeteor {
+  constructor(props) {
+    super(props);
+  }
+  getMeteorData() {
+    if (Meteor.isServer) {
+      Meteor.subscribe('users.me');
     }
-  </section>
-);
+    return { user: Meteor.user() };
+  }
+  onUpdateMarkdown(slug) {
+    return () => Meteor.call('basicPages.update', slug);
+  }
+  render() {
+    const items = Utils.BASIC_PAGES.map(p => (
+      [
+        p.title,
+        <Button iconName='refresh' className='btn' onClick={this.onUpdateMarkdown(p.slug)}>Mettre à jour</Button>
+      ]
+    ));
+    return (
+      <section className='maximized MainContent animated fadeIn'>
+        {
+          this.data.user ? (
+            <div className='animated fadeIn lisibility'>
+              <h1>Admin</h1>
+              <Table
+                header={['Description', 'Action']}
+                items={items}
+              />
+              <AnimatedLink to='/'>Revenir à l'accueil</AnimatedLink>
+            </div>
+          ) : (
+            <Spinner />
+          )
+        }
+      </section>
+    );
+  }
+}
 
 Views.Admin = Admin;
