@@ -1,6 +1,7 @@
 const { Views } = MainApp;
 
 const signOff = (e) => {
+  console.log('signOff');
   e.preventDefault();
   Meteor.logout();
   FlowRouter.go('/');

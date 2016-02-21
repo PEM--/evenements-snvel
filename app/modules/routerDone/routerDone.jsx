@@ -83,11 +83,12 @@ Meteor.startup(() => {
         console.log('MainApp received subscription');
         appStartup();
         Meteor.defer(() => {
-          FlowRouter.initialize();
           initNotFoundRoute();
-          console.log('window.location.pathname', window.location.pathname);
-          const routeName = FlowRouter.getRouteName(window.location.pathname);
-          FlowRouter.go(routeName ? window.location.pathname : 'not-found');
+          FlowRouter.initialize();
+
+          // const routeName = FlowRouter.getRouteName(window.location.pathname);
+          // console.log('window.location.pathname', window.location.pathname, 'routeName', routeName);
+          // FlowRouter.go(routeName ? window.location.pathname : 'not-found');
         });
         console.log('Initial subscription read! Router started.');
         comp.stop();
