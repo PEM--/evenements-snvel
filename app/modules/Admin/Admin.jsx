@@ -1,14 +1,19 @@
 const { Views } = MainApp;
-const { AnimatedLink } = Views;
+const { AnimatedLink, Spinner } = Views;
 
 const Admin = ({user}) => (
   <section className='maximized MainContent animated fadeIn'>
-    <div className='lisibility'>
-      <h1>Admin</h1>
-      {
-        user ? <p>Permissions accordées</p> : <p>Vérification des permissions</p>
-      }
-    </div>
+    {
+      user ? (
+        <div className='animated fadeIn lisibility'>
+          <h1>Admin</h1>
+          <p>Permissions accordées</p>
+          <AnimatedLink to='/'>Revenir à l'accueil</AnimatedLink>
+        </div>
+      ) : (
+        <Spinner />
+      )
+    }
   </section>
 );
 
