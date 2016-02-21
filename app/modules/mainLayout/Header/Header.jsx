@@ -1,4 +1,4 @@
-const Header = ({onMenuToggle}) => (
+const Header = ({isMenuOpen, onMenuToggle}) => (
   <header
     className='animated fadeInDown whiteColor flexItemStaticSize'
     style={{height: '54px'}}
@@ -11,7 +11,10 @@ const Header = ({onMenuToggle}) => (
       </div>
       <div className='flexItemStaticSize' style={{width: '40px'}}>
         <button onClick={onMenuToggle}>
-          <i className='fa fa-bars'></i>
+          <div className={classNames('hamburger', {open: isMenuOpen})}>
+            <div className='left' />
+            <div className='right' />
+          </div>
         </button>
       </div>
     </div>

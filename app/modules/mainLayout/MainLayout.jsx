@@ -9,7 +9,7 @@ const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages}) => {
         className='flex col'
         style={{minHeight: '100%'}}
       >
-        <Header onMenuToggle={onMenuToggle} />
+        <Header isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle} />
         <main className='flexItemDynamicSize'>
           {children}
         </main>

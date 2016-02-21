@@ -27,6 +27,7 @@ class Admin extends Views.BaseReactMeteor {
           this.data.user ? (
             <div className='animated fadeIn lisibility'>
               <h1>Admin</h1>
+              <AnimatedLink to='/'>Revenir à l'accueil</AnimatedLink>
               <Table
                 header={['Description', 'Action']}
                 items={items}
