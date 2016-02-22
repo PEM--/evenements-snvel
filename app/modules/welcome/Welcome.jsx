@@ -43,7 +43,7 @@ class Welcome extends Views.BaseReactMeteor {
     return (
       <section className='Welcome maximized MainContent animated fadeInUp'>
         <Spinner className='maximized' />
-        <div className='headlines lisibility'>
+        <article className='headlines lisibility'>
           <h1 className='headline'>
             <Textfit
               style={{width: '100%', maxWidth: '600px', lineHeight: '100%', display: 'inline-block'}}
@@ -60,7 +60,27 @@ class Welcome extends Views.BaseReactMeteor {
               {location + ' - ' + period}
             </Textfit>
           </h2>
-        </div>
+        </article>
+        <article>
+          <div className='titleCard'>
+            <h2>Programme</h2>
+          </div>
+          <div className='kenBurnsCard'>
+            <img src='/img/beach_tablet.jpg' />
+          </div>
+          <div className='coloredCard'/>
+        </article>
+        {/*<article>
+          <div>
+            <h2>subscribe</h2>
+          </div>
+          <div>
+            <img src='/img/digital_genes_tablet.jpg' />
+          </div>
+        </article>
+        <article>
+          <h2>Partenaires</h2>
+        </article>*/}
       </section>
     );
   }

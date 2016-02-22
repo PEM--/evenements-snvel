@@ -13,7 +13,7 @@ settings =
   files: 'settings/**/*.yml'
   dest: 'app'
   imgSrc: 'assets'
-  imgDist: 'public/img'
+  imgDist: 'app/public/img'
 
 gulp.task 'settings.clean', ->
   del [(path.join settings.dest, settings.temp)]
