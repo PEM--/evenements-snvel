@@ -22,16 +22,16 @@ class Welcome extends Views.BaseReactMeteor {
     console.log('animate');
     if (!this.state.initialAnimate) {
       this.setState({initialAnimate: true});
-      const spinner = $('.spinner-container');
+      const spinner = $('.SpinnerContainer');
       const headlines = $('.headlines');
       const seq = [
         {
-          e: headlines, p: {translateY: [0, '100px'], opacity: [1, 0]},
-          o: {delay: 300, duration: 300, easing: 'ease-in-out', stagger: 100}
+          e: headlines, p: {translateY: [0, '20px'], opacity: [1, 0]},
+          o: {delay: 600, duration: 300, easing: 'ease-in-out', stagger: 100}
         },
         {
           e: spinner, p: 'transition.fadeOut',
-          o: {delay: 300, duration: 300, easing: 'ease-in-out', sequenceQueue: false}
+          o: {duration: 300, easing: 'ease-in-out', sequenceQueue: false}
         }
       ];
       $.Velocity.RunSequence(seq);
