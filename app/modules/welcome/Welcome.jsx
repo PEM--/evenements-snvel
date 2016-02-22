@@ -1,6 +1,18 @@
 const { Views, Col } = MainApp;
 const { Spinner, AnimatedLink } = Views;
 
+const Card = ({title, img}) => (
+  <article className='card'>
+    <div className='title'>
+      <h2>{title}</h2>
+    </div>
+    <div className='kenBurns'>
+      <img src={`/img/${img}_tablet.webp`} />
+    </div>
+    <div className='colored'/>
+  </article>
+);
+
 class Welcome extends Views.BaseReactMeteor {
   getMeteorData() {
     if (Meteor.isServer) {
@@ -61,24 +73,9 @@ class Welcome extends Views.BaseReactMeteor {
             </Textfit>
           </h2>
         </article>
-        <article>
-          <div className='titleCard'>
-            <h2>Programme</h2>
-          </div>
-          <div className='kenBurnsCard'>
-            <img src='/img/beach_tablet.jpg' />
-          </div>
-          <div className='coloredCard'/>
-        </article>
+        <Card title='Programme' img='beach' />
+        <Card title='Inscription' img='digital_genes' />
         {/*<article>
-          <div>
-            <h2>subscribe</h2>
-          </div>
-          <div>
-            <img src='/img/digital_genes_tablet.jpg' />
-          </div>
-        </article>
-        <article>
           <h2>Partenaires</h2>
         </article>*/}
       </section>
