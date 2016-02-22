@@ -13,18 +13,36 @@ class Welcome extends Views.BaseReactMeteor {
   }
   constructor(props) {
     super(props);
+    this.state = {
+      initialAnimate: false
+    };
     this.animate = this.animate.bind(this);
   }
   animate() {
-    console.log('Ready');
-    Meteor.defer(() => {
-      $('.headlines').addClass('animated fadeInUp');
-    });
+    console.log('animate');
+    if (!this.state.initialAnimate) {
+      this.setState({initialAnimate: true});
+      const spinner = $('.spinner-container');
+      const headlines = $('.headlines');
+      const seq = [
+        {
+          e: headlines, p: {translateY: [0, '100px'], opacity: [1, 0]},
+          o: {delay: 300, duration: 300, easing: 'ease-in-out', stagger: 100}
+        },
+        {
+          e: spinner, p: 'transition.fadeOut',
+          o: {delay: 300, duration: 300, easing: 'ease-in-out', sequenceQueue: false}
+        }
+      ];
+      $.Velocity.RunSequence(seq);
+    }
   }
   render() {
+    console.log('Rendering Welcome');
     const { title, location, period } = this.data.program;
     return (
-      <section className='maximized MainContent animated fadeInUp'>
+      <section className='Welcome maximized MainContent animated fadeInUp'>
+        <Spinner className='maximized' />
         <div className='headlines lisibility'>
           <h1 className='headline'>
             <Textfit
