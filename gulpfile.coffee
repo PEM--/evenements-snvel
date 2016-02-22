@@ -12,6 +12,8 @@ settings =
   prodOut: 'settings.prod.json'
   files: 'settings/**/*.yml'
   dest: 'app'
+  imgSrc: 'assets'
+  imgDist: 'public/img'
 
 gulp.task 'settings.clean', ->
   del [(path.join settings.dest, settings.temp)]
@@ -53,43 +55,44 @@ profiles =
   tablet: 768
   mobile: 320
 
-# _ = require 'underscore'
-# types = _.keys profiles
-# for type in types
-#   do (type) ->
-#     gulp.task "resize-#{type}", ->
-#       gulp.src 'src/*.jpg'
-#         .pipe p.imageResize width: profiles[type]
-#         .pipe p.rename (path) -> path.basename += "_#{type}"
-#         .pipe gulp.dest imgDist
-#
-# targets = _.map types, (type) -> "resize-#{type}"
-#
-# # Optimize images
-# gulp.task 'imagemin', targets, ->
-#   gulp.src "#{imgDist}/*.{jpg,png,gif,svg}"
-#     .pipe p.imagemin
-#       progressive: true
-#       svgoPlugins: [{removeViewBox: false}]
-#       use: [pngquant()]
-#     .pipe gulp.dest imgDist
-#
-# # Create all webp images
-# gulp.task 'webp', ['imagemin'], ->
-#   gulp.src "#{imgDist}/*.jpg"
-#     .pipe p.webp()
-#     .pipe gulp.dest imgDist
-#
-# # Default task call every tasks created so far
-# gulp.task 'default', ['webp']
+types = Object.keys profiles
+for type in types
+  do (type) ->
+    gulp.task "resize-#{type}", ->
+      gulp.src "#{settings.imgSrc}/*.jpg"
+        .pipe gp.imageResize width: profiles[type]
+        .pipe gp.rename (path) -> path.basename += "_#{type}"
+        .pipe gulp.dest settings.imgDist
 
+targets = types.map (type) -> "resize-#{type}"
 
+# PNG quantization
+pngquant = require 'imagemin-pngquant'
+# Optimize images
+gulp.task 'imagemin', targets, ->
+  gulp.src "#{settings.imgDist}/*.{jpg,png,gif}"
+    .pipe gp.imagemin
+      progressive: true
+      svgoPlugins: [{removeViewBox: false}]
+      use: [pngquant()]
+    .pipe gulp.dest settings.imgDist
 
+gulp.task 'svgmin', targets, ->
+  gulp.src "#{settings.imgSrc}/*.svg"
+    .pipe gp.imagemin
+      svgoPlugins: [{removeViewBox: false}]
+    .pipe gulp.dest settings.imgDist
 
+# Create all webp images
+gulp.task 'webp', ['imagemin'], ->
+  gulp.src "#{settings.imgDist}/*.jpg"
+    .pipe gp.webp()
+    .pipe gulp.dest settings.imgDist
 
 gulp.task 'clean', ['settings.clean']
 gulp.task 'build', [
-  'settings.build.dev', 'settings.build.pre', 'settings.build.prod'
+  'settings.build.dev', 'settings.build.pre', 'settings.build.prod',
+  'svgmin', 'webp'
 ]
 gulp.task 'watch', ['settings.watch']
 gulp.task 'default', ['build', 'watch']
