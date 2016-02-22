@@ -1,11 +1,11 @@
 const { Views, Col } = MainApp;
-const { AnimatedLink } = MainApp.Views;
+const { Spinner, AnimatedLink } = Views;
 
 const animate = () => {
   console.log('Ready');
-  Meteor.setTimeout(() => {
+  Meteor.defer(() => {
     $('.headlines').addClass('animated fadeInUp');
-  }, 1000);
+  });
 };
 
 const DumBWelcome = ({ title, location, period }) => (

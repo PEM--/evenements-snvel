@@ -4,6 +4,7 @@ const signOff = (e) => {
   console.log('signOff');
   e.preventDefault();
   Meteor.logout();
+  Session.set('isMenuOpen', false);
   FlowRouter.go('/');
 };
 
