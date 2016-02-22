@@ -1,6 +1,9 @@
+cardMargin = 35px
+
 .Welcome
   .headlines
     opacity 0
+    margin-bottom .5 * cardMargin
   .headline
     margin 0
     padding 0
@@ -9,25 +12,101 @@
     position relative
     width 100vw
     max-width 1040px
-    margin-bottom 20px
+    height 8.5 * cardMargin
     top 0
-    left -40px
-    background alpha(red, 30%)
+    left (- cardMargin)
+    // background alpha(red, 30%)
+    .colored
+      position absolute
+      top cardMargin
+      right cardMargin
+      width "calc(100% - %s)" % (3 * cardMargin)
+      height 7 * cardMargin
+      transition transform defaultTransition, box-shadow defaultTransition
+      box-shadow 0 3px 15px black
+    .kenBurns
+      position absolute
+      width 10 * cardMargin
+      height 5 * cardMargin
+      top 2 * cardMargin
+      right 4 * cardMargin
+      transition transform defaultTransition, box-shadow defaultTransition
+      // background alpha(green, 30%)
+      overflow hidden
+      z-index 2
+      box-shadow 0 3px 15px black
+      img
+        width 100%
+        height 100%
     .title
-      position relative
-      top 40px
-      left 80px
-      width 500px
-      height 250px
-      padding 20px
+      position absolute
+      width "calc(100% - %s)" % (8 * cardMargin)
+      height (3 * cardMargin)
+      top 3 * cardMargin
+      left 3 * cardMargin
+      padding ceil(cardMargin / 2)
+      transition transform defaultTransition, box-shadow defaultTransition
+      z-index 1
+      box-shadow 0 3px 15px black
       background cream
       color darkViolet
-    .kenBurns
-      position relative
-      background alpha(green, 30%)
-      img
-        width 500px
-        height 350px
-    .colored
-      position relative
-      background violet
+      h2
+        font-size 32px
+    &:hover
+      .title
+        transform translate3d(- cardMargin, -(2 * cardMargin), 0)
+        box-shadow 0 10px 30px black
+      .kenBurns
+        transform translate3d((3 * cardMargin), -(2 * cardMargin), 0)
+        box-shadow 0 10px 30px black
+      .colored
+        transform translate3d(cardMargin, - cardMargin, 0)
+        box-shadow 0 10px 30px black
+
+@media only screen and (max-width: 740px)
+  .Welcome
+    .card
+      .kenBurns
+        right 2 * cardMargin
+      &:hover
+        .title
+          transform translate3d(- cardMargin, -(2 * cardMargin), 0)
+          box-shadow 0 10px 30px black
+        .kenBurns
+          transform translate3d(cardMargin, -(2 * cardMargin), 0)
+          box-shadow 0 10px 30px black
+        .colored
+          transform translate3d(cardMargin, - cardMargin, 0)
+          box-shadow 0 10px 30px black
+
+// @media only screen and (max-width: 500px)
+//   .Welcome
+//     .card
+//       .colored
+//         top cardMargin
+//         right cardMargin
+//         width "calc(100% - %s)" % (3 * cardMargin)
+//         height 7 * cardMargin
+//       .kenBurns
+//         width 10 * cardMargin
+//         height 5 * cardMargin
+//         top 2 * cardMargin
+//         right 2 * cardMargin
+//       .title
+//         width "calc(100% - %s)" % (8 * cardMargin)
+//         height (3 * cardMargin)
+//         top 3 * cardMargin
+//         left 3 * cardMargin
+//         padding ceil(cardMargin / 2)
+//         h2
+//           font-size 32px
+//     &:hover
+//       .title
+//         transform translate3d(- cardMargin, -(2 * cardMargin), 0)
+//         box-shadow 0 10px 30px black
+//       .kenBurns
+//         transform translate3d((3 * cardMargin), -(2 * cardMargin), 0)
+//         box-shadow 0 10px 30px black
+//       .colored
+//         transform translate3d(cardMargin, - cardMargin, 0)
+//         box-shadow 0 10px 30px black

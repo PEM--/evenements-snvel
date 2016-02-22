@@ -12,7 +12,7 @@ palette = {
   primary3Color: lightViolet,
   accent1Color: orange,
   accent2Color: cream,
-  accent3Color: lightViolet,
+  accent3Color: violet,
   textColor: darkViolet,
   alternateTextColor: cream,
   canvasColor: cream,

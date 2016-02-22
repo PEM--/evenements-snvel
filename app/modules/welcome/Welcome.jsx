@@ -1,15 +1,17 @@
 const { Views, Col } = MainApp;
 const { Spinner, AnimatedLink } = Views;
 
-const Card = ({title, img}) => (
+const Card = ({to, title, img, color}) => (
   <article className='card'>
-    <div className='title'>
-      <h2>{title}</h2>
-    </div>
-    <div className='kenBurns'>
-      <img src={`/img/${img}_tablet.webp`} />
-    </div>
-    <div className='colored'/>
+    <a href={to} >
+      <div className='title'>
+        <h2>{title}</h2>
+      </div>
+      <div className='kenBurns'>
+        <img src={`/img/${img}_tablet.jpg`} />
+      </div>
+      <div className='colored' style={{backgroundColor: color}} />
+    </a>
   </article>
 );
 
@@ -73,8 +75,8 @@ class Welcome extends Views.BaseReactMeteor {
             </Textfit>
           </h2>
         </article>
-        <Card title='Programme' img='beach' />
-        <Card title='Inscription' img='digital_genes' />
+        <Card to='/program' title='Programme' img='beach' color={palette.primary3Color} />
+        <Card to='/subscribe' title='Inscription' img='digital_genes' color={palette.accent3Color} />
         {/*<article>
           <h2>Partenaires</h2>
         </article>*/}
