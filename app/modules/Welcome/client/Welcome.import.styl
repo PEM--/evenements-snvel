@@ -31,12 +31,24 @@ cardMargin = 35px
       top 2 * cardMargin
       right 4 * cardMargin
       transition transform defaultTransition, box-shadow defaultTransition
+      // background red
       overflow hidden
       z-index 2
       box-shadow 0 3px 15px black
-      img
-        width 100%
-        height 100%
+      // 350x175 => 437.5x218.75
+      // 245x122 => 306.25x152.5
+      .imageWrapper
+        position absolute
+        width 438px
+        height 219px
+        top -40px
+        // left 83px
+        left 0
+        animation kenBurns 16s ease-in-out infinite
+        img
+          // opacity .5
+          width 438px
+          height 219px
     .title
       position absolute
       width "calc(100% - %s)" % (8 * cardMargin)
@@ -97,6 +109,15 @@ cardMargin = 35px
       padding 10px
       h2
         font-size 28
+
+kenBurnsInitial =  translate3d(-44px, 24px, 0) scale3d(0.9, 0.9, 1)
+@keyframes kenBurns
+  from
+  	transform kenBurnsInitial
+  50%
+    transform none
+  to
+    transform kenBurnsInitial
 
 cardMarginPhone = 17px
 @media only screen and (max-width: 415px)

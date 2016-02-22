@@ -8,7 +8,9 @@ const Card = ({to, title, img, color}) => (
         <h2>{title}</h2>
       </div>
       <div className='kenBurns'>
-        <img src={`/img/${img}_tablet.jpg`} />
+        <div className='imageWrapper'>
+          <img src={`/img/${img}_tablet.jpg`} width='438px' height='219px' />
+        </div>
       </div>
       <div className='colored' style={{backgroundColor: color}} />
     </a>
