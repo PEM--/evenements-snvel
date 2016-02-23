@@ -65,9 +65,6 @@ gulp.task 'clean', require('del').bind(null, [
   paths.build, paths.css, paths.html
 ])
 
-# --------------------------------------------------------
-# Connect to server
-# --------------------------------------------------------
 gulp.task 'default', [
   'inline'
   'connect'
