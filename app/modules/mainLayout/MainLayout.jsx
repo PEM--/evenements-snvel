@@ -4,6 +4,7 @@ const { Header, Footer, MainMenu } = Views;
 const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages}) => {
   return (
     <div style={{minHeight: '100vh'}}>
+      <div id='outdated' />
       <MainMenu isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle} />
       <div
         className='flex col'
@@ -211,7 +212,6 @@ class MainLayout extends Views.BaseReactMeteor {
         isMenuOpen={this.data.isMenuOpen}
         basicPages={this.data.basicPages}
       >
-        <div id='outdated'></div>
         {this.props.children}
       </MainBody>
     );
