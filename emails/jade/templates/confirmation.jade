@@ -14,20 +14,20 @@ block body
         +row()
           +columns('twelve', 'last')
             td.center.text-pad
-              p HTML_TEMPLATE_ACTION_MESSAGE
+              p Nous vous remercions de bien vouloir confirmer votre adresse email en cliquant sur le bouton ci-dessous.
         +row()
           +columns('twelve', 'last')
             td.center.text-pad
-              p HTML_TEMPLATE_ACTION_SUB_MESSAGE
+              p En effet, nous avons besoin de vous envoyer des informations importantes pour le bon fonctionnement de notre service. Ce dernier ne peut fonctionner sans une adresse email valide.
         +row()(class='button-wrapper')
           +columns ('seven', 'last')
             td.center.text-pad
               a(href='HTML_TEMPLATE_ACTION_VALIDATE_URL')
-                +button('HTML_TEMPLATE_ACTION_BUTTON')(style="large-button radius")
+                +button('Je confirme mon email')(style="large-button radius")
         +row()
           +columns('twelve', 'last')
             td.center.text-pad
-              p — L'équipe SNVEL
+              include ../partials/signature.jade
               p &nbsp;
     // Footer
     include ../partials/footer.jade

@@ -10,7 +10,7 @@ paths =
   stylusIndex: './styles/styles.styl'
   css: 'styles/css/'
   images: 'images/*'
-  build: './build/'
+  build: '../app/private/emails'
 
 # Direct errors to notification center
 handleError = ->

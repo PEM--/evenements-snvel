@@ -5,40 +5,25 @@ Meteor.startup(() => {
   console.log('SMTP declared');
 });
 
-// Flatten namespace
-// const { settings } = Meteor;
-// const { transactionalEmails } = settings;
-// const { emailConfirmation, emailBilling } = transactionalEmails;
+const { facebook, twitter, linkedin } = Meteor.settings.public.socialLinks;
+const globalReplacement = (str) => {
+  const result = s(str)
+    .replaceAll('HTML_TEMPLATE_TWITTER_URL', twitter)
+    .replaceAll('HTML_TEMPLATE_FACEBOOK_URL', facebook)
+    .replaceAll('HTML_TEMPLATE_LINKEDIN_URL', linkedin)
+  .value();
+  return result;
+};
 
-// const globalReplacement = (str) => {
-//   const result = s(str)
-//     .replaceAll('HTML_TEMPLATE_COMPANY', transactionalEmails.signature)
-//     .replaceAll('HTML_TEMPLATE_TWITTER_URL', transactionalEmails.twitterUrl)
-//     .replaceAll('HTML_TEMPLATE_TWITTER_ACCOUNT', transactionalEmails.twitterAccount)
-//     .replaceAll('HTML_TEMPLATE_FACEBOOK_URL', transactionalEmails.facebookUrl)
-//     .replaceAll('HTML_TEMPLATE_FACEBOOK_ACCOUNT', transactionalEmails.facebookAccount)
-//   .value();
-//   return result;
-// };
-//
-let actionHtml = Assets.getText('emails/action.html');
-// actionHtml = s(globalReplacement(actionHtml))
-//   // Content
-//   .replaceAll('HTML_TEMPLATE_ACTION_TITLE', emailConfirmation.title)
-//   .replaceAll('HTML_TEMPLATE_ACTION_MESSAGE', emailConfirmation.message)
-//   .replaceAll('HTML_TEMPLATE_ACTION_SUB_MESSAGE', emailConfirmation.subMessage)
-//   .replaceAll('HTML_TEMPLATE_ACTION_BUTTON', emailConfirmation.callToAction)
-//   .value();
-//
-let billingHtml = Assets.getText('emails/billing.html');
-//   billingHtml = s(globalReplacement(themeReplacement(billingHtml)))
-//   // Content
-//     .replaceAll('HTML_TEMPLATE_BILLING_TITLE', emailBilling.title)
-//     .replaceAll('HTML_TEMPLATE_BILLING_GREETINGS', emailBilling.greetings)
-//     .replaceAll('HTML_TEMPLATE_BILLING_INTRODUCTION', emailBilling.introduction)
-//     .replaceAll('HTML_TEMPLATE_BILLING_INVOICE_PREAMBLE', emailBilling.invoicePreamble)
-//     .replaceAll('HTML_TEMPLATE_BILLING_SUB_GREETINGS', emailBilling.subGreetings)
-//   .value();
+const actionTitle = 'Evènements SNVEL - Confirmez votre email';
+const actionHtml = s(globalReplacement(Assets.getText('emails/confirmation.html')))
+  .replaceAll('HTML_TEMPLATE_ACTION_TITLE', actionTitle)
+  .value();
+
+const billingTitle = 'Evènements SNVEL - Votre facture';
+const billingHtml = s(globalReplacement(Assets.getText('emails/billing.html')))
+  .replaceAll('HTML_TEMPLATE_BILLING_TITLE', billingTitle)
+  .value();
 
 // Configure accounts
 Accounts.emailTemplates.from = sender;
@@ -50,20 +35,21 @@ Accounts.emailTemplates.verifyEmail.html = (user, url) => {
     url.replace('/#', ''));
 };
 
-sendConfirmationEmail = (to, idx) => {
+const url = Meteor.settings.proxy.url;
+MainApp.Utils.sendConfirmationEmail = (to, idx) => {
   Email.send({
-    from: transactionalEmails.account,
+    from: sender,
     to,
-    subject: emailConfirmation.title,
-    html: s.replaceAll(actionHtml, 'HTML_TEMPLATE_ACTION_VALIDATE_URL', `${settings.public.proxy.url}confirm/${idx}`)
+    subject: actionTitle,
+    html: s.replaceAll(actionHtml, 'HTML_TEMPLATE_ACTION_VALIDATE_URL', `${url}confirm/${idx}`)
   });
 };
 
-sendBillingEmail = (to, invoice, salesAgreementTitle, salesAgreementContent) => {
+MainApp.Utils.sendBillingEmail = (to, invoice, salesAgreementTitle, salesAgreementContent) => {
   Email.send({
-    from: transactionalEmails.account,
+    from: sender,
     to,
-    subject: emailBilling.title,
+    subject: billingTitle,
     html: s(billingHtml)
       .replaceAll('HTML_TEMPLATE_BILLING_INVOICE_CONTENT', invoice)
       .replaceAll('HTML_TEMPLATE_TERMS_OF_SALES_TITLE', salesAgreementTitle)
