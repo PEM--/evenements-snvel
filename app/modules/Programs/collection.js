@@ -1,5 +1,64 @@
 const { Utils, Schema, Col } = MainApp;
 
+
+const programsUpdate = () => {
+  console.log('Importing programs...');
+  const spreadsheetName = 'Evènements SNVEL - Programmes';
+  const programsSheet = Utils.importSpreadSheet(spreadsheetName);
+  const programs = Object.keys(programsSheet.rows)
+    .filter((pKey, pIdx) => pIdx !== 0)
+    .map((pKey, pIdx) => {
+      const eventsSheet = Utils.importSpreadSheet(spreadsheetName, 2 + pIdx);
+      const events = Object.keys(eventsSheet.rows)
+        .filter((rKey, rIdx) => rIdx !== 0)
+        .reduce((acc, rKey) => {
+          const rEvent = eventsSheet.rows[rKey];
+          const eventTitle = s(rEvent[1]).trim().value();
+          let foundEvent = acc.find(c => c.title === eventTitle);
+          if (!foundEvent) {
+            acc.push({ title: eventTitle, sessions: [] });
+            foundEvent = acc[0];
+          }
+          const sessionTitle = rEvent[2] ? s(rEvent[2]).trim().value() : '';
+          let foundSession = foundEvent.sessions.find(s => s.title === sessionTitle);
+          if (!foundSession) {
+            foundEvent.sessions.push({ title: sessionTitle, conferences: [] });
+            foundSession = foundEvent.sessions[0];
+          }
+          foundSession.conferences.push({
+            title: rEvent[3] ? s(rEvent[3]).trim().value() : '',
+            begin: moment(s(rEvent[4]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
+            fin: moment(s(rEvent[5]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
+            moderator: rEvent[6] ? s(rEvent[6]).trim().value() : '',
+            speaker: rEvent[7] ? s(rEvent[7]).trim().value() : '',
+            description: rEvent[8] ? s(rEvent[8]).trim().value() : '',
+            code: s(rEvent[9]).trim().value()
+          });
+          return acc;
+        }, []);
+      const rProgram = programsSheet.rows[pKey];
+      const program = {
+        reference: s(rProgram[1]).toLowerCase().trim().value(),
+        title: s(rProgram[2]).trim().value(),
+        location: s(rProgram[3]).trim().value(),
+        period: s(rProgram[4]).trim().value(),
+        description: s(rProgram[5]).trim().value(),
+        begin: moment(s(rProgram[6]).trim().value(), 'DD/MM/YYYY').toDate(),
+        end: moment(s(rProgram[7]).trim().value(), 'DD/MM/YYYY').toDate(),
+        lattitude: String(rProgram[8]),
+        longitude: String(rProgram[9]),
+        zoom: String(rProgram[10]),
+        events
+      };
+      console.log('Insert program from line', pIdx, 'and reference', program.reference);
+      Col.Programs.insert(program);
+    });
+  console.warn('Importing prices...');
+
+
+  console.warn('Importing discounts...');
+};
+
 initPrograms = () => {
   const Programs = new Mongo.Collection('programs');
   const ConferencesSchema = new SimpleSchema({
@@ -58,68 +117,24 @@ initPrograms = () => {
   // Fill collection with default if necessary
   if (Meteor.isServer) {
     if (Programs.find().count() === 0) {
-      console.log('Importing programs...');
-      const spreadsheetName = 'Evènements SNVEL - Programmes';
-      const programsSheet = Utils.importSpreadSheet(spreadsheetName);
-      const programs = Object.keys(programsSheet.rows)
-        .filter((pKey, pIdx) => pIdx !== 0)
-        .map((pKey, pIdx) => {
-          const eventsSheet = Utils.importSpreadSheet(spreadsheetName, 2 + pIdx);
-          const events = Object.keys(eventsSheet.rows)
-            .filter((rKey, rIdx) => rIdx !== 0)
-            .reduce((acc, rKey) => {
-              const rEvent = eventsSheet.rows[rKey];
-              const eventTitle = s(rEvent[1]).trim().value();
-              let foundEvent = acc.find(c => c.title === eventTitle);
-              if (!foundEvent) {
-                acc.push({ title: eventTitle, sessions: [] });
-                foundEvent = acc[0];
-              }
-              const sessionTitle = rEvent[2] ? s(rEvent[2]).trim().value() : '';
-              let foundSession = foundEvent.sessions.find(s => s.title === sessionTitle);
-              if (!foundSession) {
-                foundEvent.sessions.push({ title: sessionTitle, conferences: [] });
-                foundSession = foundEvent.sessions[0];
-              }
-              foundSession.conferences.push({
-                title: rEvent[3] ? s(rEvent[3]).trim().value() : '',
-                begin: moment(s(rEvent[4]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
-                fin: moment(s(rEvent[5]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
-                moderator: rEvent[6] ? s(rEvent[6]).trim().value() : '',
-                speaker: rEvent[7] ? s(rEvent[7]).trim().value() : '',
-                description: rEvent[8] ? s(rEvent[8]).trim().value() : '',
-                code: s(rEvent[9]).trim().value()
-              });
-              return acc;
-            }, []);
-          const rProgram = programsSheet.rows[pKey];
-          const program = {
-            reference: s(rProgram[1]).toLowerCase().trim().value(),
-            title: s(rProgram[2]).trim().value(),
-            location: s(rProgram[3]).trim().value(),
-            period: s(rProgram[4]).trim().value(),
-            description: s(rProgram[5]).trim().value(),
-            begin: moment(s(rProgram[6]).trim().value(), 'DD/MM/YYYY').toDate(),
-            end: moment(s(rProgram[7]).trim().value(), 'DD/MM/YYYY').toDate(),
-            lattitude: String(rProgram[8]),
-            longitude: String(rProgram[9]),
-            zoom: String(rProgram[10]),
-            events
-          };
-          console.log('Insert program from line', pIdx, 'and reference', program.reference);
-          Col.Programs.insert(program);
-        });
-      console.warn('Importing prices...');
-
-
-      console.warn('Importing discounts...');
-
-
+      programsUpdate();
     }
     // Publish
     Meteor.publish('programs.all', function() {
       return Programs.find();
     });
   }
+  // Methods
+  Meteor.methods({
+    'programs.update': function() {
+      if (!this.userId) { throw new Meteor.Error('unauthorized'); }
+      const user = Meteor.users.findOne(this.userId);
+      if (!user || !user.isAdmin()) { throw new Meteor.Error('unauthorized'); }
+      if (Meteor.isServer) {
+        Col.Programs.remove({});
+        programsUpdate();
+      }
+    }
+  });
   console.log('Programs filled and exposed');
 };

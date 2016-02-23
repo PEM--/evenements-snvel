@@ -2,6 +2,22 @@ const PHONE_NUMBER_REGEX = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}
 
 const { Schema, Col, Utils } = MainApp;
 
+const userTypesUpdate = () => {
+  console.log('Importing user types...');
+  const result = Utils.importSpreadSheet('Evènements SNVEL - Typologie participants');
+  Object.keys(result.rows)
+    .filter((k, idx) => idx !== 0)
+    .forEach((k, idx) => {
+      const r = result.rows[k];
+      const userType = {
+        title: s(r[1]).trim().value(),
+        restricted: r[2] ? true : false
+      };
+      console.log('Insert user type from line', idx, 'and', userType, userType.restricted);
+      Col.UserTypes.insert(userType);
+    });
+};
+
 initUsers = () => {
   const UserTypes = new Mongo.Collection('userTypes');
   const UserTypesSchema = new SimpleSchema({
@@ -14,19 +30,7 @@ initUsers = () => {
   // Fill collection with default if necessary
   if (Meteor.isServer) {
     if (UserTypes.find().count() === 0) {
-      console.log('Importing user types...');
-      const result = Utils.importSpreadSheet('Evènements SNVEL - Typologie participants');
-      Object.keys(result.rows)
-        .filter((k, idx) => idx !== 0)
-        .forEach((k, idx) => {
-          const r = result.rows[k];
-          const userType = {
-            title: s(r[1]).trim().value(),
-            restricted: r[2] ? true : false
-          };
-          console.log('Insert user type from line', idx, 'and', userType, userType.restricted);
-          Col.UserTypes.insert(userType);
-        });
+      userTypesUpdate();
     }
     // Publish
     Meteor.publish('userTypes.all', function() {
@@ -264,4 +268,17 @@ initUsers = () => {
     });
     console.log('BasicPages filled and exposed');
   }
+
+  // Methods
+  Meteor.methods({
+    'userTypes.update': function() {
+      if (!this.userId) { throw new Meteor.Error('unauthorized'); }
+      const user = Meteor.users.findOne(this.userId);
+      if (!user || !user.isAdmin()) { throw new Meteor.Error('unauthorized'); }
+      if (Meteor.isServer) {
+        Col.UserTypes.remove({});
+        userTypesUpdate();
+      }
+    }
+  });
 };
