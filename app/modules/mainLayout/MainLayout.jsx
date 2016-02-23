@@ -211,6 +211,7 @@ class MainLayout extends Views.BaseReactMeteor {
         isMenuOpen={this.data.isMenuOpen}
         basicPages={this.data.basicPages}
       >
+        <div id='outdated'></div>
         {this.props.children}
       </MainBody>
     );
