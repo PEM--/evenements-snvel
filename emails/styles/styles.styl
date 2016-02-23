@@ -7,7 +7,7 @@ lightViolet = #a090e8
 orange = #ee7a23
 cream = #fff8e4
 
-darkGrey = #262626
+darkGrey = #444444
 grey = #8b8b8b
 lightGrey = #e8e8e8
 
@@ -15,10 +15,10 @@ textColor = darkViolet
 brandPrimary = orange
 brandSecondary = violet
 borderBrandPrimary = darken(brandPrimary, 10%)
-hoveredBrandPrimary = borderBrandPrimary
+hoveredBrandPrimary = lighten(borderBrandPrimary, 20%)
 invertedBrandPrimary = cream
 hoveredInvertedBrandPrimary = cream
-headerColor = brandSecondary
+headerColor = violet
 bgColor = cream
 hrColor = cream
 hrBgColor = cream
@@ -59,8 +59,7 @@ body, .body, html
 .invoice
   border 1px grey solid !important
   background lightGrey !important
-  pre
-    color darkGrey !important
+  color darkGrey !important
 
 .cgv
   background darkGrey !important
