@@ -3,9 +3,7 @@ extends ../includes/layout.jade
 block body
   +layout
     // Header
-    +fullWidthRow
-      p.center &nbsp;
-
+    include ../partials/header.jade
     // Body
     +body
       +container()(class='main-content')

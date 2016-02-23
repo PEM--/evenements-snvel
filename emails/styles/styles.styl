@@ -1,26 +1,32 @@
 // Colors
 // Real colors
-orange = #FF7100
-green = #007E5F
-lightGrey = #f0f0f0
-grey = #bcbcbc
-darkGrey = #6b6b6b
-textColor = darkGrey
+orange = #ee7a23
+darkViolet = #262a3f
+violet = #4a418f
+lightViolet = #a090e8
+orange = #ee7a23
+cream = #fff8e4
+
+darkGrey = #262626
+grey = #8b8b8b
+lightGrey = #e8e8e8
+
+textColor = darkViolet
 brandPrimary = orange
-brandSecondary = green
+brandSecondary = violet
 borderBrandPrimary = darken(brandPrimary, 10%)
 hoveredBrandPrimary = borderBrandPrimary
-invertedBrandPrimary = lighten(orange, 70%)
-hoveredInvertedBrandPrimary = lighten(invertedBrandPrimary, 40%)
+invertedBrandPrimary = cream
+hoveredInvertedBrandPrimary = cream
 headerColor = brandSecondary
-bgColor = hoveredInvertedBrandPrimary
-hrColor = lighten(orange, 50%)
-hrBgColor = lighten(orange, 30%)
+bgColor = cream
+hrColor = cream
+hrBgColor = cream
 
 // Fonts
 // Real font stack
 headerFont = Impact, sans-serif
-bodyFont = 'Helvetica Neue', Helvetica, Arial, sans-serif
+bodyFont = 'San Francisco', 'Helvetica Neue', Roboto, Helvetica, Arial, sans-serif
 preFont = 'Droid Sans Mono', monospace
 // Template font stack
 // headerFont = serif
@@ -40,6 +46,14 @@ body, .body, html
   margin 20px !important
   border 1px solid brandPrimary !important
   border-radius 5px !important
+
+.footer
+  background brandPrimary
+  p, a
+    color invertedBrandPrimary !important
+  a
+    font-weight bold
+    text-decoration underline
 
 // Invoice
 .invoice

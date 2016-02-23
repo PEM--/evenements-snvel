@@ -3,8 +3,7 @@ extends ../includes/layout.jade
 block body
   +layout
     // Header
-    +fullWidthRow
-      p.center &nbsp;
+    include ../partials/header.jade
     // Body
     +body
       +container()(class='main-content')
@@ -28,6 +27,7 @@ block body
         +row()
           +columns('twelve', 'last')
             td.center.text-pad
-              p — HTML_TEMPLATE_COMPANY
+              p — L'équipe SNVEL
               p &nbsp;
-      include ../partials/footer.jade
+    // Footer
+    include ../partials/footer.jade
