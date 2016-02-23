@@ -1,5 +1,6 @@
 // Namespace flatteinng
 const { Views, Col } = MainApp;
+const { Spinner } = Views;
 
 // Client only
 if (Meteor.isClient) {
@@ -19,6 +20,8 @@ if (Meteor.isClient) {
         this.program = Col.Programs.findOne();
         // Add a marker at the middle of the map which is already centered on the event
         GoogleMaps.ready('map', (map) => {
+          $('.SpinnerContainer').velocity('transition.fadeOut');
+          $('.googlemapContainer').velocity('transition.fadeIn');
           const marker = new google.maps.Marker({
             position: map.options.center,
             map: map.instance,
@@ -323,7 +326,7 @@ if (Meteor.isClient) {
 }
 
 // GoogleMap compoment
-class ReactGoogleMap extends Views.BaseReactMeteor {
+class GoogleMap extends Views.BaseReactMeteor {
   constructor(props) {
     super(props);
   }
@@ -335,7 +338,8 @@ class ReactGoogleMap extends Views.BaseReactMeteor {
   }
   render() {
     return (
-      <div className='row client googlemap'>
+      <div className='googlemap'>
+        <Spinner />
         <div ref='googlemapContainer' className='googlemapContainer' />
       </div>
     );
@@ -348,4 +352,4 @@ class ReactGoogleMap extends Views.BaseReactMeteor {
   }
 }
 
-Views.ReactGoogleMap = ReactGoogleMap;
+Views.GoogleMap = GoogleMap;
