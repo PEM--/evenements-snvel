@@ -1,0 +1,21 @@
+{
+  "name": "email_build",
+  "version": "0.0.1",
+  "private": false,
+  "devDependencies": {
+    "coffee-script": "^1.10.0",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-connect": "^2.3.1",
+    "gulp-juice": "^0.1.0",
+    "gulp-inline-source": "^2.1.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-stylus": "^2.3.0",
+    "gulp-util": "^3.0.7"
+  }
+}

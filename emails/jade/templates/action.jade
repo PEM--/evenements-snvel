@@ -1,0 +1,44 @@
+extends ../includes/layout.jade
+
+block body
+  +layout
+    // Header
+    +fullWidthRow
+      p.center &nbsp;
+
+    // Body
+    +body
+      +container()(class='main-content')
+        +row()
+          +columns('twelve', 'last')
+            td.text-pad
+              h3 HTML_TEMPLATE_ACTION_TITLE
+        +row()
+          +columns('twelve', 'last')
+            td.center.text-pad
+              p HTML_TEMPLATE_ACTION_MESSAGE
+        +row()
+          +columns('twelve', 'last')
+            td.center.text-pad
+              p HTML_TEMPLATE_ACTION_SUB_MESSAGE
+        +row()(class='button-wrapper')
+          +columns ('seven', 'last')
+            td.center.text-pad
+              a(href='HTML_TEMPLATE_ACTION_VALIDATE_URL')
+                +button('HTML_TEMPLATE_ACTION_BUTTON')(style="large-button radius")
+        +row()
+          +columns('twelve', 'last')
+            td.center.text-pad
+              p — HTML_TEMPLATE_COMPANY
+              p &nbsp;
+
+    // Footer
+    +fullWidthRow
+      p.center
+        | Suivez&nbsp;
+        a(href='HTML_TEMPLATE_TWITTER_URL') HTML_TEMPLATE_TWITTER_ACCOUNT
+        | &nbsp;sur Twitter.
+      p.center
+        | Suivez&nbsp; 
+        a(href='HTML_TEMPLATE_FACEBOOK_URL') HTML_TEMPLATE_FACEBOOK_ACCOUNT
+        | &nbsp;sur Facebook.

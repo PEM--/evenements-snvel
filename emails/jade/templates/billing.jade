@@ -1,0 +1,56 @@
+extends ../includes/layout.jade
+
+block body
+  +layout
+    // Header
+    +fullWidthRow
+      p.center &nbsp;
+
+    // Body
+    +body
+      +container()(class='main-content')
+        +row()
+          +columns('twelve', 'last')
+            td.text-pad
+              h3 HTML_TEMPLATE_BILLING_TITLE
+        +row()
+          +columns('twelve', 'last')
+            td.center.text-pad
+              p HTML_TEMPLATE_BILLING_GREETINGS
+        +row()
+          +columns('twelve', 'last')
+            td.center.text-pad
+              p HTML_TEMPLATE_BILLING_INTRODUCTION
+        +row()
+          +columns('twelve', 'last')
+            td.center.text-pad
+              p HTML_TEMPLATE_BILLING_INVOICE_PREAMBLE
+        +row()
+          +columns('twelve', 'last')
+            td.center.text-pad
+              pre.invoice.
+                HTML_TEMPLATE_BILLING_INVOICE_CONTENT
+        +row()
+          +columns('twelve', 'last')
+            td.center.text-pad
+              p HTML_TEMPLATE_BILLING_SUB_GREETINGS
+        +row()
+          +columns('twelve', 'last')
+            td.center.text-pad
+              p — HTML_TEMPLATE_COMPANY
+              p &nbsp;
+
+    // Footer
+    +fullWidthRow
+      p.center
+        | Suivez&nbsp;
+        a(href='HTML_TEMPLATE_TWITTER_URL') HTML_TEMPLATE_TWITTER_ACCOUNT
+        | &nbsp;sur Twitter.
+      p.center
+        | Suivez&nbsp; 
+        a(href='HTML_TEMPLATE_FACEBOOK_URL') HTML_TEMPLATE_FACEBOOK_ACCOUNT
+        | &nbsp;sur Facebook.
+
+  +fullWidthRow('cgv')
+    h1 HTML_TEMPLATE_TERMS_OF_SALES_TITLE
+    HTML_TEMPLATE_TERMS_OF_SALES_CONTENT
