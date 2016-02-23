@@ -31,7 +31,7 @@ const DumbMainMenu = ({onMenuToggle, user}) => {
   const items = [ {needSignOn: 0, icon: 'home', text: 'Accueil', name: 'home'},
     {needSignOn: 1, admin: 0, icon: 'user', text: 'Connexion', name: 'signon'},
     {needSignOn: 1, admin: 0, icon: 'edit', text: 'Créer votre compte', name: 'signup'},
-    {needSignOn: 0, admin: 0, icon: 'calendar', text: 'Programme', name: 'presentation'},
+    {needSignOn: 0, admin: 0, icon: 'calendar', text: 'Programme', name: 'program'},
     {needSignOn: 2, admin: 0, icon: 'calendar-plus-o', text: 'Inscription', name: 'subscribe'},
     {needSignOn: 2, admin: 1, icon: 'cog', text: 'Administration', name: 'admin'},
     {needSignOn: 2, admin: 0, icon: 'unlock-alt', text: 'Déconnexion', name: 'signoff'}

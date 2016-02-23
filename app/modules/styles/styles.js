@@ -5,7 +5,7 @@ const lightViolet = '#a090e8';
 const orange = '#ee7a23';
 const cream = '#fff8e4';
 
-// Colors for Material-UI
+// Colors
 palette = {
   primary1Color: darkViolet,
   primary2Color: orange,

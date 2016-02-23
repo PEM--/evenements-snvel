@@ -35,7 +35,7 @@ initPrograms = () => {
     description: { type: String, label: 'Description', min: 2, max: 512 },
     begin: {type: Date, index: true, label: 'Début' },
     end: {type: Date, index: true, label: 'Fin' },
-    lattidure: {type: String, label: 'Lattitude', min: 2, max: 16},
+    lattitude: {type: String, label: 'Lattitude', min: 2, max: 16},
     longitude: {type: String, label: 'Longitude', min: 2, max: 16},
     zoom: {type: String, label: 'Zoom', min: 1, max: 2, allowedValues: (() => {
       let count = 2, res = [];
@@ -101,7 +101,7 @@ initPrograms = () => {
             description: s(rProgram[5]).trim().value(),
             begin: moment(s(rProgram[6]).trim().value(), 'DD/MM/YYYY').toDate(),
             end: moment(s(rProgram[7]).trim().value(), 'DD/MM/YYYY').toDate(),
-            lattidure: String(rProgram[8]),
+            lattitude: String(rProgram[8]),
             longitude: String(rProgram[9]),
             zoom: String(rProgram[10]),
             events
