@@ -1,9 +1,13 @@
 googleAnalytics:
-  UA: 'UA-73432166-1'
+  UA: UA-73432166-1
 contact:
-  email: 'evenements@snvel.fr'
-  defaultSubject: "Evènements SNVEL - Demande d'informations"
+  email: evenements@snvel.fr
+  defaultSubject: Evènements SNVEL - Demande d'informations
 socialLinks:
-  facebook: 'https://www.facebook.com/SNVEL-192921337455384/'
-  twitter: 'https://twitter.com/SNVEL_com'
-  linkedin: 'https://www.linkedin.com/company/snvel'
+  facebook: "https://www.facebook.com/SNVEL-192921337455384/"
+  twitter: "https://twitter.com/SNVEL_com"
+  linkedin: "https://www.linkedin.com/company/snvel"
+cookie:
+  name: evenements_snvel
+  text: En poursuivant votre navigation sur ce site, vous acceptez l'utilisation des cookies pour vous proposer des services et offres adaptés.
+  expires: 60

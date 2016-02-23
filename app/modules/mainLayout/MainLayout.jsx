@@ -1,10 +1,11 @@
 const { Views, Col } = MainApp;
-const { Header, Footer, MainMenu } = Views;
+const { Header, Footer, MainMenu, Cookie } = Views;
 
 const MainBody = ({children, onMenuToggle, isMenuOpen, basicPages}) => {
   return (
     <div style={{minHeight: '100vh'}}>
       <div id='outdated' />
+      <Cookie />
       <MainMenu isMenuOpen={isMenuOpen} onMenuToggle={onMenuToggle} />
       <div
         className='flex col'
