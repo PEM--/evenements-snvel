@@ -1,4 +1,5 @@
 # Development environment
+## Debian 8 & Docker
 ```sh
 vagrant up dev
 dm -D create -d generic --generic-ip-address $HOST_IP_DEV --generic-ssh-user vagrant --generic-ssh-key ~/.vagrant.d/insecure_private_key dev
@@ -31,3 +32,12 @@ eval (dm env dev)
   + dm => docker-machine
   + d => docker
   + di => docker-image
+
+## Bind
+```sh
+docker pull resystit/bind9
+```
+
+# Production
++ ufw
++ fail2ban
