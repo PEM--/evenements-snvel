@@ -1,13 +1,13 @@
 $TTL    604800
-@       IN      SOA     ns.nic.pem.paris. admin.nic.pem.paris. (
+@       IN      SOA     ns.pem.paris. admin.pem.paris. (
                               3         ; Serial
                          604800         ; Refresh
                           86400         ; Retry
                         2419200         ; Expire
                          604800 )       ; Negative Cache TTL
 ; name servers - NS records
-      IN      NS      ns.nic.pem.paris.
+      IN      NS      ns.pem.paris.
 ; PTR Records
-1.50   IN      PTR     ns.nic.pem.paris.    ;
-1.50 IN      PTR     host.nic.pem.paris.  ;
-1.16 IN      PTR     dev.nic.pem.paris.  ;
+1.50   IN      PTR     ns.pem.paris.    ;
+1.50 IN      PTR     host.pem.paris.  ;
+1.16 IN      PTR     dev.pem.paris.  ;
