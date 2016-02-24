@@ -17,7 +17,6 @@ formFromSchema = (form, schema, initialState = null) => {
       const formState = MainApp.Schema[schema].clean(
         Object.assign({}, this.state)
       );
-      console.log('formState', formState);
       MainApp.Schema[schema].validate(formState);
       return { isValidForm: true };
     } catch (error) {

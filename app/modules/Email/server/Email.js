@@ -2,7 +2,7 @@ const { sender, apiKey, secretKey } = Meteor.settings.private.mailjet;
 
 Meteor.startup(() => {
   process.env.MAIL_URL = `smtp://${apiKey}:${secretKey}@in-v3.mailjet.com:587/`;
-  console.log('SMTP declared');
+  console.log('SMTP declared', process.env.MAIL_URL);
 });
 
 const { facebook, twitter, linkedin } = Meteor.settings.public.socialLinks;
@@ -15,9 +15,9 @@ const globalReplacement = (str) => {
   return result;
 };
 
-const actionTitle = 'Evènements SNVEL - Confirmez votre email';
-const actionHtml = s(globalReplacement(Assets.getText('emails/confirmation.html')))
-  .replaceAll('HTML_TEMPLATE_ACTION_TITLE', actionTitle)
+const confirmationTitle = 'Evènements SNVEL - Confirmez votre email';
+const confirmationHtml = s(globalReplacement(Assets.getText('emails/confirmation.html')))
+  .replaceAll('HTML_TEMPLATE_ACTION_TITLE', confirmationTitle)
   .value();
 
 const billingTitle = 'Evènements SNVEL - Votre facture';
@@ -27,10 +27,10 @@ const billingHtml = s(globalReplacement(Assets.getText('emails/billing.html')))
 
 // Configure accounts
 Accounts.emailTemplates.from = sender;
-Accounts.emailTemplates.verifyEmail.subject = () => emailConfirmation.title;
+Accounts.emailTemplates.verifyEmail.subject = () => confirmationTitle;
 Accounts.emailTemplates.verifyEmail.html = (user, url) => {
   return s.replaceAll(
-    actionHtml,
+    confirmationHtml,
     'HTML_TEMPLATE_ACTION_VALIDATE_URL',
     url.replace('/#', ''));
 };
@@ -40,8 +40,8 @@ MainApp.Utils.sendConfirmationEmail = (to, idx) => {
   Email.send({
     from: sender,
     to,
-    subject: actionTitle,
-    html: s.replaceAll(actionHtml, 'HTML_TEMPLATE_ACTION_VALIDATE_URL', `${url}confirm/${idx}`)
+    subject: confirmationTitle,
+    html: s.replaceAll(confirmationHtml, 'HTML_TEMPLATE_ACTION_VALIDATE_URL', `${url}confirm/${idx}`)
   });
 };
 
