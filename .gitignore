@@ -5,3 +5,4 @@ private
 settings.dev.json
 settings.pre.json
 settings.prod.json
+.vagrant
