@@ -83,7 +83,7 @@ mquandalle:bower@1.5.2_1
 mquandalle:jade@0.4.9
 mquandalle:jade-compiler@0.4.5
 mquandalle:stylus@1.1.2
-natestrauser:animate-css@3.4.0
+natestrauser:animate-css@3.5.1
 npm-bcrypt@0.7.8_2
 npm-container@1.2.0
 npm-mongo@1.4.39_1
@@ -123,7 +123,7 @@ tmeasday:publish-counts@0.7.3
 tracker@1.0.9
 ui@1.0.8
 underscore@1.0.4
-underscorestring:underscore.string@3.2.3
+underscorestring:underscore.string@3.3.4
 url@1.0.5
 webapp@1.2.3
 webapp-hashing@1.0.5
