@@ -1,0 +1,13 @@
+$TTL    604800
+@       IN      SOA     ns.nyc3.example.com. admin.nyc3.example.com. (
+                              3         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+; name servers - NS records
+      IN      NS      ns.nyc3.example.com.
+; PTR Records
+1.50   IN      PTR     ns.nyc3.example.com.    ;
+1.50 IN      PTR     host.nyc3.example.com.  ;
+1.16 IN      PTR     dev.nyc3.example.com.  ;

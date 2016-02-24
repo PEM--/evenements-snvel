@@ -1,0 +1,8 @@
+dns:
+  build: dns
+  log_driver: "json-file"
+  volumes:
+    - /var/bind/:/var/bind/
+  ports:
+    - "192.168.1.50:53:53"
+    - "192.168.1.50:53:53/udp"
