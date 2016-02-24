@@ -9,4 +9,3 @@ COPY db.pem.paris /etc/bind/zones
 COPY db.192.168 /etc/bind/zones
 
 CMD ["named", "-c", "/etc/bind/named.conf", "-g", "-u", "named"]
-# CMD ["named", "-c", "/etc/bind/named.conf", "-4", "-g"]
