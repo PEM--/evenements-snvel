@@ -10,4 +10,5 @@ COPY db.pem.paris /etc/bind/zones
 COPY db.192.168 /etc/bind/zones
 
 COPY ./entrypoint.sh /usr/bin/entrypoint.sh
+RUN chmod ugo+x /usr/bin/entrypoint.sh
 CMD /usr/bin/entrypoint.sh
