@@ -11,3 +11,8 @@ Site des évènements SNVEL.
 ## Pages utiles du manuel de Github
 
 * [Créer un ticket](https://help.github.com/articles/creating-an-issue/)
+
+## Outils
+
+* [Créer des adresses de tests](http://mailinator.com/)
+* [Cartes bleues de tests](https://developers.braintreepayments.com/reference/general/testing/node#credit-card-numbers)

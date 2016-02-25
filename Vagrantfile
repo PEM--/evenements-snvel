@@ -8,14 +8,16 @@ Vagrant.configure(2) do |config|
   config.vm.box = "debian/jessie64"
   config.ssh.insert_key = false
   hosts.each do |name, ip|
-    config.vm.define name do |vm|
-      vm.vm.hostname = "%s" % name
-      # vm.vm.network "private_network", ip: ip
-      vm.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)", ip: ip
-      vm.vm.provider "virtualbox" do |v|
+    config.vm.define name do |conf|
+      conf.vm.hostname = "%s" % name
+      # conf.vm.network "private_network", ip: ip
+      conf.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)", ip: ip
+      conf.ssh.forward_agent = true
+      conf.vm.synced_folder ENV["HOME"], "/vagrant", create: true
+      conf.vm.provider "virtualbox" do |v|
         v.name = name
       end
-      vm.vm.provision "shell", path: "provisioning.sh"
+      conf.vm.provision "shell", path: "provisioning.sh"
     end
   end
 end
