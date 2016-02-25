@@ -7,6 +7,12 @@ sudo apt-get upgrade -y
 sudo apt-get autoremove -y
 sudo apt-get autoclean -y
 
+# Copy SSH keys
+mkdir /root/.ssh
+cp /vagrant/id_rsa.pub /root/.ssh/authorized_keys
+service restart sshd
+sed -i -e "s/^#AuthorizedKeysFile/AuthorizedKeysFile/" /etc/ssh/sshd_config
+
 # Set volumes
 mkdir /var/bind
 mkdir /var/spamassassin

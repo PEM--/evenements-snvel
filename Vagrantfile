@@ -13,7 +13,7 @@ Vagrant.configure(2) do |config|
       # conf.vm.network "private_network", ip: ip
       conf.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)", ip: ip
       conf.ssh.forward_agent = true
-      conf.vm.synced_folder ENV["HOME"], "/vagrant", create: true
+      conf.vm.synced_folder ENV['HOME'] + '/.ssh', "/vagrant", create: true
       conf.vm.provider "virtualbox" do |v|
         v.name = name
       end
