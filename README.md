@@ -17,7 +17,10 @@ Site des évènements SNVEL.
 * [Créer des adresses emails de tests](http://mailinator.com/)
 * [Cartes bleues de tests](https://developers.braintreepayments.com/reference/general/testing/node#credit-card-numbers)
 
+## Documentations internes pour le développement
+
+* [Installation](doc/install.md).
 
 ## Autres
 
-* [Tester des emails](http://www.mail-tester.com/)
+* [Tester la qualité des emails](http://www.mail-tester.com/)
