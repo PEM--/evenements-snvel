@@ -9,5 +9,6 @@ $TTL    604800
       IN      NS      ns.pem.paris.
 ; PTR Records
 1.50   IN      PTR     ns.pem.paris.    ;
+1.50   IN      PTR     mail.pem.paris.    ;
 1.50 IN      PTR     host.pem.paris.  ;
 1.16 IN      PTR     dev.pem.paris.  ;

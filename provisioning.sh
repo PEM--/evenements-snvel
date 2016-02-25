@@ -9,3 +9,5 @@ sudo apt-get autoclean -y
 
 # Set volumes
 mkdir /var/bind
+mkdir /var/spamassassin
+mkdir /var/postfix

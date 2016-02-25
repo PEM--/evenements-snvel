@@ -6,3 +6,16 @@ dns:
   ports:
     - "192.168.1.50:53:53"
     - "192.168.1.50:53:53/udp"
+mail:
+  build: mail
+  log_driver: "json-file"
+  volumes:
+  - ./spamassassin:/tmp/spamassassin/
+  - ./postfix:/tmp/postfix/
+  hostname: mail
+  domainname: pem.paris
+  ports:
+  - "25:25"
+  - "143:143"
+  - "587:587"
+  - "993:993"
