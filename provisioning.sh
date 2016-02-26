@@ -5,7 +5,7 @@ apt-get update
 apt-get upgrade -y
 apt-get install mailutils -y
 # Remove and clean unused packages
-apt-get remove exim4
+apt-get remove exim4 -y
 apt-get autoremove -y
 apt-get autoclean -y
 # Copy SSH keys

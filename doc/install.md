@@ -21,7 +21,7 @@ ssh root@host.pem.paris 'sed -i -e "s/10.0.2.3/192.168.1.50/" /etc/resolv.conf'
 
 ## Run a temporary container
 ```sh
-d run --rm -ti docker_mail /bin/sh
+d run --name mail -v /var/postfix:/tmp/postfix -P -ti --rm docker_mail /bin/sh
 ```
 
 # Production

@@ -13,7 +13,9 @@ Vagrant.configure(2) do |config|
       # conf.vm.network "private_network", ip: ip
       conf.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)", ip: ip
       conf.ssh.forward_agent = true
+      conf.vm.synced_folder ".", "/vagrant", disabled: true
       conf.vm.synced_folder ENV['HOME'] + '/.ssh', "/vagrant", create: true
+      # conf.vm.synced_folder "./host_exchange", "/host_exchange", create: true
       conf.vm.provider "virtualbox" do |v|
         v.name = name
         # Set the timesync threshold to 10 seconds, instead of the default 20 minutes.
