@@ -1,7 +1,8 @@
 const { sender, apiKey, secretKey } = Meteor.settings.private.mailjet;
 
 Meteor.startup(() => {
-  process.env.MAIL_URL = `smtp://${apiKey}:${secretKey}@in-v3.mailjet.com:587/`;
+  // process.env.MAIL_URL = `smtp://${apiKey}:${secretKey}@in-v3.mailjet.com:587/`;
+  process.env.MAIL_URL = `smtp://smtp.pem.paris:25/`;
   console.log('SMTP declared', process.env.MAIL_URL);
 });
 

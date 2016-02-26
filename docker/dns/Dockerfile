@@ -9,7 +9,6 @@ COPY db.pem.paris /etc/bind/zones
 COPY db.192.168 /etc/bind/zones
 
 # Cleanup and remove build tools
-# RUN apk del openssl
 RUN rm -rf /var/cache/apk/*
 
 # DNS

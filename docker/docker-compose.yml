@@ -6,6 +6,7 @@ dns:
   ports:
     - "192.168.1.50:53:53"
     - "192.168.1.50:53:53/udp"
+
 mail:
   build: mail
   log_driver: "json-file"
@@ -23,3 +24,13 @@ mail:
   - "192.168.1.50:587:587/udp"
   # - "143:143"
   # - "993:993"
+
+mailcatcher:
+  build: mailcatcher
+  log_driver: "json-file"
+  ports:
+  # SMTP
+  - "192.168.1.50:25:1025"
+  - "192.168.1.50:25:1025/udp"
+  # HTTP access
+  - "192.168.1.50:8080:1080"
