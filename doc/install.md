@@ -2,11 +2,8 @@
 ## Debian 8 & Docker
 ```sh
 vagrant up dev
+. local_env.sh
 dm -D create -d generic --generic-ip-address $HOST_IP_DEV --generic-ssh-user root --generic-ssh-key ~/.ssh/id_rsa  dev
-```
-
-Set the appropriate docker machine:
-```sh
 # Using fish
 eval (dm env dev)
 ```

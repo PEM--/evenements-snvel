@@ -17,7 +17,7 @@ mkdir /var/bind
 mkdir /var/spamassassin
 mkdir /var/postfix
 # Firewall
-apt-get install ufw
+apt-get install ufw -y
 ufw allow ssh       # SSH
 ufw allow 80/tcp    # HTTP
 ufw allow 443/tcp   # HTTPS
