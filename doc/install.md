@@ -22,6 +22,11 @@ dc stop dns; dc build dns; dc up -d dns
 ssh root@host.pem.paris 'sed -i -e "s/10.0.2.3/192.168.1.50/" /etc/resolv.conf'
 ```
 
+## Run a temporary container
+```sh
+d run --rm -ti docker_mail /bin/sh
+```
+
 # Production
 + ufw
 + fail2ban
