@@ -39,8 +39,8 @@ RUN mkdir -p /tmp/spamassassin
 # RUN apk del openssl
 RUN rm -rf /var/cache/apk/*
 
-# Start-mailserver script
-ADD start-mailserver.sh /usr/local/bin/start-mailserver.sh
-RUN chmod +x /usr/local/bin/start-mailserver.sh
+# Start up script
+ADD start-mail.sh /usr/local/bin/start-mail.sh
+RUN chmod +x /usr/local/bin/start-mail.sh
 
-CMD /usr/local/bin/start-mailserver.sh
+CMD /usr/local/bin/start-mail.sh

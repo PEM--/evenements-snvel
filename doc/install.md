@@ -16,7 +16,7 @@ eval (dm env dev)
 ## DNS (Bind9)
 ```sh
 dc stop dns; dc build dns; dc up -d dns
-ssh root@host.pem.paris 'sed -i -e "s/10.0.2.3/192.168.1.50/" /etc/resolv.conf'
+ssh root@$HOST_IP_DEV 'sed -i -e "s/10.0.2.3/192.168.1.50/" /etc/resolv.conf'
 ```
 
 ## Run a temporary container
