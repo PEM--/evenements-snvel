@@ -8,6 +8,8 @@ ADD . .
 RUN npm -g install Haraka
 RUN haraka -i /etc/haraka
 COPY ./host_list /etc/haraka/config/host_list
+COPY ./loglevel /etc/haraka/config/loglevel
+COPY ./smtp.ini /etc/haraka/config/smtp.ini
 
 # SMTP ports
 EXPOSE  25
@@ -21,4 +23,4 @@ EXPOSE  587
 # RUN apk del openssl make gcc g++ python
 # RUN rm -rf /var/cache/apk/*
 
-ENTRYPOINT ["/usr/bin/haraka", "-c", "/etc/haraka"]
+CMD ["/usr/bin/haraka", "-c", "/etc/haraka"]
