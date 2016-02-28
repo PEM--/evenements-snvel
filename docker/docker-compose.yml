@@ -25,6 +25,26 @@ mail:
   # - "143:143"
   # - "993:993"
 
+nodemail:
+  build: nodemail
+  log_driver: "json-file"
+  volumes:
+  - ./spamassassin:/tmp/spamassassin/
+  - ./postfix:/tmp/postfix/
+  hostname: nodemail
+  domainname: pem.paris
+  ports:
+  # SMTP
+  - "192.168.1.50:25:25"
+  - "192.168.1.50:25:25/udp"
+  # ESMTP (SMTP over SSL)
+  - "192.168.1.50:587:587"
+  - "192.168.1.50:587:587/udp"
+  # IMAP
+  - "192.168.1.50:143:143"
+  # IMAP over SSL
+  - "192.168.1.50:993:993"
+
 mailcatcher:
   build: mailcatcher
   log_driver: "json-file"

@@ -15,13 +15,13 @@ eval (dm env dev)
 
 ## DNS (Bind9)
 ```sh
-dc stop dns; dc build dns; dc up -d dns
-ssh root@$HOST_IP_DEV 'sed -i -e "s/10.0.2.3/192.168.1.50/" /etc/resolv.conf'
+dc build dns; dc up -d dns; ssh root@$HOST_IP_DEV 'sed -i -e "s/10.0.2.3/192.168.1.50/" /etc/resolv.conf'
 ```
 
 ## Run a temporary container
 ```sh
 d run --name mail -v /var/postfix:/tmp/postfix -P -ti --rm docker_mail /bin/sh
+d run --name nodemail -P -ti --rm docker_nodemail /bin/sh
 ```
 
 # Production
