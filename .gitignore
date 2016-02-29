@@ -8,3 +8,4 @@ settings.prod.json
 .vagrant
 sasl_passwd
 auth_flat_file.ini
+smtp_proxy.ini

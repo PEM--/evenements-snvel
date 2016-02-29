@@ -1,0 +1,7 @@
+enable_outbound=true
+host=193.252.22.72
+port=587
+enable_tls=false
+auth_type=login
+auth_user=EMAIL_ORANGE
+auth_pass=PASSWORD_ORANGE
