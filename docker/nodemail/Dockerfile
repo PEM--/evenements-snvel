@@ -1,18 +1,23 @@
 FROM mhart/alpine-node:0.10
 
-RUN apk add --no-cache make gcc g++ python
+RUN apk add --update make gcc g++ python
 
-WORKDIR /src
-ADD . .
-
-RUN npm -g install Haraka
+# Haraka
+RUN npm i -g Haraka
 RUN haraka -i /etc/haraka
+COPY ./smtp.ini /etc/haraka/config/smtp.ini
 COPY ./host_list /etc/haraka/config/host_list
 COPY ./loglevel /etc/haraka/config/loglevel
-COPY ./smtp.ini /etc/haraka/config/smtp.ini
+COPY ./plugins /etc/haraka/config/plugins
 
-# SMTP ports
-EXPOSE  25
+# OpenSSL
+RUN apk add openssl
+ENV FQDN pem.paris
+RUN openssl req -nodes -new -x509 -days 2190 -newkey rsa:2048 -keyout /etc/ssl/private/server.pem -out /etc/ssl/certs/server.pem -subj "/C=FR/ST=Paris/L=Paris/CN=$FQDN"
+
+# SMTP
+# EXPOSE  25
+# ESMTP (SMTP over SSL)
 EXPOSE  587
 
 # IMAP ports
@@ -22,5 +27,6 @@ EXPOSE  587
 # Cleanup and remove build tools
 # RUN apk del openssl make gcc g++ python
 # RUN rm -rf /var/cache/apk/*
+# RUN rm -rf /tmp/fqdn
 
 CMD ["/usr/bin/haraka", "-c", "/etc/haraka"]
