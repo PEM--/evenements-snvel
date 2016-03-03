@@ -7,6 +7,28 @@ dns:
     - "192.168.1.50:53:53"
     - "192.168.1.50:53:53/udp"
 
+mailserver:
+  build: mailserver
+  log_driver: "json-file"
+  volumes:
+  - ./spamassassin:/tmp/spamassassin/
+  - ./postfix:/tmp/postfix/
+  hostname: mail
+  domainname: pem.paris
+  environment:
+    DMS_SSL: self-signed
+  ports:
+  # SMTP
+  - "192.168.1.50:25:25"
+  - "192.168.1.50:25:25/udp"
+  # SMTP over SSL
+  - "192.168.1.50:587:587"
+  - "192.168.1.50:587:587/udp"
+  # IMAP
+  - "192.168.1.50:143:143"
+  # IMAP over SSL
+  - "192.168.1.50:993:993"
+
 mail:
   build: mail
   log_driver: "json-file"
