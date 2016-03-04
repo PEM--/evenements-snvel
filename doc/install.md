@@ -31,6 +31,11 @@ d run --name mail -v /var/postfix:/tmp/postfix -P -ti --rm docker_mail /bin/sh
 d run --name nodemail -P -ti --rm docker_nodemail /bin/sh
 ```
 
+### Attaching a session to a running container
+```sh
+d exec -ti docker_mail_1 sh
+```
+
 ### Test mails
 ```sh
 swaks -s 192.168.1.50 -p 587 -t test1@gmail.com -f test2@gmail.com -au user1 -ap password1

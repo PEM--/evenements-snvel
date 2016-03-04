@@ -1,52 +1,51 @@
 FROM alpine:3.3
 
-# OpenRC & system update
-# RUN apk --update add openrc
-# Postfix
-RUN apk --update add postfix
-COPY postfix/mailname /etc
+# Postfix & system update
+#RUN apk --update add openrc postfix rsyslog
+RUN apk --update add openrc postfix
+#COPY postfix/mailname /etc
 COPY postfix/main.cf /etc/postfix
-COPY postfix/aliases /etc/postfix
-RUN postmap /etc/postfix/aliases
-COPY postfix/generic /etc/postfix
-RUN postmap /etc/postfix/generic
-COPY postfix/virtual /etc/postfix
-RUN postmap /etc/postfix/virtual
+COPY postfix/master.cf /etc/postfix
+# COPY postfix/aliases /etc/postfix
+# RUN postmap /etc/postfix/aliases
+#COPY postfix/generic /etc/postfix
+#RUN postmap /etc/postfix/generic
+#COPY postfix/virtual /etc/postfix
+#RUN postmap /etc/postfix/virtual
 COPY postfix/sasl_passwd /etc/postfix
+RUN postmap /etc/postfix/sasl_passwd
+RUN rc-update add postfix
+#RUN rc-update add rsyslog
+#RUN rc-update del hwclock
+#RUN rc-update del hwdrivers
+COPY rsyslog/rsyslog.conf /etc
+COPY openrc/rc.conf /etc
 
-# OpenSSL
-RUN apk add openssl
-RUN mkdir -p /etc/ssl
-RUN openssl req -nodes -new -x509 -keyout /etc/ssl/private/server.key -out /etc/ssl/certs/server.crt -subj "/C=FR/ST=Paris/L=Paris/CN=$(cat /etc/mailname)"
-RUN echo | openssl pkcs12 -nodes -password stdin -export -in /etc/ssl/certs/server.crt -inkey /etc/ssl/private/server.key -out /etc/ssl/certificate.pfx
-RUN echo | openssl pkcs12 -nodes -password stdin -export -in /etc/ssl/certs/server.crt -inkey /etc/ssl/private/server.key -out /etc/ssl/certificate.pfx
-RUN echo | openssl pkcs12 -nodes -password stdin -cacerts -in /etc/ssl/certificate.pfx  -out /etc/ssl/certs/ca-crt.pem
-RUN echo | openssl pkcs12 -nodes -password stdin -in /etc/ssl/certificate.pfx -out /etc/ssl/certs/server.pem
+USER root
 
-# Dovecot
-# RUN apk add dovecot
-# RUN mkdir /var/spool/postfix/vhosts
-# RUN addgroup vmail
-# RUN chown vmail:vmail /var/spool/postfix/vhosts
+# can't get ttys unless you run the container in privileged mode
+RUN sed -i '/tty/d' /etc/inittab &&\
+# can't set hostname since docker sets it
+    sed -i 's/hostname $opts/# hostname $opts/g' /etc/init.d/hostname &&\
+# can't mount tmpfs since not privileged
+    sed -i 's/mount -t tmpfs/# mount -t tmpfs/g' /lib/rc/sh/init.sh &&\
+# no need for mounting proc file system
+    sed -i 's/mountproc=true/mountproc=false/g' /lib/rc/sh/init.sh &&\
+# can't do cgroups
+    sed -i 's/cgroup_add_service /# cgroup_add_service /g' /lib/rc/sh/openrc-run.sh
 
 # SMTP ports
 EXPOSE  25
-EXPOSE  587
-
-# IMAP ports
-# EXPOSE  143
-# EXPOSE  993
-
-# Prepare volumes
-RUN mkdir -p /tmp/postfix
-RUN mkdir -p /tmp/spamassassin
+#EXPOSE  587
 
 # Cleanup and remove build tools
 # RUN apk del openssl
 # RUN rm -rf /var/cache/apk/*
 
 # Start up script
-ADD start-mail.sh /usr/local/bin/start-mail.sh
-RUN chmod +x /usr/local/bin/start-mail.sh
+#ADD start-mail.sh /usr/local/bin/start-mail.sh
+#RUN chmod +x /usr/local/bin/start-mail.sh
 
-CMD /usr/local/bin/start-mail.sh
+#CMD ["/usr/local/bin/start-mail.sh"]
+
+CMD ["/sbin/init"]
