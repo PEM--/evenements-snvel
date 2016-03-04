@@ -13,9 +13,7 @@ mkdir /root/.ssh
 cp /vagrant/id_rsa.pub /root/.ssh/authorized_keys
 sed -i -e "s/^#AuthorizedKeysFile/AuthorizedKeysFile/" /etc/ssh/sshd_config
 # Set volumes
-mkdir /var/bind
-mkdir /var/spamassassin
-mkdir /var/postfix
+mkdir /var/db
 # Firewall
 apt-get install ufw -y
 ufw allow ssh       # SSH

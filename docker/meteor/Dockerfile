@@ -3,7 +3,6 @@ MAINTAINER Pierre-Eric Marchandet <pemarchandet@gmail.com>
 
 RUN apk add --update make gcc g++ python
 
-
 # Add PM2 for process management
 RUN npm install -g pm2
 
@@ -13,6 +12,9 @@ COPY bundle /app
 # Install Meteor's dependencies
 WORKDIR /app
 RUN (cd programs/server && npm install)
+
+# Cleanup and remove build tools
+# RUN rm -rf /var/cache/apk/*
 
 # Launch application
 COPY startMeteor.sh /app/startMeteor.sh
