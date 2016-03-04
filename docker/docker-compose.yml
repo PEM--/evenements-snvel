@@ -31,37 +31,34 @@ mongo:
 meteor:
   build: meteor
   log_driver: "json-file"
+  links:
+    - mongo
   environment:
     MONGO_URL: "mongodb://db:27017"
     MONGO_OPLOG_URL: "mongodb://db:27017/local"
     PORT: 3000
     ROOT_URL: "https://192.168.1.50"
-  volumes:
-    - /etc/meteor:/etc/meteor
   # expose:
   #   - "3000"
   ports:
   - "192.168.1.50:3000:3000"
 
-nodemail:
-  build: nodemail
+# Front layer, static file, SSL, proxy cache: NGinx
+nginx:
+  build: nginx
   log_driver: "json-file"
+  links:
+    - meteor
+  environment:
+    # Can be: dev, pre, prod
+    HOST_TARGET: "dev"
   volumes:
-  - ./spamassassin:/tmp/spamassassin/
-  - ./postfix:/tmp/postfix/
-  hostname: nodemail
-  domainname: pem.paris
-  # ports:
-  # SMTP
-  # - "192.168.1.50:25:25"
-  # - "192.168.1.50:25:25/udp"
-  # ESMTP (SMTP over SSL)
-  # - "192.168.1.50:587:587"
-  # - "192.168.1.50:587:587/udp"
-  # IMAP
-  # - "192.168.1.50:143:143"
-  # IMAP over SSL
-  # - "192.168.1.50:993:993"
+    - /etc/certs:/etc/certs
+    - /var/cache:/var/cache
+    - /var/tmp:/var/tmp
+  ports:
+    - "80:80"
+    - "443:443"
 
 mailcatcher:
   build: mailcatcher

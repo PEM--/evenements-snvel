@@ -44,6 +44,11 @@ d exec -ti docker_mail_1 sh
 ```sh
 swaks -s 192.168.1.50 -p 25 -t test1@gmail.com -f test2@gmail.com
 ```
+## NGinx
+### Build
+```sh
+dc build nginx; dc up -d nginx
+```
 
 ## Meteor
 ### Build
@@ -51,6 +56,12 @@ swaks -s 192.168.1.50 -p 25 -t test1@gmail.com -f test2@gmail.com
 ./build_meteor.sh
 dc build meteor; dc up -d meteor
 ```
+## Mongo
+### Build
+```sh
+dc build mongo; dc up -d mongo
+```
+
 
 # Production
 + ufw

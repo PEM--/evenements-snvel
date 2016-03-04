@@ -1,5 +1,0 @@
-tls
-auth/flat_file
-queue/smtp_proxy
-relay
-#relay_acl_allow
