@@ -1,25 +1,11 @@
 FROM alpine:3.3
 
 # Postfix & system update
-#RUN apk --update add openrc postfix rsyslog
 RUN apk --update add openrc postfix
-#COPY postfix/mailname /etc
 COPY postfix/main.cf /etc/postfix
-#COPY postfix/master.cf /etc/postfix
-# COPY postfix/aliases /etc/postfix
-# RUN postmap /etc/postfix/aliases
-#COPY postfix/generic /etc/postfix
-#RUN postmap /etc/postfix/generic
-#COPY postfix/virtual /etc/postfix
-#RUN postmap /etc/postfix/virtual
-#COPY postfix/header_checks /etc/postfix
 COPY postfix/sasl_passwd /etc/postfix
 RUN postmap /etc/postfix/sasl_passwd
 RUN rc-update add postfix
-#RUN rc-update add rsyslog
-#RUN rc-update del hwclock
-#RUN rc-update del hwdrivers
-COPY rsyslog/rsyslog.conf /etc
 COPY openrc/rc.conf /etc
 
 USER root
@@ -37,16 +23,8 @@ RUN sed -i '/tty/d' /etc/inittab &&\
 
 # SMTP ports
 EXPOSE  25
-#EXPOSE  587
 
 # Cleanup and remove build tools
-# RUN apk del openssl
-# RUN rm -rf /var/cache/apk/*
-
-# Start up script
-#ADD start-mail.sh /usr/local/bin/start-mail.sh
-#RUN chmod +x /usr/local/bin/start-mail.sh
-
-#CMD ["/usr/local/bin/start-mail.sh"]
+RUN rm -rf /var/cache/apk/*
 
 CMD ["/sbin/init"]
