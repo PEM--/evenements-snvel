@@ -5,13 +5,14 @@ FROM alpine:3.3
 RUN apk --update add openrc postfix
 #COPY postfix/mailname /etc
 COPY postfix/main.cf /etc/postfix
-COPY postfix/master.cf /etc/postfix
+#COPY postfix/master.cf /etc/postfix
 # COPY postfix/aliases /etc/postfix
 # RUN postmap /etc/postfix/aliases
 #COPY postfix/generic /etc/postfix
 #RUN postmap /etc/postfix/generic
 #COPY postfix/virtual /etc/postfix
 #RUN postmap /etc/postfix/virtual
+#COPY postfix/header_checks /etc/postfix
 COPY postfix/sasl_passwd /etc/postfix
 RUN postmap /etc/postfix/sasl_passwd
 RUN rc-update add postfix
