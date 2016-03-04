@@ -1,4 +1,5 @@
 FROM alpine:3.3
+MAINTAINER Pierre-Eric Marchandet <pemarchandet@gmail.com>
 
 # Build tools & ruby
 RUN apk add --update \

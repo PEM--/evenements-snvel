@@ -3,7 +3,7 @@ const { Views } = MainApp;
 const Footer = ({basicPages}) => (
   <footer className='animated fadeInUp primary2Color flexItemStaticSize'>
     <nav className='maximized lisibility flex row'>
-      <div className='flexItemDynamicSize BasicPagesLinks'>
+      <div className='BasicPagesLinks flexItemDynamicSize'>
         {
           basicPages.map(bp => (
             <div key={bp._id} className='BasicPagesLink'>

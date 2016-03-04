@@ -43,8 +43,10 @@ const DumbMainMenu = ({onMenuToggle, user}) => {
     }
     return true;
   }).filter(m => {
-    if (m.admin) {
-      return user && user.isAdmin();
+    if (Meteor.isClient) {
+      if (m.admin) {
+        return user && user.isAdmin();
+      }
     }
     return true;
   });

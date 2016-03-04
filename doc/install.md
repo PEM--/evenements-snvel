@@ -45,6 +45,13 @@ d exec -ti docker_mail_1 sh
 swaks -s 192.168.1.50 -p 25 -t test1@gmail.com -f test2@gmail.com
 ```
 
+## Meteor
+### Build
+```sh
+./build_meteor.sh
+dc build meteor; dc up -d meteor
+```
+
 # Production
 + ufw
 + fail2ban

@@ -19,6 +19,12 @@ mail:
   - "192.168.1.50:25:25"
   - "192.168.1.50:25:25/udp"
 
+meteor:
+  build: meteor
+  log_driver: "json-file"
+  ports:
+  - "192.168.1.50:3000:3000"
+
 nodemail:
   build: nodemail
   log_driver: "json-file"

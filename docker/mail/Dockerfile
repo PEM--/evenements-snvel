@@ -1,4 +1,5 @@
 FROM alpine:3.3
+MAINTAINER Pierre-Eric Marchandet <pemarchandet@gmail.com>
 
 # Postfix & system update
 RUN apk --update add openrc postfix

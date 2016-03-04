@@ -39,7 +39,7 @@ patrickml:braintree
 
 # Caching
 #appcache
-# meteorhacks:fast-render
+meteorhacks:fast-render
 meteorhacks:subs-manager
 
 # Accounts & Security

@@ -9,3 +9,4 @@ settings.prod.json
 sasl_passwd
 auth_flat_file.ini
 smtp_proxy.ini
+bundle
