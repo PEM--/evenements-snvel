@@ -37,7 +37,9 @@ meteor:
     MONGO_URL: "mongodb://mongo:27017"
     MONGO_OPLOG_URL: "mongodb://mongo:27017/local"
     PORT: 3000
-    ROOT_URL: "https://192.168.1.50"
+    ROOT_URL: "http://dev.pem.paris:3000"
+  volumes:
+    - /etc/meteor:/etc/meteor
   # expose:
   #   - "3000"
   ports:
