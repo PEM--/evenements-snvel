@@ -15,6 +15,7 @@ sed -i -e "s/^#AuthorizedKeysFile/AuthorizedKeysFile/" /etc/ssh/sshd_config
 # Set volumes
 mkdir /var/db
 mkdir /etc/meteor
+mkdir /etc/certs /var/cache /var/tmp
 # Firewall
 apt-get install ufw -y
 ufw allow ssh       # SSH

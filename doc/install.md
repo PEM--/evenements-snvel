@@ -44,18 +44,6 @@ d exec -ti docker_mail_1 sh
 ```sh
 swaks -s 192.168.1.50 -p 25 -t test1@gmail.com -f test2@gmail.com
 ```
-## NGinx
-### Build
-```sh
-dc build nginx; dc up -d nginx
-```
-
-## Meteor
-### Build
-```sh
-./build_meteor.sh
-dc build meteor; dc up -d meteor
-```
 ## Mongo
 ### Build
 ```sh
@@ -72,6 +60,23 @@ d exec -ti docker_mongo_1 mongo admin --quiet --eval "rs.initiate(); rs.conf();"
 d exec -ti docker_mongo_1 mongo
 ```
 
+## Meteor
+### Build
+```sh
+./build_meteor.sh
+dc build meteor; dc up -d meteor
+```
+
+## NGinx
+### Create self signed certs
+```sh
+ssh root@dev.pem.paris "mkdir -p /etc/certs; openssl req -nodes -new -x509 -keyout /etc/certs/server.key -out /etc/certs/server.crt -subj '/C=FR/ST=Paris/L=Paris/CN=dev.pem.paris'"
+```
+
+### Build
+```sh
+dc build nginx; dc up -d nginx
+```
 
 # Production
 + ufw
