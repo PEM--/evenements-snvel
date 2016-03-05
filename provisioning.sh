@@ -14,6 +14,7 @@ cp /vagrant/id_rsa.pub /root/.ssh/authorized_keys
 sed -i -e "s/^#AuthorizedKeysFile/AuthorizedKeysFile/" /etc/ssh/sshd_config
 # Set volumes
 mkdir /var/db
+mkdir /etc/meteor
 # Firewall
 apt-get install ufw -y
 ufw allow ssh       # SSH

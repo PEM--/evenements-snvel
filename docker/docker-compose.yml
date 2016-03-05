@@ -34,8 +34,8 @@ meteor:
   links:
     - mongo
   environment:
-    MONGO_URL: "mongodb://db:27017"
-    MONGO_OPLOG_URL: "mongodb://db:27017/local"
+    MONGO_URL: "mongodb://mongo:27017"
+    MONGO_OPLOG_URL: "mongodb://mongo:27017/local"
     PORT: 3000
     ROOT_URL: "https://192.168.1.50"
   # expose:

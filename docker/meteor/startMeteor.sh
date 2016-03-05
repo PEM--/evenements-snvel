@@ -1,2 +1,2 @@
-#!/bin/bash
+#!/bin/sh
 METEOR_SETTINGS=$(cat /etc/meteor/settings.json) pm2 start -s --no-daemon --no-vizion main.js

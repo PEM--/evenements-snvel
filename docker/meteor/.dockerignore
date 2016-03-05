@@ -2,4 +2,3 @@ bundle/README
 bundle/packages/*/.build*
 bundle/packages/*/.styl
 bundle/*/*.md*
-bundle/programs/web.browser/app
