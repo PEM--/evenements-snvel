@@ -2,7 +2,7 @@ const { Views, Col, Utils } = MainApp;
 
 const DumbSocialLink = ({iconName, link}) => (
   <a href={link} className='lisibility' target='_blank'>
-    <i className={`fa fa-${iconName}`}></i>
+    <i className={`fa my-fa-${iconName}`}></i>
   </a>
 );
 

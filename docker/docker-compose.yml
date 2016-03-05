@@ -53,7 +53,7 @@ nginx:
     - meteor
   environment:
     # Can be: dev, pre, prod
-    HOST_TARGET: "dev"
+    HOST_TARGET: "pre"
   volumes:
     - /etc/certs:/etc/certs
     - /var/cache:/var/cache
