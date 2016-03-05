@@ -70,7 +70,7 @@ dc build meteor; dc up -d meteor
 ## NGinx
 ### Create self signed certs
 ```sh
-ssh root@dev.pem.paris "mkdir -p /etc/certs; openssl req -nodes -new -x509 -keyout /etc/certs/server.key -out /etc/certs/server.crt -subj '/C=FR/ST=Paris/L=Paris/CN=dev.pem.paris'"
+ssh root@dev.pem.paris "mkdir -p /etc/certs; openssl req -nodes -new -x509 -keyout /etc/certs/server.key -out /etc/certs/server.crt -subj '/C=FR/ST=Paris/L=Paris/CN=pem.paris'"
 ```
 
 ### Build
