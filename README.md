@@ -24,3 +24,6 @@ Site des évènements SNVEL.
 ## Autres
 
 * [Tester la qualité des emails](http://www.mail-tester.com/)
+
+## Intégration à vérifier
+* [Super placeholders](https://github.com/chinchang/superplaceholder.js)
