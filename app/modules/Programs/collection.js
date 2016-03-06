@@ -159,6 +159,7 @@ specialRulesUpdate = () => {
         console.warn('Unknown program');
         continue;
       }
+      const availablePrices = program.priceRights.map(p => p.code);
       const rules = Object.keys(ruleSheet.rows)
         .filter((rKey, rIdx) => rIdx !== 0)
         .reduce((acc, rKey) => {
@@ -170,9 +171,30 @@ specialRulesUpdate = () => {
             applicationDate: null,
             amount: numeral().unformat(s(rRule[5]).trim().value()),
             requiredSales: [],
-            prices: []
+            onPrices: []
           };
-          
+          const categoriesSheet = s(rRule[3]).trim().value();
+          const categories = categoriesSheet === '*' ?
+            userTypes.map(u => u.title) :
+            categoriesSheet.split(';');
+          rule.categories = categories;
+          const applicationDateSheet = s(rRule[4]).trim().value();
+          const applicationDate = applicationDateSheet === '*' ?
+            new Date(0, 0, 0) :
+            moment(applicationDateSheet, 'DD/MM/YYYY').toDate();
+          rule.applicationDate = applicationDateSheet;
+          const requiredSalesSheet = s(rRule[5]).trim().value();
+          const requiredSales = requiredSalesSheet === '*' ?
+            availablePrices :
+            requiredSalesSheet === 'null' ?
+              [] :
+              requiredSalesSheet.split(';');
+          rule.requiredSales = requiredSales;
+          const onPricesSheet = s(rRule[6]).trim().value();
+          const onPrices = onPricesSheet === '*' ?
+            availablePrices :
+            onPricesSheet.split(';');
+          rule.onPrices = onPrices;
           acc.push(rule);
           return acc;
         }, []);
@@ -223,7 +245,7 @@ initPrograms = () => {
     applicationDate: { type: Date, label: 'Date d\'application'},
     amount: {type: Number, label: 'Montant', min: 0},
     requiredSales: {type: [String], label: 'Achats requis', minCount: 0, maxCount: 128},
-    prices: {type: [String], label: 'Prix modifiés', minCount: 0, maxCount: 128}
+    onPrices: {type: [String], label: 'Prix modifiés', minCount: 0, maxCount: 128}
   });
   const ProgramsSchema = new SimpleSchema({
     reference: { type: String, label: 'Référence', index: true, unique: true, min: 2, max: 16 },
