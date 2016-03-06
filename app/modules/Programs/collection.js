@@ -1,14 +1,13 @@
 const { Utils, Schema, Col } = MainApp;
 
-
 const programsUpdate = () => {
   console.log('Importing programs...');
-  const spreadsheetName = 'Evènements SNVEL - Programmes';
-  const programsSheet = Utils.importSpreadSheet(spreadsheetName);
+  const programsSheetName = 'Evènements SNVEL - Programmes';
+  const programsSheet = Utils.importSpreadSheet(programsSheetName);
   const programs = Object.keys(programsSheet.rows)
     .filter((pKey, pIdx) => pIdx !== 0)
     .map((pKey, pIdx) => {
-      const eventsSheet = Utils.importSpreadSheet(spreadsheetName, 2 + pIdx);
+      const eventsSheet = Utils.importSpreadSheet(programsSheetName, 2 + pIdx);
       const events = Object.keys(eventsSheet.rows)
         .filter((rKey, rIdx) => rIdx !== 0)
         .reduce((acc, rKey) => {
@@ -53,10 +52,96 @@ const programsUpdate = () => {
       console.log('Insert program from line', pIdx, 'and reference', program.reference);
       Col.Programs.insert(program);
     });
-  console.warn('Importing prices...');
+  pricesUpdate();
+  discountsUpdate();
 
+  console.warn('Importing special rules...');
 
-  console.warn('Importing discounts...');
+};
+
+pricesUpdate = () => {
+  console.log('Importing prices...');
+  const pricesSheetName = 'Evènements SNVEL - Tarifs et droits';
+  let sheetId = 1;
+  let pricesSheet = true;
+  const userTypes = Col.UserTypes.find({}, {fields: {title: 1}}).fetch();
+  do {
+    pricesSheet = Utils.importSpreadSheet(pricesSheetName, sheetId++);
+    if (pricesSheet) {
+      console.log('Processing prices for', pricesSheet.info.worksheetTitle);
+      let program = Col.Programs.findOne(
+        {reference: pricesSheet.info.worksheetTitle}
+      );
+      if (!program) {
+        console.warn('Unknown program');
+        continue;
+      }
+      const prices = Object.keys(pricesSheet.rows)
+        .filter((rKey, rIdx) => rIdx !== 0)
+        .reduce((acc, rKey) => {
+          const rPrice = pricesSheet.rows[rKey];
+          const price = {
+            description: s(rPrice[1]).trim().value(),
+            code: s(rPrice[2]).trim().value(),
+            byType: []
+          };
+          userTypes.forEach((type, idx) => {
+            price.byType.push({
+              category: type.title,
+              amount: Number(s(rPrice[3 + idx]).trim().value())
+            });
+          });
+          acc.push(price);
+          return acc;
+        }, []);
+      program.priceRights = prices;
+      const programId = String(program._id);
+      delete program._id;
+      Col.Programs.update(programId, program);
+    }
+  } while (pricesSheet);
+};
+
+discountsUpdate = () => {
+  console.log('Importing dicounts...');
+  const discountSheetName = 'Evènements SNVEL - Remises';
+  let sheetId = 1;
+  let discountSheet = true;
+  const userTypes = Col.UserTypes.find({}, {fields: {title: 1}}).fetch();
+  do {
+    discountSheet = Utils.importSpreadSheet(discountSheetName, sheetId++);
+    if (discountSheet) {
+      console.log('Processing discount for', discountSheet.info.worksheetTitle);
+      let program = Col.Programs.findOne(
+        {reference: discountSheet.info.worksheetTitle}
+      );
+      if (!program) {
+        console.warn('Unknown program');
+        continue;
+      }
+      const discounts = Object.keys(discountSheet.rows)
+        .filter((rKey, rIdx) => rIdx !== 0)
+        .reduce((acc, rKey) => {
+          const rDiscount = discountSheet.rows[rKey];
+          const discount = {
+            code: s(rDiscount[1]).trim().value(),
+            byType: []
+          };
+          userTypes.forEach((type, idx) => {
+            discount.byType.push({
+              category: type.title,
+              amount: numeral().unformat(s(rDiscount[2 + idx]).trim().value())
+            });
+          });
+          acc.push(discount);
+          return acc;
+        }, []);
+      program.discounts = discounts;
+      const programId = String(program._id);
+      delete program._id;
+      Col.Programs.update(programId, program);
+    }
+  } while (discountSheet);
 };
 
 initPrograms = () => {
@@ -79,12 +164,17 @@ initPrograms = () => {
     session: { type: [SessionsSchema], label: 'Sessions', minCount: 1, max: 512 }
   });
   const ValueForType = new SimpleSchema({
-    category: { type: String, min: 2, max: 64 },
-    amout: { type: Number }
+    category: { type: String, label: 'Catégorie', min: 2, max: 64 },
+    amount: { type: Number, label: 'Montant' }
   });
-  const Discounts = new SimpleSchema({
+  const PriceRightSchema = new SimpleSchema({
+    description: { type: String, label: 'Description', min: 0, max: 512 },
     code: { type: String, label: 'Codification', min: 1, max: 64 },
-    amounts: { type: [ValueForType], label: 'Montant par population', min: 1, max: 64 }
+    byType: {type: [ValueForType], label: 'Montant par population', defaultValue: [], min: 0, max: 64 },
+  });
+  const DiscountSchema = new SimpleSchema({
+    code: { type: String, label: 'Codification', min: 0, max: 64 },
+    byType: { type: [ValueForType], label: 'Montant par population', defaultValue: [], min: 0, max: 64 }
   });
   const ProgramsSchema = new SimpleSchema({
     reference: { type: String, label: 'Référence', index: true, unique: true, min: 2, max: 16 },
@@ -103,7 +193,9 @@ initPrograms = () => {
       }
       return res;
     })()},
-    events: { type: [EventsSchema], label: 'Evènements', minCount: 1, maxCount: 512 }
+    events: { type: [EventsSchema], label: 'Evènements', minCount: 1, maxCount: 512 },
+    priceRights: {type: [PriceRightSchema], label: 'Table des prix', min: 0, max: 64, defaultValue: []},
+    discounts: {type: [DiscountSchema], label: 'Table des remises', min: 0, max: 64, defaultValue: []}
   });
   Meteor.users.attachSchema(ProgramsSchema);
   Schema.ProgramsSchema = ProgramsSchema;
@@ -111,8 +203,9 @@ initPrograms = () => {
   Schema.ConferencesSchema = ConferencesSchema;
   Schema.SessionsSchema = SessionsSchema;
   Schema.EventsSchema = EventsSchema;
-  Schema.Discounts = Discounts;
   Schema.ValueForType = ValueForType;
+  Schema.DiscountSchema = DiscountSchema;
+  Schema.PriceRightSchema = PriceRightSchema;
   Col.Programs = Programs;
   // Fill collection with default if necessary
   if (Meteor.isServer) {
