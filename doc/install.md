@@ -52,7 +52,7 @@ dc build mongo; dc up -d mongo
 
 ### Set the ReplicaSet
 ```sh
-d exec -ti docker_mongo_1 mongo admin --quiet --eval "rs.initiate(); rs.conf();"
+d exec --rm -ti docker_mongo_1 mongo admin --quiet --eval "rs.initiate(); rs.conf();"
 ```
 
 ### Attaching a session to a running container
