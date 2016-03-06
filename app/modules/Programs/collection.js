@@ -91,7 +91,7 @@ initPrograms = () => {
     title: { type: String, label: 'Titre', min: 2, max: 32 },
     location: { type: String, label: 'Lieu', min: 2, max: 32 },
     period: { type: String, label: 'Période (date)', min: 2, max: 32 },
-    description: { type: String, label: 'Description', min: 2, max: 512 },
+    description: { type: String, label: 'Description', min: 2, max: 2048 },
     begin: {type: Date, index: true, label: 'Début' },
     end: {type: Date, index: true, label: 'Fin' },
     lattitude: {type: String, label: 'Lattitude', min: 2, max: 16},

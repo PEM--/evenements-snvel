@@ -32,7 +32,6 @@ npm-container
 
 # Mails
 email
-# devian:mailjet
 
 # Payment
 patrickml:braintree
