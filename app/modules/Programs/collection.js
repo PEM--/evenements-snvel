@@ -54,9 +54,7 @@ const programsUpdate = () => {
     });
   pricesUpdate();
   discountsUpdate();
-
-  console.warn('Importing special rules...');
-
+  specialRulesUpdate();
 };
 
 pricesUpdate = () => {
@@ -144,6 +142,48 @@ discountsUpdate = () => {
   } while (discountSheet);
 };
 
+specialRulesUpdate = () => {
+  console.log('Importing special rules...');
+  const ruleSheetName = 'Evènements SNVEL - Règles spéciales';
+  let sheetId = 1;
+  let ruleSheet = true;
+  const userTypes = Col.UserTypes.find({}, {fields: {title: 1}}).fetch();
+  do {
+    ruleSheet = Utils.importSpreadSheet(ruleSheetName, sheetId++);
+    if (ruleSheet) {
+      console.log('Processing discount for', ruleSheet.info.worksheetTitle);
+      let program = Col.Programs.findOne(
+        {reference: ruleSheet.info.worksheetTitle}
+      );
+      if (!program) {
+        console.warn('Unknown program');
+        continue;
+      }
+      const rules = Object.keys(ruleSheet.rows)
+        .filter((rKey, rIdx) => rIdx !== 0)
+        .reduce((acc, rKey) => {
+          const rRule = ruleSheet.rows[rKey];
+          const rule = {
+            name: s(rRule[1]).trim().value(),
+            description: s(rRule[2]).trim().value(),
+            categories: [],
+            applicationDate: null,
+            amount: numeral().unformat(s(rRule[5]).trim().value()),
+            requiredSales: [],
+            prices: []
+          };
+          
+          acc.push(rule);
+          return acc;
+        }, []);
+      program.specialRules = rules;
+      const programId = String(program._id);
+      delete program._id;
+      Col.Programs.update(programId, program);
+    }
+  } while (ruleSheet);
+};
+
 initPrograms = () => {
   const Programs = new Mongo.Collection('programs');
   const ConferencesSchema = new SimpleSchema({
@@ -176,6 +216,15 @@ initPrograms = () => {
     code: { type: String, label: 'Codification', min: 0, max: 64 },
     byType: { type: [ValueForType], label: 'Montant par population', defaultValue: [], min: 0, max: 64 }
   });
+  const SpecialRuleSchema = new SimpleSchema({
+    name: { type: String, label: 'Nom', allowedValues: ['increaseAfter', 'specialOffer']},
+    description: { type: String, label: 'Description', min: 0, max: 512},
+    categories: { type: [String], label: 'Catégories', minCount: 0, maxCount: 64},
+    applicationDate: { type: Date, label: 'Date d\'application'},
+    amount: {type: Number, label: 'Montant', min: 0},
+    requiredSales: {type: [String], label: 'Achats requis', minCount: 0, maxCount: 128},
+    prices: {type: [String], label: 'Prix modifiés', minCount: 0, maxCount: 128}
+  });
   const ProgramsSchema = new SimpleSchema({
     reference: { type: String, label: 'Référence', index: true, unique: true, min: 2, max: 16 },
     title: { type: String, label: 'Titre', min: 2, max: 32 },
@@ -194,8 +243,9 @@ initPrograms = () => {
       return res;
     })()},
     events: { type: [EventsSchema], label: 'Evènements', minCount: 1, maxCount: 512 },
-    priceRights: {type: [PriceRightSchema], label: 'Table des prix', min: 0, max: 64, defaultValue: []},
-    discounts: {type: [DiscountSchema], label: 'Table des remises', min: 0, max: 64, defaultValue: []}
+    priceRights: {type: [PriceRightSchema], label: 'Table des prix', min: 0, max: 128, defaultValue: []},
+    discounts: {type: [DiscountSchema], label: 'Table des remises', min: 0, max: 128, defaultValue: []},
+    specialRules: {type: [SpecialRuleSchema], label: 'Table des règles speciales', min: 0, max: 128, defaultValue: []}
   });
   Meteor.users.attachSchema(ProgramsSchema);
   Schema.ProgramsSchema = ProgramsSchema;
@@ -206,6 +256,7 @@ initPrograms = () => {
   Schema.ValueForType = ValueForType;
   Schema.DiscountSchema = DiscountSchema;
   Schema.PriceRightSchema = PriceRightSchema;
+  Schema.SpecialRuleSchema = SpecialRuleSchema;
   Col.Programs = Programs;
   // Fill collection with default if necessary
   if (Meteor.isServer) {
