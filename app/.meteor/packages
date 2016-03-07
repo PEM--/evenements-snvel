@@ -46,7 +46,7 @@ accounts-password
 alanning:roles
 check
 browser-policy
-#matteodem:easy-security
+matteodem:easy-security
 
 # Collections
 aldeed:collection2

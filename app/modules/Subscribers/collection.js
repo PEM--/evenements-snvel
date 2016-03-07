@@ -21,7 +21,7 @@ initSubscribers = () => {
     webSubscription: { type: String, label: 'Adhésion Web', min: 1, max: 64 },
     vetenaryStatus: { type: String, label: 'Statut vétérinaire', min: 1, max: 64 }
   });
-  Meteor.users.attachSchema(SubscribersSchema);
+  Subscribers.attachSchema(SubscribersSchema);
   Schema.SubscribersSchema = SubscribersSchema;
   Col.Subscribers = Subscribers;
   // Fill collection with default if necessary

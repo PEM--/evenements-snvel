@@ -38,7 +38,7 @@ const pricesUpdate = () => {
       program.priceRights = prices;
       const programId = String(program._id);
       delete program._id;
-      Col.Programs.update(programId, program);
+      Col.Programs.update(programId, program, {bypassCollection2: true});
     }
   } while (pricesSheet);
 };
@@ -80,7 +80,7 @@ const discountsUpdate = () => {
       program.discounts = discounts;
       const programId = String(program._id);
       delete program._id;
-      Col.Programs.update(programId, program);
+      Col.Programs.update(programId, program, {bypassCollection2: true});
     }
   } while (discountSheet);
 };
@@ -144,7 +144,7 @@ const specialRulesUpdate = () => {
       program.specialRules = rules;
       const programId = String(program._id);
       delete program._id;
-      Col.Programs.update(programId, program);
+      Col.Programs.update(programId, program, {bypassCollection2: true});
     }
   } while (ruleSheet);
 };
@@ -212,34 +212,34 @@ const programsUpdate = () => {
 initPrograms = () => {
   const Programs = new Mongo.Collection('programs');
   const ConferencesSchema = new SimpleSchema({
-    title: { type: String, label: 'Conférences', min: 0, max: 64 },
-    begin: { type: Date, label: 'Début' },
-    fin: { type: Date, label: 'Fin', optional: true },
-    moderator: { type: String, label: 'Modérateur(s)', min: 0, max: 512 },
-    speaker: { type: String, label: 'Intervenants(s)', min: 0, max: 512 },
-    description: { type: String, label: 'Description', min: 0, max: 512 },
-    code: { type: String, label: 'Codification', min: 1, max: 64 }
+    title: {type: String, label: 'Conférences', min: 0, max: 64},
+    begin: {type: Date, label: 'Début'},
+    fin: {type: Date, label: 'Fin', optional: true},
+    moderator: {type: String, label: 'Modérateur(s)', min: 0, max: 512},
+    speaker: {type: String, label: 'Intervenants(s)', min: 0, max: 512},
+    description: {type: String, label: 'Description', min: 0, max: 512},
+    code: {type: String, label: 'Codification', min: 1, max: 64}
   });
   const SessionsSchema = new SimpleSchema({
-    title: { type: String, label: 'Session', min: 2, max: 64 },
-    conference: { type: [ConferencesSchema], label: 'Conférences', minCount: 1, max: 512 }
+    title: {type: String, label: 'Session', min: 2, max: 64},
+    conference: {type: [ConferencesSchema], label: 'Conférences', minCount: 1, max: 512}
   });
   const EventsSchema = new SimpleSchema({
-    title: { type: String, label: 'Type programme', min: 2, max: 64 },
-    session: { type: [SessionsSchema], label: 'Sessions', minCount: 1, max: 512 }
+    title: {type: String, label: 'Type programme', min: 2, max: 64},
+    session: {type: [SessionsSchema], label: 'Sessions', optional: true, minCount: 0, max: 512}
   });
   const ValueForType = new SimpleSchema({
-    category: { type: String, label: 'Catégorie', min: 2, max: 64 },
-    amount: { type: Number, label: 'Montant' }
+    category: {type: String, label: 'Catégorie', min: 2, max: 64},
+    amount: {type: Number, label: 'Montant'}
   });
   const PriceRightSchema = new SimpleSchema({
-    description: { type: String, label: 'Description', min: 0, max: 512 },
-    code: { type: String, label: 'Codification', min: 1, max: 64 },
-    byType: {type: [ValueForType], label: 'Montant par population', defaultValue: [], min: 0, max: 64 },
+    description: {type: String, label: 'Description', min: 0, max: 512},
+    code: {type: String, label: 'Codification', min: 1, max: 64},
+    byType: {type: [ValueForType], label: 'Montant par population', defaultValue: [], min: 0, max: 64},
   });
   const DiscountSchema = new SimpleSchema({
-    code: { type: String, label: 'Codification', min: 0, max: 64 },
-    byType: { type: [ValueForType], label: 'Montant par population', defaultValue: [], min: 0, max: 64 }
+    code: {type: String, label: 'Codification', min: 0, max: 64},
+    byType: {type: [ValueForType], label: 'Montant par population', defaultValue: [], min: 0, max: 64}
   });
   const SpecialRuleSchema = new SimpleSchema({
     name: { type: String, label: 'Nom', allowedValues: ['increaseAfter', 'specialOffer']},
@@ -251,13 +251,13 @@ initPrograms = () => {
     onPrices: {type: [String], label: 'Prix modifiés', minCount: 0, maxCount: 128}
   });
   const ProgramsSchema = new SimpleSchema({
-    reference: { type: String, label: 'Référence', index: true, unique: true, min: 2, max: 16 },
-    title: { type: String, label: 'Titre', min: 2, max: 32 },
-    location: { type: String, label: 'Lieu', min: 2, max: 32 },
-    period: { type: String, label: 'Période (date)', min: 2, max: 32 },
-    description: { type: String, label: 'Description', min: 2, max: 2048 },
-    begin: {type: Date, index: true, label: 'Début' },
-    end: {type: Date, index: true, label: 'Fin' },
+    reference: {type: String, label: 'Référence', index: true, unique: true, min: 2, max: 16},
+    title: {type: String, label: 'Titre', min: 2, max: 32},
+    location: {type: String, label: 'Lieu', min: 2, max: 32},
+    period: {type: String, label: 'Période (date)', min: 2, max: 32},
+    description: {type: String, label: 'Description', optional: true, min: 0, max: 2048},
+    begin: {type: Date, index: true, label: 'Début'},
+    end: {type: Date, index: true, label: 'Fin'},
     lattitude: {type: String, label: 'Lattitude', min: 2, max: 16},
     longitude: {type: String, label: 'Longitude', min: 2, max: 16},
     zoom: {type: String, label: 'Zoom', min: 1, max: 2, allowedValues: (() => {
@@ -267,13 +267,13 @@ initPrograms = () => {
       }
       return res;
     })()},
-    presentation: { type: String, label: 'Présentation', min: 0, max: 16384},
-    events: { type: [EventsSchema], label: 'Evènements', minCount: 1, maxCount: 512 },
+    presentation: {type: String, label: 'Présentation', min: 0, max: 16384},
+    events: {type: [EventsSchema], label: 'Evènements', minCount: 1, maxCount: 512},
     priceRights: {type: [PriceRightSchema], label: 'Table des prix', min: 0, max: 128, defaultValue: []},
     discounts: {type: [DiscountSchema], label: 'Table des remises', min: 0, max: 128, defaultValue: []},
     specialRules: {type: [SpecialRuleSchema], label: 'Table des règles speciales', min: 0, max: 128, defaultValue: []}
   });
-  Meteor.users.attachSchema(ProgramsSchema);
+  Programs.attachSchema(ProgramsSchema);
   Schema.ProgramsSchema = ProgramsSchema;
   Schema.EventsSchema = EventsSchema;
   Schema.ConferencesSchema = ConferencesSchema;

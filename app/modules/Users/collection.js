@@ -62,21 +62,7 @@ initUsers = () => {
     },
     csoNumber: {
       type: String, optional: true, label: 'N° ordinal',
-      index: true, unique: true, min: 0, max: 8,
-      custom() {
-        const def = this.field('category');
-        const allowedValues = Schema.ProfileSchema
-          .getDefinition('category').allowedValues;
-        if (def.value === allowedValues[0]) {
-          if (!this.value || (this.value.length < 1 && this.value.length > 7)) {
-            return 'csoNumberError';
-          }
-        }
-        if (Meteor.isServer) {
-          return 'csoAlreadyDeclared';
-        }
-        return true;
-      }, defaultValue: '1234', view: {
+      min: 0, max: 8, defaultValue: '1234', view: {
         name: 'Input', type: 'text', placeholder: 'Votre n° ordinal'
       }
     },
@@ -148,7 +134,14 @@ initUsers = () => {
     }
   };
 
+  // Set UsersSchema with optional keys for profile
   const ProfileSchema = new SimpleSchema(Profile);
+  // const ProfileSchema = new SimpleSchema(
+  //   Object.keys(Profile).reduce((acc, k) => {
+  //     acc[k] = Object.assign({optional: true}, Profile[k]);
+  //     return acc;
+  //   }, {})
+  // );
   Schema.ProfileSchema = ProfileSchema;
 
   const SignOnSchema = new SimpleSchema({
@@ -204,7 +197,8 @@ initUsers = () => {
 
   const UsersSchema = new SimpleSchema({
     username: {type: String, optional: true},
-    emails: {type: [Object], label: 'Emails', optional: true},
+    emails: {type: Array, label: 'Emails', optional: true},
+    'emails.$': {type: Object},
     'emails.$.address': {
       type: String, label: 'Email', regEx: SimpleSchema.RegEx.Email,
     },
@@ -222,7 +216,7 @@ initUsers = () => {
     createdAt: {type: Date, label: 'Date de creation du profil', autoValue() {return new Date();}},
     lastConnection: {type: Date, label: 'Date de dernière connexion', autoValue() {return new Date();}},
     profile: {
-      type: Schema.ProfileSchema,
+      type: ProfileSchema,
       label: 'Information utilisateur',
       optional: true
     },
@@ -234,34 +228,6 @@ initUsers = () => {
   });
 
   Schema.UsersSchema = UsersSchema;
-
-  Meteor.methods({
-    'users.create': user => {
-      check(user, SignUpSchema);
-      if (this.userId) {
-        const internaleUser = Meteor.users.find(this.userId);
-        if (!internaleUser.isAdmin()) {
-          throw new Meteor.Error('unauthorized');
-        }
-      }
-      const newProfile = Schema.ProfileSchema.objectKeys()
-        .reduce((acc, k) => {
-          acc[k] = user[k];
-          return acc;
-        }, {});
-      const _id = Accounts.createUser({
-        email: user.email,
-        password: user.password,
-        profile: newProfile
-      });
-      Roles.addUsersToRoles(_id, ['public']);
-      console.log('User created:', user.email);
-      this.unblock();
-      Accounts.sendVerificationEmail(_id);
-      console.log('Verification email sent for:', accountInfo.login.email);
-      return true;
-    }
-  });
 
   if (Meteor.isServer) {
     // Publish
@@ -289,20 +255,22 @@ initUsers = () => {
       // Creation can only be done when no user is logged in
       if (this.userId) { throw new Meteor.Error('unauthorized'); }
       check(rawUser, SignUpSchema);
-      console.log('user.create: profile', rawUser);
+      let user = UsersSchema.clean(Object.assign({}, rawUser));
+      Object.keys(user.profile).forEach(k => user.profile[k] = user.profile[k].trim());
+      [
+        'name', 'firstName', 'city'
+      ].forEach(k => user.profile[k] = s(user.profile[k]).trim().toLowerCase().titleize().value());
+      user.username = rawUser.email.trim().toLowerCase();
+      user.email = user.username;
+      user.password = rawUser.password.trim();
+      console.log('user.create: user', user);
       if (Meteor.isServer) {
-        let user = UsersSchema.clean(rawUser);
-        Object.keys(user.profile).forEach(k => user.profile[k] = user.profile[k].trim());
-        [
-          'name', 'firstName', 'city'
-        ].forEach(k => user.profile[k] = s(user.profile[k]).toLowerCase().titleize().value());
-        user.email = rawUser.email.trim().toLowerCase();
-        user.password = rawUser.password.trim();
-        console.log('user.create: user', user);
-        Accounts.createUser(user, function(err, result) {
-          console.log('create', err, result);
-          // Accounts.sendVerificationEmail(userId);
-        });
+        const userId = Accounts.createUser(user);
+        console.log('User created:', user.email);
+        this.unblock();
+        Accounts.sendVerificationEmail(userId);
+        console.log('Verification email sent for:', user.email);
+        return true;
       }
     }
   });
