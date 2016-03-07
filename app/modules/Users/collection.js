@@ -290,27 +290,16 @@ initUsers = () => {
       if (this.userId) { throw new Meteor.Error('unauthorized'); }
       check(rawUser, SignUpSchema);
       console.log('user.create: profile', rawUser);
-      const user = UsersSchema.clean(rawUser);
-      console.log('user.create: user', user);
       if (Meteor.isServer) {
-        Accounts.createUser({
-          mail: rawUser.email.trim().toLowerCase(),
-          password: rawUser.password.trim(),
-          profile: {
-            category: rawUser.category,
-            csoNumber: rawUser.csoNumber,
-            organization: rawUser.organization.trim(),
-            name: s(rawUser.name).trim().toLowerCase().titleize().value(),
-            firstName: s(rawUser.firstName).trim().toLowerCase().titleize().value(),
-            address: rawUser.address.trim(),
-            addressComplementary: rawUser.address.trim(),
-            postalCode: rawUser.postalCode.trim(),
-            city: s(rawUser.city).trim().toLowerCase().titleize().value(),
-            country: rawUser.address.trim(),
-            phone: rawUser.phone.trim(),
-            mobile: rawUser.mobile.trim(),
-          }
-        }, function(err, result) {
+        let user = UsersSchema.clean(rawUser);
+        Object.keys(user.profile).forEach(k => user.profile[k] = user.profile[k].trim());
+        [
+          'name', 'firstName', 'city'
+        ].forEach(k => user.profile[k] = s(user.profile[k]).toLowerCase().titleize().value());
+        user.email = rawUser.email.trim().toLowerCase();
+        user.password = rawUser.password.trim();
+        console.log('user.create: user', user);
+        Accounts.createUser(user, function(err, result) {
           console.log('create', err, result);
           // Accounts.sendVerificationEmail(userId);
         });
