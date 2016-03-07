@@ -253,7 +253,7 @@ class Tests extends React.Component {
           ]}
         />
         <MeteorGriddle
-          publication='basicPages.all'
+          publication='basicPages.withCounter'
           collection={MainApp.Col.BasicPages}
           columns={['title', 'slug']}
           matchingResultsCount='basicPages.counter'

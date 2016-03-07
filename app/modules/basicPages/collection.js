@@ -38,6 +38,9 @@ initBasicPages = () => {
     }
     // Publish
     Meteor.publish('basicPages.all', function() {
+      return BasicPages.find();
+    });
+    Meteor.publish('basicPages.withCounter', function() {
       Counts.publish(this, 'basicPages.counter', BasicPages.find());
       return BasicPages.find();
     });

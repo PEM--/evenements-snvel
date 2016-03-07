@@ -4,6 +4,7 @@
       "global": true,
       "expose": {
         "jquery": "jQuery",
+        "lodash": "_",
         "react": "React",
         "react/addons": "React",
         "react-dom": "ReactDOM"
