@@ -3,13 +3,18 @@ formFromSchema = (form, schema, initialState = null) => {
   let state = initialState ? initialState : MainApp.Schema[schema].clean({});
   const keys = MainApp.Schema[schema].objectKeys();
   form.state = state;
-  // Create the state manipulation functions
-  let functions = keys.forEach(k => {
-    form[`onChange${s.capitalize(k)}`] = function(e) {
-      let stateModifier = {};
-      stateModifier[k] = e;
-      form.setState(stateModifier);
-    };
+  keys.forEach(k => {
+    // Create the state manipulation functions
+    // Avoid creating a onChange function if form has one for this field
+    if (!form[`onChange${s.capitalize(k)}`]) {
+      form[`onChange${s.capitalize(k)}`] = function(e) {
+        let stateModifier = {};
+        stateModifier[k] = e;
+        form.setState(stateModifier);
+      };
+    }
+    // Create disabled variables
+    form.state[`isDisabled${s.capitalize(k)}`] = false;
   });
   // Create a form checking function
   form.validateForm = function() {
@@ -34,8 +39,10 @@ formFromSchema = (form, schema, initialState = null) => {
         return acc;
       }, {
         key: `${schema}.${k}`,
-        onChange: form[`onChange${s.capitalize(k)}`]
+        onChange: form[`onChange${s.capitalize(k)}`],
+        isDisabled: form.state[`isDisabled${s.capitalize(k)}`]
       });
+    console.log('form', form);
     return {
       name: k,
       widget: (currentState, formStatus) => {

@@ -8,12 +8,17 @@ class SignUp extends Views.BaseReactMeteor {
   }
   constructor(props) {
     super(props);
+    [
+      'onCreate', 'onCancel', 'onChangeCategory'
+    ].forEach(f => this[f] = this[f].bind(this));
     formFromSchema(this, 'SignUpSchema');
-    this.onCreate = this.onCreate.bind(this);
-    this.onCancel = this.onCancel.bind(this);
   }
   onCreate() {
 
+  }
+  onChangeCategory(e) {
+    console.log('Category changed', e, this);
+    this.setState({category: e});
   }
   onCancel() { FlowRouter.go('/'); }
   render() {

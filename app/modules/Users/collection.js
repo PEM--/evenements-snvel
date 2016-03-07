@@ -73,7 +73,6 @@ initUsers = () => {
           }
         }
         if (Meteor.isServer) {
-          // return 'csoAlreadyDeclared';
           return 'csoAlreadyDeclared';
         }
         return true;
