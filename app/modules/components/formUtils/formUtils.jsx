@@ -40,9 +40,8 @@ formFromSchema = (form, schema, initialState = null) => {
       }, {
         key: `${schema}.${k}`,
         onChange: form[`onChange${s.capitalize(k)}`],
-        isDisabled: form.state[`isDisabled${s.capitalize(k)}`]
+        disabled: form.state[`isDisabled${s.capitalize(k)}`]
       });
-    console.log('form', form);
     return {
       name: k,
       widget: (currentState, formStatus) => {

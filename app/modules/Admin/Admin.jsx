@@ -39,7 +39,7 @@ class Admin extends Views.BaseReactMeteor {
         <Button
           iconName='refresh' className='btn'
           onClick={this.onUpdateMarkdown(p.slug)}
-          isDisabled={this.state.disabled}
+          disabled={this.state.disabled}
         >
           Mettre à jour
         </Button>
@@ -52,7 +52,7 @@ class Admin extends Views.BaseReactMeteor {
       <Button
         iconName='refresh' className='btn'
         onClick={this.onUpdateMethod(m.method)}
-        isDisabled={this.state.disabled}
+        disabled={this.state.disabled}
       >
         Mettre à jour
       </Button>

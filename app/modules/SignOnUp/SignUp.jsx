@@ -17,8 +17,14 @@ class SignUp extends Views.BaseReactMeteor {
 
   }
   onChangeCategory(e) {
-    console.log('Category changed', e, this);
-    this.setState({category: e});
+    console.log('Category changed', e, this.state.isDisabledCsoNumber);
+    if (e !== 'Adhérent SNVEL') {
+      this.setState({
+        csoNumber: '', isDisabledCsoNumber: true, category: e
+      });
+    } else {
+      this.setState({category: e});
+    }
   }
   onCancel() { FlowRouter.go('/'); }
   render() {
@@ -69,8 +75,8 @@ class SignUp extends Views.BaseReactMeteor {
           </div>
           <div className='buttons'>
             <Button
-              isDisabled={!formStatus.isValidForm}
-              isPrimary={true}
+              disabled={!formStatus.isValidForm}
+              primary={true}
               iconName='user-plus'
               onClick={this.onCreate}
             >

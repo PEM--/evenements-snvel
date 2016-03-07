@@ -41,8 +41,8 @@ class SignOn extends React.Component {
             <span>{this.state.formError}</span>
           </div>
           <Button
-            isDisabled={!formStatus.isValidForm}
-            isPrimary={true}
+            disabled={!formStatus.isValidForm}
+            primary={true}
             onClick={this.onClick}
           >
             Je me connecte

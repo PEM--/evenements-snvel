@@ -174,13 +174,13 @@ class Tests extends React.Component {
           <Button iconName='times'>
             Default Submit
           </Button>
-          <Button iconName='shopping-cart' isDisabled={true}>
+          <Button iconName='shopping-cart' disabled={true}>
             Default disabled submit
           </Button>
-          <Button isPrimary={true}>
+          <Button primary={true}>
             Primary submit
           </Button>
-          <Button isPrimary={true} isDisabled={true}>
+          <Button primary={true} disabled={true}>
             Primary disabled submit
           </Button>
         </form>
