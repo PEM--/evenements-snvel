@@ -1,63 +1,6 @@
 const { Utils, Schema, Col } = MainApp;
 
-const programsUpdate = () => {
-  console.log('Importing programs...');
-  const programsSheetName = 'Evènements SNVEL - Programmes';
-  const programsSheet = Utils.importSpreadSheet(programsSheetName);
-  const programs = Object.keys(programsSheet.rows)
-    .filter((pKey, pIdx) => pIdx !== 0)
-    .map((pKey, pIdx) => {
-      const eventsSheet = Utils.importSpreadSheet(programsSheetName, 2 + pIdx);
-      const events = Object.keys(eventsSheet.rows)
-        .filter((rKey, rIdx) => rIdx !== 0)
-        .reduce((acc, rKey) => {
-          const rEvent = eventsSheet.rows[rKey];
-          const eventTitle = s(rEvent[1]).trim().value();
-          let foundEvent = acc.find(c => c.title === eventTitle);
-          if (!foundEvent) {
-            acc.push({ title: eventTitle, sessions: [] });
-            foundEvent = acc[0];
-          }
-          const sessionTitle = rEvent[2] ? s(rEvent[2]).trim().value() : '';
-          let foundSession = foundEvent.sessions.find(s => s.title === sessionTitle);
-          if (!foundSession) {
-            foundEvent.sessions.push({ title: sessionTitle, conferences: [] });
-            foundSession = foundEvent.sessions[0];
-          }
-          foundSession.conferences.push({
-            title: rEvent[3] ? s(rEvent[3]).trim().value() : '',
-            begin: moment(s(rEvent[4]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
-            fin: moment(s(rEvent[5]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
-            moderator: rEvent[6] ? s(rEvent[6]).trim().value() : '',
-            speaker: rEvent[7] ? s(rEvent[7]).trim().value() : '',
-            description: rEvent[8] ? s(rEvent[8]).trim().value() : '',
-            code: s(rEvent[9]).trim().value()
-          });
-          return acc;
-        }, []);
-      const rProgram = programsSheet.rows[pKey];
-      const program = {
-        reference: s(rProgram[1]).toLowerCase().trim().value(),
-        title: s(rProgram[2]).trim().value(),
-        location: s(rProgram[3]).trim().value(),
-        period: s(rProgram[4]).trim().value(),
-        description: s(rProgram[5]).trim().value(),
-        begin: moment(s(rProgram[6]).trim().value(), 'DD/MM/YYYY').toDate(),
-        end: moment(s(rProgram[7]).trim().value(), 'DD/MM/YYYY').toDate(),
-        lattitude: String(rProgram[8]),
-        longitude: String(rProgram[9]),
-        zoom: String(rProgram[10]),
-        events
-      };
-      console.log('Insert program from line', pIdx, 'and reference', program.reference);
-      Col.Programs.insert(program);
-    });
-  pricesUpdate();
-  discountsUpdate();
-  specialRulesUpdate();
-};
-
-pricesUpdate = () => {
+const pricesUpdate = () => {
   console.log('Importing prices...');
   const pricesSheetName = 'Evènements SNVEL - Tarifs et droits';
   let sheetId = 1;
@@ -100,7 +43,7 @@ pricesUpdate = () => {
   } while (pricesSheet);
 };
 
-discountsUpdate = () => {
+const discountsUpdate = () => {
   console.log('Importing dicounts...');
   const discountSheetName = 'Evènements SNVEL - Remises';
   let sheetId = 1;
@@ -142,7 +85,7 @@ discountsUpdate = () => {
   } while (discountSheet);
 };
 
-specialRulesUpdate = () => {
+const specialRulesUpdate = () => {
   console.log('Importing special rules...');
   const ruleSheetName = 'Evènements SNVEL - Règles spéciales';
   let sheetId = 1;
@@ -206,6 +149,66 @@ specialRulesUpdate = () => {
   } while (ruleSheet);
 };
 
+const programsUpdate = () => {
+  console.log('Importing programs...');
+  const programsSheetName = 'Evènements SNVEL - Programmes';
+  const programsSheet = Utils.importSpreadSheet(programsSheetName);
+  const programs = Object.keys(programsSheet.rows)
+    .filter((pKey, pIdx) => pIdx !== 0)
+    .map((pKey, pIdx) => {
+      const eventsSheet = Utils.importSpreadSheet(programsSheetName, 2 + pIdx);
+      const events = Object.keys(eventsSheet.rows)
+        .filter((rKey, rIdx) => rIdx !== 0)
+        .reduce((acc, rKey) => {
+          const rEvent = eventsSheet.rows[rKey];
+          const eventTitle = s(rEvent[1]).trim().value();
+          let foundEvent = acc.find(c => c.title === eventTitle);
+          if (!foundEvent) {
+            acc.push({ title: eventTitle, sessions: [] });
+            foundEvent = acc[0];
+          }
+          const sessionTitle = rEvent[2] ? s(rEvent[2]).trim().value() : '';
+          let foundSession = foundEvent.sessions.find(s => s.title === sessionTitle);
+          if (!foundSession) {
+            foundEvent.sessions.push({ title: sessionTitle, conferences: [] });
+            foundSession = foundEvent.sessions[0];
+          }
+          foundSession.conferences.push({
+            title: rEvent[3] ? s(rEvent[3]).trim().value() : '',
+            begin: moment(s(rEvent[4]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
+            fin: moment(s(rEvent[5]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
+            moderator: rEvent[6] ? s(rEvent[6]).trim().value() : '',
+            speaker: rEvent[7] ? s(rEvent[7]).trim().value() : '',
+            description: rEvent[8] ? s(rEvent[8]).trim().value() : '',
+            code: s(rEvent[9]).trim().value()
+          });
+          return acc;
+        }, []);
+      const rProgram = programsSheet.rows[pKey];
+      const reference = s(rProgram[1]).toLowerCase().trim().value();
+      const presentation = Utils.getDriveFile(`${reference}.md`);
+      let program = {
+        reference,
+        title: s(rProgram[2]).trim().value(),
+        location: s(rProgram[3]).trim().value(),
+        period: s(rProgram[4]).trim().value(),
+        description: s(rProgram[5]).trim().value(),
+        begin: moment(s(rProgram[6]).trim().value(), 'DD/MM/YYYY').toDate(),
+        end: moment(s(rProgram[7]).trim().value(), 'DD/MM/YYYY').toDate(),
+        lattitude: String(rProgram[8]),
+        longitude: String(rProgram[9]),
+        zoom: String(rProgram[10]),
+        events,
+        presentation
+      };
+      console.log('Insert program from line', pIdx, 'and reference', program.reference);
+      Col.Programs.insert(program);
+    });
+  pricesUpdate();
+  discountsUpdate();
+  specialRulesUpdate();
+};
+
 initPrograms = () => {
   const Programs = new Mongo.Collection('programs');
   const ConferencesSchema = new SimpleSchema({
@@ -264,6 +267,7 @@ initPrograms = () => {
       }
       return res;
     })()},
+    presentation: { type: String, label: 'Présentation', min: 0, max: 16384},
     events: { type: [EventsSchema], label: 'Evènements', minCount: 1, maxCount: 512 },
     priceRights: {type: [PriceRightSchema], label: 'Table des prix', min: 0, max: 128, defaultValue: []},
     discounts: {type: [DiscountSchema], label: 'Table des remises', min: 0, max: 128, defaultValue: []},

@@ -35,10 +35,13 @@ for protocol in ['http', 'https']
   BrowserPolicy.content.allowFontOrigin "#{protocol}://fonts.gstatic.com"
 # Trusted sites
 for origin in [
+  # WikiMedia
+  '*.wikimedia.org'
   # Google services
   '*.google-analytics.com'
   '*.googleapis.com'
   '*.gstatic.com'
+  '*.google.com'
   # Browser update warning
   'browser-update.org'
   # Braintree

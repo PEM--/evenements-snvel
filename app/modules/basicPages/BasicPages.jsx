@@ -1,14 +1,7 @@
 const { Views, Col, Utils } = MainApp;
 
-// Link modifier
-const prettyLink = (text) => (
-  text.replace(/href/g, 'class="AnimatedLink basic" href')
-  .replace(/SNVEL/g,
-    '<a class="AnimatedLink basic" href="http://www.snvel.fr" target="_blank">SNVEL</a>')
-);
-
 const DumbBasicPages = ({title, content}) => {
-  const htmlContent = prettyLink(marked(content));
+  const htmlContent = Utils.prettyLink(marked(content));
   return (
     <section className='MainContent maximized animated fadeIn lisibility'>
       <h1>{title}</h1>
