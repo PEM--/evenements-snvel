@@ -76,33 +76,33 @@ initUsers = () => {
           return 'csoAlreadyDeclared';
         }
         return true;
-      }, defaultValue: '', view: {
+      }, defaultValue: '1234', view: {
         name: 'Input', type: 'text', placeholder: 'Votre n° ordinal'
       }
     },
     organization: {
       type: String, label: 'Nom de l\'entreprise', min: 1, max: 256,
-      defaultValue: '', view: {
+      defaultValue: 'PEM', view: {
         name: 'Input', type: 'text', label: 'Votre entreprise :',
         placeholder: 'Nom de l\'entreprise ou de la structure'
       }
     },
     name: {
       type: String, label: 'Nom du contact', min: 1, max: 256,
-      defaultValue: '', view: {
+      defaultValue: 'Marchandet', view: {
         name: 'Input', type: 'text', label: 'Votre représentant :',
         placeholder: 'Votre nom'
       }
     },
     firstName: {
       type: String, label: 'Prénom du contact', min: 1, max: 256,
-      defaultValue: '', view: {
+      defaultValue: 'Pierre-Eric', view: {
         name: 'Input', type: 'text', placeholder: 'Votre prénom'
       }
     },
     address: {
       type: String, label: 'Adresse', min: 1, max: 256,
-      defaultValue: '', view: {
+      defaultValue: '85, avenue du docteur A. Netter', view: {
         name: 'Input', type: 'text', placeholder: 'Votre rue'
       }
     },
@@ -115,14 +115,14 @@ initUsers = () => {
     },
     postalCode: {
       type: String, label: 'Code postal', min: 1, max: 7,
-      defaultValue: '', view: {
+      defaultValue: '75012', view: {
         name: 'Input', type: 'text', label: 'Votre code postal :',
         placeholder: 'Code postal'
       }
     },
     city: {
       type: String, label: 'Votre ville', min: 1, max: 128,
-      defaultValue: '', view: {
+      defaultValue: 'Paris', view: {
         name: 'Input', type: 'text', placeholder: 'Votre ville'
       }
     },
@@ -142,7 +142,7 @@ initUsers = () => {
     },
     mobile: {
       type: String, label: 'N° de mobile', min: 6, max: 16,
-      defaultValue: '', regEx: PHONE_NUMBER_REGEX, view: {
+      defaultValue: '0609905774', regEx: PHONE_NUMBER_REGEX, view: {
         name: 'Input', type: 'tel', placeholder: 'Votre n° mobile'
       }
     }
@@ -172,14 +172,14 @@ initUsers = () => {
   const SignUpSchema = new SimpleSchema(Object.assign({
     email: {
       type: String, label: 'Email', regEx: SimpleSchema.RegEx.Email,
-      defaultValue: '', view: {
+      defaultValue: 'pemarchandet@mailinator.com', view: {
         name: 'Input', type: 'email', label: 'Entrez votre email :',
         placeholder: 'Votre email'
       }
     },
     password: {
       type: String, label: 'Mot de passe', min: 6, max: 128,
-      defaultValue: '', view: {
+      defaultValue: 'pemarchandet', view: {
         name: 'Password', label: 'Choisissez un mot de passe :',
         placeholder: 'Votre mot de passe',
         hint: 'Votre mot de passe devrait contenir plusieurs majuscules, minuscules, chiffres et symboles.'
@@ -193,7 +193,7 @@ initUsers = () => {
           return 'passwordNotConfirmMatch';
         }
         return true;
-      }, defaultValue: '', view: {
+      }, defaultValue: 'pemarchandet', view: {
         name: 'Input', type: 'password',
         label: 'Confirmer votre mot de passe :',
         placeholder: 'Votre mot de passe'
@@ -203,9 +203,10 @@ initUsers = () => {
   Schema.SignUpSchema = SignUpSchema;
 
   const UsersSchema = new SimpleSchema({
-    emails: {type: [Object], label: 'Emails'},
+    username: {type: String, optional: true},
+    emails: {type: [Object], label: 'Emails', optional: true},
     'emails.$.address': {
-      type: String, label: 'Email', regEx: SimpleSchema.RegEx.Email
+      type: String, label: 'Email', regEx: SimpleSchema.RegEx.Email,
     },
     'emails.$.verified': {type: Boolean, label: 'Email vérifié'},
     services: {
@@ -214,13 +215,18 @@ initUsers = () => {
       optional: true,
       blackbox: true
     },
-    roles: {type: [String], label: 'Rôles', optional: true, defaultValue: ['public']},
-    lastConnection: {type: Date, label: 'Dernière connexion réalisée le', defaultValue: new Date()},
+    roles: {
+      type: [String], label: 'Rôles', optional: true, blackbox: true,
+      defaultValue: ['public']
+    },
+    createdAt: {type: Date, label: 'Date de creation du profil', autoValue() {return new Date();}},
+    lastConnection: {type: Date, label: 'Date de dernière connexion', autoValue() {return new Date();}},
     profile: {
       type: Schema.ProfileSchema,
       label: 'Information utilisateur',
       optional: true
-    }
+    },
+    heartbeat: { type: Date, optional: true }
   });
   Meteor.users.attachSchema(UsersSchema);
   Meteor.users.helpers({
@@ -277,6 +283,37 @@ initUsers = () => {
       if (Meteor.isServer) {
         Col.UserTypes.remove({});
         userTypesUpdate();
+      }
+    },
+    'user.create': function(rawUser) {
+      // Creation can only be done when no user is logged in
+      if (this.userId) { throw new Meteor.Error('unauthorized'); }
+      check(rawUser, SignUpSchema);
+      console.log('user.create: profile', rawUser);
+      const user = UsersSchema.clean(rawUser);
+      console.log('user.create: user', user);
+      if (Meteor.isServer) {
+        Accounts.createUser({
+          mail: rawUser.email.trim().toLowerCase(),
+          password: rawUser.password.trim(),
+          profile: {
+            category: rawUser.category,
+            csoNumber: rawUser.csoNumber,
+            organization: rawUser.organization.trim(),
+            name: s(rawUser.name).trim().toLowerCase().titleize().value(),
+            firstName: s(rawUser.firstName).trim().toLowerCase().titleize().value(),
+            address: rawUser.address.trim(),
+            addressComplementary: rawUser.address.trim(),
+            postalCode: rawUser.postalCode.trim(),
+            city: s(rawUser.city).trim().toLowerCase().titleize().value(),
+            country: rawUser.address.trim(),
+            phone: rawUser.phone.trim(),
+            mobile: rawUser.mobile.trim(),
+          }
+        }, function(err, result) {
+          console.log('create', err, result);
+          // Accounts.sendVerificationEmail(userId);
+        });
       }
     }
   });

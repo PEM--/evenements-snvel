@@ -5,7 +5,7 @@ if (Meteor.users.find().count() === 0) {
   const adminId = Accounts.createUser({
     profile: {
       firstName: admin.profile.firstName,
-      lastName: admin.profile.lastName
+      name: admin.profile.lastName
     },
     username: admin.username,
     password: admin.password,

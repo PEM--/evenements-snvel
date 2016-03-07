@@ -14,7 +14,11 @@ class SignUp extends Views.BaseReactMeteor {
     formFromSchema(this, 'SignUpSchema');
   }
   onCreate() {
-
+    const profile = MainApp.Schema.SignUpSchema.clean(this.state);
+    console.log('state', profile);
+    Meteor.call('user.create', profile, (err, result) => {
+      console.log('user.create', err, result);
+    });
   }
   onChangeCategory(e) {
     if (e !== 'Adhérent SNVEL') {
