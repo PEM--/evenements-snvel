@@ -1,0 +1,300 @@
+/* Common, default styles for the notification box */
+.s-alert-box,
+.s-alert-box * {
+    box-sizing: border-box;
+}
+
+.s-alert-box {
+    position: fixed;
+    background: rgba(42,45,50,0.85);
+    padding: 22px;
+    line-height: 1.4;
+    z-index: 1000;
+    pointer-events: none;
+    color: rgba(250,251,255,0.95);
+    font-size: 100%;
+    font-family: 'serif';
+    max-width: 300px;
+    -webkit-transition: top .4s, bottom .4s;
+    transition: top .4s, bottom .4s;
+}
+
+.s-alert-box.s-alert-show {
+    pointer-events: auto;
+}
+
+.s-alert-box a {
+    color: inherit;
+    opacity: 0.7;
+    font-weight: 700;
+}
+
+.s-alert-box a:hover,
+.s-alert-box a:focus {
+    opacity: 1;
+}
+
+.s-alert-box p {
+    margin: 0;
+}
+
+.s-alert-box.s-alert-show,
+.s-alert-box.s-alert-visible {
+    pointer-events: auto;
+}
+
+.s-alert-close {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    overflow: hidden;
+    text-indent: 100%;
+    cursor: pointer;
+    backface-visibility: hidden;
+}
+
+.s-alert-close:hover,
+.s-alert-close:focus {
+    outline: none;
+}
+
+.s-alert-close::before,
+.s-alert-close::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 60%;
+    top: 50%;
+    left: 50%;
+    background: #fff;
+}
+
+.s-alert-close:hover::before,
+.s-alert-close:hover::after {
+    background: #fff;
+}
+
+.s-alert-close::before {
+    transform: translate(-50%,-50%) rotate(45deg);
+}
+
+.s-alert-close::after {
+    transform: translate(-50%,-50%) rotate(-45deg);
+}
+
+/* positions */
+
+.s-alert-bottom-left {
+    top: auto;
+    right: auto;
+    bottom: 30px;
+    left: 30px;
+}
+.s-alert-top-left {
+    top: 30px;
+    right: auto;
+    bottom: auto;
+    left: 30px;
+}
+.s-alert-top-right {
+    top: 30px;
+    right: 30px;
+    bottom: auto;
+    left: auto;
+}
+.s-alert-bottom-right { /*default*/
+    top: auto;
+    right: 30px;
+    bottom: 30px;
+    left: auto;
+}
+.s-alert-bottom {
+    width: 100%;
+    max-width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+}
+.s-alert-top {
+    width: 100%;
+    max-width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+}
+
+/* conditions */
+
+.s-alert-info {
+    background: #00A2D3;
+    color: #fff;
+}
+.s-alert-success {
+    background: #27AE60;
+    color: #fff;
+}
+.s-alert-warning {
+    background: #F1C40F;
+    color: #fff;
+}
+.s-alert-error {
+    background: #E74C3C;
+    color: #fff;
+}
+
+[class^="s-alert-effect-"].s-alert-hide,
+[class*=" s-alert-effect-"].s-alert-hide {
+    animation-direction: reverse;
+}
+
+/* height measurement helper */
+.s-alert-box-height {
+    visibility: hidden;
+    position: fixed;
+}
+
+/* Bouncy Flip adapted from animate.css by Dan Eden: http://daneden.github.io/animate.css/ */
+
+.s-alert-bottom-left.s-alert-effect-bouncyflip,
+.s-alert-bottom-right.s-alert-effect-bouncyflip,
+.s-alert-bottom.s-alert-effect-bouncyflip {
+    transform-origin: 50% 100%;
+}
+.s-alert-top-left.s-alert-effect-bouncyflip,
+.s-alert-top-right.s-alert-effect-bouncyflip
+.s-alert-top.s-alert-effect-bouncyflip {
+    transform-origin: 50% 0%;
+}
+
+.s-alert-effect-bouncyflip p {
+    padding: 0.5em 0.8em 0.5em 0.8em;
+}
+
+.s-alert-effect-bouncyflip .s-alert-close::after,
+.s-alert-effect-bouncyflip .s-alert-close::before {
+    background: #fff;
+}
+
+.s-alert-effect-bouncyflip .s-alert-close:hover::after,
+.s-alert-effect-bouncyflip .s-alert-close:hover::before {
+    background: #fff;
+}
+
+.s-alert-top-left.s-alert-effect-bouncyflip.s-alert-hide,
+.s-alert-top-right.s-alert-effect-bouncyflip.s-alert-hide,
+.s-alert-top-left.s-alert-effect-bouncyflip.s-alert-show,
+.s-alert-top-right.s-alert-effect-bouncyflip.s-alert-show,
+.s-alert-top.s-alert-effect-bouncyflip.s-alert-hide,
+.s-alert-top.s-alert-effect-bouncyflip.s-alert-show  {
+    animation-name: flipInXTop;
+    animation-duration: 0.8s;
+}
+
+.s-alert-bottom-left.s-alert-effect-bouncyflip.s-alert-hide,
+.s-alert-bottom-right.s-alert-effect-bouncyflip.s-alert-hide,
+.s-alert-bottom-left.s-alert-effect-bouncyflip.s-alert-show,
+.s-alert-bottom-right.s-alert-effect-bouncyflip.s-alert-show,
+.s-alert-bottom.s-alert-effect-bouncyflip.s-alert-show,
+.s-alert-bottom.s-alert-effect-bouncyflip.s-alert-hide {
+    animation-name: flipInXBottom;
+    animation-duration: 0.8s;
+}
+
+@keyframes flipInXTop {
+    0% {
+        transform: perspective(400px) rotate3d(1,0,0,-90deg);
+        transition-timing-function: ease-in;
+    }
+
+    40% {
+        transform: perspective(400px) rotate3d(1,0,0,20deg);
+        transition-timing-function: ease-out;
+    }
+
+    60% {
+        transform: perspective(400px) rotate3d(1,0,0,-10deg);
+        transition-timing-function: ease-in;
+        opacity: 1;
+    }
+
+    80% {
+        transform: perspective(400px) rotate3d(1,0,0,5deg);
+        transition-timing-function: ease-out;
+    }
+
+    100% {
+        transform: perspective(400px);
+    }
+}
+
+@keyframes flipInXBottom {
+    0% {
+        transform: perspective(400px) rotate3d(1,0,0,90deg);
+        transition-timing-function: ease-in;
+    }
+
+    40% {
+        transform: perspective(400px) rotate3d(1,0,0,-20deg);
+        transition-timing-function: ease-out;
+    }
+
+    60% {
+        transform: perspective(400px) rotate3d(1,0,0,10deg);
+        transition-timing-function: ease-in;
+        opacity: 1;
+    }
+
+    80% {
+        transform: perspective(400px) rotate3d(1,0,0,-5deg);
+        transition-timing-function: ease-out;
+    }
+
+    100% {
+        transform: perspective(400px);
+    }
+}
+
+.s-alert-top-right.s-alert-effect-bouncyflip.s-alert-hide,
+.s-alert-top-left.s-alert-effect-bouncyflip.s-alert-hide,
+.s-alert-top.s-alert-effect-bouncyflip.s-alert-hide {
+    animation-name: flipInXSimpleTop;
+    animation-duration: 0.3s;
+}
+.s-alert-bottom-right.s-alert-effect-bouncyflip.s-alert-hide,
+.s-alert-bottom-left.s-alert-effect-bouncyflip.s-alert-hide,
+.s-alert-bottom.s-alert-effect-bouncyflip.s-alert-hide  {
+    animation-name: flipInXSimpleBottom;
+    animation-duration: 0.3s;
+}
+
+@keyframes flipInXSimpleTop {
+  0% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -90deg);
+    transition-timing-function: ease-in;
+  }
+  100% {
+    transform: perspective(400px);
+  }
+}
+
+@keyframes flipInXSimpleBottom {
+  0% {
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    transition-timing-function: ease-in;
+  }
+  100% {
+    transform: perspective(400px);
+  }
+}
+
+@media screen and (max-width: 25em) {
+    .s-alert-attached {
+        left: 30px;
+        max-width: none;
+        right: 30px;
+    }
+}
