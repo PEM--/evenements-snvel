@@ -39,13 +39,15 @@ formFromSchema = (form, schema, initialState = null) => {
         return acc;
       }, {
         key: `${schema}.${k}`,
-        onChange: form[`onChange${s.capitalize(k)}`],
-        disabled: form.state[`isDisabled${s.capitalize(k)}`]
+        onChange: form[`onChange${s.capitalize(k)}`]
       });
     return {
       name: k,
       widget: (currentState, formStatus) => {
-        let addProps = { value: currentState[k] };
+        let addProps = {
+          value: currentState[k],
+          disabled: currentState[`isDisabled${s.capitalize(k)}`]
+        };
         if (formStatus.hasOwnProperty(k) && currentState[k].length > 0) {
           addProps.errorText = formStatus[k];
         }

@@ -17,13 +17,12 @@ class SignUp extends Views.BaseReactMeteor {
 
   }
   onChangeCategory(e) {
-    console.log('Category changed', e, this.state.isDisabledCsoNumber);
     if (e !== 'Adhérent SNVEL') {
       this.setState({
         csoNumber: '', isDisabledCsoNumber: true, category: e
       });
     } else {
-      this.setState({category: e});
+      this.setState({category: e, isDisabledCsoNumber: false});
     }
   }
   onCancel() { FlowRouter.go('/'); }
