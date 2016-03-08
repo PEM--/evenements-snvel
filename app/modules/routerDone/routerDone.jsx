@@ -7,6 +7,7 @@ const declareRoutes = () => {
   [ {route: '/', name: 'home', children: <Views.Welcome /> },
     {route: '/signon', name: 'signon', children: <Views.SignOn /> },
     {route: '/signup', name: 'signup', children: <Views.SignUp /> },
+    {route: '/verify-email/:id', name: 'emailconfirm', children: <Views.EmailConfirm /> },
     {route: '/program', name: 'program', children: <Views.Program /> },
     {route: '/subscribe', name: 'subscribe', children: <Views.Subscribe /> },
     {route: '/admin', name: 'admin', children: <Views.Admin /> }
@@ -36,7 +37,6 @@ const declareRoutes = () => {
   });
   FlowRouter.triggers.enter([
     function(context, redirect) {
-      console.log('Tigger', context.path);
       if (!Meteor.userId()) {
         Session.set('beforeSignon', context.path);
         redirect('signon');
@@ -85,7 +85,6 @@ Meteor.startup(() => {
         Meteor.defer(() => {
           initNotFoundRoute();
           FlowRouter.initialize();
-
           // const routeName = FlowRouter.getRouteName(window.location.pathname);
           // console.log('window.location.pathname', window.location.pathname, 'routeName', routeName);
           // FlowRouter.go(routeName ? window.location.pathname : 'not-found');

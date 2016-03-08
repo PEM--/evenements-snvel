@@ -91,7 +91,6 @@ class SignUp extends Views.BaseReactMeteor {
             >
               J'annule
             </Button>
-
           </div>
         </form>
         <div className='linkActions'>
