@@ -19,9 +19,14 @@ eval (dm env dev)
 dc build dns; dc up -d dns; ssh root@$HOST_IP_DEV 'sed -i -e "s/10.0.2.3/192.168.1.50/" /etc/resolv.conf'
 ```
 
-### test
+### Test
 ```sh
 host dev.pem.paris 192.168.1.50
+```
+
+### Synchronize date
+```sh
+service ntp stop; ntpdate 0.fr.pool.ntp.org; service ntp start
 ```
 
 ## Mail

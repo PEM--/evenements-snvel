@@ -3,7 +3,7 @@
 # Update system
 apt-get update
 apt-get upgrade -y
-apt-get install ntp -y
+apt-get install ntp ntpdate -y
 # Remove and clean unused packages
 apt-get remove exim4 -y
 apt-get autoremove -y
