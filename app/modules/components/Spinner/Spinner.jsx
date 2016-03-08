@@ -1,7 +1,10 @@
 const { Views } = MainApp;
 
-const Spinner = ({className}) => (
-  <div className={classNames('SpinnerContainer', 'animated', 'fadeIn', className)}>
+const Spinner = ({className, style}) => (
+  <div
+    className={classNames('SpinnerContainer', 'animated', 'fadeIn', className)}
+    style={style}
+  >
     <div className='Spinner' />
   </div>
 );

@@ -1,4 +1,4 @@
-const { Col, Views } = MainApp;
+const { Col, Views, Schema } = MainApp;
 const { Button, AnimatedLink } = Views;
 
 class SignUp extends Views.BaseReactMeteor {
@@ -18,7 +18,18 @@ class SignUp extends Views.BaseReactMeteor {
     Meteor.call('user.create', profile, (err, result) => {
       if (err) {
         console.warn('Erreur lors de la création de compte', err);
-        return sAlert.error('Inscription en erreur');
+        let msg = 'Inscription en erreur';
+        switch (err.reason) {
+        case 'Username already exists.':
+          msg = 'Cette adresse email est déjà utilisée';
+          break;
+        default:
+          if (Schema.MESSAGES.hasOwnProperty(err.reason)) {
+            msg = Schema.MESSAGES[err.reason];
+          }
+          return sAlert.error();
+        }
+        sAlert.error(msg);
       }
       FlowRouter.go('emailconfirm');
     });

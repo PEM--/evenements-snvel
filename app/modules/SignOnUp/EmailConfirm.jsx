@@ -7,7 +7,9 @@ const EmailConfirm = () => {
       <h1>En attente de confirmation de votre mail</h1>
       <p>Un email de confirmation vous a été envoyé.</p>
       <p>Vous activerez votre compte en cliquant sur le bouton d'inscription dans ce dernier.</p>
-      <Spinner className='maximized' />
+      <div style={{width: '100%', height: '100px'}} >
+        <Spinner className='maximized' style={{height: '100px'}} />
+      </div>
     </section>
   );
 };

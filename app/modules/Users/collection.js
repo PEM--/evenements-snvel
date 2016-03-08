@@ -62,7 +62,20 @@ initUsers = () => {
     },
     csoNumber: {
       type: String, optional: true, label: 'N° ordinal',
-      min: 0, max: 8, defaultValue: '1234', view: {
+      min: 0, max: 8, defaultValue: '', custom() {
+        const defCategory = this.field('category');
+        const allowedValues = Schema.ProfileSchema
+          .getDefinition('category').allowedValues;
+        if (defCategory.value === allowedValues[0]) {
+          if (this.value.length > 1 && this.value.length <= 8) {
+            return null;
+          } else if (this.value.length > 8) {
+            return 'csoNumberError';
+          }
+          return 'required';
+        }
+        return null;
+      }, view: {
         name: 'Input', type: 'text', placeholder: 'Votre n° ordinal'
       }
     },
@@ -264,6 +277,20 @@ initUsers = () => {
       user.email = user.username;
       user.password = rawUser.password.trim();
       if (Meteor.isServer) {
+        // Check if user is a Subscriber
+        console.log('Adhérent ?', user.profile.category === 'Adhérent SNVEL');
+        if (user.profile.category === 'Adhérent SNVEL') {
+          const subscriber = Col.Subscribers.findOne({csoNumber: user.profile.csoNumber});
+          if (!subscriber) {
+            throw new Meteor.Error(403, 'csoNumberNoMatch');
+          }
+          if (subscriber.name !== user.profile.name) {
+            throw new Meteor.Error(403, 'csoNumberNameMismatch');
+          }
+          if (subscriber.status !== 'En cours de validité') {
+            throw new Meteor.Error(403, 'csoNumberExpired');
+          }
+        }
         const userId = Accounts.createUser(user);
         console.log('User created:', user.email);
         this.unblock();
