@@ -8,6 +8,7 @@ const declareRoutes = () => {
     {route: '/signon', name: 'signon', children: <Views.SignOn /> },
     {route: '/signup', name: 'signup', children: <Views.SignUp /> },
     {route: '/emailconfirm', name: 'emailconfirm', children: <Views.EmailConfirm /> },
+    {route: '/verify-email/:token', name: 'emailconfirm', children: <Views.VerifiedEmail /> },
     {route: '/program', name: 'program', children: <Views.Program /> },
     {route: '/subscribe', name: 'subscribe', children: <Views.Subscribe /> },
     {route: '/admin', name: 'admin', children: <Views.Admin /> }
@@ -84,7 +85,7 @@ Meteor.startup(() => {
         appStartup();
         Meteor.defer(() => {
           initNotFoundRoute();
-          FlowRouter.initialize();
+          FlowRouter.initialize({hashbang: true});
           const routeName = FlowRouter.getRouteName(window.location.pathname);
           console.log('window.location.pathname', window.location.pathname, 'routeName', routeName);
           FlowRouter.go(routeName ? window.location.pathname : 'not-found');
