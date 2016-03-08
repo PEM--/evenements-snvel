@@ -46,7 +46,8 @@ class Admin extends Views.BaseReactMeteor {
       ]
     )).concat([
       { title: 'Programmes', method: 'programs.update' },
-      { title: 'Typologie participants', method: 'userTypes.update' }
+      { title: 'Typologie participants', method: 'userTypes.update' },
+      { title: 'Adhérents SNVEL', method: 'subscribers.update' }
     ].map(m => [
       m.title,
       <Button

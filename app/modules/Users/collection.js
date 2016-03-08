@@ -265,10 +265,12 @@ initUsers = () => {
       }
     },
     'user.create': function(rawUser) {
+      console.log('rawUser', rawUser);
       // Creation can only be done when no user is logged in
       if (this.userId) { throw new Meteor.Error('unauthorized'); }
       check(rawUser, SignUpSchema);
       let user = UsersSchema.clean(Object.assign({}, rawUser));
+      user.profile.csoNumber = rawUser.csoNumber;
       Object.keys(user.profile).forEach(k => user.profile[k] = user.profile[k].trim());
       [
         'name', 'firstName', 'city'
@@ -276,10 +278,11 @@ initUsers = () => {
       user.username = rawUser.email.trim().toLowerCase();
       user.email = user.username;
       user.password = rawUser.password.trim();
+      console.log('user', user);
       if (Meteor.isServer) {
         // Check if user is a Subscriber
-        console.log('Adhérent ?', user.profile.category === 'Adhérent SNVEL');
         if (user.profile.category === 'Adhérent SNVEL') {
+          console.log('user.profile', user.profile);
           const subscriber = Col.Subscribers.findOne({csoNumber: user.profile.csoNumber});
           if (!subscriber) {
             throw new Meteor.Error(403, 'csoNumberNoMatch');

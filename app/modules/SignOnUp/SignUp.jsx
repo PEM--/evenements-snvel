@@ -27,9 +27,8 @@ class SignUp extends Views.BaseReactMeteor {
           if (Schema.MESSAGES.hasOwnProperty(err.reason)) {
             msg = Schema.MESSAGES[err.reason];
           }
-          return sAlert.error();
         }
-        sAlert.error(msg);
+        return sAlert.error(msg);
       }
       FlowRouter.go('emailconfirm');
     });
