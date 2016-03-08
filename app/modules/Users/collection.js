@@ -135,13 +135,12 @@ initUsers = () => {
   };
 
   // Set UsersSchema with optional keys for profile
-  const ProfileSchema = new SimpleSchema(Profile);
-  // const ProfileSchema = new SimpleSchema(
-  //   Object.keys(Profile).reduce((acc, k) => {
-  //     acc[k] = Object.assign({optional: true}, Profile[k]);
-  //     return acc;
-  //   }, {})
-  // );
+  const ProfileSchema = new SimpleSchema(
+    Object.keys(Profile).reduce((acc, k) => {
+      acc[k] = Object.assign({optional: true}, Profile[k]);
+      return acc;
+    }, {})
+  );
   Schema.ProfileSchema = ProfileSchema;
 
   const SignOnSchema = new SimpleSchema({
@@ -213,7 +212,7 @@ initUsers = () => {
       type: [String], label: 'Rôles', optional: true, blackbox: true,
       defaultValue: ['public']
     },
-    createdAt: {type: Date, label: 'Date de creation du profil', autoValue() {return new Date();}},
+    createdAt: {type: Date, label: 'Date de creation du profil', defaultValue() {return new Date();}},
     lastConnection: {type: Date, label: 'Date de dernière connexion', autoValue() {return new Date();}},
     profile: {
       type: ProfileSchema,
@@ -224,6 +223,7 @@ initUsers = () => {
   });
   Meteor.users.attachSchema(UsersSchema);
   Meteor.users.helpers({
+    email() { return this.emails[0].address; },
     isAdmin() { return Roles.userIsInRole(this._id, 'admin'); }
   });
 
@@ -263,7 +263,6 @@ initUsers = () => {
       user.username = rawUser.email.trim().toLowerCase();
       user.email = user.username;
       user.password = rawUser.password.trim();
-      console.log('user.create: user', user);
       if (Meteor.isServer) {
         const userId = Accounts.createUser(user);
         console.log('User created:', user.email);

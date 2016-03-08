@@ -15,9 +15,12 @@ class SignUp extends Views.BaseReactMeteor {
   }
   onCreate() {
     const profile = MainApp.Schema.SignUpSchema.clean(this.state);
-    console.log('state', profile);
     Meteor.call('user.create', profile, (err, result) => {
-      console.log('user.create', err, result);
+      if (err) {
+        console.warn('Erreur lors de la création de compte', err);
+        return sAlert.error('Inscription en erreur');
+      }
+      FlowRouter.go('emailconfirm');
     });
   }
   onChangeCategory(e) {
