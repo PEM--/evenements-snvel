@@ -8,7 +8,6 @@ const declareRoutes = () => {
     {route: '/signon', name: 'signon', children: <Views.SignOn /> },
     {route: '/signup', name: 'signup', children: <Views.SignUp /> },
     {route: '/emailconfirm', name: 'emailconfirm', children: <Views.EmailConfirm /> },
-    {route: '/verify-email/:token', name: 'emailconfirm', children: <Views.VerifiedEmail /> },
     {route: '/program', name: 'program', children: <Views.Program /> },
     {route: '/subscribe', name: 'subscribe', children: <Views.Subscribe /> },
     {route: '/admin', name: 'admin', children: <Views.Admin /> }
@@ -34,6 +33,25 @@ const declareRoutes = () => {
     });
     if (Meteor.isServer) {
       console.log(`Route: ${page.slug} declared`);
+    }
+  });
+  // Routing when email is verified
+  FlowRouter.route('/verify-email/:token', {
+    action() {
+      const token = FlowRouter.getParam('token');
+      console.log('Verification token', token);
+      if (Meteor.isClient) {
+        Accounts.verifyEmail(token, (err) => {
+          if (err) {
+            console.warn('Verification token error', err);
+            return FlowRouter.go('not-found');
+          }
+          FlowRouter.go('subscribe');
+        });
+      }
+      if (Meteor.isServer) {
+        ReactLayout.render(Views.MainLayout, { children: <Views.VerifiedEmail /> });
+      }
     }
   });
   FlowRouter.triggers.enter([
@@ -85,10 +103,10 @@ Meteor.startup(() => {
         appStartup();
         Meteor.defer(() => {
           initNotFoundRoute();
-          FlowRouter.initialize({hashbang: true});
-          const routeName = FlowRouter.getRouteName(window.location.pathname);
-          console.log('window.location.pathname', window.location.pathname, 'routeName', routeName);
-          FlowRouter.go(routeName ? window.location.pathname : 'not-found');
+          FlowRouter.initialize();
+          // const routeName = FlowRouter.getRouteName(window.location.pathname);
+          // console.log('window.location.pathname', window.location.pathname, 'routeName', routeName);
+          // FlowRouter.go(routeName ? window.location.pathname : 'not-found');
         });
         console.log('Initial subscription read! Router started.');
         comp.stop();
