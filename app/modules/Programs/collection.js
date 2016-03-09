@@ -1,213 +1,215 @@
 const { Utils, Schema, Col } = MainApp;
 
-const pricesUpdate = () => {
-  console.log('Importing prices...');
-  const pricesSheetName = 'Evènements SNVEL - Tarifs et droits';
-  let sheetId = 1;
-  let pricesSheet = true;
-  const userTypes = Col.UserTypes.find({}, {fields: {title: 1}}).fetch();
-  do {
-    pricesSheet = Utils.importSpreadSheet(pricesSheetName, sheetId++);
-    if (pricesSheet) {
-      console.log('Processing prices for', pricesSheet.info.worksheetTitle);
-      let program = Col.Programs.findOne(
-        {reference: pricesSheet.info.worksheetTitle}
-      );
-      if (!program) {
-        console.warn('Unknown program');
-        continue;
-      }
-      const prices = Object.keys(pricesSheet.rows)
-        .filter((rKey, rIdx) => rIdx !== 0)
-        .reduce((acc, rKey) => {
-          const rPrice = pricesSheet.rows[rKey];
-          const price = {
-            description: s(rPrice[1]).trim().value(),
-            code: s(rPrice[2]).trim().value(),
-            byType: []
-          };
-          userTypes.forEach((type, idx) => {
-            price.byType.push({
-              category: type.title,
-              amount: Number(s(rPrice[3 + idx]).trim().value())
+if (Meteor.isServer) {
+  const pricesUpdate = () => {
+    console.log('Importing prices...');
+    const pricesSheetName = 'Evènements SNVEL - Tarifs et droits';
+    let sheetId = 1;
+    let pricesSheet = true;
+    const userTypes = Col.UserTypes.find({}, {fields: {title: 1}}).fetch();
+    do {
+      pricesSheet = Utils.importSpreadSheet(pricesSheetName, sheetId++);
+      if (pricesSheet) {
+        console.log('Processing prices for', pricesSheet.info.worksheetTitle);
+        let program = Col.Programs.findOne(
+          {reference: pricesSheet.info.worksheetTitle}
+        );
+        if (!program) {
+          console.warn('Unknown program');
+          continue;
+        }
+        const prices = Object.keys(pricesSheet.rows)
+          .filter((rKey, rIdx) => rIdx !== 0)
+          .reduce((acc, rKey) => {
+            const rPrice = pricesSheet.rows[rKey];
+            const price = {
+              description: s(rPrice[1]).trim().value(),
+              code: s(rPrice[2]).trim().value(),
+              byType: []
+            };
+            userTypes.forEach((type, idx) => {
+              price.byType.push({
+                category: type.title,
+                amount: Number(s(rPrice[3 + idx]).trim().value())
+              });
             });
-          });
-          acc.push(price);
-          return acc;
-        }, []);
-      program.priceRights = prices;
-      const programId = String(program._id);
-      delete program._id;
-      Col.Programs.update(programId, program, {bypassCollection2: true});
-    }
-  } while (pricesSheet);
-};
-
-const discountsUpdate = () => {
-  console.log('Importing dicounts...');
-  const discountSheetName = 'Evènements SNVEL - Remises';
-  let sheetId = 1;
-  let discountSheet = true;
-  const userTypes = Col.UserTypes.find({}, {fields: {title: 1}}).fetch();
-  do {
-    discountSheet = Utils.importSpreadSheet(discountSheetName, sheetId++);
-    if (discountSheet) {
-      console.log('Processing discount for', discountSheet.info.worksheetTitle);
-      let program = Col.Programs.findOne(
-        {reference: discountSheet.info.worksheetTitle}
-      );
-      if (!program) {
-        console.warn('Unknown program');
-        continue;
+            acc.push(price);
+            return acc;
+          }, []);
+        program.priceRights = prices;
+        const programId = String(program._id);
+        delete program._id;
+        Col.Programs.update(programId, program, {bypassCollection2: true});
       }
-      const discounts = Object.keys(discountSheet.rows)
-        .filter((rKey, rIdx) => rIdx !== 0)
-        .reduce((acc, rKey) => {
-          const rDiscount = discountSheet.rows[rKey];
-          const discount = {
-            code: s(rDiscount[1]).trim().value(),
-            byType: []
-          };
-          userTypes.forEach((type, idx) => {
-            discount.byType.push({
-              category: type.title,
-              amount: numeral().unformat(s(rDiscount[2 + idx]).trim().value())
+    } while (pricesSheet);
+  };
+
+  const discountsUpdate = () => {
+    console.log('Importing dicounts...');
+    const discountSheetName = 'Evènements SNVEL - Remises';
+    let sheetId = 1;
+    let discountSheet = true;
+    const userTypes = Col.UserTypes.find({}, {fields: {title: 1}}).fetch();
+    do {
+      discountSheet = Utils.importSpreadSheet(discountSheetName, sheetId++);
+      if (discountSheet) {
+        console.log('Processing discount for', discountSheet.info.worksheetTitle);
+        let program = Col.Programs.findOne(
+          {reference: discountSheet.info.worksheetTitle}
+        );
+        if (!program) {
+          console.warn('Unknown program');
+          continue;
+        }
+        const discounts = Object.keys(discountSheet.rows)
+          .filter((rKey, rIdx) => rIdx !== 0)
+          .reduce((acc, rKey) => {
+            const rDiscount = discountSheet.rows[rKey];
+            const discount = {
+              code: s(rDiscount[1]).trim().value(),
+              byType: []
+            };
+            userTypes.forEach((type, idx) => {
+              discount.byType.push({
+                category: type.title,
+                amount: numeral().unformat(s(rDiscount[2 + idx]).trim().value())
+              });
             });
-          });
-          acc.push(discount);
-          return acc;
-        }, []);
-      program.discounts = discounts;
-      const programId = String(program._id);
-      delete program._id;
-      Col.Programs.update(programId, program, {bypassCollection2: true});
-    }
-  } while (discountSheet);
-};
-
-const specialRulesUpdate = () => {
-  console.log('Importing special rules...');
-  const ruleSheetName = 'Evènements SNVEL - Règles spéciales';
-  let sheetId = 1;
-  let ruleSheet = true;
-  const userTypes = Col.UserTypes.find({}, {fields: {title: 1}}).fetch();
-  do {
-    ruleSheet = Utils.importSpreadSheet(ruleSheetName, sheetId++);
-    if (ruleSheet) {
-      console.log('Processing discount for', ruleSheet.info.worksheetTitle);
-      let program = Col.Programs.findOne(
-        {reference: ruleSheet.info.worksheetTitle}
-      );
-      if (!program) {
-        console.warn('Unknown program');
-        continue;
+            acc.push(discount);
+            return acc;
+          }, []);
+        program.discounts = discounts;
+        const programId = String(program._id);
+        delete program._id;
+        Col.Programs.update(programId, program, {bypassCollection2: true});
       }
-      const availablePrices = program.priceRights.map(p => p.code);
-      const rules = Object.keys(ruleSheet.rows)
-        .filter((rKey, rIdx) => rIdx !== 0)
-        .reduce((acc, rKey) => {
-          const rRule = ruleSheet.rows[rKey];
-          const rule = {
-            name: s(rRule[1]).trim().value(),
-            description: s(rRule[2]).trim().value(),
-            categories: [],
-            applicationDate: null,
-            amount: numeral().unformat(s(rRule[5]).trim().value()),
-            requiredSales: [],
-            onPrices: []
-          };
-          const categoriesSheet = s(rRule[3]).trim().value();
-          const categories = categoriesSheet === '*' ?
-            userTypes.map(u => u.title) :
-            categoriesSheet.split(';');
-          rule.categories = categories;
-          const applicationDateSheet = s(rRule[4]).trim().value();
-          const applicationDate = applicationDateSheet === '*' ?
-            new Date(0, 0, 0) :
-            moment(applicationDateSheet, 'DD/MM/YYYY').toDate();
-          rule.applicationDate = applicationDateSheet;
-          const requiredSalesSheet = s(rRule[5]).trim().value();
-          const requiredSales = requiredSalesSheet === '*' ?
-            availablePrices :
-            requiredSalesSheet === 'null' ?
-              [] :
-              requiredSalesSheet.split(';');
-          rule.requiredSales = requiredSales;
-          const onPricesSheet = s(rRule[6]).trim().value();
-          const onPrices = onPricesSheet === '*' ?
-            availablePrices :
-            onPricesSheet.split(';');
-          rule.onPrices = onPrices;
-          acc.push(rule);
-          return acc;
-        }, []);
-      program.specialRules = rules;
-      const programId = String(program._id);
-      delete program._id;
-      Col.Programs.update(programId, program, {bypassCollection2: true});
-    }
-  } while (ruleSheet);
-};
+    } while (discountSheet);
+  };
 
-const programsUpdate = () => {
-  console.log('Importing programs...');
-  const programsSheetName = 'Evènements SNVEL - Programmes';
-  const programsSheet = Utils.importSpreadSheet(programsSheetName);
-  const programs = Object.keys(programsSheet.rows)
-    .filter((pKey, pIdx) => pIdx !== 0)
-    .map((pKey, pIdx) => {
-      const eventsSheet = Utils.importSpreadSheet(programsSheetName, 2 + pIdx);
-      const events = Object.keys(eventsSheet.rows)
-        .filter((rKey, rIdx) => rIdx !== 0)
-        .reduce((acc, rKey) => {
-          const rEvent = eventsSheet.rows[rKey];
-          const eventTitle = s(rEvent[1]).trim().value();
-          let foundEvent = acc.find(c => c.title === eventTitle);
-          if (!foundEvent) {
-            acc.push({ title: eventTitle, sessions: [] });
-            foundEvent = acc[0];
-          }
-          const sessionTitle = rEvent[2] ? s(rEvent[2]).trim().value() : '';
-          let foundSession = foundEvent.sessions.find(s => s.title === sessionTitle);
-          if (!foundSession) {
-            foundEvent.sessions.push({ title: sessionTitle, conferences: [] });
-            foundSession = foundEvent.sessions[0];
-          }
-          foundSession.conferences.push({
-            title: rEvent[3] ? s(rEvent[3]).trim().value() : '',
-            begin: moment(s(rEvent[4]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
-            fin: moment(s(rEvent[5]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
-            moderator: rEvent[6] ? s(rEvent[6]).trim().value() : '',
-            speaker: rEvent[7] ? s(rEvent[7]).trim().value() : '',
-            description: rEvent[8] ? s(rEvent[8]).trim().value() : '',
-            code: s(rEvent[9]).trim().value()
-          });
-          return acc;
-        }, []);
-      const rProgram = programsSheet.rows[pKey];
-      const reference = s(rProgram[1]).toLowerCase().trim().value();
-      const presentation = Utils.getDriveFile(`${reference}.md`);
-      let program = {
-        reference,
-        title: s(rProgram[2]).trim().value(),
-        location: s(rProgram[3]).trim().value(),
-        period: s(rProgram[4]).trim().value(),
-        description: s(rProgram[5]).trim().value(),
-        begin: moment(s(rProgram[6]).trim().value(), 'DD/MM/YYYY').toDate(),
-        end: moment(s(rProgram[7]).trim().value(), 'DD/MM/YYYY').toDate(),
-        lattitude: String(rProgram[8]),
-        longitude: String(rProgram[9]),
-        zoom: String(rProgram[10]),
-        events,
-        presentation
-      };
-      console.log('Insert program from line', pIdx, 'and reference', program.reference);
-      Col.Programs.insert(program);
-    });
-  pricesUpdate();
-  discountsUpdate();
-  specialRulesUpdate();
-};
+  const specialRulesUpdate = () => {
+    console.log('Importing special rules...');
+    const ruleSheetName = 'Evènements SNVEL - Règles spéciales';
+    let sheetId = 1;
+    let ruleSheet = true;
+    const userTypes = Col.UserTypes.find({}, {fields: {title: 1}}).fetch();
+    do {
+      ruleSheet = Utils.importSpreadSheet(ruleSheetName, sheetId++);
+      if (ruleSheet) {
+        console.log('Processing discount for', ruleSheet.info.worksheetTitle);
+        let program = Col.Programs.findOne(
+          {reference: ruleSheet.info.worksheetTitle}
+        );
+        if (!program) {
+          console.warn('Unknown program');
+          continue;
+        }
+        const availablePrices = program.priceRights.map(p => p.code);
+        const rules = Object.keys(ruleSheet.rows)
+          .filter((rKey, rIdx) => rIdx !== 0)
+          .reduce((acc, rKey) => {
+            const rRule = ruleSheet.rows[rKey];
+            const rule = {
+              name: s(rRule[1]).trim().value(),
+              description: s(rRule[2]).trim().value(),
+              categories: [],
+              applicationDate: null,
+              amount: numeral().unformat(s(rRule[5]).trim().value()),
+              requiredSales: [],
+              onPrices: []
+            };
+            const categoriesSheet = s(rRule[3]).trim().value();
+            const categories = categoriesSheet === '*' ?
+              userTypes.map(u => u.title) :
+              categoriesSheet.split(';');
+            rule.categories = categories;
+            const applicationDateSheet = s(rRule[4]).trim().value();
+            const applicationDate = applicationDateSheet === '*' ?
+              new Date(0, 0, 0) :
+              moment(applicationDateSheet, 'DD/MM/YYYY').toDate();
+            rule.applicationDate = applicationDateSheet;
+            const requiredSalesSheet = s(rRule[5]).trim().value();
+            const requiredSales = requiredSalesSheet === '*' ?
+              availablePrices :
+              requiredSalesSheet === 'null' ?
+                [] :
+                requiredSalesSheet.split(';');
+            rule.requiredSales = requiredSales;
+            const onPricesSheet = s(rRule[6]).trim().value();
+            const onPrices = onPricesSheet === '*' ?
+              availablePrices :
+              onPricesSheet.split(';');
+            rule.onPrices = onPrices;
+            acc.push(rule);
+            return acc;
+          }, []);
+        program.specialRules = rules;
+        const programId = String(program._id);
+        delete program._id;
+        Col.Programs.update(programId, program, {bypassCollection2: true});
+      }
+    } while (ruleSheet);
+  };
+
+  const programsUpdate = () => {
+    console.log('Importing programs...');
+    const programsSheetName = 'Evènements SNVEL - Programmes';
+    const programsSheet = Utils.importSpreadSheet(programsSheetName);
+    const programs = Object.keys(programsSheet.rows)
+      .filter((pKey, pIdx) => pIdx !== 0)
+      .map((pKey, pIdx) => {
+        const eventsSheet = Utils.importSpreadSheet(programsSheetName, 2 + pIdx);
+        const events = Object.keys(eventsSheet.rows)
+          .filter((rKey, rIdx) => rIdx !== 0)
+          .reduce((acc, rKey) => {
+            const rEvent = eventsSheet.rows[rKey];
+            const eventTitle = s(rEvent[1]).trim().value();
+            let foundEvent = acc.find(c => c.title === eventTitle);
+            if (!foundEvent) {
+              acc.push({ title: eventTitle, sessions: [] });
+              foundEvent = acc[0];
+            }
+            const sessionTitle = rEvent[2] ? s(rEvent[2]).trim().value() : '';
+            let foundSession = foundEvent.sessions.find(s => s.title === sessionTitle);
+            if (!foundSession) {
+              foundEvent.sessions.push({ title: sessionTitle, conferences: [] });
+              foundSession = foundEvent.sessions[0];
+            }
+            foundSession.conferences.push({
+              title: rEvent[3] ? s(rEvent[3]).trim().value() : '',
+              begin: moment(s(rEvent[4]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
+              fin: moment(s(rEvent[5]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
+              moderator: rEvent[6] ? s(rEvent[6]).trim().value() : '',
+              speaker: rEvent[7] ? s(rEvent[7]).trim().value() : '',
+              description: rEvent[8] ? s(rEvent[8]).trim().value() : '',
+              code: s(rEvent[9]).trim().value()
+            });
+            return acc;
+          }, []);
+        const rProgram = programsSheet.rows[pKey];
+        const reference = s(rProgram[1]).toLowerCase().trim().value();
+        const presentation = Utils.getDriveFile(`${reference}.md`);
+        let program = {
+          reference,
+          title: s(rProgram[2]).trim().value(),
+          location: s(rProgram[3]).trim().value(),
+          period: s(rProgram[4]).trim().value(),
+          description: s(rProgram[5]).trim().value(),
+          begin: moment(s(rProgram[6]).trim().value(), 'DD/MM/YYYY').toDate(),
+          end: moment(s(rProgram[7]).trim().value(), 'DD/MM/YYYY').toDate(),
+          lattitude: String(rProgram[8]),
+          longitude: String(rProgram[9]),
+          zoom: String(rProgram[10]),
+          events,
+          presentation
+        };
+        console.log('Insert program from line', pIdx, 'and reference', program.reference);
+        Col.Programs.insert(program);
+      });
+    pricesUpdate();
+    discountsUpdate();
+    specialRulesUpdate();
+  };
+}
 
 initPrograms = () => {
   const Programs = new Mongo.Collection('programs');

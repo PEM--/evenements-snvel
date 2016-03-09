@@ -16,7 +16,8 @@ class Admin extends Views.BaseReactMeteor {
   errorSuccess(err, result) {
     this.setState({disabled: false});
     if (err) {
-      return sAlert.error('Erreur lors de la mise à jour :', err.toString());
+      console.warn('Update error', err);
+      return sAlert.error(`Erreur lors de la mise à jour : ${err.reason}`);
     }
     sAlert.success('Mise à jour réussie');
   }
