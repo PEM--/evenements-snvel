@@ -1,6 +1,6 @@
 const { Schema, Col, Utils } = MainApp;
 
-const subscribersUpdate = () => {
+const subscribersUpdate = (callback) => {
   console.log('Importing subscribers...');
   const result = Utils.importSpreadSheet('Evènements SNVEL - Adhérents');
   Object.keys(result.rows)
@@ -24,7 +24,14 @@ const subscribersUpdate = () => {
         vetenaryStatus: s(r[14]).trim().toLowerCase().capitalize().value()
       };
       console.log('Insert subscriber from line', idx, 'and CSO', subscriber.csoNumber);
-      Col.Subscribers.insert(subscriber);
+      try {
+        Col.Subscribers.insert(subscriber);
+      } catch (err) {
+        console.warn('Subscriber update error at line', idx, 'and error', err);
+        if (callback) {
+          callback(idx, err);
+        }
+      }
     });
 };
 
@@ -66,7 +73,9 @@ initSubscribers = () => {
       if (!user || !user.isAdmin()) { throw new Meteor.Error('unauthorized'); }
       if (Meteor.isServer) {
         Col.Subscribers.remove({});
-        subscribersUpdate();
+        subscribersUpdate((idx, err) => {
+          throw new Meteor.Error(403, `Erreur à la ligne ${idx}: ${err.toString()}`);
+        });
       }
     }
   });

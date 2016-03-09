@@ -13,10 +13,10 @@ class Admin extends Views.BaseReactMeteor {
     }
     return { user: Meteor.user() };
   }
-  errorSuccess(err) {
+  errorSuccess(err, result) {
     this.setState({disabled: false});
     if (err) {
-      return sAlert.error('Erreur lors de la mise à jour');
+      return sAlert.error('Erreur lors de la mise à jour :', err.toString());
     }
     sAlert.success('Mise à jour réussie');
   }
