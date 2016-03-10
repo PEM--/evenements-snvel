@@ -3,7 +3,7 @@ const { Schema, Col, Utils } = MainApp;
 if (Meteor.isServer) {
   subscribersUpdate = function(callback) {
     console.log('Importing subscribers...');
-    const result = Utils.importSpreadSheet('Evènements SNVEL - Adhérents Test Base');
+    const result = Utils.importSpreadSheet('Evènements SNVEL - Adhérents');
     let subscribers = Object.keys(result.rows)
       .filter((k, idx) => idx !== 0)
       .map(k => {
@@ -35,7 +35,7 @@ if (Meteor.isServer) {
       });
     } catch (err) {
       console.warn('Insertion failed at:', line, 'with error:', err);
-      error = { line, err };
+      error = `Insertion à la ligne ${line} a échoué: ${err.toString()}`;
     }
     if (callback) { callback(error); }
   };
@@ -74,30 +74,21 @@ initSubscribers = () => {
 
   // Methods
 if (Meteor.isServer) {
-  Col.adminJobs.processJobs('subscribers.update', function(job) {
-    console.log('Job started');
-    Col.Subscribers.remove({});
-    subscribersUpdate((err) => {
-      if (err) {
-        console.warn('Job failed', err);
-      }
-      console.log('Job ended');
-      job.done();
-    });
-  });
-  Col.adminJobs.processJobs('test', function(job) {
-    console.log('Job started');
-    Meteor.setTimeout(() => {
-      console.log('Job ended');
-      job.done();
-    });
-  });
   Meteor.methods({
     'subscribers.update': function() {
       if (!this.userId) { throw new Meteor.Error('unauthorized'); }
       const user = Meteor.users.findOne(this.userId);
       if (!user || !user.isAdmin()) { throw new Meteor.Error('unauthorized'); }
-      const j = new Job(Col.adminJobs, 'test', {});
+      Col.adminJobs.processJobs('subscribers.update', function(job) {
+        Col.Subscribers.remove({});
+        subscribersUpdate(err => {
+          if (err) {
+            return job.fail({ err }, {fatal: true});
+          }
+          job.done();
+        });
+      });
+      const j = new Job(Col.adminJobs, 'subscribers.update', {});
       return j.save();
     }
   });

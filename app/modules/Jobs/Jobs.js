@@ -13,6 +13,7 @@ if (Meteor.isServer) {
       const user = Meteor.users.findOne(this.userId);
       return user && user.isAdmin() ? adminJobs.find({}) : this.ready();
     });
+    // adminJobs.setLogStream(process.stdout);
     adminJobs.startJobServer();
   });
 

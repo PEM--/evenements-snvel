@@ -18,9 +18,9 @@ class Admin extends Views.BaseReactMeteor {
   errorSuccess(err, result) {
     if (err) {
       console.warn('Update error', err);
+      Meteor.call('cleanJobs');
       return sAlert.error(`Erreur lors de la mise à jour : ${err.reason}`);
     }
-    sAlert.success('Mise à jour réussie');
   }
   onUpdateMarkdown(slug) {
     return () => {
@@ -35,15 +35,24 @@ class Admin extends Views.BaseReactMeteor {
   }
   componentDidMount() {
     this.computation = null;
-    Meteor.defer(() => {
+    Meteor.setTimeout(() => {
       Tracker.autorun((comp) => {
         if (comp.firstRun) {
           this.computation = comp;
         }
         const job = Col.adminJobs.findOne();
-        console.log('Job', job);
+        if (job) {
+          if (job.status === 'completed') {
+            sAlert.success('Mise à jour réussie');
+            Meteor.call('cleanJobs');
+          }
+          if (job.status === 'failed') {
+            sAlert.error(job.failures[0].err);
+            Meteor.call('cleanJobs');
+          }
+        }
       });
-    });
+    }, 0);
   }
   componentWillUnmount() {
     if (this.computation) {

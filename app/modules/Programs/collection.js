@@ -303,8 +303,14 @@ initPrograms = () => {
       const user = Meteor.users.findOne(this.userId);
       if (!user || !user.isAdmin()) { throw new Meteor.Error('unauthorized'); }
       if (Meteor.isServer) {
-        Col.Programs.remove({});
-        programsUpdate();
+        Col.adminJobs.processJobs('programs.update', function(job) {
+          Col.Programs.remove({});
+          programsUpdate();
+          job.done();
+        });
+        const j = new Job(Col.adminJobs, 'programs.update', {});
+        return j.save();
+
       }
     }
   });

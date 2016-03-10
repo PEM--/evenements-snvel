@@ -55,8 +55,13 @@ initBasicPages = () => {
       check(slug, String);
       const found = BASIC_PAGES.find(p => p.slug === slug);
       if (Meteor.isServer) {
-        const content = Utils.getDriveFile(found.markdown);
-        BasicPages.update({ slug }, {$set: {content}});
+        Col.adminJobs.processJobs('basicPages.update', function(job) {
+          const content = Utils.getDriveFile(found.markdown);
+          BasicPages.update({ slug }, {$set: {content}});
+          job.done();
+        });
+        const j = new Job(Col.adminJobs, 'basicPages.update', {});
+        return j.save();
       }
     }
   });
