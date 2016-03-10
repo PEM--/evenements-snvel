@@ -1,4 +1,4 @@
-const { Views, Utils } = MainApp;
+const { Views, Utils, Col } = MainApp;
 const { AnimatedLink, Spinner, Table, Button } = Views;
 
 class Admin extends Views.BaseReactMeteor {
@@ -11,7 +11,8 @@ class Admin extends Views.BaseReactMeteor {
     if (Meteor.isServer) {
       Meteor.subscribe('users.me');
     }
-    return { user: Meteor.user() };
+    Meteor.subscribe('adminJobs');
+    return { user: Meteor.user(), adminJobs: Col.adminJobs.find().fetch() };
   }
   errorSuccess(err, result) {
     this.setState({disabled: false});

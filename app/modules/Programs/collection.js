@@ -150,7 +150,7 @@ if (Meteor.isServer) {
     } while (ruleSheet);
   };
 
-  const programsUpdate = () => {
+  programsUpdate = () => {
     console.log('Importing programs...');
     const programsSheetName = 'Evènements SNVEL - Programmes';
     const programsSheet = Utils.importSpreadSheet(programsSheetName);

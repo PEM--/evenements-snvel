@@ -2,8 +2,7 @@ const { Utils, Col } = MainApp;
 
 GoogleKey = JSON.parse(Assets.getText(Meteor.settings.private.googleApi.jsonKey));
 
-const path = Meteor.npmRequire('path');
-const Future = Meteor.npmRequire(path.join('fibers', 'future'));
+const Future = Meteor.npmRequire('fibers/future');
 
 EditGoogleSpreadsheet = Meteor.npmRequire('edit-google-spreadsheet');
 GoogleApis = Meteor.npmRequire('googleapis');

@@ -1,14 +1,14 @@
 const { Schema, Col, Utils } = MainApp;
 
 if (Meteor.isServer) {
-  const subscribersUpdate = (callback) => {
+  subscribersUpdate = function(callback, future) {
     console.log('Importing subscribers...');
     const result = Utils.importSpreadSheet('Evènements SNVEL - Adhérents');
-    Object.keys(result.rows)
+    let subscribers = Object.keys(result.rows)
       .filter((k, idx) => idx !== 0)
-      .forEach((k, idx) => {
+      .map(k => {
         const r = result.rows[k];
-        const subscriber = {
+        return {
           csoNumber: s(r[1]).trim().value(),
           name: s(r[2]).trim().toLowerCase().titleize().value(),
           firstName: s(r[3]).trim().toLowerCase().titleize().value(),
@@ -24,16 +24,37 @@ if (Meteor.isServer) {
           webSubscription: r[13] ? s(r[13]).trim().value() : '',
           vetenaryStatus: s(r[14]).trim().toLowerCase().capitalize().value()
         };
-        console.log('Insert subscriber from line', idx, 'and CSO', subscriber.csoNumber);
-        try {
-          Col.Subscribers.insert(subscriber);
-        } catch (err) {
-          console.warn('Subscriber update error at line', idx, 'and error', err);
-          if (callback) {
-            callback(idx, err);
-          }
-        }
       });
+    let error = null;
+    let line = 1;
+    const subscribeUnitary = () => {
+      const subscriber = subscribers.pop();
+      if (subscriber) {
+        console.log('Insert subscriber line', line, 'with CSO', subscriber.csoNumber);
+        Col.Subscribers.insert(subscriber);
+        line++;
+        Meteor.defer(subscribeUnitary);
+        if (future) { return future.wait(); }
+      } else if (callback) {
+        callback();
+      }
+    };
+    subscribeUnitary();
+
+      //
+      //
+      //   console.log('Insert subscriber from line', idx, 'and CSO', subscriber.csoNumber);
+      //   Meteor.defer(() => {
+      //     try {
+      //       Col.Subscribers.insert(subscriber);
+      //     } catch (err) {
+      //       console.warn('Subscriber update error at line', idx, 'and error', err);
+      //       if (callback) {
+      //         callback(idx, err);
+      //       }
+      //     }
+      //   });
+      // });
   };
 }
 
@@ -66,21 +87,73 @@ initSubscribers = () => {
     subscribersUpdate();
   }
   console.log('Subscribers filled and exposed');
+};
 
   // Methods
+if (Meteor.isServer) {
+  const Future = Meteor.npmRequire('fibers/future');
+  const longIteration = function(callback) {
+    const future = new Future();
+    const NB = 100000;
+    let arr = [];
+    for (let i = 0; i < NB; i++) {
+      arr.push(i);
+    }
+    // Meteor.setTimeout(() => {future.return();}, 2000);
+    // const unpop = () => {
+    //   const innerfut = new Future();
+    //   const poped = arr.pop();
+    //   if (poped) {
+    //     console.log('Arr', poped);
+    //     Meteor.defer(unpop);
+    //     return innerfut.wait();
+    //   } else if (callback) {
+    //     callback();
+    //     return future.return();
+    //   }
+    //   return innerfut.wait();
+    // };
+    // unpop().wait();
+    return future.wait();
+  };
+  const sleep = function(ms, callback, future) {
+    console.log('longIteration: started');
+    const fut = new Future();
+    setTimeout(function() {
+      // longIteration(callback);
+      console.log('longIteration: done');
+      callback();
+      fut.return();
+    }, ms);
+    return fut.wait();
+  };
   Meteor.methods({
-    'subscribers.update': function() {
+    'subscribers.temp': function() {
       if (!this.userId) { throw new Meteor.Error('unauthorized'); }
       const user = Meteor.users.findOne(this.userId);
       if (!user || !user.isAdmin()) { throw new Meteor.Error('unauthorized'); }
-      if (Meteor.isServer) {
-        Col.Subscribers.remove({});
-        subscribersUpdate((idx, err) => {
-          throw new Meteor.Error(403, `Erreur à la ligne ${idx + 2}: ${err.toString()}`);
-        });
-        return true;
-      }
-      return true;
+      Col.Subscribers.remove({});
+      this.unblock();
+      const future = new Future();
+      subscribersUpdate(function(idx, err) {
+        console.log('Subscribers updated');
+        if (err) {
+          return future.throw(403, `Erreur à la ligne ${idx + 2}: ${err.toString()}`);
+        }
+        return future.return(true);
+      }, future);
+      return future.wait();
+    },
+    'subscribers.update': function() {
+      console.log('subscribers.update: started');
+      this.unblock();
+      const future = new Future();
+      sleep(2 * 1000, () => {
+        console.log('subscribers.update: done');
+        return future.return(true);
+      });
+      return future.wait();
     }
-  });
-};
+  }
+  );
+}
