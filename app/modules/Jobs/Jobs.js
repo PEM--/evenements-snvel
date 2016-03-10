@@ -7,22 +7,25 @@ if (Meteor.isServer) {
       return user && user.isAdmin();
     }
   });
-  // adminJobs.setLogStream(process.stdout);
-
   Meteor.startup(() => {
+    adminJobs.remove({});
     Meteor.publish('adminJobs', function() {
       const user = Meteor.users.findOne(this.userId);
       return user && user.isAdmin() ? adminJobs.find({}) : this.ready();
     });
     adminJobs.startJobServer();
-    adminJobs.processJobs('test', function(job, cb) {
-      console.log('Job started');
-      Meteor.setTimeout(() => {
-        console.log('Job ended');
-        job.done();
-        cb();
-      }, 2000);
-    });
+  });
+
+  // Meteor methods
+  Meteor.methods({
+    cleanJobs() {
+      const user = Meteor.users.findOne(this.userId);
+      if (user && user.isAdmin()) {
+        adminJobs.remove({});
+      } else {
+        throw new Meteor.Error(403, 'Unauthorized call to cleanJobs');
+      }
+    }
   });
 }
 

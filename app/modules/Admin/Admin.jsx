@@ -4,7 +4,6 @@ const { AnimatedLink, Spinner, Table, Button } = Views;
 class Admin extends Views.BaseReactMeteor {
   constructor(props) {
     super(props);
-    this.state = { disabled: false };
     this.errorSuccess = this.errorSuccess.bind(this);
   }
   getMeteorData() {
@@ -12,10 +11,11 @@ class Admin extends Views.BaseReactMeteor {
       Meteor.subscribe('users.me');
     }
     Meteor.subscribe('adminJobs');
-    return { user: Meteor.user(), adminJobs: Col.adminJobs.find().fetch() };
+    return {
+      user: Meteor.user(), nbJobs: Col.adminJobs.find().count()
+    };
   }
   errorSuccess(err, result) {
-    this.setState({disabled: false});
     if (err) {
       console.warn('Update error', err);
       return sAlert.error(`Erreur lors de la mise à jour : ${err.reason}`);
@@ -24,7 +24,6 @@ class Admin extends Views.BaseReactMeteor {
   }
   onUpdateMarkdown(slug) {
     return () => {
-      this.setState({disabled: true});
       Meteor.call('basicPages.update', slug, this.errorSuccess);
     };
   }
@@ -34,6 +33,23 @@ class Admin extends Views.BaseReactMeteor {
       Meteor.call(methodName, this.errorSuccess);
     };
   }
+  componentDidMount() {
+    this.computation = null;
+    Meteor.defer(() => {
+      Tracker.autorun((comp) => {
+        if (comp.firstRun) {
+          this.computation = comp;
+        }
+        const job = Col.adminJobs.findOne();
+        console.log('Job', job);
+      });
+    });
+  }
+  componentWillUnmount() {
+    if (this.computation) {
+      this.computation.stop();
+    }
+  }
   render() {
     const items = Utils.BASIC_PAGES.map(p => (
       [
@@ -41,7 +57,7 @@ class Admin extends Views.BaseReactMeteor {
         <Button
           iconName='refresh' className='btn'
           onClick={this.onUpdateMarkdown(p.slug)}
-          disabled={this.state.disabled}
+          disabled={this.data.nbJobs}
         >
           Mettre à jour
         </Button>
@@ -55,7 +71,7 @@ class Admin extends Views.BaseReactMeteor {
       <Button
         iconName='refresh' className='btn'
         onClick={this.onUpdateMethod(m.method)}
-        disabled={this.state.disabled}
+        disabled={this.data.nbJobs}
       >
         Mettre à jour
       </Button>

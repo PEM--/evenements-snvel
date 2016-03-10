@@ -1,9 +1,9 @@
 const { Schema, Col, Utils } = MainApp;
 
 if (Meteor.isServer) {
-  subscribersUpdate = function(callback, future) {
+  subscribersUpdate = function(callback) {
     console.log('Importing subscribers...');
-    const result = Utils.importSpreadSheet('Evènements SNVEL - Adhérents');
+    const result = Utils.importSpreadSheet('Evènements SNVEL - Adhérents Test Base');
     let subscribers = Object.keys(result.rows)
       .filter((k, idx) => idx !== 0)
       .map(k => {
@@ -26,35 +26,18 @@ if (Meteor.isServer) {
         };
       });
     let error = null;
-    let line = 1;
-    const subscribeUnitary = () => {
-      const subscriber = subscribers.pop();
-      if (subscriber) {
-        console.log('Insert subscriber line', line, 'with CSO', subscriber.csoNumber);
-        Col.Subscribers.insert(subscriber);
+    let line = 2;
+    try {
+      subscribers.forEach((s, idx) => {
+        console.log('Insert subscriber line', idx + 2, 'with CSO', s.csoNumber);
+        Col.Subscribers.insert(s);
         line++;
-        Meteor.defer(subscribeUnitary);
-        if (future) { return future.wait(); }
-      } else if (callback) {
-        callback();
-      }
-    };
-    subscribeUnitary();
-
-      //
-      //
-      //   console.log('Insert subscriber from line', idx, 'and CSO', subscriber.csoNumber);
-      //   Meteor.defer(() => {
-      //     try {
-      //       Col.Subscribers.insert(subscriber);
-      //     } catch (err) {
-      //       console.warn('Subscriber update error at line', idx, 'and error', err);
-      //       if (callback) {
-      //         callback(idx, err);
-      //       }
-      //     }
-      //   });
-      // });
+      });
+    } catch (err) {
+      console.warn('Insertion failed at:', line, 'with error:', err);
+      error = { line, err };
+    }
+    if (callback) { callback(error); }
   };
 }
 
@@ -91,69 +74,31 @@ initSubscribers = () => {
 
   // Methods
 if (Meteor.isServer) {
-  const Future = Meteor.npmRequire('fibers/future');
-  const longIteration = function(callback) {
-    const future = new Future();
-    const NB = 100000;
-    let arr = [];
-    for (let i = 0; i < NB; i++) {
-      arr.push(i);
-    }
-    // Meteor.setTimeout(() => {future.return();}, 2000);
-    // const unpop = () => {
-    //   const innerfut = new Future();
-    //   const poped = arr.pop();
-    //   if (poped) {
-    //     console.log('Arr', poped);
-    //     Meteor.defer(unpop);
-    //     return innerfut.wait();
-    //   } else if (callback) {
-    //     callback();
-    //     return future.return();
-    //   }
-    //   return innerfut.wait();
-    // };
-    // unpop().wait();
-    return future.wait();
-  };
-  const sleep = function(ms, callback, future) {
-    console.log('longIteration: started');
-    const fut = new Future();
-    setTimeout(function() {
-      // longIteration(callback);
-      console.log('longIteration: done');
-      callback();
-      fut.return();
-    }, ms);
-    return fut.wait();
-  };
+  Col.adminJobs.processJobs('subscribers.update', function(job) {
+    console.log('Job started');
+    Col.Subscribers.remove({});
+    subscribersUpdate((err) => {
+      if (err) {
+        console.warn('Job failed', err);
+      }
+      console.log('Job ended');
+      job.done();
+    });
+  });
+  Col.adminJobs.processJobs('test', function(job) {
+    console.log('Job started');
+    Meteor.setTimeout(() => {
+      console.log('Job ended');
+      job.done();
+    });
+  });
   Meteor.methods({
-    'subscribers.temp': function() {
+    'subscribers.update': function() {
       if (!this.userId) { throw new Meteor.Error('unauthorized'); }
       const user = Meteor.users.findOne(this.userId);
       if (!user || !user.isAdmin()) { throw new Meteor.Error('unauthorized'); }
-      Col.Subscribers.remove({});
-      this.unblock();
-      const future = new Future();
-      subscribersUpdate(function(idx, err) {
-        console.log('Subscribers updated');
-        if (err) {
-          return future.throw(403, `Erreur à la ligne ${idx + 2}: ${err.toString()}`);
-        }
-        return future.return(true);
-      }, future);
-      return future.wait();
-    },
-    'subscribers.update': function() {
-      console.log('subscribers.update: started');
-      this.unblock();
-      const future = new Future();
-      sleep(2 * 1000, () => {
-        console.log('subscribers.update: done');
-        return future.return(true);
-      });
-      return future.wait();
+      const j = new Job(Col.adminJobs, 'test', {});
+      return j.save();
     }
-  }
-  );
+  });
 }
