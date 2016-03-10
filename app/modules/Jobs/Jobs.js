@@ -7,14 +7,22 @@ if (Meteor.isServer) {
       return user && user.isAdmin();
     }
   });
-  adminJobs.setLogStream(process.stdout);
+  // adminJobs.setLogStream(process.stdout);
 
   Meteor.startup(() => {
     Meteor.publish('adminJobs', function() {
       const user = Meteor.users.findOne(this.userId);
       return user && user.isAdmin() ? adminJobs.find({}) : this.ready();
     });
-    return adminJobs.startJobServer();
+    adminJobs.startJobServer();
+    adminJobs.processJobs('test', function(job, cb) {
+      console.log('Job started');
+      Meteor.setTimeout(() => {
+        console.log('Job ended');
+        job.done();
+        cb();
+      }, 2000);
+    });
   });
 }
 
