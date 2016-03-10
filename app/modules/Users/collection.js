@@ -3,7 +3,7 @@ const PHONE_NUMBER_REGEX = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}
 const { Schema, Col, Utils } = MainApp;
 
 if (Meteor.isServer) {
-  const userTypesUpdate = () => {
+  userTypesUpdate = () => {
     console.log('Importing user types...');
     const result = Utils.importSpreadSheet('Evènements SNVEL - Typologie participants');
     Object.keys(result.rows)
@@ -261,8 +261,13 @@ initUsers = () => {
       const user = Meteor.users.findOne(this.userId);
       if (!user || !user.isAdmin()) { throw new Meteor.Error('unauthorized'); }
       if (Meteor.isServer) {
-        Col.UserTypes.remove({});
-        userTypesUpdate();
+        Col.adminJobs.processJobs('userTypes.update', function(job) {
+          Col.UserTypes.remove({});
+          userTypesUpdate();
+          job.done();
+        });
+        const j = new Job(Col.adminJobs, 'userTypes.update', {});
+        return j.save();
       }
     },
     'user.create': function(rawUser) {

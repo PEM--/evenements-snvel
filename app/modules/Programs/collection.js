@@ -310,7 +310,6 @@ initPrograms = () => {
         });
         const j = new Job(Col.adminJobs, 'programs.update', {});
         return j.save();
-
       }
     }
   });
