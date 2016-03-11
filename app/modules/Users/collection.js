@@ -82,7 +82,7 @@ initUsers = () => {
     },
     organization: {
       type: String, label: 'Nom de l\'entreprise', min: 1, max: 256,
-      defaultValue: 'PEM', view: {
+      defaultValue: '', view: {
         name: 'Input', type: 'text', label: 'Votre entreprise :',
         placeholder: 'Nom de l\'entreprise ou de la structure'
       }
@@ -96,13 +96,13 @@ initUsers = () => {
     },
     firstName: {
       type: String, label: 'Prénom du contact', min: 1, max: 256,
-      defaultValue: 'Pierre-Eric', view: {
+      defaultValue: '', view: {
         name: 'Input', type: 'text', placeholder: 'Votre prénom'
       }
     },
     address: {
       type: String, label: 'Adresse', min: 1, max: 256,
-      defaultValue: '85, avenue du docteur A. Netter', view: {
+      defaultValue: '', view: {
         name: 'Input', type: 'text', placeholder: 'Votre rue'
       }
     },
@@ -115,14 +115,14 @@ initUsers = () => {
     },
     postalCode: {
       type: String, label: 'Code postal', min: 1, max: 7,
-      defaultValue: '75012', view: {
+      defaultValue: '', view: {
         name: 'Input', type: 'text', label: 'Votre code postal :',
         placeholder: 'Code postal'
       }
     },
     city: {
       type: String, label: 'Votre ville', min: 1, max: 128,
-      defaultValue: 'Paris', view: {
+      defaultValue: '', view: {
         name: 'Input', type: 'text', placeholder: 'Votre ville'
       }
     },
@@ -142,7 +142,7 @@ initUsers = () => {
     },
     mobile: {
       type: String, label: 'N° de mobile', min: 6, max: 16,
-      defaultValue: '0609905774', regEx: PHONE_NUMBER_REGEX, view: {
+      defaultValue: '', regEx: PHONE_NUMBER_REGEX, view: {
         name: 'Input', type: 'tel', placeholder: 'Votre n° mobile'
       }
     }
