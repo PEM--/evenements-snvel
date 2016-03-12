@@ -17,24 +17,29 @@ class Subscribe extends BaseReactMeteor {
       e.sessions.forEach(s => {
         s.conferences.forEach(c => {
           acc.push([
-            <div className='title' key={line++}>
-              <div className='event'>{e.title}</div>
-              <div className='session'>{s.title}</div>
-              <div className='conference'>{c.title}</div>
-              <div className='description'>{c.description}</div>
+            <article className='title' key={line++}>
+              <h2 className='event'>{e.title} - {s.title}</h2>
+              <p className='conference'>{c.title}</p>
+              <p className='description'>{c.description}</p>
               {
                 c.moderator ? (<div className='moderator'>
-                  <i className='fa fa-user'></i>
+                  <i className='fa fa-user-md'></i>
                   <span>{c.moderator}</span>
                 </div>) : ''
               }
-              <div className='hours'>
+              {
+                c.speaker ? (<p className='speakers'>
+                  <i className='fa fa-users'></i>
+                <span>{c.speaker}</span>
+                </p>) : ''
+              }
+              <p className='hours'>
                 <i className='fa fa-clock-o'></i>
-                <div className='date'>{moment(c.begin).format('DD/MM/YY')}</div>
-                <div className='begin'>{moment(c.begin).format('HH:mm')}</div>
-                <div className='end'>{moment(c.end).format('HH:mm')}</div>
-              </div>
-            </div>,
+                <span className='date'>{moment(c.begin).format('DD/MM/YY')}</span>
+                <span className='begin'>{moment(c.begin).format('HH:mm')}</span>
+                <span className='end'>{moment(c.end).format('HH:mm')}</span>
+              </p>
+            </article>,
             <div className='price'>{numeralAmountFormat(0)}</div>,
             <CheckBox>Je m'inscrits</CheckBox>
           ]);

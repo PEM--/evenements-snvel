@@ -177,7 +177,7 @@ if (Meteor.isServer) {
             foundSession.conferences.push({
               title: rEvent[3] ? s(rEvent[3]).trim().value() : '',
               begin: moment(s(rEvent[4]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
-              fin: moment(s(rEvent[5]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
+              end: moment(s(rEvent[5]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
               moderator: rEvent[6] ? s(rEvent[6]).trim().value() : '',
               speaker: rEvent[7] ? s(rEvent[7]).trim().value() : '',
               description: rEvent[8] ? s(rEvent[8]).trim().value() : '',
@@ -216,7 +216,7 @@ initPrograms = () => {
   const ConferencesSchema = new SimpleSchema({
     title: {type: String, label: 'Conférences', min: 0, max: 64},
     begin: {type: Date, label: 'Début'},
-    fin: {type: Date, label: 'Fin', optional: true},
+    end: {type: Date, label: 'Fin', optional: true},
     moderator: {type: String, label: 'Modérateur(s)', min: 0, max: 512},
     speaker: {type: String, label: 'Intervenants(s)', min: 0, max: 512},
     description: {type: String, label: 'Description', min: 0, max: 512},
