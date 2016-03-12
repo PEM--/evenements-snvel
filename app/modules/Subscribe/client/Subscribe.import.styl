@@ -1,7 +1,16 @@
-.headlines
-  opacity 0
+// Remove the price column on small screens
+@media only screen and (max-width: 490px)
+  .Subscribe table
+    max-width 100%
+    thead tr th, tbody tr td
+      &:nth-child(2)
+        display none
 
-.headline
-  margin 0
-  padding 0
-  text-align center
+@media only screen and (max-width: 320px)
+  .Subscribe table
+    thead
+      display none
+    table, tbody, tr, td
+      border none
+    table, tbody, tr, td
+      dislay block
