@@ -1,3 +1,45 @@
+.Subscribe
+  table
+    .title
+      max-width 100%
+      width 100%
+      .event
+        display inline-block
+        font-weight bold
+        color orange
+        &:after
+          content '-'
+          color mix(cream, orange)
+          margin-left 12px
+          margin-right 12px
+      .session
+        display inline-block
+      .description
+        font-size 10px
+        font-style italic
+      .hours
+        .date
+          margin-left 10px
+        .date, .begin, .end
+          display inline-block
+          color mix(cream, orange)
+        .date, .begin
+          &:after
+            color orange
+            content '-'
+            margin-left 10px
+            margin-right 10px
+      .moderator
+        span
+          margin-left 10px
+    .price
+      font-family monospace
+    thead tr th, tbody tr td
+      &:nth-child(2)
+        width 120px
+      &:nth-child(3)
+        width 150px
+
 // Remove the price column on small screens
 @media only screen and (max-width: 490px)
   .Subscribe table

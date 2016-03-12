@@ -203,7 +203,7 @@ if (Meteor.isServer) {
           presentation
         };
         console.log('Insert program from line', pIdx, 'and reference', program.reference);
-        Col.Programs.insert(program);
+        Col.Programs.insert(program, {bypassCollection2: true});
       });
     pricesUpdate();
     discountsUpdate();
