@@ -53,14 +53,10 @@ aldeed:collection2
 aldeed:simple-schema
 dburles:collection-helpers
 tmeasday:publish-counts
-tap:i18n
-tap:i18n-bundler
-gwendall:simple-schema-i18n
 
 # Utils
 dburles:google-maps
 momentjs:moment
-rzymek:moment-locale-fr
 numeral:numeral
 underscorestring:underscore.string
 pierreeric:markdown
@@ -68,6 +64,9 @@ codetheweb:zxcvbn
 mquandalle:jade
 chuangbo:cookie
 vsivsi:job-collection
+tap:i18n
+tap:i18n-bundler
+gwendall:simple-schema-i18n
 
 # React
 react

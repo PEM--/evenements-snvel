@@ -10,21 +10,23 @@ class Subscribe extends BaseReactMeteor {
     if (Meteor.isServer) {
       Meteor.subscribe('programs.all');
     }
-    return { program: Col.Programs.findOne() };
+    return { program: Col.Programs.findOne(), user: Meteor.user() };
   }
   render() {
-    console.log(this.data.program);
+    const { user, program } = this.data;
+    console.log('program', program);
+    console.log('user', user);
     return (
       <section className='maximized MainContent animated fadeIn'>
-        <div className='lisibility'>
-          <h1>Inscription</h1>
-          <Cart amount={12} />
-          <Table
-            header={['Choix des prestations', 'Prix TTC', 'Je m\'inscrits']}
-            items={[
-              ['Content 1 - 1', 'Content 1 - 2', 'Content 1 - 3']
-            ]}
-          />
+        <Cart amount={1250.23} items={3} />
+          <div className='lisibility'>
+            <h1>Inscription</h1>
+            <Table
+              header={['Choix des prestations', 'Prix TTC', 'Je m\'inscrits']}
+              items={[
+                ['Content 1 - 1', 'Content 1 - 2', 'Content 1 - 3']
+              ]}
+            />
         </div>
       </section>
     );

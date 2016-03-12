@@ -1,8 +1,10 @@
-const Cart = ({amount}) => (
+const Cart = ({amount, items}) => (
   <div className='Cart-container'>
     <div className='Cart'>
-      <i className='fa fa-shopping-cart' />
-      <span>{amount}</span>
+      <div className='icon fa fa-shopping-cart' />
+      <div className='number'>{items}</div>
+      <div className='legend'>réservation(s)</div>
+      <div className='amount'>{numeralAmountFormat(amount)}</div>
     </div>
   </div>
 );
