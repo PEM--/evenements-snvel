@@ -52,27 +52,24 @@
       &:nth-child(3)
         width 150px
 
-// Remove the price column on small screens
-@media only screen and (max-width: 490px)
-  .Subscribe table
-    max-width 100%
-    thead tr th, tbody tr td
-      &:nth-child(2)
-        display none
-      &:nth-child(2)
-        background yellow
-        width 100px
-    label
-      width 14px
-      overflow-x hidden
-
-@media only screen and (max-width: 320px)
+@media only screen and (max-width: 480px)
   .Subscribe
     table
+      max-width 100%
+      width 100%
+      thead tr th, tbody tr td
+        &:nth-child(2), &:nth-child(3)
+          width 100%
+          div
+            width 100%
       thead
         display none
-      table, tbody, tr, td
+      label
+        width 100%
+      tbody, tr, td
         border none
-      table, tbody, tr, td
-        dislay block
-    thead tr th, tbody tr td
+    table, tbody, tr, td
+      display block
+    table tbody, table tbody tr, table tbody tr td, table tbody tr td div
+      width 100%
+      max-width 100%
