@@ -25,12 +25,13 @@ if (Meteor.isServer) {
             const price = {
               description: s(rPrice[1]).trim().value(),
               code: s(rPrice[2]).trim().value(),
+              inEvents: rPrice[2].trim().toLowerCase() === 'x',
               byType: []
             };
             userTypes.forEach((type, idx) => {
               price.byType.push({
                 category: type.title,
-                amount: Number(s(rPrice[3 + idx]).trim().value())
+                amount: Number(s(rPrice[4 + idx]).trim().value())
               });
             });
             acc.push(price);
@@ -236,6 +237,7 @@ initPrograms = () => {
   });
   const PriceRightSchema = new SimpleSchema({
     description: {type: String, label: 'Description', min: 0, max: 512},
+    inEvents: {type: Boolean, label: 'Contenu dans événements', defaultValue: false},
     code: {type: String, label: 'Codification', min: 1, max: 64},
     byType: {type: [ValueForType], label: 'Montant par population', defaultValue: [], min: 0, max: 64},
   });
