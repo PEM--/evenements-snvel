@@ -160,19 +160,19 @@ if (Meteor.isServer) {
         const eventsSheet = Utils.importSpreadSheet(programsSheetName, 2 + pIdx);
         const events = Object.keys(eventsSheet.rows)
           .filter((rKey, rIdx) => rIdx !== 0)
-          .reduce((acc, rKey) => {
+          .reduce((acc, rKey, rIdx) => {
             const rEvent = eventsSheet.rows[rKey];
             const eventTitle = s(rEvent[1]).trim().value();
             let foundEvent = acc.find(c => c.title === eventTitle);
             if (!foundEvent) {
               acc.push({ title: eventTitle, sessions: [] });
-              foundEvent = acc[0];
+              foundEvent = acc[acc.length - 1];
             }
             const sessionTitle = rEvent[2] ? s(rEvent[2]).trim().value() : '';
             let foundSession = foundEvent.sessions.find(s => s.title === sessionTitle);
             if (!foundSession) {
               foundEvent.sessions.push({ title: sessionTitle, conferences: [] });
-              foundSession = foundEvent.sessions[0];
+              foundSession = foundEvent.sessions[foundEvent.sessions.length - 1];
             }
             foundSession.conferences.push({
               title: rEvent[3] ? s(rEvent[3]).trim().value() : '',
