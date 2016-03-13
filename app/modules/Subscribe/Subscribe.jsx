@@ -18,7 +18,7 @@ class Subscribe extends BaseReactMeteor {
         s.conferences.forEach(c => {
           acc.push([
             <article className='title' key={line++}>
-              <h2 className='event'>{e.title} - {s.title}</h2>
+              <h1 className='event'>{e.title}<span className='session'>{s.title}</span></h1>
               <p className='conference'>{c.title}</p>
               <p className='description'>{c.description}</p>
               {

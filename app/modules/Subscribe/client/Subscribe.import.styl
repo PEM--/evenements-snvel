@@ -3,21 +3,27 @@
     .title
       max-width 100%
       width 100%
-      .event
+      h1.event
         display inline-block
-        font-weight bold
+        font-weight normal
+        font-size 16px
+        line-height 18px
         color orange
-        &:after
+        margin 0
+        .session:before
           content '-'
           color mix(cream, orange)
           margin-left 12px
           margin-right 12px
-      .session
-        display inline-block
+      .conference
+        margin 0
       .description
+        margin 0
         font-size 10px
+        line-height 12px
         font-style italic
       .moderator, .speakers, .hours
+        margin 0
         i
           width 18px
           margin-right 11px
@@ -26,6 +32,7 @@
           font-size 11px
           font-weight bold
       .hours
+        margin 0
         .date, .begin, .end
           display inline-block
           color mix(cream, orange)
@@ -37,6 +44,8 @@
             margin-right 10px
     .price
       font-family monospace
+    input[type='checkbox'], label
+      margin-top 0
     thead tr th, tbody tr td
       &:nth-child(2)
         width 120px
@@ -50,12 +59,20 @@
     thead tr th, tbody tr td
       &:nth-child(2)
         display none
+      &:nth-child(2)
+        background yellow
+        width 100px
+    label
+      width 14px
+      overflow-x hidden
 
 @media only screen and (max-width: 320px)
-  .Subscribe table
-    thead
-      display none
-    table, tbody, tr, td
-      border none
-    table, tbody, tr, td
-      dislay block
+  .Subscribe
+    table
+      thead
+        display none
+      table, tbody, tr, td
+        border none
+      table, tbody, tr, td
+        dislay block
+    thead tr th, tbody tr td
