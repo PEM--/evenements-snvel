@@ -20,8 +20,8 @@ class Subscribe extends BaseReactMeteor {
         s.conferences.forEach(c => {
           const price = program.priceRights.find(p => p.code === c.code);
           const discount = program.discounts.find(d => d.code === c.code);
-          const priceAmount = price.byType.find(t => t.category === userType);
-          const discountAmount = discount.byType.find(t => t.category === userType);
+          const priceAmount = price.byType.find(t => t.category === userType).amount;
+          const discountAmount = discount.byType.find(t => t.category === userType).amount;
           if (priceAmount !== -1) {
             acc.push([
               <article className='title' key={line++}>
@@ -47,7 +47,7 @@ class Subscribe extends BaseReactMeteor {
                   <span className='end'>{moment(c.end).format('HH:mm')}</span>
                 </p>
               </article>,
-              <div className='price'>{numeralAmountFormat(0)}</div>,
+              <div className='price'>{numeralAmountFormat(priceAmount)}</div>,
               <CheckBox>Je m'inscrits</CheckBox>
             ]);
           }
