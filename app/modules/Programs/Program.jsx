@@ -10,7 +10,7 @@ class Program extends Views.BaseReactMeteor {
     if (Meteor.isServer) {
       Meteor.subscribe('programs.all');
     }
-    return Col.Programs.findOne({}, {fields: {presentation: 1}});
+    return Col.Programs.findOne();
   }
   render() {
     console.log('Program: Rendering page');
@@ -24,9 +24,8 @@ class Program extends Views.BaseReactMeteor {
         <GoogleMap />
         <div dangerouslySetInnerHTML={{__html: htmlAfterMap }} />
         <h2>Sessions & conférences</h2>
-        <ul>
-          <Events program={this.data} />
-        </ul>
+        <Events program={this.data} />
+        <hr />
         <AnimatedLink to='/'>Revenez à l'accueil</AnimatedLink>
       </section>
     );

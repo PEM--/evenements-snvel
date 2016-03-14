@@ -1,16 +1,16 @@
-const Events = ({user, program}) => {
+const Events = ({user = null, program}) => {
   let line = 0;
-  const userType = user.profile.category;
-  return program.events.reduce((acc, e) => {
+  const userType = user ? user.profile.category : '';
+  const events = program.events.reduce((acc, e) => {
     e.sessions.forEach(s => {
       s.conferences.forEach(c => {
-        const price = program.priceRights.find(p => p.code === c.code);
-        const priceAmount = price.byType.find(t => t.category === userType).amount;
+        const price = user ? program.priceRights.find(p => p.code === c.code) : null;
+        const priceAmount = user ? price.byType.find(t => t.category === userType).amount : 0;
         // const discount = program.discounts.find(d => d.code === c.code);
         // const discountAmount = discount.byType.find(t => t.category === userType).amount;
         if (priceAmount !== -1) {
           acc.push(
-            <li className='Event' key={line++}>
+            <div className='Event' key={line++}>
               <h2 className='event'>{e.title}<span className='session'>{s.title}</span></h2>
               <p className='conference'>{c.title}</p>
               <p className='description'>{c.description}</p>
@@ -32,13 +32,18 @@ const Events = ({user, program}) => {
                 <span className='begin'>{moment(c.begin).format('HH:mm')}</span>
                 <span className='end'>{moment(c.end).format('HH:mm')}</span>
               </p>
-            </li>
+            </div>
           );
         }
       });
     });
     return acc;
   }, []);
+  return (
+    <div className='Events'>
+      {events.map(e => e)}
+    </div>
+  );
 };
 
 MainApp.Views.Events = Events;
