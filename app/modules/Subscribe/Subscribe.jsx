@@ -24,12 +24,11 @@ class Subscribe extends BaseReactMeteor {
     };
   }
   onSubscribe(e) {
-    console.log('onSubscribe', e.target.id);
     const code = e.target.id;
     const idx = this.state.chosen.indexOf(code);
     const chosen = idx === -1 ?
       [... this.state.chosen, e.target.id] :
-      [... this.state.chosen.slice(0, idx), this.state.chosen.slice(idx + 1)];
+      [... this.state.chosen.slice(0, idx), ... this.state.chosen.slice(idx + 1)];
     const amount = chosen.reduce((acc, c) => {
       const price = this.priceAmountForCode(c);
       acc += price * (1 + this.data.program.tva);
