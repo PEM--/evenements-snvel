@@ -21,7 +21,6 @@ class Subscribe extends BaseReactMeteor {
     // const discountAmount = discount.byType.find(t => t.category === userType).amount;
     return program.priceRights.reduce((acc, p) => {
       const priceAmount = p.byType.find(t => t.category === userType).amount;
-      console.log('p.inEvents', p.inEvents, priceAmount);
       const eventTags = p.inEvents && priceAmount !== -1 ?
         Events({events: program.events, code: p.code}) : '';
       if (priceAmount !== -1) {

@@ -3,7 +3,6 @@ const Events = ({events, code = null}) => {
   const eventTags = events.reduce((acc, e) => {
     e.sessions.forEach(s => {
       s.conferences.forEach(c => {
-        console.log('code', c.code, code);
         if (!code || c.code === code) {
           acc.push(
             <div className='Event' key={line++}>
