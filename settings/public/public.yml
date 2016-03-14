@@ -11,3 +11,5 @@ cookie:
   name: evenements_snvel
   text: En poursuivant votre navigation sur ce site, vous acceptez l'utilisation des cookies pour vous proposer des services et offres adaptés.
   expires: 360
+gmap:
+  browser: 'AIzaSyDczFebFAZpf9GqP_9otCHCjywyDyC5Zj8'

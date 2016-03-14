@@ -6,7 +6,10 @@ const { Spinner } = Views;
 if (Meteor.isClient) {
   // Load GoogleMaps
   Meteor.startup(() => {
-    GoogleMaps.load();
+    GoogleMaps.load({
+      v: 3,
+      key: Meteor.settings.public.gmap.browser
+    });
     console.log('Google map loaded');
   });
 

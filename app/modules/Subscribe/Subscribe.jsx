@@ -25,7 +25,11 @@ class Subscribe extends BaseReactMeteor {
   }
   onSubscribe(e) {
     console.log('onSubscribe', e.target.id);
-    const chosen = this.state.chosen.concat([e.target.id]);
+    const code = e.target.id;
+    const idx = this.state.chosen.indexOf(code);
+    const chosen = idx === -1 ?
+      [... this.state.chosen, e.target.id] :
+      [... this.state.chosen.slice(0, idx), this.state.chosen.slice(idx + 1)];
     const amount = chosen.reduce((acc, c) => {
       const price = this.priceAmountForCode(c);
       acc += price * (1 + this.data.program.tva);
@@ -55,7 +59,7 @@ class Subscribe extends BaseReactMeteor {
         acc.push([
           <article className='title' key={line++}>
             <h1 className='priceDescription'>{p.description}</h1>
-            {eventTags}
+          { /* eventTags */}
           </article>,
           <div className='prices'>
             <div className='price'>{numeralAmountFormat(priceAmount)} HT</div>
