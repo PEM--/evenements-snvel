@@ -24,7 +24,7 @@ class Program extends Views.BaseReactMeteor {
         <GoogleMap />
         <div dangerouslySetInnerHTML={{__html: htmlAfterMap }} />
         <h2>Sessions & conférences</h2>
-      <Events events={this.data.events} />
+        <Events events={this.data.events} />
         <hr />
         <AnimatedLink to='/'>Revenez à l'accueil</AnimatedLink>
       </section>

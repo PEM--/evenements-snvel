@@ -1,5 +1,5 @@
 const { Views, Col } = MainApp;
-const { AnimatedLink, CheckBox, Cart, Table, BaseReactMeteor } = Views;
+const { AnimatedLink, CheckBox, Cart, Table, Events, BaseReactMeteor } = Views;
 
 class Subscribe extends BaseReactMeteor {
   constructor(props) {
@@ -19,14 +19,16 @@ class Subscribe extends BaseReactMeteor {
     // const priceAmount = user ? price.byType.find(t => t.category === userType).amount : 0;
     // const discount = program.discounts.find(d => d.code === c.code);
     // const discountAmount = discount.byType.find(t => t.category === userType).amount;
-
     return program.priceRights.reduce((acc, p) => {
       const priceAmount = p.byType.find(t => t.category === userType).amount;
-      // const program
+      console.log('p.inEvents', p.inEvents, priceAmount);
+      const eventTags = p.inEvents && priceAmount !== -1 ?
+        Events({events: program.events, code: p.code}) : '';
       if (priceAmount !== -1) {
         acc.push([
           <article className='title' key={line++}>
             <h1 className='priceDescription'>{p.description}</h1>
+            {eventTags}
           </article>,
           <div className='price'>{numeralAmountFormat(priceAmount)}</div>,
           <CheckBox>Je m'inscrits</CheckBox>

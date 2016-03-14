@@ -25,7 +25,7 @@ if (Meteor.isServer) {
             const price = {
               description: s(rPrice[1]).trim().value(),
               code: s(rPrice[2]).trim().value(),
-              inEvents: rPrice[2].trim().toLowerCase() === 'x',
+              inEvents: rPrice[3] && rPrice[3].trim().toLowerCase() === 'x',
               byType: []
             };
             userTypes.forEach((type, idx) => {
