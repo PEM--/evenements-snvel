@@ -1,10 +1,11 @@
 const { Views, Col } = MainApp;
-const { AnimatedLink, CheckBox, Cart, Table, Events, BaseReactMeteor } = Views;
+const { AnimatedLink, CheckBox, Cart, Table, Input, Button, Events, BaseReactMeteor } = Views;
 
 class Subscribe extends BaseReactMeteor {
   constructor(props) {
     super(props);
     this.onSubscribe = this.onSubscribe.bind(this);
+    this.onValidateForm = this.onValidateForm.bind(this);
     this.state = {
       chosenForMe: [],
       chosenForAttendant: [],
@@ -61,6 +62,7 @@ class Subscribe extends BaseReactMeteor {
       this.setChosenState(userType, chosen);
     };
   }
+  onCancel() { FlowRouter.go('/'); }
   getPrices(userType) {
     let line = 0;
     const { user, program } = this.data;
@@ -98,6 +100,21 @@ class Subscribe extends BaseReactMeteor {
   componentDidUpdate() {
     window.scrollTo(0, this.formerScroll);
   }
+  isValidForm(program) {
+    const propose = Col.Programs.proposeAttendant(program, this.state.chosenForMe);
+    const { chosenForMe, chosenForAttendant, attendantName, attendantFirstName } = this.state;
+    return (chosenForMe.length > 0 &&
+      !propose || (
+        propose && chosenForAttendant.length > 0 &&
+        attendantName.length > 0 && attendantFirstName.length > 0
+      )
+    );
+  }
+  onValidateForm(e) {
+    e.preventDefault();
+    console.log('Validate subscription');
+
+  }
   render() {
     const { user, program } = this.data;
     const userType = user.profile.category;
@@ -117,11 +134,37 @@ class Subscribe extends BaseReactMeteor {
         </div>
         { propose ?
           <div className='lisibility animated fadeInUp'>
+            <form className='attendant'>
+              <h2>Votre accompagnant</h2>
+              <fieldset>
+                <Input
+                  type='text' placeholder='Nom'
+                  value={this.state.attendantName}
+                  onChange={() => {}}
+                />
+                <Input
+                  type='text' placeholder='Prénom'
+                  value={this.state.attendantFirstName}
+                  onChange={() => {}}
+                />
+              </fieldset>
+            </form>
             <Table
               header={tableHeader} items={this.getPrices('Accompagnant')}
             />
           </div> : ''
         }
+        <form>
+          <Button
+            primary={true} disabled={!this.isValidForm(program)}
+            onClick={this.onValidateForm}
+          >
+            Je valide mon inscription
+          </Button>
+          <Button iconName='times' onClick={this.onCancel}>
+            J'annule mon inscription
+          </Button>
+        </form>
       </section>
     );
   }
