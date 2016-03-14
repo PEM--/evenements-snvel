@@ -1,5 +1,5 @@
 const { Views, Col, Utils } = MainApp;
-const { AnimatedLink, GoogleMap } = Views;
+const { AnimatedLink, GoogleMap, Events } = Views;
 
 class Program extends Views.BaseReactMeteor {
   constructor(props) {
@@ -23,6 +23,10 @@ class Program extends Views.BaseReactMeteor {
         <div dangerouslySetInnerHTML={{__html: htmlBeforeMap }} />
         <GoogleMap />
         <div dangerouslySetInnerHTML={{__html: htmlAfterMap }} />
+        <h2>Sessions & conférences</h2>
+        <ul>
+          <Events program={this.data} />
+        </ul>
         <AnimatedLink to='/'>Revenez à l'accueil</AnimatedLink>
       </section>
     );

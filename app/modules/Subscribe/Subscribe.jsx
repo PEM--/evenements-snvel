@@ -11,6 +11,24 @@ class Subscribe extends BaseReactMeteor {
     }
     return { program: Col.Programs.findOne(), user: Meteor.user() };
   }
+  getPrices() {
+    let line = 0;
+    const { user, program } = this.data;
+    const userType = user.profile.category;
+    return program.priceRights.reduce((acc, p) => {
+      const priceAmount = p.byType.find(t => t.category === userType).amount;
+      if (priceAmount !== -1) {
+        acc.push([
+          <article className='title' key={line++}>
+            <h1 className='priceDescription'>{p.description}</h1>
+          </article>,
+          <div className='price'>{numeralAmountFormat(priceAmount)}</div>,
+          <CheckBox>Je m'inscrits</CheckBox>
+        ]);
+      }
+      return acc;
+    }, []);
+  }
   getEvents() {
     let line = 0;
     const { user, program } = this.data;
@@ -25,7 +43,7 @@ class Subscribe extends BaseReactMeteor {
           if (priceAmount !== -1) {
             acc.push([
               <article className='title' key={line++}>
-                <h1 className='event'>{e.title}<span className='session'>{s.title}</span></h1>
+                <h2 className='event'>{e.title}<span className='session'>{s.title}</span></h2>
                 <p className='conference'>{c.title}</p>
                 <p className='description'>{c.description}</p>
                 {
@@ -67,7 +85,7 @@ class Subscribe extends BaseReactMeteor {
           <h1>Inscription</h1>
           <Table
             header={['Choix des prestations', 'Prix TTC', 'Je m\'inscrits']}
-            items={this.getEvents()}
+            items={this.getPrices()}
           />
         </div>
       </section>
