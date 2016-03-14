@@ -102,6 +102,7 @@ class Subscribe extends BaseReactMeteor {
     const { user, program } = this.data;
     const userType = user.profile.category;
     const propose = Col.Programs.proposeAttendant(program, this.state.chosenForMe);
+    const tableHeader = ['Choix des prestations', 'Prix', 'Sélection'];
     return (
       <section className='maximized MainContent Subscribe animated fadeIn'>
         <Cart
@@ -111,15 +112,13 @@ class Subscribe extends BaseReactMeteor {
         <div className='lisibility'>
           <h1>Inscription</h1>
           <Table
-            header={['Choix des prestations', 'Prix', 'Je m\'inscrits']}
-            items={this.getPrices(userType)}
+            header={tableHeader} items={this.getPrices(userType)}
           />
         </div>
         { propose ?
-          <div className='lisibility animated fadeIn'>
+          <div className='lisibility animated fadeInUp'>
             <Table
-              header={['Choix des prestations', 'Prix', 'Je m\'inscrits']}
-              items={this.getPrices('Accompagnant')}
+              header={tableHeader} items={this.getPrices('Accompagnant')}
             />
           </div> : ''
         }
