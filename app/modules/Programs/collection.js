@@ -189,6 +189,7 @@ if (Meteor.isServer) {
         const rProgram = programsSheet.rows[pKey];
         const reference = s(rProgram[1]).toLowerCase().trim().value();
         const presentation = Utils.getDriveFile(`${reference}.md`);
+        console.log('TVA', rProgram[11], rProgram[11].trim(), numeral().unformat(rProgram[11].trim()));
         let program = {
           reference,
           title: s(rProgram[2]).trim().value(),
@@ -200,6 +201,7 @@ if (Meteor.isServer) {
           lattitude: String(rProgram[8]),
           longitude: String(rProgram[9]),
           zoom: String(rProgram[10]),
+          tva: numeral().unformat(rProgram[11].trim()),
           events,
           presentation
         };
@@ -271,6 +273,7 @@ initPrograms = () => {
       }
       return res;
     })()},
+    tva: {type: Number, label: 'TVA', decimal: true, defaultValue: 20.6},
     presentation: {type: String, label: 'Présentation', min: 0, max: 16384},
     events: {type: [EventsSchema], label: 'Evènements', minCount: 1, maxCount: 512},
     priceRights: {type: [PriceRightSchema], label: 'Table des prix', min: 0, max: 128, defaultValue: []},

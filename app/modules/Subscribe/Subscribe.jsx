@@ -29,7 +29,10 @@ class Subscribe extends BaseReactMeteor {
             <h1 className='priceDescription'>{p.description}</h1>
             {eventTags}
           </article>,
-          <div className='price'>{numeralAmountFormat(priceAmount)}</div>,
+          <div className='prices'>
+            <div className='price'>{numeralAmountFormat(priceAmount)} HT</div>
+            <div className='price'>{numeralAmountFormat(priceAmount * (1 + program.tva))} TTC</div>
+          </div>,
           <CheckBox>Je m'inscrits</CheckBox>
         ]);
       }
@@ -46,7 +49,7 @@ class Subscribe extends BaseReactMeteor {
         <div className='lisibility'>
           <h1>Inscription</h1>
           <Table
-            header={['Choix des prestations', 'Prix TTC', 'Je m\'inscrits']}
+            header={['Choix des prestations', 'Prix', 'Je m\'inscrits']}
             items={this.getPrices()}
           />
         </div>
