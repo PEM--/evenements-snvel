@@ -8,9 +8,12 @@ class Program extends Views.BaseReactMeteor {
   getMeteorData() {
     console.log('Program: Getting data');
     if (Meteor.isServer) {
-      Meteor.subscribe('programs.all');
+      const handle = Meteor.subscribe('programs.all');
     }
-    return Col.Programs.findOne();
+    return Col.Programs.findOne(
+      {reference: 'univ2016'},
+      {fields: {presentation: 1, events: 1}}
+    );
   }
   render() {
     console.log('Program: Rendering page');

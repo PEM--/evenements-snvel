@@ -23,8 +23,10 @@ class Welcome extends Views.BaseReactMeteor {
       Meteor.subscribe('programs.all');
     }
     return {
-      program: Col.Programs.findOne({reference: 'univ2016'}, {
-        fields: {title: 1, location: 1, period: 1, description: 1}}),
+      program: Col.Programs.findOne(
+        {reference: 'univ2016'},
+        {fields: {title: 1, location: 1, period: 1}}
+      ),
     };
   }
   constructor(props) {

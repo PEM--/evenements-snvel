@@ -17,7 +17,7 @@ if (Meteor.isClient) {
   Template.BlazeContainerMap.helpers({
     mapOptions: () => {
       if (GoogleMaps.loaded()) {
-        this.program = Col.Programs.findOne();
+        const program = Template.instance().data.program;
         // Add a marker at the middle of the map which is already centered on the event
         GoogleMaps.ready('map', (map) => {
           $('.SpinnerContainer').velocity('transition.fadeOut');
@@ -27,7 +27,7 @@ if (Meteor.isClient) {
             map: map.instance,
             // Animate the marker with a bounce effect
             animation: google.maps.Animation.DROP,
-            title: this.program.location,
+            title: program.location,
             icon: {
               url: '/img/pin.svg',
               size: new google.maps.Size(40, 55),
@@ -41,9 +41,9 @@ if (Meteor.isClient) {
         });
         return {
           center: new google.maps.LatLng(
-            this.program.lattitude,
-            this.program.longitude),
-          zoom: Number(this.program.zoom),
+            program.lattitude,
+            program.longitude),
+          zoom: Number(program.zoom),
           scrollwheel: false,
           panControl: false,
           mapTypeControl: false,
@@ -334,7 +334,11 @@ class GoogleMap extends Views.BaseReactMeteor {
     if (Meteor.isServer) {
       Meteor.subscribe('programs.all');
     }
-    return { program: Col.Programs.findOne() };
+    return {
+      program: Col.Programs.findOne({reference: 'univ2016'}, {
+        fields: {location: 1, longitude: 1, lattitude: 1, zoom: 1}
+      })
+    };
   }
   render() {
     return (
@@ -345,7 +349,11 @@ class GoogleMap extends Views.BaseReactMeteor {
     );
   }
   componentDidMount() {
-    this.view = Blaze.render(Template.BlazeContainerMap, ReactDOM.findDOMNode(this.refs.googlemapContainer));
+    this.view = Blaze.renderWithData(
+      Template.BlazeContainerMap,
+      {program: this.data.program},
+      ReactDOM.findDOMNode(this.refs.googlemapContainer)
+    );
   }
   componentWillUnmount() {
     Blaze.remove(this.view);

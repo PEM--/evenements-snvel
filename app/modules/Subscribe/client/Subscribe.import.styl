@@ -7,13 +7,17 @@
         font-size 18px
         line-height 20px
     .price
-      font-size 12px
       font-family monospace
+      &:first-of-type
+        font-size 12px
+        font-weight bold
+      &:not(:first-of-type)
+        font-size 10px
     input[type='checkbox'], label
       margin-top 0
     thead tr th, tbody tr td
       &:nth-child(2)
-        width 120px
+        width 130px
       &:nth-child(3)
         width 150px
 

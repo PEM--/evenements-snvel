@@ -1,10 +1,11 @@
 let checkId = 0;
 
-const CheckBox = ({children, isChecked, onChange}) => {
+const CheckBox = ({id = null, children, isChecked, onChange}) => {
+  const innerId = id ? id : `checkbox${checkId++}`;
   return (
-    <div>
-      <input id={`checkbox${checkId}`} type='checkbox' checked={isChecked} onChange={onChange} />
-      <label htmlFor={`checkbox${checkId++}`}>{children ? children : ' '}</label>
+    <div refs={innerId}>
+      <input id={innerId} type='checkbox' checked={isChecked} onChange={onChange} />
+      <label htmlFor={innerId}>{children ? children : ' '}</label>
     </div>
   );
 };

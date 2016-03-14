@@ -177,8 +177,8 @@ if (Meteor.isServer) {
             }
             foundSession.conferences.push({
               title: rEvent[3] ? s(rEvent[3]).trim().value() : '',
-              begin: moment(s(rEvent[4]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
-              end: moment(s(rEvent[5]).trim().value(), 'DD/MM/YYYY HH:mm:ss').toDate(),
+              begin: s(rEvent[4]).trim().value(),
+              end: s(rEvent[5]).trim().value(),
               moderator: rEvent[6] ? s(rEvent[6]).trim().value() : '',
               speaker: rEvent[7] ? s(rEvent[7]).trim().value() : '',
               description: rEvent[8] ? s(rEvent[8]).trim().value() : '',
@@ -189,7 +189,6 @@ if (Meteor.isServer) {
         const rProgram = programsSheet.rows[pKey];
         const reference = s(rProgram[1]).toLowerCase().trim().value();
         const presentation = Utils.getDriveFile(`${reference}.md`);
-        console.log('TVA', rProgram[11], rProgram[11].trim(), numeral().unformat(rProgram[11].trim()));
         let program = {
           reference,
           title: s(rProgram[2]).trim().value(),
@@ -218,8 +217,8 @@ initPrograms = () => {
   const Programs = new Mongo.Collection('programs');
   const ConferencesSchema = new SimpleSchema({
     title: {type: String, label: 'Conférences', min: 0, max: 64},
-    begin: {type: Date, label: 'Début'},
-    end: {type: Date, label: 'Fin', optional: true},
+    begin: {type: String, label: 'Début'},
+    end: {type: String, label: 'Fin'},
     moderator: {type: String, label: 'Modérateur(s)', min: 0, max: 512},
     speaker: {type: String, label: 'Intervenants(s)', min: 0, max: 512},
     description: {type: String, label: 'Description', min: 0, max: 512},

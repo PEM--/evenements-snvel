@@ -4,6 +4,8 @@ const Events = ({events, code = null}) => {
     e.sessions.forEach(s => {
       s.conferences.forEach(c => {
         if (!code || c.code === code) {
+          const [date, start] = c.begin.split(' ');
+          const end = c.begin.split(' ')[1];
           acc.push(
             <div className='Event' key={line++}>
               <h2 className='event'>{e.title}<span className='session'>{s.title}</span></h2>
@@ -23,9 +25,9 @@ const Events = ({events, code = null}) => {
               }
               <p className='hours'>
                 <i className='fa fa-clock-o'></i>
-                <span className='date'>{moment(c.begin).format('DD/MM/YY')}</span>
-                <span className='begin'>{moment(c.begin).format('HH:mm')}</span>
-                <span className='end'>{moment(c.end).format('HH:mm')}</span>
+              <span className='date'>{date}</span>
+              <span className='begin'>{start.substring(0, 5)}</span>
+              <span className='end'>{end.substring(0, 5)}</span>
               </p>
             </div>
           );
