@@ -32,17 +32,16 @@ class Subscribe extends BaseReactMeteor {
     const { user, program } = this.data;
     const userType = user.profile.category;
     const amount = chosen.reduce((acc, c) => {
-      acc += program.discountedVatPriceForCode(userType, c);
+      acc += Col.Programs.discountedVatPriceForCode(program, userType, c);
       return acc;
     }, 0);
     this.setState({chosen, items: chosen.length, amount});
   }
-  getPrices() {
+  getPrices(userType) {
     let line = 0;
     const { user, program } = this.data;
-    const userType = user.profile.category;
     return program.priceRights.reduce((acc, p) => {
-      const priceAmount = p.byType.find(t => t.category === userType).amount;
+      const priceAmount = Col.Programs.priceForCode(program, userType, p.code);
       const eventTags = p.inEvents && priceAmount !== -1 ?
         Events({events: program.events, code: p.code}) : '';
       if (priceAmount !== -1) {
@@ -50,11 +49,13 @@ class Subscribe extends BaseReactMeteor {
         acc.push([
           <article className='title' key={line++}>
             <h1 className='priceDescription'>{p.description}</h1>
-          { /* eventTags */}
+          {/* eventTags */}
           </article>,
           <div className='prices'>
             <div className='price'>{numeralAmountFormat(priceAmount)} HT</div>
-            <div className='price'>{numeralAmountFormat(priceAmount * (1 + program.tva))} TTC</div>
+            <div className='price'>
+              {numeralAmountFormat(Col.Programs.vatPriceForCode(program, userType, p.code))} TTC
+            </div>
           </div>,
           <CheckBox
             id={p.code} isChecked={selected} onChange={this.onSubscribe}
@@ -66,6 +67,10 @@ class Subscribe extends BaseReactMeteor {
   }
   render() {
     const { user, program } = this.data;
+    const userType = user.profile.category;
+    console.log('userType', userType);
+    const propose = Col.Programs.proposeAttendant(program, this.state.chosen);
+    console.log('propose', propose);
     return (
       <section className='maximized MainContent Subscribe animated fadeIn'>
         <Cart amount={this.state.amount} items={this.state.items} />
@@ -73,8 +78,16 @@ class Subscribe extends BaseReactMeteor {
           <h1>Inscription</h1>
           <Table
             header={['Choix des prestations', 'Prix', 'Je m\'inscrits']}
-            items={this.getPrices()}
+            items={this.getPrices(userType)}
           />
+        </div>
+        <div className='lisibility animated fadeInUp'>
+          { propose ?
+            <Table
+              header={['Choix des prestations', 'Prix', 'Je m\'inscrits']}
+              items={this.getPrices('Accompagnant')}
+            /> : ''
+          }
         </div>
       </section>
     );

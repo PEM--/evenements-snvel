@@ -26,12 +26,13 @@ if (Meteor.isServer) {
               description: s(rPrice[1]).trim().value(),
               code: s(rPrice[2]).trim().value(),
               inEvents: rPrice[3] && rPrice[3].trim().toLowerCase() === 'x',
+              triggerAttendant: rPrice[4] && rPrice[4].trim().toLowerCase() === 'x',
               byType: []
             };
             userTypes.forEach((type, idx) => {
               price.byType.push({
                 category: type.title,
-                amount: Number(s(rPrice[4 + idx]).trim().value())
+                amount: Number(s(rPrice[5 + idx]).trim().value())
               });
             });
             acc.push(price);
@@ -239,6 +240,7 @@ initPrograms = () => {
   const PriceRightSchema = new SimpleSchema({
     description: {type: String, label: 'Description', min: 0, max: 512},
     inEvents: {type: Boolean, label: 'Contenu dans événements', defaultValue: false},
+    triggerAttendant: {type: Boolean, label: 'Propose accompagnant', defaultValue: false},
     code: {type: String, label: 'Codification', min: 1, max: 64},
     byType: {type: [ValueForType], label: 'Montant par population', defaultValue: [], min: 0, max: 64},
   });
@@ -300,20 +302,31 @@ initPrograms = () => {
       return Programs.find();
     });
   }
-  Programs.helpers({
-    priceForCode(userType, code) {
-      const price = this.priceRights.find(p => p.code === code);
+  Object.assign(Programs, {
+    priceForCode(prg, userType, code) {
+      const price = prg.priceRights.find(p => p.code === code);
       return price.byType.find(t => t.category === userType).amount;
     },
-    vatPriceForCode(userType, code) {
-      return this.priceForCode(userType, code) * (1 + this.tva);
+    vatPriceForCode(prg, userType, code) {
+      return Programs.priceForCode(prg, userType, code) * (1 + prg.tva);
     },
-    discountForCode(userType, code) {
-      const discount = this.discounts.find(p => p.code === code);
+    discountForCode(prg, userType, code) {
+      const discount = prg.discounts.find(p => p.code === code);
       return discount.byType.find(t => t.category === userType).amount;
     },
-    discountedVatPriceForCode(userType, code) {
-      return this.vatPriceForCode(userType, code) * (1 - this.discountForCode(userType, code));
+    discountedVatPriceForCode(prg, userType, code) {
+      return Programs.vatPriceForCode(prg, userType, code) *
+        (1 - Programs.discountForCode(prg, userType, code));
+    },
+    proposeAttendant(prg, codes) {
+      let propose = false;
+      codes.forEach(c => {
+        const price = prg.priceRights.find(p => p.code === c);
+        if (price.triggerAttendant) {
+          propose = true;
+        }
+      });
+      return propose;
     }
   });
   // Methods
