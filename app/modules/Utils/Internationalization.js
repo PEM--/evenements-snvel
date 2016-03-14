@@ -69,7 +69,7 @@ SimpleSchema.messages({
 // Set numeral to the default french language
 numeral.language('fr', {
   delimiters: {
-    thousands: '.',
+    thousands: '',
     decimal: ','
   },
   abbreviations: {

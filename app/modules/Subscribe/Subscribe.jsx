@@ -50,6 +50,7 @@ class Subscribe extends BaseReactMeteor {
   }
   onSubscribe(userType) {
     return (e) => {
+      e.preventDefault();
       const code = e.target.name;
       const chosenState = this.getChosenState(userType);
       const idx = chosenState.indexOf(code);
@@ -70,7 +71,7 @@ class Subscribe extends BaseReactMeteor {
       if (priceAmount !== -1) {
         acc.push([
           <article className='title' key={line++}>
-            <h1 className='priceDescription'>{p.description}</h1>
+            <h2 className='priceDescription'>{p.description}</h2>
             {/* eventTags */}
           </article>,
           <div className='prices'>
@@ -89,6 +90,14 @@ class Subscribe extends BaseReactMeteor {
       return acc;
     }, []);
   }
+  // Remember scrolling before updating
+  componentWillUpdate() {
+    this.formerScroll = window.scrollY;
+  }
+  // Force scrolling while updating
+  componentDidUpdate() {
+    window.scrollTo(0, this.formerScroll);
+  }
   render() {
     const { user, program } = this.data;
     const userType = user.profile.category;
@@ -106,14 +115,14 @@ class Subscribe extends BaseReactMeteor {
             items={this.getPrices(userType)}
           />
         </div>
-        <div className='lisibility animated fadeInUp'>
-          { propose ?
+        { propose ?
+          <div className='lisibility animated fadeIn'>
             <Table
               header={['Choix des prestations', 'Prix', 'Je m\'inscrits']}
               items={this.getPrices('Accompagnant')}
-            /> : ''
-          }
-        </div>
+            />
+          </div> : ''
+        }
       </section>
     );
   }
