@@ -4,8 +4,9 @@ const { AnimatedLink, CheckBox, Cart, Table, Input, Button, Events, BaseReactMet
 class Subscribe extends BaseReactMeteor {
   constructor(props) {
     super(props);
-    this.onSubscribe = this.onSubscribe.bind(this);
-    this.onValidateForm = this.onValidateForm.bind(this);
+    [
+      'onSubscribe', 'onValidateForm', 'onChangeAttendantName', 'onChangeAttendantFirstName'
+    ].forEach(f => { this[f] = this[f].bind(this); });
     this.state = {
       chosenForMe: [],
       chosenForAttendant: [],
@@ -110,6 +111,14 @@ class Subscribe extends BaseReactMeteor {
       )
     );
   }
+  onChangeAttendantName(e) {
+    const value = s(e).trim().toLowerCase().titleize().value();
+    this.setState({attendantName: value});
+  }
+  onChangeAttendantFirstName(e) {
+    const value = s(e).trim().toLowerCase().titleize().value();
+    this.setState({attendantFirstName: value});
+  }
   onValidateForm(e) {
     e.preventDefault();
     console.log('Validate subscription');
@@ -133,19 +142,19 @@ class Subscribe extends BaseReactMeteor {
           />
         </div>
         { propose ?
-          <div className='lisibility animated fadeInUp'>
+          <div className='lisibility animated fadeIn'>
             <form className='attendant'>
               <h2>Votre accompagnant</h2>
               <fieldset>
                 <Input
                   type='text' placeholder='Nom'
                   value={this.state.attendantName}
-                  onChange={() => {}}
+                  onChange={this.onChangeAttendantName}
                 />
                 <Input
                   type='text' placeholder='Prénom'
                   value={this.state.attendantFirstName}
-                  onChange={() => {}}
+                  onChange={this.onChangeAttendantFirstName}
                 />
               </fieldset>
             </form>
