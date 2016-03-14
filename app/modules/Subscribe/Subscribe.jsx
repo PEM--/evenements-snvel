@@ -25,7 +25,7 @@ class Subscribe extends BaseReactMeteor {
     };
   }
   getChosenState(userType) {
-    return userType === 'Accompagnant' ? this.state.chosenForMe : this.state.chosenForAttendant;
+    return userType === 'Accompagnant' ? this.state.chosenForAttendant : this.state.chosenForMe;
   }
   setChosenState(userType, newCodes) {
     if (userType === 'Accompagnant') {
@@ -37,25 +37,24 @@ class Subscribe extends BaseReactMeteor {
   isSelected(userType, code) {
     return this.getChosenState(userType).indexOf(code) !== -1;
   }
-  sumPrices(program) {
+  sumPrices(program, userType) {
     const forMe = this.state.chosenForMe.reduce((acc, c) => {
       acc += Col.Programs.discountedVatPriceForCode(program, userType, c);
       return acc;
     }, 0);
     const forAttendant = this.state.chosenForAttendant.reduce((acc, c) => {
-      acc += Col.Programs.discountedVatPriceForCode(program, userType, c);
+      acc += Col.Programs.discountedVatPriceForCode(program, 'Accompagnant', c);
       return acc;
     }, 0);
     return forMe + forAttendant;
   }
   onSubscribe(userType) {
     return (e) => {
-      console.log('userType', userType);
-      const code = e.target.id;
+      const code = e.target.name;
       const chosenState = this.getChosenState(userType);
       const idx = chosenState.indexOf(code);
       const chosen = idx === -1 ?
-        [... chosenState, e.target.id] :
+        [... chosenState, code] :
         [... chosenState.slice(0, idx), ... chosenState.slice(idx + 1)];
       const { user, program } = this.data;
       this.setChosenState(userType, chosen);
@@ -81,7 +80,7 @@ class Subscribe extends BaseReactMeteor {
             </div>
           </div>,
           <CheckBox
-            id={p.code} isChecked={this.isSelected(userType, p.code)} onChange={this.onSubscribe(userType)}
+            name={p.code} isChecked={this.isSelected(userType, p.code)} onChange={this.onSubscribe(userType)}
           >
             {userType !== 'Accompagnant' ? 'Je m\'inscrits' : 'Je l\'inscrits' }
           </CheckBox>
@@ -97,7 +96,7 @@ class Subscribe extends BaseReactMeteor {
     return (
       <section className='maximized MainContent Subscribe animated fadeIn'>
         <Cart
-          amount={this.sumPrices(program)}
+          amount={this.sumPrices(program, userType)}
           items={this.state.chosenForMe.length + this.state.chosenForAttendant.length}
         />
         <div className='lisibility'>
