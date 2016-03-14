@@ -6,9 +6,10 @@ class Subscribe extends BaseReactMeteor {
     super(props);
     this.onSubscribe = this.onSubscribe.bind(this);
     this.state = {
-      chosen: [],
-      items: 0,
-      amount: 0
+      chosenForMe: [],
+      chosenForAttendant: [],
+      attendantName: '',
+      attendantFirstName: ''
     };
   }
   getMeteorData() {
@@ -23,19 +24,42 @@ class Subscribe extends BaseReactMeteor {
       user: Meteor.user()
     };
   }
-  onSubscribe(e) {
-    const code = e.target.id;
-    const idx = this.state.chosen.indexOf(code);
-    const chosen = idx === -1 ?
-      [... this.state.chosen, e.target.id] :
-      [... this.state.chosen.slice(0, idx), ... this.state.chosen.slice(idx + 1)];
-    const { user, program } = this.data;
-    const userType = user.profile.category;
-    const amount = chosen.reduce((acc, c) => {
+  getChosenState(userType) {
+    return userType === 'Accompagnant' ? this.state.chosenForMe : this.state.chosenForAttendant;
+  }
+  setChosenState(userType, newCodes) {
+    if (userType === 'Accompagnant') {
+      this.setState({chosenForAttendant: newCodes});
+    } else {
+      this.setState({chosenForMe: newCodes});
+    }
+  }
+  isSelected(userType, code) {
+    return this.getChosenState(userType).indexOf(code) !== -1;
+  }
+  sumPrices(program) {
+    const forMe = this.state.chosenForMe.reduce((acc, c) => {
       acc += Col.Programs.discountedVatPriceForCode(program, userType, c);
       return acc;
     }, 0);
-    this.setState({chosen, items: chosen.length, amount});
+    const forAttendant = this.state.chosenForAttendant.reduce((acc, c) => {
+      acc += Col.Programs.discountedVatPriceForCode(program, userType, c);
+      return acc;
+    }, 0);
+    return forMe + forAttendant;
+  }
+  onSubscribe(userType) {
+    return (e) => {
+      console.log('userType', userType);
+      const code = e.target.id;
+      const chosenState = this.getChosenState(userType);
+      const idx = chosenState.indexOf(code);
+      const chosen = idx === -1 ?
+        [... chosenState, e.target.id] :
+        [... chosenState.slice(0, idx), ... chosenState.slice(idx + 1)];
+      const { user, program } = this.data;
+      this.setChosenState(userType, chosen);
+    };
   }
   getPrices(userType) {
     let line = 0;
@@ -45,11 +69,10 @@ class Subscribe extends BaseReactMeteor {
       const eventTags = p.inEvents && priceAmount !== -1 ?
         Events({events: program.events, code: p.code}) : '';
       if (priceAmount !== -1) {
-        const selected = this.state.chosen.indexOf(p.code) !== -1;
         acc.push([
           <article className='title' key={line++}>
             <h1 className='priceDescription'>{p.description}</h1>
-          {/* eventTags */}
+            {/* eventTags */}
           </article>,
           <div className='prices'>
             <div className='price'>{numeralAmountFormat(priceAmount)} HT</div>
@@ -58,8 +81,10 @@ class Subscribe extends BaseReactMeteor {
             </div>
           </div>,
           <CheckBox
-            id={p.code} isChecked={selected} onChange={this.onSubscribe}
-          >Je m'inscrits</CheckBox>
+            id={p.code} isChecked={this.isSelected(userType, p.code)} onChange={this.onSubscribe(userType)}
+          >
+            {userType !== 'Accompagnant' ? 'Je m\'inscrits' : 'Je l\'inscrits' }
+          </CheckBox>
         ]);
       }
       return acc;
@@ -68,12 +93,13 @@ class Subscribe extends BaseReactMeteor {
   render() {
     const { user, program } = this.data;
     const userType = user.profile.category;
-    console.log('userType', userType);
-    const propose = Col.Programs.proposeAttendant(program, this.state.chosen);
-    console.log('propose', propose);
+    const propose = Col.Programs.proposeAttendant(program, this.state.chosenForMe);
     return (
       <section className='maximized MainContent Subscribe animated fadeIn'>
-        <Cart amount={this.state.amount} items={this.state.items} />
+        <Cart
+          amount={this.sumPrices(program)}
+          items={this.state.chosenForMe.length + this.state.chosenForAttendant.length}
+        />
         <div className='lisibility'>
           <h1>Inscription</h1>
           <Table
