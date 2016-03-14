@@ -300,6 +300,22 @@ initPrograms = () => {
       return Programs.find();
     });
   }
+  Programs.helpers({
+    priceForCode(userType, code) {
+      const price = this.priceRights.find(p => p.code === code);
+      return price.byType.find(t => t.category === userType).amount;
+    },
+    vatPriceForCode(userType, code) {
+      return this.priceForCode(userType, code) * (1 + this.tva);
+    },
+    discountForCode(userType, code) {
+      const discount = this.discounts.find(p => p.code === code);
+      return discount.byType.find(t => t.category === userType).amount;
+    },
+    discountedVatPriceForCode(userType, code) {
+      return this.vatPriceForCode(userType, code) * (1 - this.discountForCode(userType, code));
+    }
+  });
   // Methods
   Meteor.methods({
     'programs.update': function() {

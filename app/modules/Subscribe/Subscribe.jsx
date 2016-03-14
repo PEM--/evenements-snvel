@@ -18,7 +18,7 @@ class Subscribe extends BaseReactMeteor {
     return {
       program: Col.Programs.findOne(
         {reference: 'univ2016'},
-        {fields: {events: 1, priceRights: 1, discounts: 1, tva: 1}}
+        {fields: {events: 1, priceRights: 1, discounts: 1, specialRules: 1, tva: 1}}
       ),
       user: Meteor.user()
     };
@@ -29,21 +29,13 @@ class Subscribe extends BaseReactMeteor {
     const chosen = idx === -1 ?
       [... this.state.chosen, e.target.id] :
       [... this.state.chosen.slice(0, idx), ... this.state.chosen.slice(idx + 1)];
+    const { user, program } = this.data;
+    const userType = user.profile.category;
     const amount = chosen.reduce((acc, c) => {
-      const price = this.priceAmountForCode(c);
-      acc += price * (1 + this.data.program.tva);
+      acc += program.discountedVatPriceForCode(userType, c);
       return acc;
     }, 0);
     this.setState({chosen, items: chosen.length, amount});
-  }
-  priceAmountForCode(code) {
-    const { user, program } = this.data;
-    const userType = user.profile.category;
-    const price = user ? program.priceRights.find(p => p.code === code) : null;
-    const priceAmount = user ? price.byType.find(t => t.category === userType).amount : 0;
-    // const discount = program.discounts.find(d => d.code === c.code);
-    // const discountAmount = discount.byType.find(t => t.category === userType).amount;
-    return priceAmount;
   }
   getPrices() {
     let line = 0;
