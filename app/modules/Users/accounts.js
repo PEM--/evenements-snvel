@@ -36,8 +36,32 @@ Meteor.startup(() => {
       }
     }
   });
-
   MainApp.Schema.PasswordForgottenSchema = PasswordForgottenSchema;
+  const PasswordChangeSchema = new SimpleSchema({
+    password: {
+      type: String, label: 'Mot de passe', min: 6, max: 128,
+      defaultValue: '', view: {
+        name: 'Password', label: 'Choisissez un mot de passe :',
+        placeholder: 'Votre mot de passe',
+        hint: 'Votre mot de passe devrait contenir plusieurs majuscules, minuscules, chiffres et symboles.'
+      }
+    },
+    confirm: {
+      type: String, label: 'Confirmation', min: 6, max: 128,
+      custom: function() {
+        const def = this.field('password');
+        if (def.value !== this.value) {
+          return 'passwordNotConfirmMatch';
+        }
+        return true;
+      }, defaultValue: '', view: {
+        name: 'Input', type: 'password',
+        label: 'Confirmer votre mot de passe :',
+        placeholder: 'Votre mot de passe'
+      }
+    }
+  });
+  MainApp.Schema.PasswordChangeSchema = PasswordChangeSchema;
 });
 
 Meteor.methods({
@@ -52,5 +76,11 @@ Meteor.methods({
       Accounts.sendResetPasswordEmail(user._id);
       console.log('Password reset for', email());
     }
+  },
+  'accounts.newPassword': function(passwords) {
+    // User needs to be logged-out
+    if (this.userId) { throw new Meteor.Error('unauthorized'); }
+    check(passwords, MainApp.Schema.PasswordChangeSchema);
+
   }
 });
