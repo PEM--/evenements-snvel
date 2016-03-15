@@ -1,6 +1,6 @@
 const { Views, Col } = MainApp;
 
-class Payment extends extends BaseReactMeteor {
+class Payment extends BaseReactMeteor {
   constructor(props) {
     super(props);
   }
