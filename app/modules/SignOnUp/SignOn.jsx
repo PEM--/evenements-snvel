@@ -51,7 +51,7 @@ class SignOn extends React.Component {
         <div className='linkActions'>
           <div>
             <i className='fa fa-question-circle'></i>
-            <AnimatedLink to='/password-change'>J'ai oublié mon mot de passe</AnimatedLink>
+            <AnimatedLink to='/passwordforgotten'>J'ai oublié mon mot de passe</AnimatedLink>
           </div>
           <div>
             <i className='fa fa-info-circle'></i>

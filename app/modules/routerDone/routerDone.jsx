@@ -10,6 +10,8 @@ const declareRoutes = () => {
     {route: '/signon', name: 'signon', children: <Views.SignOn /> },
     {route: '/signup', name: 'signup', children: <Views.SignUp /> },
     {route: '/emailconfirm', name: 'emailconfirm', children: <Views.EmailConfirm /> },
+    {route: '/passwordforgotten', name: 'passwordforgotten', children: <Views.PaswordForgotten /> },
+    {route: '/passwordchange', name: 'passwordchange', children: <Views.PaswordChange /> },
     {route: '/program', name: 'program', children: <Views.Program program={ROUTE_PROGRAM} /> },
     {route: '/subscribe', name: 'subscribe', children: <Views.Subscribe program={ROUTE_PROGRAM} /> },
     {route: '/admin', name: 'admin', children: <Views.Admin /> }

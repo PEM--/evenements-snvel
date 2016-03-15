@@ -21,3 +21,17 @@ if (Meteor.isServer) {
     Meteor.users.update(user._id, {$set: { lastConnection }});
   });
 }
+
+Meteor.startup(() => {
+  const PasswordForgottenSchema = new SimpleSchema({
+    email: {
+      type: String, label: 'Email', regEx: SimpleSchema.RegEx.Email,
+      defaultValue: '', view: {
+        name: 'Input', type: 'email', label: 'Entrez votre email :',
+        placeholder: 'Votre email'
+      }
+    }
+  });
+
+  MainApp.Schema.PasswordForgottenSchema = PasswordForgottenSchema;
+});

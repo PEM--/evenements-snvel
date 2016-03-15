@@ -19,7 +19,10 @@ const confirmationTitle = 'Evènements SNVEL - Confirmez votre email';
 const confirmationHtml = s(globalReplacement(Assets.getText('emails/confirmation.html')))
   .replaceAll('HTML_TEMPLATE_ACTION_TITLE', confirmationTitle)
   .value();
-
+const resetPasswordTitle = 'Evènements SNVEL - Mettre votre mot de passe à jour';
+const resetPasswordHtml = s(globalReplacement(Assets.getText('emails/resetPassword.html')))
+  .replaceAll('HTML_TEMPLATE_RESETPASSWORD_TITLE', resetPasswordTitle)
+  .value();
 const billingTitle = 'Evènements SNVEL - Votre facture';
 const billingHtml = s(globalReplacement(Assets.getText('emails/billing.html')))
   .replaceAll('HTML_TEMPLATE_BILLING_TITLE', billingTitle)
@@ -31,6 +34,12 @@ Accounts.emailTemplates.verifyEmail.subject = () => confirmationTitle;
 Accounts.emailTemplates.verifyEmail.html = (user, url) => {
   return s.replaceAll(
     confirmationHtml,
+    'HTML_TEMPLATE_ACTION_VALIDATE_URL',
+    url.replace('/#', ''));
+};
+Accounts.emailTemplates.resetPassword.html = (user, url) => {
+  return s.replaceAll(
+    resetPasswordHtml,
     'HTML_TEMPLATE_ACTION_VALIDATE_URL',
     url.replace('/#', ''));
 };
