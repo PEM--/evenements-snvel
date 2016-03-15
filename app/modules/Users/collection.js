@@ -160,9 +160,6 @@ initUsers = () => {
       defaultValue: '', regEx: PHONE_NUMBER_REGEX, view: {
         name: 'Input', type: 'tel', placeholder: 'Votre n° mobile'
       }
-    },
-    programs: {
-      type: [ProfileProgramSchema], label: 'Programmes', minCount: 0, maxCount: 1024
     }
   };
   // Set UsersSchema with optional keys for profile
@@ -170,7 +167,11 @@ initUsers = () => {
     Object.keys(Profile).reduce((acc, k) => {
       acc[k] = Object.assign({optional: true}, Profile[k]);
       return acc;
-    }, {})
+    }, {
+      programs: {
+        type: [ProfileProgramSchema], label: 'Programmes', minCount: 0, maxCount: 1024, optional: true
+      }
+    })
   );
   Schema.ProfileProgramSchema = ProfileProgramSchema;
   Schema.ProfileSchema = ProfileSchema;
@@ -196,14 +197,14 @@ initUsers = () => {
   const SignUpSchema = new SimpleSchema(Object.assign({
     email: {
       type: String, label: 'Email', regEx: SimpleSchema.RegEx.Email,
-      defaultValue: 'pemarchandet@mailinator.com', view: {
+      defaultValue: '', view: {
         name: 'Input', type: 'email', label: 'Entrez votre email :',
         placeholder: 'Votre email'
       }
     },
     password: {
       type: String, label: 'Mot de passe', min: 6, max: 128,
-      defaultValue: 'pemarchandet', view: {
+      defaultValue: '', view: {
         name: 'Password', label: 'Choisissez un mot de passe :',
         placeholder: 'Votre mot de passe',
         hint: 'Votre mot de passe devrait contenir plusieurs majuscules, minuscules, chiffres et symboles.'
@@ -217,7 +218,7 @@ initUsers = () => {
           return 'passwordNotConfirmMatch';
         }
         return true;
-      }, defaultValue: 'pemarchandet', view: {
+      }, defaultValue: '', view: {
         name: 'Input', type: 'password',
         label: 'Confirmer votre mot de passe :',
         placeholder: 'Votre mot de passe'
