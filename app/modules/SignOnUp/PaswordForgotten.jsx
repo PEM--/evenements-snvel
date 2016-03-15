@@ -11,6 +11,13 @@ class PaswordForgotten extends React.Component {
   onCancel() { FlowRouter.go('/'); }
   onClick() {
     console.log('Validate', this.state);
+    Meteor.call('accounts.resetPassword', this.state.email, (error) => {
+      if (error) {
+        console.log('Reset failed', error);
+        return sAlert.error('La remise a zéro du mot de passe a échoué');
+      }
+      console.log('PEM !!!');
+    });
   }
   render() {
     const formStatus = this.validateForm();
@@ -41,6 +48,12 @@ class PaswordForgotten extends React.Component {
           </Button>
           <Button iconName='times' onClick={this.onCancel}>J'annule</Button>
         </form>
+        <div className='linkActions'>
+          <div>
+            <i className='fa fa-info-circle'></i>
+            <span>Cette action va invalider le mot de passe courant.</span>
+          </div>
+        </div>
       </section>
     );
   }
