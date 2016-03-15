@@ -11,6 +11,10 @@ if (Meteor.isClient) {
     FlowRouter.go('subscribe');
     done();
   });
+  // passwordDone = null;
+  // Accounts.onResetPasswordLink(function(token, done) {
+  //   console.log('Received confirmation');
+  // });
 }
 
 if (Meteor.isServer) {

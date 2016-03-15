@@ -12,7 +12,6 @@ const declareRoutes = () => {
     {route: '/emailconfirm', name: 'emailconfirm', children: <Views.EmailConfirm /> },
     {route: '/passwordforgotten', name: 'passwordforgotten', children: <Views.PaswordForgotten /> },
     {route: '/passwordwaiting', name: 'passwordwaiting', children: <Views.EmailConfirm forPassword={true} /> },
-    {route: '/passwordchange', name: 'passwordchange', children: <Views.PasswordChange /> },
     {route: '/program', name: 'program', children: <Views.Program program={ROUTE_PROGRAM} /> },
     {route: '/subscribe', name: 'subscribe', children: <Views.Subscribe program={ROUTE_PROGRAM} /> },
     {route: '/admin', name: 'admin', children: <Views.Admin /> }
@@ -53,6 +52,19 @@ const declareRoutes = () => {
           }
           FlowRouter.go('subscribe');
         });
+      }
+      if (Meteor.isServer) {
+        ReactLayout.render(Views.MainLayout, { children: <Views.VerifiedEmail /> });
+      }
+    }
+  });
+  // Routing when password change is verified
+  FlowRouter.route('/reset-password/:token', {
+    action() {
+      const token = FlowRouter.getParam('token');
+      console.log('Verification token', token);
+      if (Meteor.isClient) {
+        ReactLayout.render(Views.MainLayout, { children: <Views.PasswordChange /> });
       }
       if (Meteor.isServer) {
         ReactLayout.render(Views.MainLayout, { children: <Views.VerifiedEmail /> });
