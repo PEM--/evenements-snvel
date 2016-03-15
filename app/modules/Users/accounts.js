@@ -74,7 +74,7 @@ Meteor.methods({
       const user = Meteor.users.findOne({'emails.address': email.email});
       if (!user) { throw new Meteor.Error('unauthorized'); }
       Accounts.sendResetPasswordEmail(user._id);
-      console.log('Password reset for', email());
+      console.log('Password reset for', user.email());
     }
   },
   'accounts.newPassword': function(passwords) {

@@ -8,7 +8,7 @@ class PaswordForgotten extends React.Component {
     this.state.formError = null;
     this.onClick = this.onClick.bind(this);
   }
-  onCancel() { FlowRouter.go('/'); }
+  onCancel() { FlowRouter.go('signon'); }
   onClick() {
     const { email } = this.state;
     Meteor.call('accounts.resetPassword', { email }, (error) => {
