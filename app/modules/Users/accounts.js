@@ -40,7 +40,7 @@ Meteor.methods({
   'accounts.resetPassword': function(email) {
     // User needs to be logged-out
     if (this.userId) { throw new Meteor.Error('unauthorized'); }
-    check(email, PasswordForgottenSchema);
+    check(email, MainApp.Schema.PasswordForgottenSchema);
     if (Meteor.isServer) {
       this.unblock();
       Accounts.sendResetPasswordEmail(email);

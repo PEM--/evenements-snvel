@@ -51,7 +51,7 @@ class PaswordForgotten extends React.Component {
         <div className='linkActions'>
           <div>
             <i className='fa fa-info-circle'></i>
-            <span>Cette action va invalider le mot de passe courant.</span>
+          <span>Invalide le mot de passe courant.</span>
           </div>
         </div>
       </section>
