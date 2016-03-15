@@ -4,6 +4,7 @@ node_modules
 private
 settings.dev.json
 settings.pre.json
+settings.test.json
 settings.prod.json
 .vagrant
 sasl_passwd

@@ -8,6 +8,8 @@ settings =
   devOut: 'settings.dev.json'
   pre: 'settings/pre'
   preOut: 'settings.pre.json'
+  test: 'settings/test'
+  testOut: 'settings.test.json'
   prod: 'settings/prod'
   prodOut: 'settings.prod.json'
   files: 'settings/**/*.yml'
@@ -25,6 +27,14 @@ gulp.task 'settings.build.dev', ->
     # Concatenante YAML files and transform them into JSON
     .pipe gp.yamlDirs settings.devOut
     .pipe gulp.dest path.join settings.dest, settings.devOut
+
+gulp.task 'settings.build.test', ->
+  gulp.src settings.test
+    # Avoid breaking stream on error and notify error
+    .pipe gp.plumberNotifier()
+    # Concatenante YAML files and transform them into JSON
+    .pipe gp.yamlDirs settings.testOut
+    .pipe gulp.dest path.join settings.dest, settings.testOut
 
 gulp.task 'settings.build.pre', ->
   gulp.src settings.pre
@@ -44,7 +54,6 @@ gulp.task 'settings.build.prod', ->
 
 gulp.task 'settings.watch', ->
   gulp.watch settings.files, ['settings.build']
-
 
 # Resize images
 # See breakpoints in site.variables.import.less
@@ -91,7 +100,8 @@ gulp.task 'webp', ['imagemin'], ->
 
 gulp.task 'clean', ['settings.clean']
 gulp.task 'build', [
-  'settings.build.dev', 'settings.build.pre', 'settings.build.prod',
+  'settings.build.dev', 'settings.build.pre',
+  'settings.build.test', 'settings.build.prod',
   'svgmin', 'webp'
 ]
 gulp.task 'watch', ['settings.watch']
