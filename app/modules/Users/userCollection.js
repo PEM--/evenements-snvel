@@ -42,18 +42,15 @@ initUsers = () => {
   }
   console.log('User types filled and exposed');
 
-  const ProfileProgramCode = new SimpleSchema({
-    code: {type: String, label: 'Codification', min: 1, max: 64}
-  });
   const ProfileProgramAttendant = new SimpleSchema({
     name: {type: String, label: 'Nom de l\'accompagnant', min: 1, max: 256},
     firstName: {type: String, label: 'Prénom de l\'accompagnant', min: 1, max: 256},
-    prices: {type: [ProfileProgramCode], label: 'Prix & droits', minCount: 1, maxCount: 256},
+    prices: {type: [String], label: 'Prix & droits', minCount: 1, maxCount: 256},
   });
   const ProfileProgramSchema = new SimpleSchema({
     reference: {type: String, label: 'Référence', min: 2, max: 16},
     status: {type: String, label: 'Statut de paiement', allowedValues: ['Inscrit', 'Attente paiement', 'Payé']},
-    prices: {type: [ProfileProgramCode], label: 'Prix & droits', minCount: 1, maxCount: 256},
+    prices: {type: [String], label: 'Prix & droits', minCount: 1, maxCount: 256},
     attendant: {type: ProfileProgramAttendant, label: 'Accompagnant', optional: true}
   });
 

@@ -23,7 +23,7 @@ class Subscribe extends BaseReactMeteor {
       {fields: {events: 1, priceRights: 1, discounts: 1, specialRules: 1, tva: 1}}
     );
     const user = Meteor.user();
-    if (program && user && user.profile.programs) {
+    if (program && user && user.profile && user.profile.programs) {
       const found = user.profile.programs.find(p => p.reference === program.reference);
       if (found) {
         console.log('Found initial data', found);
@@ -135,10 +135,24 @@ class Subscribe extends BaseReactMeteor {
       this.state.attendantName,
       this.state.attendantFirstName,
     );
-    Meteor.call('user.addProgram', {}, (error) => {
+    let addedProgram = {
+      reference: this.props.program,
+      status: 'Inscrit',
+      prices: this.state.chosenForMe
+    };
+    if (this.state.chosenForAttendant.length > 0) {
+      addedProgram.attendant = {
+        name: this.state.attendantName,
+        firstName: this.state.attendantFirstName,
+        prices: this.state.chosenForAttendant
+      };
+    }
+    Meteor.call('user.addProgram', addedProgram, (error) => {
       if (error) {
-        console.warn('Error while adding programs')
+        console.warn('Error while adding programs', error);
+        return sAlert.error('Enregistrement impossible');
       }
+      FlowRouter.go('payment');
     });
   }
   render() {
