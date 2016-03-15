@@ -37,7 +37,7 @@ class PaswordForgotten extends React.Component {
             primary={true}
             onClick={this.onClick}
           >
-            Je demande un nouveau mot de passe
+            Je valide ma demande
           </Button>
           <Button iconName='times' onClick={this.onCancel}>J'annule</Button>
         </form>
