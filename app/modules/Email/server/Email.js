@@ -40,7 +40,7 @@ MainApp.Utils.sendConfirmationEmail = (to, idx) => {
   Email.send({
     from: sender,
     to,
-    subject: confirmationTitle,
+    subject: confirmationTitle + '🐴',
     html: s.replaceAll(confirmationHtml, 'HTML_TEMPLATE_ACTION_VALIDATE_URL', `${url}confirm/${idx}`)
   });
 };
