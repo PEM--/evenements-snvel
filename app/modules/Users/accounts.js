@@ -41,12 +41,12 @@ Meteor.methods({
     // User needs to be logged-out
     if (this.userId) { throw new Meteor.Error('unauthorized'); }
     check(email, MainApp.Schema.PasswordForgottenSchema);
-    console.log('email', email);
     if (Meteor.isServer) {
       this.unblock();
       const user = Meteor.users.findOne({'emails.address': email.email});
       if (!user) { throw new Meteor.Error('unauthorized'); }
       Accounts.sendResetPasswordEmail(user._id);
+      console.log('Password reset for', email());
     }
   }
 });
