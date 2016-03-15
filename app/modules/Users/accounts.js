@@ -76,11 +76,5 @@ Meteor.methods({
       Accounts.sendResetPasswordEmail(user._id);
       console.log('Password reset for', user.email());
     }
-  },
-  'accounts.newPassword': function(passwords) {
-    // User needs to be logged-out
-    if (this.userId) { throw new Meteor.Error('unauthorized'); }
-    check(passwords, MainApp.Schema.PasswordChangeSchema);
-
   }
 });

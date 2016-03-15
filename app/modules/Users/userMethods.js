@@ -1,0 +1,73 @@
+// Methods
+Meteor.methods({
+  'userTypes.update': function() {
+    if (!this.userId) { throw new Meteor.Error('unauthorized'); }
+    const user = Meteor.users.findOne(this.userId);
+    if (!user || !user.isAdmin()) { throw new Meteor.Error('unauthorized'); }
+    if (Meteor.isServer) {
+      Col.adminJobs.processJobs('userTypes.update', function(job) {
+        Col.UserTypes.remove({});
+        userTypesUpdate();
+        job.done();
+      });
+      const j = new Job(Col.adminJobs, 'userTypes.update', {});
+      return j.save();
+    }
+  },
+  'user.create': function(rawUser) {
+    // Creation can only be done when no user is logged in
+    if (this.userId) { throw new Meteor.Error('unauthorized'); }
+    check(rawUser, SignUpSchema);
+    let user = SignUpSchema.objectKeys().reduce((acc, k) => {
+      switch (k) {
+      case 'name':
+      case 'firstName':
+      case 'city':
+        acc.profile[k] = s(rawUser[k]).trim().toLowerCase().titleize().value();
+        break;
+      case 'username':
+      case 'email':
+        acc[k] = rawUser.email.trim().toLowerCase();
+        break;
+      case 'password':
+        acc.password = rawUser[k].trim();
+        break;
+      case 'confirm': break;
+      default:
+        acc.profile[k] = rawUser[k].trim();
+      }
+      return acc;
+    }, {profile: {}});
+    if (Meteor.isServer) {
+      // Check if user is a Subscriber
+      if (user.profile.category === 'Adhérent SNVEL') {
+        const subscriber = Col.Subscribers.findOne({csoNumber: user.profile.csoNumber});
+        if (!subscriber) {
+          console.log('CSO doesn\'t exist:', user.profile.csoNumber);
+          throw new Meteor.Error(403, 'csoNumberNoMatch');
+        }
+        if (subscriber.name !== user.profile.name) {
+          console.log('CSO number doesn\'t match name:', user.profile.csoNumber, subscriber.name, user.profile.name);
+          throw new Meteor.Error(403, 'csoNumberNameMismatch');
+        }
+        if (subscriber.status !== 'En cours de validité') {
+          console.log('CSO expired:', user.profile.csoNumber, subscriber.status);
+          throw new Meteor.Error(403, 'csoNumberExpired');
+        }
+      }
+      const userId = Accounts.createUser(user);
+      console.log('User created:', user.email);
+      this.unblock();
+      Accounts.sendVerificationEmail(userId);
+      console.log('Verification email sent for:', user.email);
+      return true;
+    }
+  },
+  'user.addProgram': function(program) {
+    if (!this.userId) { throw new Meteor.Error('unauthorized'); }
+    const user = Meteor.users.findOne(this.userId);
+    if (!user) { throw new Meteor.Error('unauthorized'); }
+    check(program, ProfileProgramSchema);
+
+  }
+});
