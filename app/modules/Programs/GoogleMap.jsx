@@ -338,7 +338,7 @@ class GoogleMap extends Views.BaseReactMeteor {
       Meteor.subscribe('programs.all');
     }
     return {
-      program: Col.Programs.findOne({reference: 'univ2016'}, {
+      program: Col.Programs.findOne({reference: this.props.program}, {
         fields: {location: 1, longitude: 1, lattitude: 1, zoom: 1}
       })
     };

@@ -24,7 +24,7 @@ class Welcome extends Views.BaseReactMeteor {
     }
     return {
       program: Col.Programs.findOne(
-        {reference: 'univ2016'},
+        {reference: this.props.program},
         {fields: {title: 1, location: 1, period: 1}}
       ),
     };

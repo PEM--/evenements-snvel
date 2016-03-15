@@ -42,6 +42,21 @@ initUsers = () => {
   }
   console.log('User types filled and exposed');
 
+  const ProfileProgramCode = new SimpleSchema({
+    code: {type: String, label: 'Codification', min: 1, max: 64}
+  });
+  const ProfileProgramAttendant = new SimpleSchema({
+    name: {type: String, label: 'Nom de l\'accompagnant', min: 1, max: 256},
+    firstName: {type: String, label: 'Prénom de l\'accompagnant', min: 1, max: 256},
+    prices: {type: [ProfileProgramCode], label: 'Prix & droits', minCount: 1, maxCount: 256},
+  });
+  const ProfileProgramSchema = new SimpleSchema({
+    reference: {type: String, label: 'Référence', min: 2, max: 16},
+    status: {type: String, label: 'Statut de paiement', allowedValues: ['Inscrit', 'Attente paiement', 'Payé']},
+    prices: {type: [ProfileProgramCode], label: 'Prix & droits', minCount: 1, maxCount: 256},
+    attendant: {type: ProfileProgramAttendant, label: 'Accompagnant', optional: true}
+  });
+
   const Profile = {
     category: {
       label: 'Catégorie', type: String, allowedValues() {
@@ -145,9 +160,11 @@ initUsers = () => {
       defaultValue: '', regEx: PHONE_NUMBER_REGEX, view: {
         name: 'Input', type: 'tel', placeholder: 'Votre n° mobile'
       }
+    },
+    programs: {
+      type: [ProfileProgramSchema], label: 'Programmes', minCount: 0, maxCount: 1024
     }
   };
-
   // Set UsersSchema with optional keys for profile
   const ProfileSchema = new SimpleSchema(
     Object.keys(Profile).reduce((acc, k) => {
@@ -155,6 +172,7 @@ initUsers = () => {
       return acc;
     }, {})
   );
+  Schema.ProfileProgramSchema = ProfileProgramSchema;
   Schema.ProfileSchema = ProfileSchema;
 
   const SignOnSchema = new SimpleSchema({
@@ -318,6 +336,13 @@ initUsers = () => {
         console.log('Verification email sent for:', user.email);
         return true;
       }
+    },
+    'user.addProgram': function(program) {
+      if (!this.userId) { throw new Meteor.Error('unauthorized'); }
+      const user = Meteor.users.findOne(this.userId);
+      if (!user) { throw new Meteor.Error('unauthorized'); }
+      check(program, ProfileProgramSchema);
+
     }
   });
 };

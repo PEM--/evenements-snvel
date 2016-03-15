@@ -20,7 +20,7 @@ class Subscribe extends BaseReactMeteor {
     }
     return {
       program: Col.Programs.findOne(
-        {reference: 'univ2016'},
+        {reference: this.props.program},
         {fields: {events: 1, priceRights: 1, discounts: 1, specialRules: 1, tva: 1}}
       ),
       user: Meteor.user()
@@ -121,7 +121,12 @@ class Subscribe extends BaseReactMeteor {
   }
   onValidateForm(e) {
     e.preventDefault();
-    console.log('Validate subscription');
+    console.log('Validate subscription',
+      this.state.chosenForMe,
+      this.state.chosenForAttendant,
+      this.state.attendantName,
+      this.state.attendantFirstName,
+    );
 
   }
   render() {

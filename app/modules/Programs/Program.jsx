@@ -11,7 +11,7 @@ class Program extends Views.BaseReactMeteor {
       const handle = Meteor.subscribe('programs.all');
     }
     return Col.Programs.findOne(
-      {reference: 'univ2016'},
+      {reference: this.props.program},
       {fields: {presentation: 1, events: 1}}
     );
   }
@@ -24,7 +24,7 @@ class Program extends Views.BaseReactMeteor {
       <section className='maximized MainContent animated fadeIn Program lisibility'>
         <h1>Programme</h1>
         <div dangerouslySetInnerHTML={{__html: htmlBeforeMap }} />
-        <GoogleMap />
+        <GoogleMap program={this.props.program} />
         <div dangerouslySetInnerHTML={{__html: htmlAfterMap }} />
         <h2>Sessions & conférences</h2>
         <Events events={this.data.events} />

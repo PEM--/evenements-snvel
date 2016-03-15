@@ -2,14 +2,16 @@
 
 const { Col, Views } = MainApp;
 
+const ROUTE_PROGRAM = 'univ2016';
+
 const declareRoutes = () => {
   if (Meteor.isClient) { Session.setDefault('isMenuOpen', false); }
-  [ {route: '/', name: 'home', children: <Views.Welcome /> },
+  [ {route: '/', name: 'home', children: <Views.Welcome program={ROUTE_PROGRAM} /> },
     {route: '/signon', name: 'signon', children: <Views.SignOn /> },
     {route: '/signup', name: 'signup', children: <Views.SignUp /> },
     {route: '/emailconfirm', name: 'emailconfirm', children: <Views.EmailConfirm /> },
-    {route: '/program', name: 'program', children: <Views.Program /> },
-    {route: '/subscribe', name: 'subscribe', children: <Views.Subscribe /> },
+    {route: '/program', name: 'program', children: <Views.Program program={ROUTE_PROGRAM} /> },
+    {route: '/subscribe', name: 'subscribe', children: <Views.Subscribe program={ROUTE_PROGRAM} /> },
     {route: '/admin', name: 'admin', children: <Views.Admin /> }
   ].forEach(r => {
     FlowRouter.route(r.route, {

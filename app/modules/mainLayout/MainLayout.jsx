@@ -74,12 +74,9 @@ class MainLayout extends Views.BaseReactMeteor {
   getMeteorData() {
     if (Meteor.isServer) {
       Meteor.subscribe('basicPages.all');
-      Meteor.subscribe('programs.all');
     }
     return {
       basicPages: Col.BasicPages.find({}, {fields: {title: 1, slug: 1}}).fetch(),
-      program: Col.Programs.findOne({reference: 'univ2016'}, {
-        fields: {title: 1, location: 1, period: 1, description: 1}}),
       isMenuOpen: Meteor.isClient ? Session.get('isMenuOpen') : false
     };
   }
