@@ -1,4 +1,5 @@
 const { Views, Col } = MainApp;
+const { AnimatedLink, Select, Input, Button, BaseReactMeteor } = Views;
 
 class Payment extends BaseReactMeteor {
   constructor(props) {

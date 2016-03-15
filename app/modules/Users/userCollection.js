@@ -170,7 +170,7 @@ initUsers = () => {
     }, {
       programs: {
         type: [ProfileProgramSchema], label: 'Programmes',
-        minCount: 0, maxCount: 1024, optional: true, defaultValue: []
+        minCount: 0, maxCount: 1024, defaultValue: []
       }
     })
   );

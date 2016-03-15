@@ -1,5 +1,5 @@
 const { Views, Col } = MainApp;
-const { AnimatedLink, CheckBox, Cart, Table, Input, Button, Events, BaseReactMeteor } = Views;
+const { CheckBox, Cart, Table, Input, Button, Events, BaseReactMeteor } = Views;
 
 class Subscribe extends BaseReactMeteor {
   constructor(props) {
@@ -18,13 +18,19 @@ class Subscribe extends BaseReactMeteor {
     if (Meteor.isServer) {
       Meteor.subscribe('programs.all');
     }
-    return {
-      program: Col.Programs.findOne(
-        {reference: this.props.program},
-        {fields: {events: 1, priceRights: 1, discounts: 1, specialRules: 1, tva: 1}}
-      ),
-      user: Meteor.user()
-    };
+    const program = Col.Programs.findOne(
+      {reference: this.props.program},
+      {fields: {events: 1, priceRights: 1, discounts: 1, specialRules: 1, tva: 1}}
+    );
+    const user = Meteor.user();
+    // const found = user.profile.programs.find(p => p.reference === program.reference);
+    // if (found) {
+    //   console.log('Found initial data', found);
+    //   // this.setState({
+    //   //
+    //   // });
+    // }
+    return { program, user };
   }
   getChosenState(userType) {
     return userType === 'Accompagnant' ? this.state.chosenForAttendant : this.state.chosenForMe;
