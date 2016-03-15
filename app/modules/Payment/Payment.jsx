@@ -21,6 +21,7 @@ class Payment extends BaseReactMeteor {
     return (
       <section className='maximized MainContent Payment animated fadeIn'>
         <h1>Paiement</h1>
+        <AnimatedLink to='subscribe'>Retour aux inscription</AnimatedLink>
       </section>
     );
   }

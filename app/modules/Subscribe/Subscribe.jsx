@@ -7,12 +7,26 @@ class Subscribe extends BaseReactMeteor {
     [
       'onSubscribe', 'onValidateForm', 'onChangeAttendantName', 'onChangeAttendantFirstName'
     ].forEach(f => { this[f] = this[f].bind(this); });
-    this.state = {
-      chosenForMe: [],
-      chosenForAttendant: [],
-      attendantName: '',
-      attendantFirstName: ''
-    };
+    const user = Meteor.user();
+    const { program } = this.props;
+    if (user && user.profile && user.profile.programs) {
+      const found = user.profile.programs.find(p => p.reference === this.props.program);
+      if (found) {
+        console.log('Found initial data', found);
+        this.state = {};
+        // this.state.chosenForMe = found.
+        // this.setState({
+        //
+        // });
+      }
+    } else {
+      this.state = {
+        chosenForMe: [],
+        chosenForAttendant: [],
+        attendantName: '',
+        attendantFirstName: ''
+      };
+    }
   }
   getMeteorData() {
     if (Meteor.isServer) {
@@ -23,15 +37,6 @@ class Subscribe extends BaseReactMeteor {
       {fields: {events: 1, priceRights: 1, discounts: 1, specialRules: 1, tva: 1}}
     );
     const user = Meteor.user();
-    if (program && user && user.profile && user.profile.programs) {
-      const found = user.profile.programs.find(p => p.reference === program.reference);
-      if (found) {
-        console.log('Found initial data', found);
-        // this.setState({
-        //
-        // });
-      }
-    }
     return { program, user };
   }
   getChosenState(userType) {

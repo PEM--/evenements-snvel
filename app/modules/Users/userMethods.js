@@ -67,10 +67,23 @@ Meteor.methods({
   },
   'user.addProgram': function(program) {
     if (!this.userId) { throw new Meteor.Error('unauthorized'); }
-    const user = Meteor.users.findOne(this.userId);
+    let user = Meteor.users.findOne(this.userId);
     if (!user) { throw new Meteor.Error('unauthorized'); }
     check(program, Schema.ProfileProgramSchema);
     console.log('program', program);
     console.log('user', user);
+    const idx = user.profile.programs.reduce((acc, p, index) => {
+      if (p.reference === program.reference) { acc = index; }
+      return acc;
+    }, -1);
+    if (idx !== -1) {
+      user.profile.programs = [... user.profile.programs.slice(0, idx), ... user.profile.programs.slice(idx + 1)];
+    }
+    user.profile.programs.push(program);
+    delete user._id;
+    console.log('user', user);
+    if (Meteor.isServer) {
+      Meteor.users.update({_id: this.userId}, user, {bypassCollection2: true});
+    }
   }
 });
