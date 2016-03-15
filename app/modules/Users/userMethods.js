@@ -1,3 +1,5 @@
+const { Schema, Col, Utils } = MainApp;
+
 // Methods
 Meteor.methods({
   'userTypes.update': function() {
@@ -17,8 +19,8 @@ Meteor.methods({
   'user.create': function(rawUser) {
     // Creation can only be done when no user is logged in
     if (this.userId) { throw new Meteor.Error('unauthorized'); }
-    check(rawUser, SignUpSchema);
-    let user = SignUpSchema.objectKeys().reduce((acc, k) => {
+    check(rawUser, Schema.SignUpSchema);
+    let user = Schema.SignUpSchema.objectKeys().reduce((acc, k) => {
       switch (k) {
       case 'name':
       case 'firstName':
@@ -67,7 +69,8 @@ Meteor.methods({
     if (!this.userId) { throw new Meteor.Error('unauthorized'); }
     const user = Meteor.users.findOne(this.userId);
     if (!user) { throw new Meteor.Error('unauthorized'); }
-    check(program, ProfileProgramSchema);
-
+    check(program, Schema.ProfileProgramSchema);
+    console.log('program', program);
+    console.log('user', user);
   }
 });

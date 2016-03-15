@@ -169,7 +169,8 @@ initUsers = () => {
       return acc;
     }, {
       programs: {
-        type: [ProfileProgramSchema], label: 'Programmes', minCount: 0, maxCount: 1024, optional: true
+        type: [ProfileProgramSchema], label: 'Programmes',
+        minCount: 0, maxCount: 1024, optional: true, defaultValue: []
       }
     })
   );

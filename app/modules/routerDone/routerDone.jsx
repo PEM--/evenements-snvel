@@ -14,6 +14,7 @@ const declareRoutes = () => {
     {route: '/passwordwaiting', name: 'passwordwaiting', children: <Views.EmailConfirm forPassword={true} /> },
     {route: '/program', name: 'program', children: <Views.Program program={ROUTE_PROGRAM} /> },
     {route: '/subscribe', name: 'subscribe', children: <Views.Subscribe program={ROUTE_PROGRAM} /> },
+    {route: '/payment', name: 'payment', children: <Views.Payment program={ROUTE_PROGRAM} /> },
     {route: '/admin', name: 'admin', children: <Views.Admin /> }
   ].forEach(r => {
     FlowRouter.route(r.route, {

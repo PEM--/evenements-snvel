@@ -127,7 +127,11 @@ class Subscribe extends BaseReactMeteor {
       this.state.attendantName,
       this.state.attendantFirstName,
     );
-
+    Meteor.call('user.addProgram', {}, (error) => {
+      if (error) {
+        console.warn('Error while adding programs')
+      }
+    });
   }
   render() {
     const { user, program } = this.data;
