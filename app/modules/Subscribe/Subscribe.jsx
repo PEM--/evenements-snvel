@@ -23,13 +23,15 @@ class Subscribe extends BaseReactMeteor {
       {fields: {events: 1, priceRights: 1, discounts: 1, specialRules: 1, tva: 1}}
     );
     const user = Meteor.user();
-    // const found = user.profile.programs.find(p => p.reference === program.reference);
-    // if (found) {
-    //   console.log('Found initial data', found);
-    //   // this.setState({
-    //   //
-    //   // });
-    // }
+    if (program && user && user.profile.programs) {
+      const found = user.profile.programs.find(p => p.reference === program.reference);
+      if (found) {
+        console.log('Found initial data', found);
+        // this.setState({
+        //
+        // });
+      }
+    }
     return { program, user };
   }
   getChosenState(userType) {

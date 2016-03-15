@@ -14,6 +14,7 @@ if (Meteor.users.find().count() === 0) {
       email: admin.email
     });
     Roles.addUsersToRoles(adminId, ['admin', 'public']);
+    console.log('User created:', admin.email);
   });
 }
 console.log('Users are ready');
