@@ -12,7 +12,6 @@ class Subscribe extends BaseReactMeteor {
     if (user && user.profile && user.profile.programs) {
       const found = user.profile.programs.find(p => p.reference === this.props.program);
       if (found) {
-        console.log('Found initial data', found);
         this.state = {
           chosenForMe: found.prices,
           chosenForAttendant: found.attendant ? found.attendant.prices : [],
@@ -135,12 +134,6 @@ class Subscribe extends BaseReactMeteor {
   }
   onValidateForm(e) {
     e.preventDefault();
-    console.log('Validate subscription',
-      this.state.chosenForMe,
-      this.state.chosenForAttendant,
-      this.state.attendantName,
-      this.state.attendantFirstName,
-    );
     let addedProgram = {
       reference: this.props.program,
       status: 'Inscrit',
