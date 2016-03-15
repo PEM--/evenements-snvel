@@ -175,9 +175,7 @@ class Subscribe extends BaseReactMeteor {
           >
             Je valide mon inscription
           </Button>
-          <Button iconName='times' onClick={this.onCancel}>
-            J'annule mon inscription
-          </Button>
+          <Button iconName='times' onClick={this.onCancel}>J'annule</Button>
         </form>
       </section>
     );
