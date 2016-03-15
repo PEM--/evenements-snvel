@@ -15,7 +15,7 @@ class PasswordChange extends React.Component {
         console.warn('Reset password failed', error);
         return sAlert.error('La mise à jour du mot de passe a échoué');
       }
-      FlowRouter.go('signon');
+      FlowRouter.go('subscribe');
     });
   }
   render() {
