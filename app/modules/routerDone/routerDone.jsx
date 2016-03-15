@@ -64,7 +64,7 @@ const declareRoutes = () => {
       const token = FlowRouter.getParam('token');
       console.log('Verification token', token);
       if (Meteor.isClient) {
-        ReactLayout.render(Views.MainLayout, { children: <Views.PasswordChange /> });
+        ReactLayout.render(Views.MainLayout, { children: <Views.PasswordChange token={token} /> });
       }
       if (Meteor.isServer) {
         ReactLayout.render(Views.MainLayout, { children: <Views.VerifiedEmail /> });

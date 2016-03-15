@@ -9,8 +9,14 @@ class PasswordChange extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
   onClick() {
-    console.log('Validate', this.state);
-    
+    console.log('Validate', this.state, this.props.token);
+    Accounts.resetPassword(this.props.token, this.state.password, (error) => {
+      if (error) {
+        console.warn('Reset password failed', error);
+        return sAlert.error('La mise à jour du mot de passe a échoué');
+      }
+      FlowRouter.go('signon');
+    });
   }
   render() {
     const formStatus = this.validateForm();
