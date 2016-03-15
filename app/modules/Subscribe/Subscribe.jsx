@@ -13,11 +13,12 @@ class Subscribe extends BaseReactMeteor {
       const found = user.profile.programs.find(p => p.reference === this.props.program);
       if (found) {
         console.log('Found initial data', found);
-        this.state = {};
-        // this.state.chosenForMe = found.
-        // this.setState({
-        //
-        // });
+        this.state = {
+          chosenForMe: found.prices,
+          chosenForAttendant: found.attendant ? found.attendant.prices : [],
+          attendantName: found.attendant ? found.attendant.name : '',
+          attendantFirstName: found.attendant ? found.attendant.firstName : ''
+        };
       }
     } else {
       this.state = {
