@@ -33,7 +33,7 @@ class Subscribe extends BaseReactMeteor {
     }
     const program = Col.Programs.findOne(
       {reference: this.props.program},
-      {fields: {priceRights: 1, discounts: 1, specialRules: 1, tva: 1}}
+      {fields: {events: 1, priceRights: 1, discounts: 1, specialRules: 1, tva: 1}}
     );
     const user = Meteor.user();
     return { program, user };

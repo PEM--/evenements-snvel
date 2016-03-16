@@ -254,20 +254,24 @@ initUsers = () => {
     heartbeat: { type: Date, optional: true }
   });
   Meteor.users.attachSchema(UsersSchema);
-  Meteor.users.helpers({
-    email() { return this.emails[0].address; },
-    isAdmin() { return Roles.userIsInRole(this._id, 'admin'); },
-    sumPrice(program) {
-      const found = this.profile.programs.find(p => p.reference === program.reference);
+  Object.assign(Meteor.users, {
+    sumPrice(user, program) {
+      console.log('program', program, program.reference);
+      console.log('user', user.profile.programs);
+      const found = user.profile.programs.find(p => p.reference === program.reference);
       const now = moment(found.date, 'DD/MM/YYYY');
       const forUser = Col.Programs.finalPrice(
-        program, this.profile.category, found.prices, now
+        program, user.profile.category, found.prices, now
       );
       const forAttendant = found.attendant ? Col.Programs.finalPrice(
         program, 'Accompagnant', found.attendant.prices, now
       ) : 0;
       return forUser + forAttendant;
     }
+  });
+  Meteor.users.helpers({
+    email() { return this.emails[0].address; },
+    isAdmin() { return Roles.userIsInRole(this._id, 'admin'); },
   });
 
   Schema.UsersSchema = UsersSchema;

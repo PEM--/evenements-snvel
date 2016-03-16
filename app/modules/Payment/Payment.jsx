@@ -22,7 +22,9 @@ class Payment extends BaseReactMeteor {
     return {
       program: Col.Programs.findOne(
         {reference: this.props.program},
-        {fields: {priceRights: 1, discounts: 1, specialRules: 1, tva: 1}}
+        {fields: {
+          reference: 1, priceRights: 1, discounts: 1, specialRules: 1, tva: 1
+        }}
       ),
       user: Meteor.user()
     };
@@ -41,11 +43,13 @@ class Payment extends BaseReactMeteor {
           ]}
         />
         {
-          this.state.paymentType === 'check' ?
+          user && program && this.state.paymentType === 'check' ?
             <div className='check animated fadeIn'>
               <h2>Paiement par chèque sélectionné</h2>
               <form>
-                <h3>Montant : <span>{numeralAmountFormat(user.sumPrice(program))} TTC</span></h3>
+                <h3>Montant : <span className='price'>{
+                  numeralAmountFormat(Meteor.users.sumPrice(user, program))
+                } TTC</span></h3>
                 <Button primary={true} onClick={this.onValidateCheck}>
                   Je valide ce paiment
                 </Button>
@@ -53,7 +57,7 @@ class Payment extends BaseReactMeteor {
             </div> : ''
         }
         {
-          this.state.paymentType === 'card' ?
+          user && program && this.state.paymentType === 'card' ?
             <div className='card animated fadeIn'>
               <h2>Paiement par carte sélectionné</h2>
             </div> : ''
