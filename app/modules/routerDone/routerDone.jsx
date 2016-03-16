@@ -107,6 +107,7 @@ appStartup = () => {
   initSocialLinks();
   initSubscribers();
   initPrograms();
+  initPayment();
   declareRoutes();
 };
 

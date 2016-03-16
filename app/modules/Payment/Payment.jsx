@@ -1,4 +1,4 @@
-const { Views, Col } = MainApp;
+const { Views, Col, Schema } = MainApp;
 const {
   AnimatedLink, Radio, PaymentByCard, PaymentByCheck, BaseReactMeteor
 } = Views;
