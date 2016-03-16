@@ -129,14 +129,14 @@ if (Meteor.isServer) {
               new Date(0, 0, 0) :
               moment(applicationDateSheet, 'DD/MM/YYYY').toDate();
             rule.applicationDate = applicationDateSheet;
-            const requiredSalesSheet = s(rRule[5]).trim().value();
+            const requiredSalesSheet = s(rRule[6]).trim().value();
             const requiredSales = requiredSalesSheet === '*' ?
               availablePrices :
               requiredSalesSheet === 'null' ?
                 [] :
                 requiredSalesSheet.split(';');
             rule.requiredSales = requiredSales;
-            const onPricesSheet = s(rRule[6]).trim().value();
+            const onPricesSheet = s(rRule[7]).trim().value();
             const onPrices = onPricesSheet === '*' ?
               availablePrices :
               onPricesSheet.split(';');
@@ -317,6 +317,16 @@ initPrograms = () => {
     discountedVatPriceForCode(prg, userType, code) {
       return Programs.vatPriceForCode(prg, userType, code) *
         (1 - Programs.discountForCode(prg, userType, code));
+    },
+    finalPrice(prg, userType, codes) {
+      let total = 0;
+      const applicableRules = prg.specialRules.filter(r => {
+        let applicable = true;
+        if (r.categories.indexOf(userType) === -1) {
+          return false;
+        }
+        return true;
+      });
     },
     proposeAttendant(prg, codes) {
       let propose = false;
