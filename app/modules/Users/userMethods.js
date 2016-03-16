@@ -95,6 +95,11 @@ Meteor.methods({
       console.warn('No program', program, 'found for', user.email());
       throw new Meteor.Error('unauthorized');
     }
-    // found
+    found.status = 'Attente paiement';
+    delete user._id;
+    if (Meteor.isServer) {
+      Meteor.users.update({_id: this.userId}, user, {bypassCollection2: true});
+      console.log('User', user.email(), 'in payment check process for', program);
+    }
   }
 });
