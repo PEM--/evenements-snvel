@@ -13,8 +13,15 @@ class Payment extends BaseReactMeteor {
     this.setState({paymentType: e});
   }
   onValidateCheck() {
-    console.error('Validated');
-    FlowRouter.go('paymentwaiting');
+    Meteor.call('user.waitingPayment', this.props.program, (error) => {
+      if (error) {
+        console.warn('Check payment validation failed', error);
+        sAlert.error(
+          'La validation du paiement par chèque est impossible pour le moment. Veuillez ré-essayer plus tard'
+        );
+      }
+      FlowRouter.go('paymentwaiting');
+    });
   }
   getMeteorData() {
     if (Meteor.isServer) {

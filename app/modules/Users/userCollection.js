@@ -59,15 +59,7 @@ initUsers = () => {
     category: {
       label: 'Catégorie', type: String, allowedValues() {
         return UserTypes.find().fetch().map(u => u.title);
-      },
-      autoValue() {
-        if (!this.value) {
-          const allowedValues = Schema.ProfileSchema
-            .getDefinition('category').allowedValues;
-          return allowedValues[0];
-        }
-        return this.value;
-      }, view: {
+      }, defaultValue: 'Adhérent SNVEL', view: {
         name: 'Select', label: 'Sélectionner votre catégorie :',
         placeholder: 'Votre catégorie', options() {
           return UserTypes.find().fetch().map(u => u.title);

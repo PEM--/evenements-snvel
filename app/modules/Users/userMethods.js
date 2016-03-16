@@ -84,5 +84,17 @@ Meteor.methods({
       Meteor.users.update({_id: this.userId}, user, {bypassCollection2: true});
       console.log('User', user.email(), 'subscribed to', program);
     }
+  },
+  'user.waitingPayment': function(program) {
+    if (!this.userId) { throw new Meteor.Error('unauthorized'); }
+    let user = Meteor.users.findOne(this.userId);
+    if (!user) { throw new Meteor.Error('unauthorized'); }
+    check(program, String);
+    let found = user.profile.programs.find(p => p.reference === program);
+    if (!found) {
+      console.warn('No program', program, 'found for', user.email());
+      throw new Meteor.Error('unauthorized');
+    }
+    // found
   }
 });
