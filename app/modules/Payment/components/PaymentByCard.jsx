@@ -1,3 +1,5 @@
+const { Views } = MainApp;
+
 class PaymentByCard extends React.Component {
   constructor(props) {
     super(props);
@@ -5,11 +7,8 @@ class PaymentByCard extends React.Component {
   render() {
     // const { prices, discounts, totalHT, totalTTC } = this.props;
     return (
-      <div className='fadeIn'>
-        <h4>Paiement par carte</h4>
-        // <Invoice prices={prices} discounts={discounts} totalHT={totalHT} totalTTC={totalTTC} />
-        <div className='card-wrapper' />
-      </div>
+      // <Invoice prices={prices} discounts={discounts} totalHT={totalHT} totalTTC={totalTTC} />
+      <div className='card-wrapper' />
     );
   }
   componentDidMount() {
@@ -37,4 +36,4 @@ class PaymentByCard extends React.Component {
   }
 }
 
-MainApp.Views.PaymentByCard = PaymentByCard;
+Views.PaymentByCard = PaymentByCard;

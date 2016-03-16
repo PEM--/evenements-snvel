@@ -205,4 +205,4 @@ class Subscribe extends BaseReactMeteor {
   }
 }
 
-MainApp.Views.Subscribe = Subscribe;
+Views.Subscribe = Subscribe;
