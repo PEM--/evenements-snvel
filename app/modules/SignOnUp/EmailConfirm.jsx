@@ -1,5 +1,4 @@
-const { Views } = MainApp;
-const { Spinner } = Views;
+const { Spinner } = MainApp.Views;
 
 const textEmail = {
   title: 'En attente de confirmation de votre mail',

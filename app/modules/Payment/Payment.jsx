@@ -13,7 +13,8 @@ class Payment extends BaseReactMeteor {
     this.setState({paymentType: e});
   }
   onValidateCheck() {
-    console.log('Validated');
+    console.error('Validated');
+    FlowRouter.go('paymentwaiting');
   }
   getMeteorData() {
     if (Meteor.isServer) {

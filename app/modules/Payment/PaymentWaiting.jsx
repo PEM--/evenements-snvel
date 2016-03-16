@@ -1,31 +1,13 @@
-const { Views, Col } = MainApp;
-const { Spinner, BaseReactMeteor } = Views;
+const { Spinner } = MainApp.Views;
 
-class PaymentWaiting extends BaseReactMeteor {
-  constructor(props) {
-    super(props);
-  }
-  getMeteorData() {
-    if (Meteor.isServer) {
-      Meteor.subscribe('programs.all');
-    }
-    return {
-      program: Col.Programs.findOne(
-        {reference: this.props.program},
-        {fields: {reference: 1}}
-      ),
-      user: Meteor.user()
-    };
-  }
-  render() {
-    const {user, program} = this.data;
-    return (
-      <section className='maximized MainContent Payment animated fadeIn'>
-        <h1>Paiement en attente</h1>
-        <Spinner />
-      </section>
-    );
-  }
-}
+const PaymentWaiting = () => (
+  <section className='maximized MainContent Payment animated fadeIn'>
+    <h1>Paiement en attente</h1>
+    <p><span className='fa fa-exclamation-circle'></span> Nous sommes en attente de réception de votre chèque, puis encaissement de ce dernier. Nous vous informerons de la validation de votre inscription via notre email de facturation.</p>
+    <div style={{width: '100%', height: '100px'}} >
+      <Spinner className='maximized' style={{height: '100px'}} />
+    </div>
+  </section>
+);
 
 MainApp.Views.PaymentWaiting = PaymentWaiting;
