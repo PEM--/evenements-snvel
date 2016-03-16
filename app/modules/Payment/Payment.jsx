@@ -51,8 +51,12 @@ class Payment extends BaseReactMeteor {
                 <h3>Montant : <span className='price'>{
                   numeralAmountFormat(amount)
                 } TTC</span></h3>
-                <p>Veuillez adresser votre chèque à l'ordre du <b>SNVEL</b>.</p>
-                <p>Sur réception et encaissement de ce dernier, un email de facture vous sera transmis validant votre inscription.</p>
+                <p>
+                  Veuillez adresser votre chèque à l'ordre du <b>SNVEL</b><br />
+                  et envoyez le par courrier postal à l'adresse suivante :<br />
+                  <b>SNVEL</b> - 10, Place Léon Blum - 75011 Paris.
+                </p>
+                <p><span className='fa fa-exclamation-circle'></span> Sur réception et encaissement de ce dernier, un email de facture vous sera transmis validant votre inscription.</p>
                 <div className='textCenter'>
                   <Button primary={true} onClick={this.onValidateCheck}>
                     Je valide ce paiment
