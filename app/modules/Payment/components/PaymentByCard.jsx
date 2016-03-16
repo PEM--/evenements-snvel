@@ -1,5 +1,5 @@
 const { Views } = MainApp;
-const { Buttons } = Views;
+const { Input, Button } = Views;
 
 class PaymentByCard extends React.Component {
   constructor(props) {
@@ -17,6 +17,11 @@ class PaymentByCard extends React.Component {
             } TTC</span></h3>
             <div className='card-wrapper' />
           </fieldset>
+          <div className='textCenter'>
+            <Views.Button primary={true} onClick={onValidate}>
+              Je valide mon paiment
+            </Views.Button>
+          </div>
         </form>
       </div>
     );
@@ -27,7 +32,7 @@ class PaymentByCard extends React.Component {
     const cardWidth = viewportSize < 400 ? 200 : 300;
     // Create card for displaying user's entries
     Meteor.setTimeout(() => {
-      let card = new Card({
+      this.card = new Card({
         width: cardWidth,
         form: 'form',
         container: '.card-wrapper',
@@ -44,6 +49,9 @@ class PaymentByCard extends React.Component {
       });
     }, 32);
   }
+  // componentWillUnmount() {
+  //   console.log('Card', this.card);
+  // }
 }
 
 Views.PaymentByCard = PaymentByCard;

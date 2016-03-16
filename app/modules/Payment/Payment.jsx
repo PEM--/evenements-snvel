@@ -1,7 +1,6 @@
 const { Views, Col } = MainApp;
 const {
-  AnimatedLink, Radio, Input, Button,
-  PaymentByCard, PaymentByCheck, BaseReactMeteor
+  AnimatedLink, Radio, PaymentByCard, PaymentByCheck, BaseReactMeteor
 } = Views;
 
 class Payment extends BaseReactMeteor {
@@ -48,7 +47,7 @@ class Payment extends BaseReactMeteor {
     const {user, program} = this.data;
     const amount = Meteor.users.sumPrice(user, program);
     return (
-      <section className='maximized MainContent Payment animated fadeIn'>
+      <section className='maximized lisibility MainContent Payment animated fadeIn'>
         <h1>Paiement</h1>
         <Radio
           value={this.state.paymentType}
@@ -70,7 +69,7 @@ class Payment extends BaseReactMeteor {
               amount={amount} onValidate={this.onValidateCard}
             /> : ''
         }
-        <AnimatedLink to='subscribe'>Retour aux inscription</AnimatedLink>
+        <AnimatedLink to='subscribe'>Retour à l'inscription</AnimatedLink>
       </section>
     );
   }

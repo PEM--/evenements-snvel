@@ -1,5 +1,4 @@
 const { Views } = MainApp;
-const { Button } = Views;
 
 const PaymentByCheck = ({amount, onValidate}) => (
   <div className='check animated fadeIn'>
@@ -17,9 +16,9 @@ const PaymentByCheck = ({amount, onValidate}) => (
       </p>
       <p><span className='fa fa-exclamation-circle'></span> Sur réception et encaissement de ce dernier, un email de facture vous sera transmis validant votre inscription.</p>
       <div className='textCenter'>
-        <Button primary={true} onClick={onValidate}>
-          Je valide ce paiment
-        </Button>
+        <Views.Button primary={true} onClick={onValidate}>
+          Je valide mon paiment
+        </Views.Button>
       </div>
     </form>
   </div>
