@@ -1,5 +1,5 @@
 const { Views, Col } = MainApp;
-const { AnimatedLink, Radio, Input, Button, BaseReactMeteor } = Views;
+const { AnimatedLink, Radio, Input, Button, PaymentByCard, BaseReactMeteor } = Views;
 
 class Payment extends BaseReactMeteor {
   constructor(props) {
@@ -79,6 +79,7 @@ class Payment extends BaseReactMeteor {
           user && program && this.state.paymentType === 'card' ?
             <div className='card animated fadeIn'>
               <h2>Paiement par carte sélectionné</h2>
+              <PaymentByCard />
             </div> : ''
         }
         <AnimatedLink to='subscribe'>Retour aux inscription</AnimatedLink>

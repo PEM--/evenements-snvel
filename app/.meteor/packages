@@ -67,6 +67,7 @@ vsivsi:job-collection
 tap:i18n
 tap:i18n-bundler
 gwendall:simple-schema-i18n
+gadicohen:reactive-window
 
 # React
 react

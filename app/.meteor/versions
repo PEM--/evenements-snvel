@@ -43,6 +43,7 @@ ejson@1.0.7
 email@1.0.8
 es5-shim@4.1.14
 fastclick@1.0.7
+gadicohen:reactive-window@1.0.6
 gadicohen:robots-txt@0.0.10
 gadicohen:sitemaps@0.0.24
 geojson-utils@1.0.4
@@ -84,6 +85,7 @@ mquandalle:bower@1.5.2_1
 mquandalle:jade@0.4.9
 mquandalle:jade-compiler@0.4.5
 mquandalle:stylus@1.1.2
+mrt:isolate-value@2.0.2
 mrt:later@1.6.1
 natestrauser:animate-css@3.5.1
 npm-bcrypt@0.7.8_2
