@@ -4,7 +4,7 @@ const { AnimatedLink, Radio, Input, Button, BaseReactMeteor } = Views;
 class Payment extends BaseReactMeteor {
   constructor(props) {
     super(props);
-    this.state = { paymentType: 'check' };
+    this.state = { paymentType: 'card' };
     [
       'onPaymentChange', 'onValidateCheck'
     ].forEach(f => this[f] = this[f].bind(this));
@@ -31,13 +31,14 @@ class Payment extends BaseReactMeteor {
   }
   render() {
     const {user, program} = this.data;
+    const amount = Meteor.users.sumPrice(user, program);
     return (
       <section className='maximized MainContent Payment animated fadeIn'>
         <h1>Paiement</h1>
         <Radio
           value={this.state.paymentType}
           onChange={this.onPaymentChange}
-          label='Sélectionnez votre moyen de paiment' options={[
+          label='Sélectionnez votre moyen de paiement' options={[
             { value: 'check', label: 'Paiement par chèque' },
             { value: 'card', label: 'Paiment par carte' }
           ]}
@@ -48,11 +49,15 @@ class Payment extends BaseReactMeteor {
               <h2>Paiement par chèque sélectionné</h2>
               <form>
                 <h3>Montant : <span className='price'>{
-                  numeralAmountFormat(Meteor.users.sumPrice(user, program))
+                  numeralAmountFormat(amount)
                 } TTC</span></h3>
-                <Button primary={true} onClick={this.onValidateCheck}>
-                  Je valide ce paiment
-                </Button>
+                <p>Veuillez adresser votre chèque à l'ordre du <b>SNVEL</b>.</p>
+                <p>Sur réception et encaissement de ce dernier, un email de facture vous sera transmis validant votre inscription.</p>
+                <div className='textCenter'>
+                  <Button primary={true} onClick={this.onValidateCheck}>
+                    Je valide ce paiment
+                  </Button>
+                </div>
               </form>
             </div> : ''
         }
