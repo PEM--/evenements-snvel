@@ -322,8 +322,11 @@ initPrograms = () => {
       let total = 0;
       const applicableRules = prg.specialRules.filter(r => {
         let applicable = true;
-        if (r.categories.indexOf(userType) === -1) {
-          return false;
+        if (r.categories.indexOf(userType) === -1) { return false; }
+        if (r.applicationDate !== '*') {
+          const start = moment(r.applicationDate, 'DD/MM/YY');
+          const now = moment();
+          if (now.isBefore(start)) { return false; }
         }
         return true;
       });

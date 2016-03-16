@@ -156,7 +156,7 @@ class Subscribe extends BaseReactMeteor {
   }
   render() {
     const { user, program } = this.data;
-    const userType = user.profile.category;
+    const userType = user && user.profile && user.profile.category ? user.profile.category : 'Adhérent SNVEL';
     const propose = Col.Programs.proposeAttendant(program, this.state.chosenForMe);
     const tableHeader = ['Choix des prestations', 'Prix', 'Sélection'];
     return (
