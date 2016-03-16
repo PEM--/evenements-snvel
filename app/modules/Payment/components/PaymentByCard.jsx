@@ -1,14 +1,24 @@
 const { Views } = MainApp;
+const { Buttons } = Views;
 
 class PaymentByCard extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
-    // const { prices, discounts, totalHT, totalTTC } = this.props;
+    const { amount, onValidate } = this.props;
     return (
-      // <Invoice prices={prices} discounts={discounts} totalHT={totalHT} totalTTC={totalTTC} />
-      <div className='card-wrapper' />
+      <div className='card animated fadeIn'>
+        <h2>Paiement par carte sélectionné</h2>
+        <form>
+          <fieldset>
+            <h3>Montant : <span className='price'>{
+              numeralAmountFormat(amount)
+            } TTC</span></h3>
+            <div className='card-wrapper' />
+          </fieldset>
+        </form>
+      </div>
     );
   }
   componentDidMount() {

@@ -9,7 +9,7 @@ class Payment extends BaseReactMeteor {
     super(props);
     this.state = { paymentType: 'card' };
     [
-      'onPaymentChange', 'onValidateCheck'
+      'onPaymentChange', 'onValidateCheck', 'onValidateCard'
     ].forEach(f => this[f] = this[f].bind(this));
   }
   onPaymentChange(e) {
@@ -26,6 +26,9 @@ class Payment extends BaseReactMeteor {
       }
       FlowRouter.go('paymentwaiting');
     });
+  }
+  onValidateCard() {
+    console.log('Card validation');
   }
   getMeteorData() {
     if (Meteor.isServer) {
@@ -61,13 +64,12 @@ class Payment extends BaseReactMeteor {
               amount={amount} onValidate={this.onValidateCheck}
             /> : ''
         }
-        { /*
+        {
           user && program && this.state.paymentType === 'card' ?
-            <div className='card animated fadeIn'>
-              <h2>Paiement par carte sélectionné</h2>
-              <PaymentByCard />
-            </div> : ''
-        */ }
+            <PaymentByCard
+              amount={amount} onValidate={this.onValidateCard}
+            /> : ''
+        }
         <AnimatedLink to='subscribe'>Retour aux inscription</AnimatedLink>
       </section>
     );

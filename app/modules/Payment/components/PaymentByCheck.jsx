@@ -1,7 +1,7 @@
 const { Views } = MainApp;
 const { Button } = Views;
 
-const PaymentBycheck = ({amount, onValidate}) => (
+const PaymentByCheck = ({amount, onValidate}) => (
   <div className='check animated fadeIn'>
     <h2>Paiement par chèque sélectionné</h2>
     <form>
@@ -25,4 +25,4 @@ const PaymentBycheck = ({amount, onValidate}) => (
   </div>
 );
 
-Views.PaymentBycheck = PaymentBycheck;
+Views.PaymentByCheck = PaymentByCheck;
