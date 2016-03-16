@@ -4,21 +4,39 @@ const { Input, Button } = Views;
 class PaymentByCard extends React.Component {
   constructor(props) {
     super(props);
+    console.log('CardSchema', MainApp.Schema.CardSchema);
+    formFromSchema(this, 'CardSchema');
+    this.state.formError = null;
   }
   render() {
+    const formStatus = this.validateForm();
     const { amount, onValidate } = this.props;
     return (
       <div className='card animated fadeIn'>
         <h2>Paiement par carte sélectionné</h2>
-        <form>
+        <form autoComplete='off'>
           <fieldset>
             <h3>Montant : <span className='price'>{
               numeralAmountFormat(amount)
             } TTC</span></h3>
             <div className='card-wrapper' />
+            <div className='fieldsContainer'>
+              { this.nodes.map(n => n.widget(this.state, formStatus)) }
+            </div>
           </fieldset>
+          <div
+            className={classNames('formError', {
+              active: this.state.formError
+            })}
+          >
+            <i className='fa fa-warning'></i>
+            <span>{this.state.formError}</span>
+          </div>
           <div className='textCenter'>
-            <Views.Button primary={true} onClick={onValidate}>
+            <Views.Button
+              primary={true} onClick={onValidate}
+
+            >
               Je valide mon paiment
             </Views.Button>
           </div>

@@ -102,12 +102,12 @@ const initNotFoundRoute = () => {
 };
 
 appStartup = () => {
+  initPayment();
   initBasicPages();
   initUsers();
   initSocialLinks();
   initSubscribers();
   initPrograms();
-  initPayment();
   declareRoutes();
 };
 
