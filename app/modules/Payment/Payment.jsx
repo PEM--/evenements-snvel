@@ -52,9 +52,11 @@ class Payment extends BaseReactMeteor {
                   numeralAmountFormat(amount)
                 } TTC</span></h3>
                 <p>
-                  Veuillez adresser votre chèque à l'ordre du <b>SNVEL</b><br />
-                  et envoyez le par courrier postal à l'adresse suivante :<br />
-                  <b>SNVEL</b> - 10, Place Léon Blum - 75011 Paris.
+                  Veuillez adresser votre chèque à l'ordre du <b>SNVEL</b>&nbsp;
+                  et envoyez le par courrier postal à l'adresse suivante :
+                </p>
+                <p className='textCenter'>
+                  <b>SNVEL</b> - 10, Place Léon Blum - 75011 Paris
                 </p>
                 <p><span className='fa fa-exclamation-circle'></span> Sur réception et encaissement de ce dernier, un email de facture vous sera transmis validant votre inscription.</p>
                 <div className='textCenter'>
