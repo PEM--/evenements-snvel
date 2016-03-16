@@ -70,6 +70,7 @@ Meteor.methods({
     let user = Meteor.users.findOne(this.userId);
     if (!user) { throw new Meteor.Error('unauthorized'); }
     check(program, Schema.ProfileProgramSchema);
+    program.date = moment().format('DD/MM/YYYY');
     const idx = user.profile.programs.reduce((acc, p, index) => {
       if (p.reference === program.reference) { acc = index; }
       return acc;

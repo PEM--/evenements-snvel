@@ -49,6 +49,7 @@ initUsers = () => {
   });
   const ProfileProgramSchema = new SimpleSchema({
     reference: {type: String, label: 'Référence', min: 2, max: 16},
+    date: {type: String, label: 'Date d\'inscription', min: 12, max: 12, optional: true},
     status: {type: String, label: 'Statut de paiement', allowedValues: ['Inscrit', 'Attente paiement', 'Payé']},
     prices: {type: [String], label: 'Prix & droits', minCount: 1, maxCount: 256},
     attendant: {type: ProfileProgramAttendant, label: 'Accompagnant', optional: true}

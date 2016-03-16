@@ -52,14 +52,13 @@ class Subscribe extends BaseReactMeteor {
     return this.getChosenState(userType).indexOf(code) !== -1;
   }
   sumPrices(program, userType) {
-    const forMe = this.state.chosenForMe.reduce((acc, c) => {
-      acc += Col.Programs.discountedVatPriceForCode(program, userType, c);
-      return acc;
-    }, 0);
-    const forAttendant = this.state.chosenForAttendant.reduce((acc, c) => {
-      acc += Col.Programs.discountedVatPriceForCode(program, 'Accompagnant', c);
-      return acc;
-    }, 0);
+    const now = moment();
+    const forMe = Col.Programs.finalPrice(
+      program, userType, this.state.chosenForMe, now
+    );
+    const forAttendant = Col.Programs.finalPrice(
+      program, 'Accompagnant', this.state.chosenForAttendant, now
+    );
     return forMe + forAttendant;
   }
   onSubscribe(userType) {
