@@ -95,3 +95,24 @@ dc build nginx; dc up -d nginx
 * dkim
 * spf
 * dmarc
+
+## IP du VPS
+IPv4 : `51.255.194.65`
+
+## Config DNS
+```txt
+$TTL 3600
+@	IN SOA a.dns.gandi.net. hostmaster.gandi.net. (1455609547 10800 3600 604800 10800)
+                                        IN NS     ns14.ovh.net.
+                                        IN NS     dns14.ovh.net.
+                                        IN A      51.255.194.65
+                                        IN TXT    "1|www.evenements-snvel.fr"
+                                        IN MX 1   mail.evenements-snvel.fr.
+smtp                                    IN A      51.255.194.65
+mail                                    IN A      51.255.194.65
+smtp.evenements-snvel.fr                IN A      51.255.194.65
+mail.evenements-snvel.fr                IN A      51.255.194.65
+www                                     IN A      51.255.194.65
+www                                     IN TXT    "3|welcome"
+www                                     IN TXT    "l|fr"
+```

@@ -9,23 +9,22 @@ class Subscribe extends BaseReactMeteor {
     ].forEach(f => { this[f] = this[f].bind(this); });
     const user = Meteor.user();
     const { program } = this.props;
+    this.state = {
+      chosenForMe: [],
+      chosenForAttendant: [],
+      attendantName: '',
+      attendantFirstName: ''
+    };
     if (user && user.profile && user.profile.programs) {
       const found = user.profile.programs.find(p => p.reference === this.props.program);
       if (found) {
-        this.state = {
-          chosenForMe: found.prices,
-          chosenForAttendant: found.attendant ? found.attendant.prices : [],
-          attendantName: found.attendant ? found.attendant.name : '',
-          attendantFirstName: found.attendant ? found.attendant.firstName : ''
-        };
+        this.state.chosenForMe = found.prices;
+        if (found.attendant) {
+          this.state.chosenForAttendant = found.attendant.prices;
+          this.state.attendantName = found.attendant.name;
+          this.state.attendantFirstName = found.attendant.firstName;
+        }
       }
-    } else {
-      this.state = {
-        chosenForMe: [],
-        chosenForAttendant: [],
-        attendantName: '',
-        attendantFirstName: ''
-      };
     }
   }
   getMeteorData() {

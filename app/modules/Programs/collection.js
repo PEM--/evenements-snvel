@@ -318,14 +318,13 @@ initPrograms = () => {
       return Programs.vatPriceForCode(prg, userType, code) *
         (1 - Programs.discountForCode(prg, userType, code));
     },
-    finalPrice(prg, userType, codes) {
+    finalPrice(prg, userType, codes, now) {
       let total = 0;
       const applicableRules = prg.specialRules.filter(r => {
         let applicable = true;
         if (r.categories.indexOf(userType) === -1) { return false; }
         if (r.applicationDate !== '*') {
           const start = moment(r.applicationDate, 'DD/MM/YY');
-          const now = moment();
           if (now.isBefore(start)) { return false; }
         }
         if (r.requiredSales.length > 0) {
@@ -339,6 +338,24 @@ initPrograms = () => {
         }
         return true;
       });
+      return codes.reduce((acc, c) => {
+        let amount = discountedVatPriceForCode(prg, userType, c);
+        applicableRules.forEach(r => {
+          if (r.onPrices.indexOf(c) !== -1) {
+            switch (r.name) {
+            case 'increaseAfter':
+              amount = amount * (1 + r.amount);
+              break;
+            case 'specialOffer':
+              amount = amount * (1 - r.amount);
+              break;
+            default: break;
+            }
+          }
+        });
+        acc += amount;
+        return acc;
+      }, 0);
     },
     proposeAttendant(prg, codes) {
       let propose = false;
