@@ -328,6 +328,15 @@ initPrograms = () => {
           const now = moment();
           if (now.isBefore(start)) { return false; }
         }
+        if (r.requiredSales.length > 0) {
+          const allSalesFound = r.requiredSales.reduce((acc, s) => {
+            if (!acc) {
+              acc = codes.indexOf(s) !== -1;
+            }
+            return acc;
+          }, true);
+          if (!allSalesFound) { return false; }
+        }
         return true;
       });
     },
