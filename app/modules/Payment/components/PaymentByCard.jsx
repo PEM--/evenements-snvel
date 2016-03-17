@@ -9,10 +9,18 @@ class PaymentByCard extends React.Component {
     this.state.waitingPayment = false;
     this.onFormValidate = this.onFormValidate.bind(this);
   }
+  resolveError(error) {
+    console.warn('Error in payment process', error);
+    sAlert.error(error.reason);
+    Meteor.setTimeout(() => { this.setState({waitingPayment: false}); }, 1000);
+  }
   onFormValidate() {
     this.setState({waitingPayment: true});
-    // Meteor.setTimeout(() => { this.setState({waitingPayment: false}); }, 1000);
-    // this.props.onFormValidate();
+    Meteor.call('clientToken', (tokenError, tokenResult) => {
+      if (tokenError) { return this.resolveError(tokenError); }
+      Meteor.setTimeout(() => { this.setState({waitingPayment: false}); }, 1000);
+      // this.props.onFormValidate();
+    });
   }
   render() {
     const formStatus = this.validateForm();

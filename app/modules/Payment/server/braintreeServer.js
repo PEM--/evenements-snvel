@@ -34,7 +34,7 @@ Meteor.startup(() => {
         res.status(500).end('Internal server error');
         return;
       }
-      console.log('Client token generated', response);
+      console.log('Client token generated', JSON.stringify(response));
       // Send the client token
       res.end(response.clientToken);
     });
