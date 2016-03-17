@@ -27,6 +27,7 @@ class Invoice extends BaseReactMeteor {
   }
   render() {
     const { user, program } = this.data;
+    const { title, location, period } = program;
     const invoice = Utils.calcInvoice(user, program);
     return (
       <section className='maximized MainContent Invoice animated fadeIn'>

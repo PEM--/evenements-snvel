@@ -38,13 +38,12 @@ const getLabels = (codes, program) => {
 };
 
 const calcInvoice = (user, program) => {
-  const { title, location, period } = program;
   const userType = user.profile.category;
   const found = user.profile.programs.find(p => p.reference === program.reference);
   const labels = getLabels(found.prices, program);
   const boughtDate = moment(found.date, 'DD/MM/YYYY');
   const labelsAttendant = found.attendant ?
-    this.getLabels(found.attendant.prices, program) : [];
+    getLabels(found.attendant.prices, program) : [];
   let total = Col.Programs.finalPrice(
     program, userType, found.prices, boughtDate, false
   );
@@ -53,7 +52,7 @@ const calcInvoice = (user, program) => {
       program, 'Accompagnant', found.attendant.prices, boughtDate, false
     );
   }
-  return Utils.renderInvoice(
+  return renderInvoice(
     labels, labelsAttendant, total, total * (1 + program.tva)
   );
 };
