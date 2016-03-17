@@ -19,21 +19,27 @@ class Invoice extends BaseReactMeteor {
     };
   }
   render() {
-    const { title, location, period } = this.data.program;
+    const { user, program } = this.data;
+    const { title, location, period } = program;
+    const userType = user.profile.category;
+    const found = user.profile.programs.find(p => p.reference === program.reference);
+    const labels = found.prices.map(p => {
+      const right = program.priceRights.find(r => p === r.code);
+      return right.description;
+    });
     const invoice = Utils.renderInvoice(
+      labels,
       [
-        {
-          designation: 'Journée étude avec repas 24/03',
-          value: 60
-        }
+        'Journée étude avec repas 24/03'
       ],
-      [],
-      120,
-      140
+      140,
+      120
+      // Col.Programs.finalPrice(prg, userType, codes, now, false),
+      // Col.Programs.finalPrice(prg, userType, codes, now, true)
     );
     return (
       <section className='maximized MainContent Invoice animated fadeIn'>
-        <h1 className='lisibility'>Résumé de vos droits</h1>
+        <h1 className='lisibility'>Votre inscription</h1>
         <h2 className='lisibility'>{title}</h2>
         <h3 className='lisibility'>{location} - {period}</h3>
         <div className='receipt'><pre>{invoice}</pre></div>

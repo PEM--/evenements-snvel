@@ -320,11 +320,15 @@ initPrograms = () => {
       if (!discountForType) { return 0; }
       return discountForType.amount;
     },
+    discountedPriceForCode(prg, userType, code) {
+      return Programs.priceForCode(prg, userType, code) *
+        (1 - Programs.discountForCode(prg, userType, code));
+    },
     discountedVatPriceForCode(prg, userType, code) {
       return Programs.vatPriceForCode(prg, userType, code) *
         (1 - Programs.discountForCode(prg, userType, code));
     },
-    finalPrice(prg, userType, codes, now) {
+    finalPrice(prg, userType, codes, now, vatIncluded = true) {
       let total = 0;
       const applicableRules = prg.specialRules.filter(r => {
         if (r.categories.indexOf(userType) === -1) { return false; }
@@ -344,7 +348,8 @@ initPrograms = () => {
         return true;
       });
       return codes.reduce((acc, c) => {
-        let amount = Col.Programs.discountedVatPriceForCode(prg, userType, c);
+        const totalFct = vatIncluded ? Col.Programs.discountedVatPriceForCode : discountedPriceForCode;
+        let amount = totalFct(prg, userType, c);
         applicableRules.forEach(r => {
           if (r.onPrices.indexOf(c) !== -1) {
             switch (r.name) {
