@@ -271,10 +271,15 @@ initUsers = () => {
   if (Meteor.isServer) {
     // Publish
     Meteor.publish('users.me', function() {
-      if (!this.userId) {
-        return this.ready();
-      }
+      if (!this.userId) { return this.ready(); }
       return Meteor.users.find(this.userId);
+    });
+    Meteor.publish('users.all', function() {
+      if (!this.userId) { return this.ready(); }
+      const user = Meteor.users.findOne(this.userId);
+      if (!user || !user.isAdmin()) { return this.ready(); }
+      Counts.publish(this, 'users.counter', Meteor.users.find());
+      return Meteor.users.find();
     });
     console.log('BasicPages filled and exposed');
   }

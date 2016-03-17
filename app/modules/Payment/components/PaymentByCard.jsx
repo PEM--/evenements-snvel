@@ -67,9 +67,6 @@ class PaymentByCard extends React.Component {
       });
     }, 32);
   }
-  // componentWillUnmount() {
-  //   console.log('Card', this.card);
-  // }
 }
 
 Views.PaymentByCard = PaymentByCard;

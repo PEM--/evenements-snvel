@@ -95,6 +95,12 @@ class Admin extends Views.BaseReactMeteor {
                 header={['Description', 'Action']}
                 items={items}
               />
+              <MeteorGriddle
+                publication='users.all'
+                collection={Meteor.users}
+                columns={['username', 'profile.name', 'profile.firstName']}
+                matchingResultsCount='users.counter'
+              />
               <AnimatedLink to='/'>Revenir à l'accueil</AnimatedLink>
             </div>
           ) : (
