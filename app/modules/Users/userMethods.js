@@ -82,7 +82,7 @@ Meteor.methods({
     delete user._id;
     if (Meteor.isServer) {
       Meteor.users.update({_id: this.userId}, user, {bypassCollection2: true});
-      console.log('User', user.email(), 'subscribed to', program);
+      console.log('User', user.email(), 'subscribed to', JSON.stringify(program));
     }
   },
   'user.waitingPayment': function(program) {
