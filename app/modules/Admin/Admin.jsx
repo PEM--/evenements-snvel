@@ -86,20 +86,36 @@ class Admin extends Views.BaseReactMeteor {
       </Button>
     ]));
     return (
-      <section className='maximized MainContent animated fadeIn'>
+      <section className='maximized MainContent Admin animated fadeIn'>
         {
           this.data.user ? (
             <div className='animated fadeIn lisibility'>
               <h1>Administration</h1>
-              <Table
-                header={['Description', 'Action']}
-                items={items}
-              />
+              <h2>Gestion des utilisateurs</h2>
+              <form>
+                <Button
+                  primary={true} disabled={true}
+                  iconName='cloud-download'
+                >
+                  Importer
+                </Button>
+                <Button
+                  primary={true} disabled={true}
+                  iconName='cloud-upload'
+                >
+                  Exporter
+                </Button>
+              </form>
               <MeteorGriddle
                 publication='users.all'
                 collection={Meteor.users}
                 columns={['username', 'profile.name', 'profile.firstName']}
                 matchingResultsCount='users.counter'
+              />
+              <h2>Mise à jour du serveur</h2>
+              <Table
+                header={['Description', 'Action']}
+                items={items}
               />
               <AnimatedLink to='/'>Revenir à l'accueil</AnimatedLink>
             </div>
