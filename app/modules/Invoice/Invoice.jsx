@@ -11,7 +11,7 @@ class Invoice extends BaseReactMeteor {
       program: Col.Programs.findOne(
         {reference: this.props.program},
         {fields: {
-          reference: 1, priceRights: 1, discounts: 1, specialRules: 1, tva: 1
+          title: 1, reference: 1, priceRights: 1, discounts: 1, specialRules: 1, tva: 1
         }}
       ),
       user: Meteor.user()
@@ -21,6 +21,7 @@ class Invoice extends BaseReactMeteor {
     return (
       <section className='maximized MainContent Invoice animated fadeIn'>
         <h1 className='lisibility'>Résumé de vos droits</h1>
+        <h2 className='lisibility'>{this.data.program.title}</h2>
         <div className='receipt'>
           <pre>123</pre>
         </div>
@@ -29,3 +30,5 @@ class Invoice extends BaseReactMeteor {
     );
   }
 }
+
+Views.Invoice = Invoice;
