@@ -20,6 +20,26 @@ Meteor.startup(() => {
   } catch (error) {
     throw new Meteor.Error(ERROR_TYPE, error.message);
   }
+  // Create server side only routes
+  const bodyParser = Meteor.npmRequire('body-parser');
+  Picker.middleware(bodyParser.json());
+  Picker.middleware(bodyParser.urlencoded({extended: false}));
+
+  const BRAINTREE_TOKEN_ROUTE = '/client_token';
+  Picker.route(BRAINTREE_TOKEN_ROUTE, function(params, req, res, next) {
+    // Create a client token
+    Utils.braintreeGateway.clientToken.generate({}, (err, response) => {
+      if (err) {
+        console.warn('Error while creating client token', err);
+        res.status(500).end('Internal server error');
+        return;
+      }
+      console.log('Client token generated', response);
+      // Send the client token
+      res.end(response.clientToken);
+    });
+  });
+  console.log(BRAINTREE_TOKEN_ROUTE, 'created');
 });
 
 Meteor.methods({
