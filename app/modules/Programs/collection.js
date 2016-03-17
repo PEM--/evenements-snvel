@@ -305,14 +305,20 @@ initPrograms = () => {
   Object.assign(Programs, {
     priceForCode(prg, userType, code) {
       const price = prg.priceRights.find(p => p.code === code);
-      return price.byType.find(t => t.category === userType).amount;
+      if (!price) { return 0; }
+      const priceForType = price.byType.find(t => t.category === userType);
+      if (!priceForType) { return 0; }
+      return priceForType.amount;
     },
     vatPriceForCode(prg, userType, code) {
       return Programs.priceForCode(prg, userType, code) * (1 + prg.tva);
     },
     discountForCode(prg, userType, code) {
       const discount = prg.discounts.find(p => p.code === code);
-      return discount.byType.find(t => t.category === userType).amount;
+      if (!discount) { return 0; }
+      const discountForType = discount.byType.find(t => t.category === userType);
+      if (!discountForType) { return 0; }
+      return discountForType.amount;
     },
     discountedVatPriceForCode(prg, userType, code) {
       return Programs.vatPriceForCode(prg, userType, code) *

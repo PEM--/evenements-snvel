@@ -95,15 +95,15 @@ class Admin extends Views.BaseReactMeteor {
               <form>
                 <Button
                   primary={true} disabled={true}
-                  iconName='cloud-download'
-                >
-                  Importer
-                </Button>
-                <Button
-                  primary={true} disabled={true}
                   iconName='cloud-upload'
                 >
                   Exporter
+                </Button>
+                <Button
+                  disabled={true}
+                  iconName='cloud-download'
+                >
+                  Importer
                 </Button>
               </form>
               <MeteorGriddle
