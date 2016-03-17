@@ -44,14 +44,13 @@ Meteor.startup(() => {
 
 Meteor.methods({
   // Braintree token generation
-  clientToken(cb) {
+  clientToken(program) {
     // Check of client is connected
     if (!this.userId) {
       throw new Meteor.Error(ERROR_TYPE, '403: Non authorized');
     }
     // Check transimtted data consistency
     check(program, String);
-    check(cb, Match.Any);
     console.log('Creating customer on Braintree');
     // Check profile consistency
     const user = Meteor.users.findOne(this.userId);
@@ -100,14 +99,12 @@ Meteor.methods({
     };
   },
   // Braintree card payment using nonce
-  cardPayment(nonce, invoice, cb) {
-    console.log(invoice);
+  cardPayment(nonce) {
     // Check of client is connected
     if (!this.userId) { throw new Meteor.Error('payment', '403: Non authorized'); }
     // Check transimtted data consistency
     check(nonce, String);
     check(invoice, Structure.InvoiceSchema);
-    check(cb, Match.Any);
     const user = Meteor.users.findOne(this.userId);
     const email = user.emails[0].address;
     if (!Roles.userIsInRole(this.userId, 'payment_pending')) {

@@ -15,38 +15,27 @@ class PaymentByCard extends React.Component {
     Meteor.setTimeout(() => { this.setState({waitingPayment: false}); }, 1000);
   }
   onFormValidate() {
+    const { program } = this.props;
     this.setState({waitingPayment: true});
     const number = this.state.number.trim().split(' ').join('');
     const cardholderName = this.state.name.trim().toUpperCase();
     const expirationDate = this.state.expiry.trim().split(' ').join('');
     const cvv = this.state.cvc.trim();
-    console.log('State', this.state, number, cardholderName, expirationDate, cvv);
-    Meteor.call('clientToken', this.props.program, (tokenError, tokenResult) => {
+    Meteor.call('clientToken', program, (tokenError, tokenResult) => {
       if (tokenError) { return this.resolveError(tokenError); }
-      console.log('Braintree customer', braintreeCustomerAndToken.braintreeCustomerId);
+      console.log('Braintree customer', tokenResult);
       Meteor.setTimeout(() => { this.setState({waitingPayment: false}); }, 1000);
-      const user = this.data.user;
+      const { address, postalCode, locality } = this.props.user.profile;
       // Creating a payment nonce
-      client = new braintree.api.Client({
-        clientToken: braintreeCustomerAndToken.token
-      });
+      client = new braintree.api.Client({clientToken: tokenResult.token});
       client.tokenizeCard({
         number, cardholderName, expirationDate, cvv,
-        billingAddress: {
-          streetAddress: user.profile.address,
-          postalCode: user.profile.postalCode,
-          locality: user.profile.city
-        }
-      }, (errorNounce, nonce) => {
-        if (errorNounce) { return this.resolveError(errorNounce); }
-        console.log('Nonce received from Braintree');
+        billingAddress: {streetAddress: address, postalCode, locality: city}
+      }, (errorNonce, nonce) => {
+        if (errorNonce) { return this.resolveError(errorNonce); }
+        console.log('Nonce received from Braintree', nonce);
         // Perform the payment using the nonce
-        Meteor.call('cardPayment', nonce, {
-          prices: this.prices,
-          discounts: this.discounts,
-          totalHT: this.state.totalHT,
-          totalTTC: this.state.totalTTC
-        }, (errorPayment, resultPayment) => {
+        Meteor.call('cardPayment', nonce, (errorPayment, resultPayment) => {
           if (errorPayment) { return this.resolveError(errorPayment); }
           console.log('Payment succeed');
           sAlert.success('Paiement validé');

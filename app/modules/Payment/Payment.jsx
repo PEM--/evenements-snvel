@@ -30,9 +30,7 @@ class Payment extends BaseReactMeteor {
     console.log('Card validation');
   }
   getMeteorData() {
-    if (Meteor.isServer) {
-      Meteor.subscribe('programs.all');
-    }
+    if (Meteor.isServer) { Meteor.subscribe('programs.all'); }
     return {
       program: Col.Programs.findOne(
         {reference: this.props.program},
@@ -67,7 +65,7 @@ class Payment extends BaseReactMeteor {
           user && program && this.state.paymentType === 'card' ?
             <PaymentByCard
               amount={amount} onValidate={this.onValidateCard}
-              program={this.props.program}
+              program={this.props.program} user={this.data.user}
             /> : ''
         }
         <AnimatedLink to='subscribe'>Retour à l'inscription</AnimatedLink>
