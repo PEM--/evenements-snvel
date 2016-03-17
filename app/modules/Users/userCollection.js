@@ -248,8 +248,6 @@ initUsers = () => {
   Meteor.users.attachSchema(UsersSchema);
   Object.assign(Meteor.users, {
     sumPrice(user, program) {
-      console.log('program', program, program.reference);
-      console.log('user', user.profile.programs);
       const found = user.profile.programs.find(p => p.reference === program.reference);
       const now = moment(found.date, 'DD/MM/YYYY');
       const forUser = Col.Programs.finalPrice(
@@ -281,6 +279,5 @@ initUsers = () => {
       Counts.publish(this, 'users.counter', Meteor.users.find());
       return Meteor.users.find();
     });
-    console.log('BasicPages filled and exposed');
   }
 };

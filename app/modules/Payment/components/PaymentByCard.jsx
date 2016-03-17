@@ -4,9 +4,15 @@ const { Input, Button } = Views;
 class PaymentByCard extends React.Component {
   constructor(props) {
     super(props);
-    console.log('CardSchema', MainApp.Schema.CardSchema);
     formFromSchema(this, 'CardSchema');
     this.state.formError = null;
+    this.state.waitingPayment = false;
+    this.onFormValidate = this.onFormValidate.bind(this);
+  }
+  onFormValidate() {
+    this.setState({waitingPayment: true});
+    Meteor.setTimeout(() => { this.setState({waitingPayment: false}); }, 1000);
+    // this.props.onFormValidate();
   }
   render() {
     const formStatus = this.validateForm();
@@ -34,8 +40,8 @@ class PaymentByCard extends React.Component {
           </div>
           <div className='textCenter'>
             <Views.Button
-              primary={true} onClick={onValidate}
-
+              primary={true} onClick={this.onFormValidate}
+              disabled={!formStatus.isValidForm || this.state.waitingPayment}
             >
               Je valide mon paiment
             </Views.Button>
