@@ -161,6 +161,10 @@ initUsers = () => {
       programs: {
         type: [ProfileProgramSchema], label: 'Programmes',
         minCount: 0, maxCount: 1024, defaultValue: []
+      },
+      braintreeCustomerId: {
+        type: String, label: 'Identifiant Braintree',
+        min: 3, max: 256, defaultValue: '', optional: true
       }
     })
   );

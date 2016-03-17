@@ -50,18 +50,19 @@ Meteor.methods({
       throw new Meteor.Error(ERROR_TYPE, '403: Non authorized');
     }
     // Check transimtted data consistency
+    check(program, String);
     check(cb, Match.Any);
     console.log('Creating customer on Braintree');
     // Check profile consistency
     const user = Meteor.users.findOne(this.userId);
-    if (!user) {
+    if (!user || !user.profile || !user.profile.programs) {
       console.warn('Fraud attempt: not enough user information', user);
       throw new Meteor.Error(ERROR_TYPE, 'Client inconnu pour le paiement', this.userId);
     }
-    const email = user.emails[0].address;
-    if (!Roles.userIsInRole(this.userId, 'payment_pending')) {
-      console.warn('Fraud attempt: wrong role for user', user, 'whit roles', Roles.getRolesForUser(this.userId));
-      throw new Meteor.Error(ERROR_TYPE, 'Client inconnu pour le paiement', this.userId);
+    const found = user.profile.programs.find(p => p.reference === program);
+    if (!found) {
+      console.warn('Fraud attempt: nothing bought', user.email(), 'with program', program);
+      throw new Meteor.Error(ERROR_TYPE, 'Client inconnu pour le paiement', user.email());
     }
     // Check if customer already owns a Braintree customer ID
     let braintreeCustomerId;
@@ -70,19 +71,16 @@ Meteor.methods({
       const result = Utils.braintreeGateway.customer.create({
         firstName: user.profile.firstName,
         lastName: user.profile.name,
-        email
+        email: user.email()
       });
       if (!result || !result.success || !result.customer || !result.customer.id) {
-        console.warn('Braintree Error for', email, result);
-        throw new Meteor.Error(ERROR_TYPE, 'Paiement impossible pour le moment pour', email);
+        console.warn('Braintree Error for', user.email(), result);
+        throw new Meteor.Error(ERROR_TYPE, 'Paiement impossible pour le moment pour', user.email());
       }
-      console.log('Customer ID create for customer', email, result.customer.id);
+      console.log('Customer ID create for customer', user.email(), result.customer.id);
       braintreeCustomerId = result.customer.id;
       Meteor.users.update({_id: this.userId}, {
-        $set: {
-          'profile.braintreeCustomerId': result.customer.id,
-          modifiedAt: new Date()
-        }
+        $set: { 'profile.braintreeCustomerId': result.customer.id }
       });
     } else {
       braintreeCustomerId = user.profile.braintreeCustomerId;
@@ -92,10 +90,10 @@ Meteor.methods({
       customerId: braintreeCustomerId
     });
     if (!result || !result.clientToken) {
-      console.warn('Braintree Error for', email, result);
-      throw new Meteor.Error(ERROR_TYPE, 'Paiement impossible pour le moment pour', email);
+      console.warn('Braintree Error for', user.email(), result);
+      throw new Meteor.Error(ERROR_TYPE, 'Paiement impossible pour le moment pour', user.email());
     }
-    console.log('Payment token createad for', email);
+    console.log('Payment token createad for', user.email());
     return {
       braintreeCustomerId,
       token: result.clientToken
@@ -105,9 +103,7 @@ Meteor.methods({
   cardPayment(nonce, invoice, cb) {
     console.log(invoice);
     // Check of client is connected
-    if (!this.userId) {
-      throw new Meteor.Error('payment', '403: Non authorized');
-    }
+    if (!this.userId) { throw new Meteor.Error('payment', '403: Non authorized'); }
     // Check transimtted data consistency
     check(nonce, String);
     check(invoice, Structure.InvoiceSchema);

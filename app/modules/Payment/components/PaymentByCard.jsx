@@ -16,10 +16,46 @@ class PaymentByCard extends React.Component {
   }
   onFormValidate() {
     this.setState({waitingPayment: true});
-    Meteor.call('clientToken', (tokenError, tokenResult) => {
+    console.log('State', this.state);
+    Meteor.setTimeout(() => { this.setState({waitingPayment: false}); }, 1000);
+    return;
+    Meteor.call('clientToken', this.props.program, (tokenError, tokenResult) => {
       if (tokenError) { return this.resolveError(tokenError); }
+      console.log('Braintree customer', braintreeCustomerAndToken.braintreeCustomerId);
       Meteor.setTimeout(() => { this.setState({waitingPayment: false}); }, 1000);
-      // this.props.onFormValidate();
+      const user = this.data.user;
+      // Creating a payment nonce
+      client = new braintree.api.Client({
+        clientToken: braintreeCustomerAndToken.token
+      });
+      client.tokenizeCard({
+        number: cardNumber,
+        cardholderName: cardName,
+        expirationDate: cardExpiry,
+        cvv: cardCvc,
+        billingAddress: {
+          streetAddress: user.profile.address,
+          postalCode: user.profile.postalCode,
+          locality: user.profile.city
+        }
+      }, (errorNounce, nonce) => {
+        if (errorNounce) { return this.resolveError(errorNounce); }
+        console.log('Nonce received from Braintree');
+        // Perform the payment using the nonce
+        Meteor.call('cardPayment', nonce, {
+          prices: this.prices,
+          discounts: this.discounts,
+          totalHT: this.state.totalHT,
+          totalTTC: this.state.totalTTC
+        }, (errorPayment, resultPayment) => {
+          if (errorPayment) { return this.resolveError(errorPayment); }
+          console.log('Payment succeed');
+          sAlert.success('Paiement validé');
+          // Meteor.setTimeout(() => FlowRouter.go('/subscription?step=report'), 300);
+          // this.props.onFormValidate();
+          Meteor.setTimeout(() => { this.setState({waitingPayment: false}); }, 1000);
+        });
+      });
     });
   }
   render() {

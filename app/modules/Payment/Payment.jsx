@@ -67,6 +67,7 @@ class Payment extends BaseReactMeteor {
           user && program && this.state.paymentType === 'card' ?
             <PaymentByCard
               amount={amount} onValidate={this.onValidateCard}
+              program={this.props.program}
             /> : ''
         }
         <AnimatedLink to='subscribe'>Retour à l'inscription</AnimatedLink>
