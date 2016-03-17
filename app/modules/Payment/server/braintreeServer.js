@@ -99,28 +99,26 @@ Meteor.methods({
     };
   },
   // Braintree card payment using nonce
-  cardPayment(nonce) {
+  cardPayment(nonce, program) {
     // Check of client is connected
     if (!this.userId) { throw new Meteor.Error('payment', '403: Non authorized'); }
     // Check transimtted data consistency
     check(nonce, String);
-    check(invoice, Structure.InvoiceSchema);
+    check(program, String);
     const user = Meteor.users.findOne(this.userId);
-    const email = user.emails[0].address;
-    if (!Roles.userIsInRole(this.userId, 'payment_pending')) {
-      console.warn('Fraud attempt: wrong role for user', user, 'whit roles', Roles.getRolesForUser(this.userId));
-      throw new Meteor.Error(ERROR_TYPE, 'Client inconnu pour le paiement', this.userId);
+    if (!user) {
+      console.warn('Fraud alert: unregistred user', this.userId);
+      throw new Meteor.Error(ERROR_TYPE, 'Paiement impossible pour le moment pour', this.userId);
     }
     if (!user.profile.braintreeCustomerId) {
-      console.warn('Fraud alert: missing braintreeCustomerId', email);
-      throw new Meteor.Error(ERROR_TYPE, 'Paiement impossible pour le moment pour', email);
+      console.warn('Fraud alert: missing braintreeCustomerId', user.email());
+      throw new Meteor.Error(ERROR_TYPE, 'Paiement impossible pour le moment pour', user.email());
     }
-    Meteor.users.update({_id: this.userId}, {
-      $set: {
-        invoice,
-        modifiedAt: new Date()
-      }
-    });
+    const found = user.profile.programs.find(p => p.reference === program);
+    if (!found) {
+      console.warn('Fraud attempt: nothing bought', user.email(), 'with program', program);
+      throw new Meteor.Error(ERROR_TYPE, 'Client inconnu pour le paiement', user.email());
+    }
     // Get amount in UK/EN/US format and switch back current language
     numeral.language('en');
     amount = numeral(invoice.totalTTC).format('00.00');

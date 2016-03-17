@@ -25,7 +25,7 @@ class PaymentByCard extends React.Component {
       if (tokenError) { return this.resolveError(tokenError); }
       console.log('Braintree customer', tokenResult);
       Meteor.setTimeout(() => { this.setState({waitingPayment: false}); }, 1000);
-      const { address, postalCode, locality } = this.props.user.profile;
+      const { address, postalCode, city } = this.props.user.profile;
       // Creating a payment nonce
       client = new braintree.api.Client({clientToken: tokenResult.token});
       client.tokenizeCard({
@@ -35,7 +35,7 @@ class PaymentByCard extends React.Component {
         if (errorNonce) { return this.resolveError(errorNonce); }
         console.log('Nonce received from Braintree', nonce);
         // Perform the payment using the nonce
-        Meteor.call('cardPayment', nonce, (errorPayment, resultPayment) => {
+        Meteor.call('cardPayment', nonce, program, (errorPayment, resultPayment) => {
           if (errorPayment) { return this.resolveError(errorPayment); }
           console.log('Payment succeed');
           sAlert.success('Paiement validé');
