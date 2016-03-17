@@ -11,7 +11,7 @@ class PaymentByCard extends React.Component {
   }
   onFormValidate() {
     this.setState({waitingPayment: true});
-    Meteor.setTimeout(() => { this.setState({waitingPayment: false}); }, 1000);
+    // Meteor.setTimeout(() => { this.setState({waitingPayment: false}); }, 1000);
     // this.props.onFormValidate();
   }
   render() {
