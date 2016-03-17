@@ -348,7 +348,8 @@ initPrograms = () => {
         return true;
       });
       return codes.reduce((acc, c) => {
-        const totalFct = vatIncluded ? Col.Programs.discountedVatPriceForCode : discountedPriceForCode;
+        const totalFct = vatIncluded ? Col.Programs.discountedVatPriceForCode :
+          Col.Programs.discountedPriceForCode;
         let amount = totalFct(prg, userType, c);
         applicableRules.forEach(r => {
           if (r.onPrices.indexOf(c) !== -1) {

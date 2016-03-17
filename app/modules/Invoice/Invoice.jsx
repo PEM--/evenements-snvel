@@ -18,24 +18,28 @@ class Invoice extends BaseReactMeteor {
       user: Meteor.user()
     };
   }
+  getLabels(codes) {
+    const program = this.data.program;
+    return codes.map(c => {
+      const right = program.priceRights.find(r => c === r.code);
+      return right.description;
+    });
+  }
   render() {
     const { user, program } = this.data;
     const { title, location, period } = program;
     const userType = user.profile.category;
     const found = user.profile.programs.find(p => p.reference === program.reference);
-    const labels = found.prices.map(p => {
-      const right = program.priceRights.find(r => p === r.code);
-      return right.description;
-    });
+    const labels = this.getLabels(found.prices);
+    const boughtDate = moment(found.date, 'DD/MM/YYYY');
+    // const labelsAttendant =
+    let total = Col.Programs.finalPrice(program, userType, found.prices, boughtDate, false);
     const invoice = Utils.renderInvoice(
       labels,
       [
         'Journée étude avec repas 24/03'
       ],
-      140,
-      120
-      // Col.Programs.finalPrice(prg, userType, codes, now, false),
-      // Col.Programs.finalPrice(prg, userType, codes, now, true)
+      total, total * (1 + program.tva)
     );
     return (
       <section className='maximized MainContent Invoice animated fadeIn'>
