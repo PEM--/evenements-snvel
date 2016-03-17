@@ -16,9 +16,11 @@ class PaymentByCard extends React.Component {
   }
   onFormValidate() {
     this.setState({waitingPayment: true});
-    console.log('State', this.state);
-    Meteor.setTimeout(() => { this.setState({waitingPayment: false}); }, 1000);
-    return;
+    const number = this.state.number.trim().split(' ').join('');
+    const cardholderName = this.state.name.trim().toUpperCase();
+    const expirationDate = this.state.expiry.trim().split(' ').join('');
+    const cvv = this.state.cvc.trim();
+    console.log('State', this.state, number, cardholderName, expirationDate, cvv);
     Meteor.call('clientToken', this.props.program, (tokenError, tokenResult) => {
       if (tokenError) { return this.resolveError(tokenError); }
       console.log('Braintree customer', braintreeCustomerAndToken.braintreeCustomerId);
@@ -29,10 +31,7 @@ class PaymentByCard extends React.Component {
         clientToken: braintreeCustomerAndToken.token
       });
       client.tokenizeCard({
-        number: cardNumber,
-        cardholderName: cardName,
-        expirationDate: cardExpiry,
-        cvv: cardCvc,
+        number, cardholderName, expirationDate, cvv,
         billingAddress: {
           streetAddress: user.profile.address,
           postalCode: user.profile.postalCode,
@@ -104,11 +103,12 @@ class PaymentByCard extends React.Component {
         width: cardWidth,
         form: 'form',
         container: '.card-wrapper',
+        formatting: true,
         messages: {
           validDate: 'Date de\nvalidité',
           monthYear: 'Mois / Année'
         },
-        values: {
+        placeholders: {
           number: '•••• •••• •••• ••••',
           name: 'NOM COMPLET',
           expiry: '••/••',
