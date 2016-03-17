@@ -27,7 +27,7 @@ class Payment extends BaseReactMeteor {
     });
   }
   onValidateCard() {
-    console.log('Card validation');
+    FlowRouter.go('invoice');
   }
   getMeteorData() {
     if (Meteor.isServer) { Meteor.subscribe('programs.all'); }

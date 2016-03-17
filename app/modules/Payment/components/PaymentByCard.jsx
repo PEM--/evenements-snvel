@@ -34,6 +34,13 @@ class PaymentByCard extends React.Component {
       }, (errorNonce, nonce) => {
         if (errorNonce) { return this.resolveError(errorNonce); }
         console.log('Nonce received from Braintree', nonce);
+
+
+        return this.props.onValidate();
+
+
+
+
         // Perform the payment using the nonce
         Meteor.call('cardPayment', nonce, program, (errorPayment, resultPayment) => {
           if (errorPayment) { return this.resolveError(errorPayment); }

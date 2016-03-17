@@ -32,14 +32,17 @@ class Invoice extends BaseReactMeteor {
     const found = user.profile.programs.find(p => p.reference === program.reference);
     const labels = this.getLabels(found.prices);
     const boughtDate = moment(found.date, 'DD/MM/YYYY');
-    // const labelsAttendant =
-    let total = Col.Programs.finalPrice(program, userType, found.prices, boughtDate, false);
+    const labelsAttendant = found.attendant ? this.getLabels(found.attendant.prices) : [];
+    let total = Col.Programs.finalPrice(
+      program, userType, found.prices, boughtDate, false
+    );
+    if (found.attendant) {
+      total += Col.Programs.finalPrice(
+        program, 'Accompagnant', found.attendant.prices, boughtDate, false
+      );
+    }
     const invoice = Utils.renderInvoice(
-      labels,
-      [
-        'Journée étude avec repas 24/03'
-      ],
-      total, total * (1 + program.tva)
+      labels, labelsAttendant, total, total * (1 + program.tva)
     );
     return (
       <section className='maximized MainContent Invoice animated fadeIn'>
