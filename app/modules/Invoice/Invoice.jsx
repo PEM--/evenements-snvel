@@ -27,23 +27,7 @@ class Invoice extends BaseReactMeteor {
   }
   render() {
     const { user, program } = this.data;
-    const { title, location, period } = program;
-    const userType = user.profile.category;
-    const found = user.profile.programs.find(p => p.reference === program.reference);
-    const labels = this.getLabels(found.prices);
-    const boughtDate = moment(found.date, 'DD/MM/YYYY');
-    const labelsAttendant = found.attendant ? this.getLabels(found.attendant.prices) : [];
-    let total = Col.Programs.finalPrice(
-      program, userType, found.prices, boughtDate, false
-    );
-    if (found.attendant) {
-      total += Col.Programs.finalPrice(
-        program, 'Accompagnant', found.attendant.prices, boughtDate, false
-      );
-    }
-    const invoice = Utils.renderInvoice(
-      labels, labelsAttendant, total, total * (1 + program.tva)
-    );
+    const invoice = Utils.calcInvoice(user, program);
     return (
       <section className='maximized MainContent Invoice animated fadeIn'>
         <h1 className='lisibility'>Votre inscription</h1>

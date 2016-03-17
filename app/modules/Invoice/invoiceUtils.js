@@ -1,3 +1,5 @@
+const {Utils, Col} = MainApp;
+
 const SIZE = 30;
 const LEFT = 20;
 const RIGHT = SIZE - LEFT;
@@ -28,4 +30,32 @@ const renderInvoice = (userCodes, attendantCodes, totalHT, totalTTC) => {
   );
 };
 
-MainApp.Utils.renderInvoice = renderInvoice;
+const getLabels = (codes) => {
+  const program = this.data.program;
+  return codes.map(c => {
+    const right = program.priceRights.find(r => c === r.code);
+    return right.description;
+  });
+};
+
+const calcInvoice = (user, program) => {
+  const { title, location, period } = program;
+  const userType = user.profile.category;
+  const found = user.profile.programs.find(p => p.reference === program.reference);
+  const labels = getLabels(found.prices);
+  const boughtDate = moment(found.date, 'DD/MM/YYYY');
+  const labelsAttendant = found.attendant ? this.getLabels(found.attendant.prices) : [];
+  let total = Col.Programs.finalPrice(
+    program, userType, found.prices, boughtDate, false
+  );
+  if (found.attendant) {
+    total += Col.Programs.finalPrice(
+      program, 'Accompagnant', found.attendant.prices, boughtDate, false
+    );
+  }
+  return Utils.renderInvoice(
+    labels, labelsAttendant, total, total * (1 + program.tva)
+  );
+};
+
+Utils.calcInvoice = calcInvoice;
