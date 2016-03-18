@@ -13,7 +13,30 @@
   fieldset
     padding-bottom 20px
 
-@media screen and (max-width: 400px)
-  .Payment .card-wrapper
-    margin 5px auto
-    height 100px
+@media screen and (max-width: 480px)
+  .Payment
+    h2
+      font-size 18px
+    h3
+      font-size 16px
+    form
+      width 100%
+      fieldset
+        .card-wrapper
+          margin 0
+          height 110px
+          position relative
+          padding 0
+          width 100%
+          .jp-card-container
+            transform scale(.5) translate3d(-1em, -90px, 0)
+          .jp-card-container, .jp-card
+            margin 0 auto
+            padding 0
+            position absolute
+            top 0
+            left 0
+
+@media screen and (max-width: 320px)
+  .Payment form fieldset .card-wrapper .jp-card-container
+    transform scale(.5) translate3d(-3em, -90px, 0)

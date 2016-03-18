@@ -82,12 +82,11 @@ class PaymentByCard extends React.Component {
   }
   componentDidMount() {
     // @TODO Set a Tracker for reactive sizes
-    const viewportSize = Math.min(rwindow.$width(), rwindow.$height());
-    const cardWidth = viewportSize < 400 ? 200 : 300;
+    // const viewportSize = Math.min(rwindow.$width(), rwindow.$height());
+    // const cardWidth = viewportSize < 400 ? 200 : 300;
     // Create card for displaying user's entries
     Meteor.setTimeout(() => {
       this.card = new Card({
-        width: cardWidth,
         form: 'form',
         container: '.card-wrapper',
         formatting: true,

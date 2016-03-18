@@ -12,7 +12,7 @@ const PaymentByCheck = ({amount, onValidate}) => (
         et envoyez le par courrier postal à l'adresse suivante :
       </p>
       <p className='textCenter'>
-        <b>SNVEL</b> - 10, Place Léon Blum - 75011 Paris
+        <b>SNVEL</b><br />10, Place Léon Blum - 75011 Paris
       </p>
       <p><span className='fa fa-exclamation-circle'></span> Sur réception et encaissement de ce dernier, un email de facture vous sera transmis validant votre inscription.</p>
       <div className='textCenter'>
