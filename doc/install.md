@@ -78,16 +78,27 @@ scp ../app/settings.pre.json root@dev.pem.paris:/etc/meteor/settings.json
 dc build meteor; dc up -d meteor
 ```
 
-## VPS pre-installation
+## NGinx
+### Create self signed certs
 ```sh
-ssh root@evenements-snvel.fr "bash -s" < ./provisioning.sh
-docker-machine -D create -d generic --generic-ip-address evenements-snvel.fr --generic-ssh-user root evenements-snvel.fr
-ssh root@evenements-snvel.fr "rm -rf /var/db; mkdir /var/db; chmod go+w /var/db"
-ssh root@evenements-snvel.fr "mkdir /etc/meteor"
-scp ../app/settings.prod.json root@dev.pem.paris:/etc/meteor/settings.json
-eval (dm env evenements-snvel.fr)
+ssh root@dev.pem.paris "mkdir -p /etc/certs; openssl req -nodes -new -x509 -keyout /etc/certs/server.key -out /etc/certs/server.crt -subj '/C=FR/ST=Paris/L=Paris/CN=pem.paris'"
 ```
 
+### Build
+```sh
+dc build nginx; dc up -d nginx
+```
+
+## VPS pre-installation
+```sh
+ssh root@evenements-snvel.fr "bash -s" < ../provisioning.sh
+docker-machine -D create -d generic --generic-ip-address evenements-snvel.fr --generic-ssh-user root evenements-snvel.fr
+ssh root@evenements-snvel.fr "rm -rf /var/db; mkdir /var/db; chmod go+w /var/db"
+ssh root@evenements-snvel.fr "mkdir -p /etc/certs"
+ssh root@evenements-snvel.fr "mkdir /etc/meteor"
+scp ../app/settings.prod.json root@evenements-snvel.fr:/etc/meteor/settings.json
+eval (dm env evenements-snvel.fr)
+```
 
 ## New release
 ```sh
@@ -114,27 +125,18 @@ d push pemarchandet/evenements-snvel-nginx:latest
 dc -f dc-prod.yml pull
 dc -f dc-prod.yml stop mongo meteor nginx
 dc -f dc-prod.yml up -d mongo
+# Only the first time
+d exec -ti docker_mongo_1 mongo admin --quiet --eval "rs.initiate(); rs.conf();"
 dc -f dc-prod.yml up -d meteor
 dc -f dc-prod.yml up -d nginx
 ```
 
-## NGinx
-### Create self signed certs
-```sh
-ssh root@dev.pem.paris "mkdir -p /etc/certs; openssl req -nodes -new -x509 -keyout /etc/certs/server.key -out /etc/certs/server.crt -subj '/C=FR/ST=Paris/L=Paris/CN=pem.paris'"
-```
-
-### Build
-```sh
-dc build nginx; dc up -d nginx
-```
-
 # Production
-+ ufw
-+ fail2ban
-* dkim
-* spf
-* dmarc
+[X] ufw
+[X] fail2ban
+[ ] dkim
+[ ] spf
+[ ] dmarc
 
 ## IP du VPS
 IPv4 : `51.255.194.65`
