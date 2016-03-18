@@ -163,9 +163,9 @@ Meteor.methods({
     // Send the billing email
     this.unblock();
     const cgv = Col.BasicPages.findOne({url: 'cgv'});
-    // PEM const html = s.replaceAll(marked(cgv.content), '\n', '');
-    // PEM const invoiceTxt = SD.Utils.renderInvoice(invoice.prices, invoice.discounts, invoice.totalHT, invoice.totalTTC);
-    // PEM sendBillingEmail(email, invoiceTxt, cgv.title, html);
+    const html = s.replaceAll(marked(cgv.content), '\n', '');
+    const invoice = Utils.calcInvoice(user, program);
+    Utils.sendBillingEmail(user.email(), invoice, html);
     return true;
   }
 });

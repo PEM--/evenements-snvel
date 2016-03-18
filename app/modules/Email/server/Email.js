@@ -55,14 +55,13 @@ MainApp.Utils.sendConfirmationEmail = (to, idx) => {
   });
 };
 
-MainApp.Utils.sendBillingEmail = (to, invoice, salesAgreementTitle, salesAgreementContent) => {
+MainApp.Utils.sendBillingEmail = (to, invoice, salesAgreementContent) => {
   Email.send({
     from: sender,
     to,
     subject: billingTitle,
     html: s(billingHtml)
       .replaceAll('HTML_TEMPLATE_BILLING_INVOICE_CONTENT', invoice)
-      .replaceAll('HTML_TEMPLATE_TERMS_OF_SALES_TITLE', salesAgreementTitle)
       .replaceAll(
         '<HTML_TEMPLATE_TERMS_OF_SALES_CONTENT></HTML_TEMPLATE_TERMS_OF_SALES_CONTENT>'.toLowerCase(),
         salesAgreementContent)
