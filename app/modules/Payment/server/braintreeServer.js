@@ -162,7 +162,7 @@ Meteor.methods({
     Utils.setPaymentForUser(this.userId, programRef, 'Payé');
     // Send the billing email
     this.unblock();
-    const cgv = Col.BasicPages.findOne({url: 'cgv'});
+    const cgv = Col.BasicPages.findOne({slug: 'cgv'});
     const html = s.replaceAll(marked(cgv.content), '\n', '');
     const invoice = Utils.calcInvoice(user, program);
     Utils.sendBillingEmail(user.email(), invoice, html);
