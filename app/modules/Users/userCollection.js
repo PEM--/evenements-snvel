@@ -164,7 +164,7 @@ initUsers = () => {
       },
       braintreeCustomerId: {
         type: String, label: 'Identifiant Braintree',
-        min: 3, max: 256, defaultValue: '', optional: true
+        max: 256, defaultValue: '', optional: true
       }
     })
   );
