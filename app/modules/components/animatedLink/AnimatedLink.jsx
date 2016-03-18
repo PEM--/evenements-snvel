@@ -1,4 +1,6 @@
-const AnimatedLink = ({children, to, isCream = false}) => {
+const AnimatedLink = ({
+  children = 'Revenez à l\'Accueil', to = '/', isCream = false
+}) => {
   return (
     <a href={to}
       className={classNames('AnimatedLink', 'lisibility',

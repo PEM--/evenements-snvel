@@ -779,7 +779,12 @@ html {
 }
 .cgv p,
 .cgv a {
-  color: #8b8b8b !important;
   font-size: 12px !important;
   text-align: justify !important;
+}
+.cgv p {
+  color: #8b8b8b !important;
+}
+.cgv a {
+  color: #e8e8e8 !important;
 }

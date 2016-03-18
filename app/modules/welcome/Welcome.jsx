@@ -1,5 +1,5 @@
 const { Views, Col } = MainApp;
-const { Spinner, AnimatedLink } = Views;
+const { Spinner } = Views;
 
 const Card = ({to, title, img, color}) => (
   <article className='card'>

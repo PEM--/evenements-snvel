@@ -117,7 +117,7 @@ class Admin extends Views.BaseReactMeteor {
                 header={['Description', 'Action']}
                 items={items}
               />
-              <AnimatedLink to='/'>Revenir à l'accueil</AnimatedLink>
+            <AnimatedLink />
             </div>
           ) : (
             <Spinner />

@@ -35,7 +35,7 @@ class Invoice extends BaseReactMeteor {
         <h2 className='lisibility'>{title}</h2>
         <h3 className='lisibility'>{location} - {period}</h3>
         <div className='receipt'><pre>{invoice}</pre></div>
-        <AnimatedLink to='/'>Revenez à l'accueil</AnimatedLink>
+        <AnimatedLink />
       </section>
     );
   }

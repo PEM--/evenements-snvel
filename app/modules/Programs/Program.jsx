@@ -29,7 +29,7 @@ class Program extends Views.BaseReactMeteor {
         <h2>Sessions & conférences</h2>
         <Events events={this.data.events} />
         <hr />
-        <AnimatedLink to='/'>Revenez à l'accueil</AnimatedLink>
+        <AnimatedLink />
       </section>
     );
   }

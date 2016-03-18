@@ -6,7 +6,7 @@ const DumbBasicPages = ({title, content}) => {
     <section className='MainContent maximized animated fadeIn lisibility'>
       <h1>{title}</h1>
       <div dangerouslySetInnerHTML={{__html: htmlContent }} />
-      <Views.AnimatedLink to='/'>Revenez à l'Accueil</Views.AnimatedLink>
+      <Views.AnimatedLink />
     </section>
   );
 };
