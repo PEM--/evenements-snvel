@@ -1,0 +1,28 @@
+# Persistence layer: Mongo
+mongo:
+  extends:
+    file: common.yml
+    service: mongo
+
+# Application server: NodeJS (Meteor)
+meteor:
+  extends:
+    file: common.yml
+    service: meteor
+  links:
+    - mongo
+  environment:
+    ROOT_URL: "https://evenements-snvel.fr"
+  volumes:
+    - /etc/meteor:/etc/meteor
+
+# Front layer, static file, SSL, proxy cache: NGinx
+nginx:
+  extends:
+    file: common.yml
+    service: nginx
+  links:
+    - meteor
+  environment:
+    # Can be: dev, pre, prod
+    HOST_TARGET: "dev"
