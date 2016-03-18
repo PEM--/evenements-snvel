@@ -85,21 +85,11 @@ Meteor.methods({
       console.log('User', user.email(), 'subscribed to', JSON.stringify(program));
     }
   },
-  'user.waitingPayment': function(program) {
+  'user.waitingPayment': function(programRef) {
     if (!this.userId) { throw new Meteor.Error('unauthorized'); }
-    let user = Meteor.users.findOne(this.userId);
-    if (!user) { throw new Meteor.Error('unauthorized'); }
-    check(program, String);
-    let found = user.profile.programs.find(p => p.reference === program);
-    if (!found) {
-      console.warn('No program', program, 'found for', user.email());
-      throw new Meteor.Error('unauthorized');
-    }
-    found.status = 'Attente paiement';
-    delete user._id;
+    check(programRef, String);
     if (Meteor.isServer) {
-      Meteor.users.update({_id: this.userId}, user, {bypassCollection2: true});
-      console.log('User', user.email(), 'in payment check process for', program);
+      Utils.setPaymentForUser(this.userId, programRef, 'Attente paiement');
     }
   }
 });

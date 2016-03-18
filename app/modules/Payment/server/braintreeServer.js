@@ -4,6 +4,20 @@ Utils.braintreeGateway = null;
 
 const ERROR_TYPE = 'payment';
 
+Utils.setPaymentForUser = function(userId, programRef, status) {
+  let user = Meteor.users.findOne(userId);
+  if (!user) { throw new Meteor.Error(ERROR_TYPE, '403: unauthorized'); }
+  let found = user.profile.programs.find(p => p.reference === programRef);
+  if (!found) {
+    console.warn('No program', programRef, 'found for', user.email());
+    throw new Meteor.Error(ERROR_TYPE, '403: unauthorized');
+  }
+  found.status = status;
+  delete user._id;
+  Meteor.users.update({_id: this.userId}, user, {bypassCollection2: true});
+  console.log('User', user.email(), 'in payment state', found.status, 'for', programRef);
+};
+
 // Create Gateway
 Meteor.startup(() => {
   const settings = Meteor.settings.private.braintree;
@@ -44,13 +58,13 @@ Meteor.startup(() => {
 
 Meteor.methods({
   // Braintree token generation
-  clientToken(program) {
+  clientToken(programRef) {
     // Check of client is connected
     if (!this.userId) {
       throw new Meteor.Error(ERROR_TYPE, '403: Non authorized');
     }
     // Check transimtted data consistency
-    check(program, String);
+    check(programRef, String);
     console.log('Creating customer on Braintree');
     // Check profile consistency
     const user = Meteor.users.findOne(this.userId);
@@ -58,9 +72,9 @@ Meteor.methods({
       console.warn('Fraud attempt: not enough user information', user);
       throw new Meteor.Error(ERROR_TYPE, 'Client inconnu pour le paiement', this.userId);
     }
-    const found = user.profile.programs.find(p => p.reference === program);
+    const found = user.profile.programs.find(p => p.reference === programRef);
     if (!found) {
-      console.warn('Fraud attempt: nothing bought', user.email(), 'with program', program);
+      console.warn('Fraud attempt: nothing bought', user.email(), 'with program', programRef);
       throw new Meteor.Error(ERROR_TYPE, 'Client inconnu pour le paiement', user.email());
     }
     // Check if customer already owns a Braintree customer ID
@@ -99,13 +113,13 @@ Meteor.methods({
     };
   },
   // Braintree card payment using nonce
-  cardPayment(nonce, program) {
+  cardPayment(nonce, programRef) {
     // Check of client is connected
     if (!this.userId) { throw new Meteor.Error('payment', '403: Non authorized'); }
     // Check transimtted data consistency
     check(nonce, String);
-    check(program, String);
-    const user = Meteor.users.findOne(this.userId);
+    check(programRef, String);
+    let user = Meteor.users.findOne(this.userId);
     if (!user) {
       console.warn('Fraud alert: unregistred user', this.userId);
       throw new Meteor.Error(ERROR_TYPE, 'Paiement impossible pour le moment pour', this.userId);
@@ -114,31 +128,41 @@ Meteor.methods({
       console.warn('Fraud alert: missing braintreeCustomerId', user.email());
       throw new Meteor.Error(ERROR_TYPE, 'Paiement impossible pour le moment pour', user.email());
     }
-    const found = user.profile.programs.find(p => p.reference === program);
+    let found = user.profile.programs.find(p => p.reference === programRef);
     if (!found) {
-      console.warn('Fraud attempt: nothing bought', user.email(), 'with program', program);
+      console.warn('Fraud attempt: nothing bought', user.email(), 'with program', programRef);
       throw new Meteor.Error(ERROR_TYPE, 'Client inconnu pour le paiement', user.email());
+    }
+    const userType = user.profile.category;
+    const boughtDate = moment(found.date, 'DD/MM/YYYY');
+    const program = Col.Programs.findOne({reference: programRef});
+    let total = Col.Programs.finalPrice(
+      program, userType, found.prices, boughtDate, false
+    );
+    if (found.attendant) {
+      total += Col.Programs.finalPrice(
+        program, 'Accompagnant', found.attendant.prices, boughtDate, false
+      );
     }
     // Get amount in UK/EN/US format and switch back current language
     numeral.language('en');
-    amount = numeral(invoice.totalTTC).format('00.00');
-    numeral.language(getUserLanguage());
+    amount = numeral(total).format('00.00');
+    numeral.language('fr');
     result = Utils.braintreeGateway.transaction.sale({
       amount: amount,
       paymentMethodNonce: nonce,
       options: {submitForSettlement: true}
     });
     if (!result || !result.success) {
-      console.warn('Braintree Error for', email, result);
-      throw new Meteor.Error(ERROR_TYPE, 'Paiement impossible pour le moment pour', email);
+      console.warn('Braintree Error for', user.email(), result);
+      throw new Meteor.Error(ERROR_TYPE, 'Paiement impossible pour le moment pour', user.email());
     }
-    console.log('Payment for user', email, 'with amount', invoice.totalTTC);
-    // Set proper roles for user
-    Roles.addUsersToRoles(this.userId, 'subscribed');
-    Roles.removeUsersFromRoles(this.userId, 'payment_pending');
+    console.log('Payment for user', user.email(), 'with amount', total);
+    // Set proper status for user
+    Utils.setPaymentForUser(this.userId, programRef, 'Payé');
     // Send the billing email
     this.unblock();
-    // PEM const cgv = SD.Structure.basicPages.collection.findOne({url: 'cgv'});
+    const cgv = Col.BasicPages.findOne({url: 'cgv'});
     // PEM const html = s.replaceAll(marked(cgv.content), '\n', '');
     // PEM const invoiceTxt = SD.Utils.renderInvoice(invoice.prices, invoice.discounts, invoice.totalHT, invoice.totalTTC);
     // PEM sendBillingEmail(email, invoiceTxt, cgv.title, html);
