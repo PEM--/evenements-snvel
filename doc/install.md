@@ -78,6 +78,17 @@ scp ../app/settings.pre.json root@dev.pem.paris:/etc/meteor/settings.json
 dc build meteor; dc up -d meteor
 ```
 
+## VPS pre-installation
+```sh
+ssh root@evenements-snvel.fr "bash -s" < ./provisioning.sh
+docker-machine -D create -d generic --generic-ip-address evenements-snvel.fr --generic-ssh-user root evenements-snvel.fr
+ssh root@evenements-snvel.fr "rm -rf /var/db; mkdir /var/db; chmod go+w /var/db"
+ssh root@evenements-snvel.fr "mkdir /etc/meteor"
+scp ../app/settings.prod.json root@dev.pem.paris:/etc/meteor/settings.json
+eval (dm env evenements-snvel.fr)
+```
+
+
 ## New release
 ```sh
 # Building
@@ -100,7 +111,7 @@ d tag docker_nginx pemarchandet/evenements-snvel-nginx:latest
 d push pemarchandet/evenements-snvel-nginx:latest
 
 # Installing in production
-dc -f dc-prod.yml pull mongo meteor nginx
+dc -f dc-prod.yml pull
 dc -f dc-prod.yml stop mongo meteor nginx
 dc -f dc-prod.yml up -d mongo
 dc -f dc-prod.yml up -d meteor
