@@ -13,8 +13,6 @@ meteor:
     - mongo
   environment:
     ROOT_URL: "https://dev.pem.paris"
-  volumes:
-    - /etc/meteor:/etc/meteor
 
 # Front layer, static file, SSL, proxy cache: NGinx
 nginx:

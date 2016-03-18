@@ -1,11 +1,14 @@
 # Persistence layer: Mongo
 mongo:
+  image: pemarchandet/evenements-snvel-mongo:v1.0.0
   extends:
     file: common.yml
     service: mongo
+  restart: always
 
 # Application server: NodeJS (Meteor)
 meteor:
+  image: pemarchandet/evenements-snvel-meteor:v1.0.0
   extends:
     file: common.yml
     service: meteor
@@ -13,11 +16,11 @@ meteor:
     - mongo
   environment:
     ROOT_URL: "https://evenements-snvel.fr"
-  volumes:
-    - /etc/meteor:/etc/meteor
+  restart: always
 
 # Front layer, static file, SSL, proxy cache: NGinx
 nginx:
+  image: pemarchandet/evenements-snvel-nginx:v1.0.0
   extends:
     file: common.yml
     service: nginx
@@ -25,4 +28,5 @@ nginx:
     - meteor
   environment:
     # Can be: dev, pre, prod
-    HOST_TARGET: "dev"
+    HOST_TARGET: "prod"
+  restart: always
