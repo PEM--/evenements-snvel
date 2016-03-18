@@ -78,6 +78,24 @@ scp ../app/settings.pre.json root@dev.pem.paris:/etc/meteor/settings.json
 dc build meteor; dc up -d meteor
 ```
 
+## New release
+```sh
+d tag docker_mongo pemarchandet/evenements-snvel-mongo:v1.0.0
+d push pemarchandet/evenements-snvel-mongo:v1.0.0
+d tag docker_mongo pemarchandet/evenements-snvel-mongo:latest
+d push pemarchandet/evenements-snvel-mongo:latest
+
+d tag docker_meteor pemarchandet/evenements-snvel-meteor:v1.0.0
+d push pemarchandet/evenements-snvel-meteor:v1.0.0
+d tag docker_meteor pemarchandet/evenements-snvel-meteor:latest
+d push pemarchandet/evenements-snvel-meteor:latest
+
+d tag docker_nginx pemarchandet/evenements-snvel-nginx:v1.0.0
+d push pemarchandet/evenements-snvel-nginx:v1.0.0
+d tag docker_nginx pemarchandet/evenements-snvel-nginx:latest
+d push pemarchandet/evenements-snvel-nginx:latest
+```
+
 ## NGinx
 ### Create self signed certs
 ```sh
