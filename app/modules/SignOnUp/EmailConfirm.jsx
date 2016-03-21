@@ -19,9 +19,9 @@ const EmailConfirm = ({forPassword = false}) => {
       <h1>{texts.title}</h1>
       <p>{texts.p1}</p>
       <p>{texts.p2}</p>
-      <div style={{width: '100%', height: '100px'}} >
+      {/* <div style={{width: '100%', height: '100px'}} >
         <Spinner className='maximized' style={{height: '100px'}} />
-      </div>
+      </div> */}
     </section>
   );
 };
