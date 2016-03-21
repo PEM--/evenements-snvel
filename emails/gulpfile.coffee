@@ -2,17 +2,16 @@ gulp = require 'gulp'
 gp = (require 'gulp-load-plugins')()
 
 # Paths
-paths =
-  jade: './jade/**/*.jade'
-  jadeTemplates: './jade/templates/*.jade'
-  html: './tmp/**/*.html'
-  stylus: 'styles/**/*.styl'
-  stylusIndex: './styles/styles.styl'
-  css: 'styles/css/'
-  # images: 'images/*'
-  temp: './temp/'
-  build: './build/'
-  final: '../app/private/emails/'
+JADE_FILES: './jade/**/*.jade'
+jadeTemplates: './jade/templates/*.jade'
+html: './temp/**/*.html'
+stylus: 'styles/**/*.styl'
+stylusIndex: './styles/styles.styl'
+css: 'styles/css/'
+# images: 'images/*'
+temp: './temp/'
+build: './build/'
+final: '../app/private/emails/'
 
 # Direct errors to notification center
 handleError = ->
@@ -44,11 +43,10 @@ gulp.task 'jade', ->
     .pipe gp.livereload()
 
 gulp.task 'inline', ['jade', 'stylus'], ->
-  gulp.src [paths.html]
+  gulp.src paths.temp
     #.pipe(gp.inlineCss(preserveMediaQueries: true))
-    .pipe handleError()
     .pipe gp.juice()
-    .pipe gulp.dest paths.build
+    .pipe gulp.dest './build/'
     .pipe gp.livereload()
 
 gulp.task 'copy', ['inline'], ->
