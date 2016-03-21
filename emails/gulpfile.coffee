@@ -2,16 +2,17 @@ gulp = require 'gulp'
 gp = (require 'gulp-load-plugins')()
 
 # Paths
-JADE_FILES: './jade/**/*.jade'
-jadeTemplates: './jade/templates/*.jade'
-html: './temp/**/*.html'
-stylus: 'styles/**/*.styl'
-stylusIndex: './styles/styles.styl'
-css: 'styles/css/'
-# images: 'images/*'
-temp: './temp/'
-build: './build/'
-final: '../app/private/emails/'
+paths =
+  jade: './jade/**/*.jade'
+  jadeTemplates: './jade/templates/*.jade'
+  html: './temp/**/*.html'
+  stylus: 'styles/**/*.styl'
+  stylusIndex: './styles/styles.styl'
+  css: 'styles/css/'
+  # images: 'images/*'
+  temp: './temp/'
+  build: './build/'
+  final: '../app/private/emails/'
 
 # Direct errors to notification center
 handleError = ->
@@ -43,15 +44,15 @@ gulp.task 'jade', ->
     .pipe gp.livereload()
 
 gulp.task 'inline', ['jade', 'stylus'], ->
-  gulp.src paths.temp
+  gulp.src './temp/*.html'
     #.pipe(gp.inlineCss(preserveMediaQueries: true))
     .pipe gp.juice()
     .pipe gulp.dest './build/'
     .pipe gp.livereload()
 
 gulp.task 'copy', ['inline'], ->
-  gulp.src paths.build
-    .pipe gulp.dest paths.final
+  gulp.src './build/*.html'
+    .pipe gulp.dest '../app/private/emails/'
 
 # Server
 gulp.task 'connect', ->
