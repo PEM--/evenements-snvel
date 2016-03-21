@@ -137,11 +137,11 @@ Meteor.methods({
     const boughtDate = moment(found.date, 'DD/MM/YYYY');
     const program = Col.Programs.findOne({reference: programRef});
     let total = Col.Programs.finalPrice(
-      program, userType, found.prices, boughtDate, false
+      program, userType, found.prices, boughtDate
     );
     if (found.attendant) {
       total += Col.Programs.finalPrice(
-        program, 'Accompagnant', found.attendant.prices, boughtDate, false
+        program, 'Accompagnant', found.attendant.prices, boughtDate
       );
     }
     // Get amount in UK/EN/US format and switch back current language
