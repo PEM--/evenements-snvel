@@ -95,7 +95,7 @@ initUsers = () => {
     name: {
       type: String, label: 'Nom du contact', min: 1, max: 256,
       defaultValue: '', view: {
-        name: 'Input', type: 'text', label: 'Votre représentant :',
+        name: 'Input', type: 'text', label: 'Nom du contact :',
         placeholder: 'Votre nom'
       }
     },
