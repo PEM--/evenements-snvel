@@ -103,7 +103,8 @@ eval (dm env evenements-snvel.fr)
 ## New release
 ```sh
 # Building
-dc -f dc-prod.yml build mongo meteor nginx
+eval (dm env dev)
+dc build mongo meteor nginx
 
 # Pushing to hub
 d tag docker_mongo pemarchandet/evenements-snvel-mongo:v1.0.0
@@ -111,17 +112,18 @@ d push pemarchandet/evenements-snvel-mongo:v1.0.0
 d tag docker_mongo pemarchandet/evenements-snvel-mongo:latest
 d push pemarchandet/evenements-snvel-mongo:latest
 
-d tag docker_meteor pemarchandet/evenements-snvel-meteor:v1.0.0
-d push pemarchandet/evenements-snvel-meteor:v1.0.0
+d tag docker_meteor pemarchandet/evenements-snvel-meteor:v1.1.0
+d push pemarchandet/evenements-snvel-meteor:v1.1.0
 d tag docker_meteor pemarchandet/evenements-snvel-meteor:latest
 d push pemarchandet/evenements-snvel-meteor:latest
 
-d tag docker_nginx pemarchandet/evenements-snvel-nginx:v1.0.0
-d push pemarchandet/evenements-snvel-nginx:v1.0.0
+d tag docker_nginx pemarchandet/evenements-snvel-nginx:v1.1.0
+d push pemarchandet/evenements-snvel-nginx:v1.1.0
 d tag docker_nginx pemarchandet/evenements-snvel-nginx:latest
 d push pemarchandet/evenements-snvel-nginx:latest
 
 # Installing in production
+eval (dm env evenements-snvel.fr)
 dc -f dc-prod.yml pull
 dc -f dc-prod.yml stop mongo meteor nginx
 dc -f dc-prod.yml up -d mongo
