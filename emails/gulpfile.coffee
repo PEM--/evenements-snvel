@@ -9,7 +9,7 @@ paths =
   stylus: 'styles/**/*.styl'
   stylusIndex: './styles/styles.styl'
   css: 'styles/css/'
-  images: 'images/*'
+  # images: 'images/*'
   build: '../app/private/emails'
 
 # Direct errors to notification center

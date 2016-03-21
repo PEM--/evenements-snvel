@@ -11,6 +11,7 @@ const globalReplacement = (str) => {
     .replaceAll('HTML_TEMPLATE_TWITTER_URL', twitter)
     .replaceAll('HTML_TEMPLATE_FACEBOOK_URL', facebook)
     .replaceAll('HTML_TEMPLATE_LINKEDIN_URL', linkedin)
+    .replaceAll('http://localhost:8080/', Meteor.settings.proxy.url)
   .value();
   return result;
 };
