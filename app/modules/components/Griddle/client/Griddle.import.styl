@@ -1,2 +1,27 @@
 .griddle-filter
   margin-bottom 5px
+
+.griddle-next-button, .griddle-previous-button
+  font-family FontAwesome
+  display inline-block
+  width 24px
+  height 24px
+  font-size 24px
+  line-height 24px
+  text-align center
+  position relative
+  transition color defaultTransition
+  &:before, &:after
+    position relative
+    top 2px
+  &:hover
+    cursor pointer
+    color lighten(darkViolet, 20%);
+.griddle-next-button:before
+  content '\f138'
+.griddle-previous-button:after
+  content '\f137'
+
+.griddle-page
+  display inline-block
+  margin 0 30px

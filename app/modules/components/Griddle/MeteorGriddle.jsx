@@ -105,6 +105,10 @@ MeteorGriddle = React.createClass({
       resultsPerPage={this.state.externalResultsPerPage}
       externalSortColumn={this.state.externalSortColumn}
       externalSortAscending={this.state.externalSortAscending}
+      nextText={''}
+      nextClassName={'griddle-next-button'}
+      previousText={''}
+      previousClassName={'griddle-previous-button'}
     />;
   }
 });
