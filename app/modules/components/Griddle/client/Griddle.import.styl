@@ -11,16 +11,25 @@
   text-align center
   position relative
   transition color defaultTransition
+  button
+    position relative
+    display inherit
+    width 24px
+    height 24px
+    border none
+    background transparent
   &:before, &:after
     position relative
     top 2px
   &:hover
     cursor pointer
     color lighten(darkViolet, 20%);
-.griddle-next-button:before
-  content '\f138'
-.griddle-previous-button:after
-  content '\f137'
+.griddle-next-button
+  button:before
+    content '\f138'
+.griddle-previous-button
+  button:after
+    content '\f137'
 
 .griddle-page
   display inline-block
