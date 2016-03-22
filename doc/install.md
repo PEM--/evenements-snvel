@@ -27,7 +27,7 @@ host dev.pem.paris 192.168.1.50
 
 ### Synchronize date
 ```sh
-service ntp stop; ntpdate 0.fr.pool.ntp.org; service ntp start
+ssh root@$HOST_IP_DEV 'service ntp stop; ntpdate 0.fr.pool.ntp.org; service ntp start'
 ```
 
 ## Mail

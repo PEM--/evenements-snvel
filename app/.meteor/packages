@@ -53,6 +53,7 @@ aldeed:collection2
 aldeed:simple-schema
 dburles:collection-helpers
 tmeasday:publish-counts
+percolate:migrations
 
 # Utils
 dburles:google-maps

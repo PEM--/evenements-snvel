@@ -27,9 +27,9 @@ Meteor.methods({
       case 'city':
         acc.profile[k] = s(rawUser[k]).trim().toLowerCase().titleize().value();
         break;
-      case 'username':
       case 'email':
-        acc[k] = rawUser.email.trim().toLowerCase();
+        acc.username = rawUser.email.trim().toLowerCase();
+        acc.email = acc.username;
         break;
       case 'password':
         acc.password = rawUser[k].trim();
