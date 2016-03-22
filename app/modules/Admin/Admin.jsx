@@ -4,7 +4,7 @@ const { AnimatedLink, Spinner, Table, Button } = Views;
 class Admin extends Views.BaseReactMeteor {
   constructor(props) {
     super(props);
-    this.errorSuccess = this.errorSuccess.bind(this);
+    ['errorSuccess', 'onRowClick'].forEach(f => this[f] = this[f].bind(this));
   }
   getMeteorData() {
     if (Meteor.isServer) {
@@ -59,6 +59,9 @@ class Admin extends Views.BaseReactMeteor {
       this.computation.stop();
     }
   }
+  onRowClick(e) {
+    console.log('Row clicked', e, this);
+  }
   render() {
     const items = Utils.BASIC_PAGES.map(p => (
       [
@@ -111,6 +114,7 @@ class Admin extends Views.BaseReactMeteor {
                 collection={Meteor.users}
                 columns={['username', 'profile.name', 'profile.firstName']}
                 matchingResultsCount='users.counter'
+                onRowClick={this.onRowClick}
               />
               <h2>Mise à jour du serveur</h2>
               <Table
