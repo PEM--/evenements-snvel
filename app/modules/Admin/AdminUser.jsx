@@ -8,13 +8,21 @@ class AdminUser extends Views.BaseReactMeteor {
   getMeteorData() {
     Meteor.subscribe('adminJobs');
     return {
-      user: Meteor.user(), nbJobs: Col.adminJobs.find().count()
+      user: Meteor.users.findOne(FlowRouter.getParam('id'))
     };
   }
   render() {
+    const { user } = this.data;
     return (
       <section className='maximized MainContent Admin animated fadeIn'>
-        <h1>User</h1>
+        {
+          user ?
+            <div>
+              <h1>User</h1>
+              <p>{user.firstName}</p>
+            </div> :
+            <Spinner />
+        }
       </section>
     );
   }

@@ -59,10 +59,7 @@ class Admin extends Views.BaseReactMeteor {
       this.computation.stop();
     }
   }
-  onRowClick(e) {
-    console.log('Row clicked', e, this);
-    FlowRouter.go('adminUser', {id: e.props.data._id});
-  }
+  onRowClick(e) { FlowRouter.go('adminUser', {id: e.props.data._id}); }
   render() {
     const items = Utils.BASIC_PAGES.map(p => (
       [
