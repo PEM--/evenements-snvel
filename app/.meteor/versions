@@ -95,6 +95,7 @@ numeral:numeral@1.5.3_1
 observe-sequence@1.0.7
 ordered-dict@1.0.4
 patrickml:braintree@1.32.0
+percolate:migrations@0.9.8
 pierreeric:markdown@0.0.1
 pierreeric:namespaces@0.0.1
 promise@0.5.1
