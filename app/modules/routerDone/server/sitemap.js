@@ -3,7 +3,7 @@
 initSitemap = () => {
   // Creating sitemaps for all routes
   const allRoutes = _.filter(_.pluck(FlowRouter._routes, 'path'), function(route) {
-    // Filter unwanted toutes in SEO
+    // Filter unwanted routes in SEO
     return (
       // Remove all admin routes
       !s.include(route, 'admin') &&
