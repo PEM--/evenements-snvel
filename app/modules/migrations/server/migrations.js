@@ -4,8 +4,9 @@ Migrations.add({
     console.log('Migration: 1...');
     let usersWithoutUsername = Meteor.users.find({username: {$exists: false}}).fetch();
     usersWithoutUsername.forEach(u => {
-      Meteor.users.update({_id: u._id}, {$set: {username: u.email()}});
-      console.log('User', u.email(), 'migrated');
+      const email = u.emails[0].address;
+      Meteor.users.update({_id: u._id}, {$set: {username: email}});
+      console.log('User', email, 'migrated');
     });
     console.log('Migration: 1 done');
   }
