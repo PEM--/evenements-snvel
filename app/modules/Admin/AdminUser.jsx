@@ -19,6 +19,7 @@ class AdminUser extends Views.BaseReactMeteor {
           user ?
             <div>
               <h1>User</h1>
+              <p>{user.name}</p>
               <p>{user.firstName}</p>
             </div> :
             <Spinner />
