@@ -18,14 +18,29 @@ class AdminUser extends Views.BaseReactMeteor {
       <section className='maximized MainContent AdminUser animated fadeIn'>
         {
           user ?
-            <div>
-              <h1>User</h1>
-              <p>{user.profile.name}</p>
-              <p>{user.profile.firstName}</p>
-              <p>{user.roles}</p>
+            <div className='content'>
+              <div className='profile lisibility'>
+                <h1>{user.fullName()}</h1>
+                <p className='email'>                
+                  <a className='AnimatedLink cream' href={`mailto:${user.email()}`}>{user.email()}</a>
+                </p>
+                <p className='address'>
+                  <span>{user.profile.address}</span><br />
+                  {
+                    user.profile.addressComplementary ?
+                    <div>
+                      <span>{user.profile.addressComplementary}</span><br />
+                    </div>: ''
+                  }
+                  <span>{user.profile.postalCode} - {user.profile.city}</span><br />
+                  <span>{user.profile.country}</span><br />
+                </p>
+              </div>
             </div> :
-            <Spinner />
+            <Spinner className='maximized' />
         }
+        <hr />
+        <AnimatedLink to='/admin'>Retour</AnimatedLink>
       </section>
     );
   }

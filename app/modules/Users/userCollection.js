@@ -266,6 +266,7 @@ initUsers = () => {
   Meteor.users.helpers({
     email() { return this.emails[0].address; },
     isAdmin() { return Roles.userIsInRole(this._id, 'admin'); },
+    fullName() { return this.profile.name + ' ' + this.profile.firstName; }
   });
 
   Schema.UsersSchema = UsersSchema;
