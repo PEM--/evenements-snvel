@@ -91,5 +91,27 @@ Meteor.methods({
     if (Meteor.isServer) {
       Utils.setPaymentForUser(this.userId, programRef, 'Attente paiement');
     }
+  },
+  'user.reSendVerificationEmail': function(userId) {
+    if (!this.userId) { throw new Meteor.Error('unauthorized'); }
+    const user = Meteor.users.findOne(this.userId);
+    if (!user || !user.isAdmin()) { throw new Meteor.Error('unauthorized'); }
+    this.unblock()
+    if (Meteor.isServer) {
+      Accounts.sendVerificationEmail(userId);
+      return true;      
+    }
+  },
+  'user.forceValidEmail': function(userId) {
+    if (!this.userId) { throw new Meteor.Error('unauthorized'); }
+    const user = Meteor.users.findOne(this.userId);
+    if (!user || !user.isAdmin()) { throw new Meteor.Error('unauthorized'); }
+    this.unblock()
+    if (Meteor.isServer) {
+      Meteor.users.update({_id: userId}, {
+        $set: { 'emails.0.verified': true }
+      });
+      return true;      
+    }
   }
 });

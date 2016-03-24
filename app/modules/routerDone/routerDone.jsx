@@ -17,7 +17,8 @@ const declareRoutes = () => {
     {route: '/payment', name: 'payment', children: <Views.Payment program={ROUTE_PROGRAM} /> },
     {route: '/paymentwaiting', name: 'paymentwaiting', children: <Views.PaymentWaiting program={ROUTE_PROGRAM} /> },
     {route: '/invoice', name: 'invoice', children: <Views.Invoice program={ROUTE_PROGRAM} /> },
-    {route: '/admin', name: 'admin', children: <Views.Admin /> }
+    {route: '/admin', name: 'admin', children: <Views.Admin /> },
+    {route: '/admin/user/:id', name: 'adminUser', children: <Views.AdminUser /> }
   ].forEach(r => {
     FlowRouter.route(r.route, {
       name: r.name,
