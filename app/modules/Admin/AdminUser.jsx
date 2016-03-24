@@ -20,6 +20,7 @@ class AdminUser extends Views.BaseReactMeteor {
             <div>
               <div className='content'>
                 <Views.AdminUserProfile user={user} />
+                <Views.AdminUserActions user={user} />
               </div>
               <hr />
               <AnimatedLink to='/admin'>Retour</AnimatedLink>
