@@ -19,7 +19,7 @@ Site des évènements SNVEL.
 
 ## Documentations internes pour le développement
 
-* [Installation](doc/install.md).
+* [Installation](doc/install.md)
 
 ## Autres
 
