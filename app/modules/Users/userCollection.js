@@ -95,7 +95,7 @@ initUsers = () => {
     name: {
       type: String, label: 'Nom du contact', min: 1, max: 256,
       defaultValue: '', view: {
-        name: 'Input', type: 'text', label: 'Votre représentant :',
+        name: 'Input', type: 'text', label: 'Nom du contact :',
         placeholder: 'Votre nom'
       }
     },
@@ -266,6 +266,7 @@ initUsers = () => {
   Meteor.users.helpers({
     email() { return this.emails[0].address; },
     isAdmin() { return Roles.userIsInRole(this._id, 'admin'); },
+    fullName() { return this.profile.firstName + ' ' + this.profile.name; }
   });
 
   Schema.UsersSchema = UsersSchema;

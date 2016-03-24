@@ -5,12 +5,14 @@ gp = (require 'gulp-load-plugins')()
 paths =
   jade: './jade/**/*.jade'
   jadeTemplates: './jade/templates/*.jade'
-  html: './*.html'
+  html: './temp/**/*.html'
   stylus: 'styles/**/*.styl'
   stylusIndex: './styles/styles.styl'
   css: 'styles/css/'
-  images: 'images/*'
-  build: '../app/private/emails'
+  # images: 'images/*'
+  temp: './temp/'
+  build: './build/'
+  final: '../app/private/emails/'
 
 # Direct errors to notification center
 handleError = ->
@@ -36,16 +38,21 @@ gulp.task 'stylus', ->
 # Jade
 gulp.task 'jade', ->
   gulp.src paths.jadeTemplates
+    .pipe handleError()
     .pipe gp.jade()
-    .pipe gulp.dest './'
+    .pipe gulp.dest paths.temp
     .pipe gp.livereload()
 
 gulp.task 'inline', ['jade', 'stylus'], ->
-  gulp.src [paths.html]
+  gulp.src './temp/*.html'
     #.pipe(gp.inlineCss(preserveMediaQueries: true))
     .pipe gp.juice()
-    .pipe gulp.dest paths.build
+    .pipe gulp.dest './build/'
     .pipe gp.livereload()
+
+gulp.task 'copy', ['inline'], ->
+  gulp.src './build/*.html'
+    .pipe gulp.dest '../app/private/emails/'
 
 # Server
 gulp.task 'connect', ->
@@ -53,7 +60,8 @@ gulp.task 'connect', ->
     root: __dirname
 
 gulp.task 'reload', ->
-  gulp.src(paths.html).pipe gp.livereload()
+  gulp.src paths.html
+    .pipe gp.livereload()
 
 gulp.task 'watch', ->
   server = gp.livereload()

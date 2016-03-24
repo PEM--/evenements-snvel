@@ -25,8 +25,7 @@ MeteorGriddle = React.createClass({
     var matchingResults = Meteor.isClient ? Counts.get(this.props.matchingResultsCount) :
       this.props.collection.find().count();
     var options = {
-      limit: this.state.externalResultsPerPage,
-      sort: {},
+      limit: this.state.externalResultsPerPage, sort: {},
     };
     // filtering
     if (this.state.filter) {
@@ -81,7 +80,6 @@ MeteorGriddle = React.createClass({
         displayName: this.props.collection.simpleSchema().label(c)
       };
     });
-    console.log('columnMetadata', columnMetadata);
     return <Griddle
       {...this.props}
       sortAscendingComponent={<span className='fa fa-sort-alpha-asc'></span>}
@@ -105,6 +103,10 @@ MeteorGriddle = React.createClass({
       resultsPerPage={this.state.externalResultsPerPage}
       externalSortColumn={this.state.externalSortColumn}
       externalSortAscending={this.state.externalSortAscending}
+      nextText={''}
+      nextClassName={'griddle-next-button'}
+      previousText={''}
+      previousClassName={'griddle-previous-button'}
     />;
   }
 });

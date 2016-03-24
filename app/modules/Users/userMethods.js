@@ -27,9 +27,9 @@ Meteor.methods({
       case 'city':
         acc.profile[k] = s(rawUser[k]).trim().toLowerCase().titleize().value();
         break;
-      case 'username':
       case 'email':
-        acc[k] = rawUser.email.trim().toLowerCase();
+        acc.username = rawUser.email.trim().toLowerCase();
+        acc.email = acc.username;
         break;
       case 'password':
         acc.password = rawUser[k].trim();
@@ -90,6 +90,28 @@ Meteor.methods({
     check(programRef, String);
     if (Meteor.isServer) {
       Utils.setPaymentForUser(this.userId, programRef, 'Attente paiement');
+    }
+  },
+  'user.reSendVerificationEmail': function(userId) {
+    if (!this.userId) { throw new Meteor.Error('unauthorized'); }
+    const user = Meteor.users.findOne(this.userId);
+    if (!user || !user.isAdmin()) { throw new Meteor.Error('unauthorized'); }
+    this.unblock()
+    if (Meteor.isServer) {
+      Accounts.sendVerificationEmail(userId);
+      return true;      
+    }
+  },
+  'user.forceValidEmail': function(userId) {
+    if (!this.userId) { throw new Meteor.Error('unauthorized'); }
+    const user = Meteor.users.findOne(this.userId);
+    if (!user || !user.isAdmin()) { throw new Meteor.Error('unauthorized'); }
+    this.unblock()
+    if (Meteor.isServer) {
+      Meteor.users.update({_id: userId}, {
+        $set: { 'emails.0.verified': true }
+      });
+      return true;      
     }
   }
 });

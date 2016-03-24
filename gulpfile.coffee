@@ -98,11 +98,16 @@ gulp.task 'webp', ['imagemin'], ->
     .pipe gp.webp()
     .pipe gulp.dest settings.imgDist
 
+# Copy assets
+gulp.task 'copy', ->
+  gulp.src ["#{settings.imgSrc}/*.png"]
+    .pipe gulp.dest settings.imgDist
+
 gulp.task 'clean', ['settings.clean']
 gulp.task 'build', [
   'settings.build.dev', 'settings.build.pre',
   'settings.build.test', 'settings.build.prod',
-  'svgmin', 'webp'
+  'svgmin', 'webp', 'copy'
 ]
 gulp.task 'watch', ['settings.watch']
 gulp.task 'default', ['build', 'watch']
