@@ -112,13 +112,13 @@ d push pemarchandet/evenements-snvel-mongo:v1.0.0
 d tag docker_mongo pemarchandet/evenements-snvel-mongo:latest
 d push pemarchandet/evenements-snvel-mongo:latest
 
-d tag docker_meteor pemarchandet/evenements-snvel-meteor:v1.1.0
-d push pemarchandet/evenements-snvel-meteor:v1.1.0
+d tag docker_meteor pemarchandet/evenements-snvel-meteor:v1.2.0
+d push pemarchandet/evenements-snvel-meteor:v1.2.0
 d tag docker_meteor pemarchandet/evenements-snvel-meteor:latest
 d push pemarchandet/evenements-snvel-meteor:latest
 
-d tag docker_nginx pemarchandet/evenements-snvel-nginx:v1.1.0
-d push pemarchandet/evenements-snvel-nginx:v1.1.0
+d tag docker_nginx pemarchandet/evenements-snvel-nginx:v1.2.0
+d push pemarchandet/evenements-snvel-nginx:v1.2.0
 d tag docker_nginx pemarchandet/evenements-snvel-nginx:latest
 d push pemarchandet/evenements-snvel-nginx:latest
 
