@@ -7,14 +7,17 @@
 .AdminUser
   .content
     display flex
+    .unverifiedEmail
+      color red
     .profile
       flex 0 0 auto
       border 2px solid cream
       border-radius $radius
-      background alpha(cream, 10%)
+      background alpha(cream, 5%)
       margin-top 30px
       padding 30px 15px 15px 15px
       position relative
+      box-shadow 0 3px 15px black
       h2
         color mix(cream, orange)
       &:before

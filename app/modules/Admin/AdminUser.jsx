@@ -1,5 +1,5 @@
 const { Views, Utils, Col } = MainApp;
-const { AdminUserProfile, AnimatedLink, Spinner, Table, Button } = Views;
+const { AnimatedLink, Spinner, Table, Button } = Views;
 
 class AdminUser extends Views.BaseReactMeteor {
   constructor(props) {
@@ -19,7 +19,7 @@ class AdminUser extends Views.BaseReactMeteor {
           user ?
             <div>
               <div className='content'>
-                <AdminUserProfile user={user} />
+                <Views.AdminUserProfile user={user} />
               </div>
               <hr />
               <AnimatedLink to='/admin'>Retour</AnimatedLink>
