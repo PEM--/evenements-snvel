@@ -9,7 +9,7 @@ const AdminUserProfile = ({user}) => {
         <span>{user.profile.category}</span>
         <span className='csoNumber'>{user.profile.csoNumber}</span>
       </p>
-      <p className='email'>                
+      <p className='email'>
         <a
           className={classNames('AnimatedLink', 'cream', {
             unverifiedEmail: !user.emails[0].verified
@@ -47,8 +47,8 @@ const AdminUserProfile = ({user}) => {
           ))
         }
       </p>
-    </div>    
+    </div>
   );
-}
+};
 
 Views.AdminUserProfile = AdminUserProfile;
