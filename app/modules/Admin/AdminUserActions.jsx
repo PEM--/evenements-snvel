@@ -1,7 +1,7 @@
 const { Views } = MainApp;
 const { Button } = Views;
 
-const AdminUserActions = ({user}) => {
+const EmailActions = ({user}) => {
   const verifyEmail = () => {
     Meteor.call('user.reSendVerificationEmail', user._id, (error) => {
       if (error) {
@@ -11,7 +11,7 @@ const AdminUserActions = ({user}) => {
       sAlert.success('Email de vérification envoyé');
     });    
   };
-  const validEmail =() => {
+  const validEmail = () => {
     Meteor.call('user.forceValidEmail', user._id, (error) => {
       if (error) {
         console.warn('Error while force validating email', error.toString())
@@ -20,27 +20,32 @@ const AdminUserActions = ({user}) => {
       sAlert.success('Email validé');
     });
   }
+  const verified = user.emails[0].verified; 
   return (
-    <div className='actions lisibility'>
-      <h2>Actions</h2>
-      <h3>Emails</h3>
+    <div>
       <Button
-        className='btn'
-        iconName='envelope-o'
-        onClick={verifyEmail}
-        disabled={user.emails[0].verified}
+        className='btn' iconName='envelope-o'
+        onClick={verifyEmail} disabled={verified}
       >
         Re-vérifier l'email
       </Button>
       <br />
-      <Button
-        className='btn'
-        onClick={validEmail}
-        disabled={user.emails[0].verified}
-      >
+      <Button className='btn' onClick={validEmail} disabled={verified}>
         Valider l'email
       </Button>
+    </div>
+  );
+};
+
+const AdminUserActions = ({user}) => {
+  return (
+    <div className='actions lisibility'>
+      <h2>Actions</h2>
+      <h3>Emails</h3>
+      <EmailActions user={user} />
       <hr /> 
+      <h3>Paiements</h3>
+      <hr />
     </div>    
   );
 };
