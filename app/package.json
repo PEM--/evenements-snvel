@@ -1,0 +1,35 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pierre-Eric Marchandet <pemarchandet@gmail.com> (http://pem-musing.blogspot.fr/)",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "classnames": "^2.2.3",
+    "edit-google-spreadsheet": "^0.2.21",
+    "google-auth-library": "^0.9.7",
+    "googleapis": "^4.0.0",
+    "googleclientlogin": "^0.2.8",
+    "griddle-react": "^0.4.1",
+    "mailtolink": "^0.1.0",
+    "react": "^0.14.8",
+    "react-addons-create-fragment": "^0.14.8",
+    "react-addons-css-transition-group": "^0.14.8",
+    "react-addons-linked-state-mixin": "^0.14.8",
+    "react-addons-perf": "^0.14.8",
+    "react-addons-pure-render-mixin": "^0.14.8",
+    "react-addons-test-utils": "^0.14.8",
+    "react-addons-transition-group": "^0.14.8",
+    "react-addons-update": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "react-s-alert": "^1.1.1",
+    "react-select": "^1.0.0-beta12",
+    "ua-parser-js": "^0.7.10",
+    "world-countries": "^1.7.8"
+  }
+}
