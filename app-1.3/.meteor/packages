@@ -1,0 +1,84 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-base             # Packages every Meteor app needs to have
+mobile-experience       # Packages for a great mobile UX
+mongo                   # The database Meteor supports right now
+blaze-html-templates    # Compile .html files into Meteor Blaze views
+session                 # Client-side reactive dictionary for your app
+jquery                  # Helpful client-side library
+tracker                 # Meteor's client-side reactive programming library
+
+es5-shim                # ECMAScript 5 compatibility for older browsers.
+ecmascript              # Enable ECMAScript2015+ syntax in app code
+
+# Expose global namespaces
+#pierreeric:namespaces
+
+# CSS
+mquandalle:stylus
+natestrauser:animate-css
+
+# Language & Import
+coffeescript
+cosmos:browserify
+mquandalle:bower
+
+# Mails
+email
+
+# Payment
+patrickml:braintree
+
+# Caching
+#appcache
+meteorhacks:fast-render
+meteorhacks:subs-manager
+
+# Accounts & Security
+accounts-password
+alanning:roles
+check
+browser-policy
+matteodem:easy-security
+
+# Collections
+aldeed:collection2
+aldeed:simple-schema
+dburles:collection-helpers
+tmeasday:publish-counts
+percolate:migrations
+
+# Utils
+dburles:google-maps
+momentjs:moment
+numeral:numeral
+underscorestring:underscore.string
+#pierreeric:markdown
+codetheweb:zxcvbn
+mquandalle:jade
+chuangbo:cookie
+vsivsi:job-collection
+tap:i18n
+tap:i18n-bundler
+gwendall:simple-schema-i18n
+gadicohen:reactive-window
+
+# React
+#react
+#kadira:react-layout
+
+# Server side routes
+meteorhacks:picker
+
+# Router
+gadicohen:robots-txt
+gadicohen:sitemaps
+kadira:dochead
+kadira:flow-router-ssr
+# okgrow:analytics
+standard-minifier-css
+standard-minifier-js
