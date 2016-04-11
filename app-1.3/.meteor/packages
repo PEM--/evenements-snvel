@@ -14,13 +14,15 @@ tracker                 # Meteor's client-side reactive programming library
 
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
+standard-minifier-js
 
 # Expose global namespaces
 #pierreeric:namespaces
 
 # CSS
-mquandalle:stylus
+stylus
 natestrauser:animate-css
+juliancwirko:postcss
 
 # Language & Import
 coffeescript
@@ -80,5 +82,3 @@ gadicohen:sitemaps
 kadira:dochead
 kadira:flow-router-ssr
 # okgrow:analytics
-standard-minifier-css
-standard-minifier-js
