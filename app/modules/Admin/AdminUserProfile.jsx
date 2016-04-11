@@ -3,13 +3,13 @@ const { Views } = MainApp;
 const AdminUserProfile = ({user}) => {
   return (
     <div className='profile lisibility'>
-      <h1>{user.fullName()}</h1>
+      <h1 className='textCenter'>{user.fullName()}</h1>
       <h2 className='textCenter'>{user.profile.organization}</h2>
       <p>
         <span>{user.profile.category}</span>
         <span className='csoNumber'>{user.profile.csoNumber}</span>
       </p>
-      <p className='email'>                
+      <p className='email'>
         <a
           className={classNames('AnimatedLink', 'cream', {
             unverifiedEmail: !user.emails[0].verified
@@ -24,11 +24,14 @@ const AdminUserProfile = ({user}) => {
         <span>{`${user.profile.postalCode} ${user.profile.city}`}</span>
         <span>{user.profile.country}</span>
       </p>
-      <p className='mobile'>
-        <a className='AnimatedLink cream' href={`tel:${user.profile.mobile}`}>
-          {user.profile.mobile}
-        </a>
-      </p>
+      {
+        user.profile.mobile ?
+          <p className='mobile'>
+            <a className='AnimatedLink cream' href={`tel:${user.profile.mobile}`}>
+              {user.profile.mobile}
+            </a>
+          </p> : ''
+      }
       {
         user.profile.phone ?
           <p className='phone'>
@@ -44,8 +47,8 @@ const AdminUserProfile = ({user}) => {
           ))
         }
       </p>
-    </div>    
+    </div>
   );
-}
+};
 
 Views.AdminUserProfile = AdminUserProfile;
