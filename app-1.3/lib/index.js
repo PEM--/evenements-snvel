@@ -1,4 +1,5 @@
 import marked from '/imports/markdown';
+import MainApp from '/imports/namespaces';
 
 console.log('Server and Client');
 
@@ -13,3 +14,4 @@ if (Meteor.isServer) {
 }
 
 exposed.marked = marked;
+exposed.MainApp = MainApp;
