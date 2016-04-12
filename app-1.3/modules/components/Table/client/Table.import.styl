@@ -1,0 +1,51 @@
+// Tables
+table, table.table
+  table(orange, false)
+  box-shadow 0 2px 4px black
+  border-color orange
+  thead th
+    text-shadow 0 0 2px black
+    background orange
+    transition background-color defaultTransition
+    color cream
+  th + th, td + td, th + td, td + th, tr, th, td
+    border-color alpha(cream, 10%)
+  tbody
+    text-shadow 0 0 2px black
+    tr
+      transition background-color defaultTransition
+      &:hover
+        background-color alpha(cream, 10%)
+      &:nth-child(even) td
+        background-color alpha(cream, 5%)
+  tfoot, .footer-container
+    background mix(orange, cream)
+    color darkViolet
+
+table.table
+  thead th
+    cursor pointer
+    &:hover
+      background lighten(orange, 10%)
+  .footer-container
+    padding 4px
+    text-align center
+    text-shadow none
+    color darkViolet
+    select
+      cursor pointer
+      border 2px solid darkViolet
+      color darkViolet
+      border-radius 16px
+      background-color transparent
+    >div
+      font-size 14px
+
+// Ellipsis on too long texts
+table, table.table
+  max-width 100%
+  thead tr th
+    max-width 100%
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis

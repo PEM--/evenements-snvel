@@ -19,12 +19,19 @@ exposed.marked = marked;
 exposed.MainApp = MainApp;
 
 Tests = new Mongo.Collection('tests');
+TestsSchema = new SimpleSchema({
+  title: { type: String, label: 'Titre' }
+});
+Tests.attachSchema(TestsSchema);
 
 if (Meteor.isServer) {
   if (Tests.find().count() === 0) {
     Tests.insert({title: 'Test 1'});
     Tests.insert({title: 'Test 2'});
   }
+  Meteor.publish('countedTests', function() {
+    Counts.publish(this, 'counterTest', Tests.find());
+  });
   Meteor.publish('tests', function() {
     return Tests.find({});
   });
@@ -65,6 +72,13 @@ if (Meteor.isClient) {
         children() {
           return (
             <div>
+              <MainApp.Views.MeteorGriddle
+                publication='countedTests'
+                collection={Tests}
+                matchingResultsCount='countedTests'
+                filteredFields={['title']}
+                columns={['title']}
+              />
               <MainApp.Views.Select
                 name='Toto' label='Titi'
                 placeholder='Choose a Titi'
