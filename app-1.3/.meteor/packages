@@ -16,9 +16,6 @@ es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 standard-minifier-js
 
-# Expose global namespaces
-#pierreeric:namespaces
-
 # CSS
 stylus
 natestrauser:animate-css
@@ -68,11 +65,11 @@ matteodem:easy-security
 #gadicohen:reactive-window
 
 # Server side routes
-#meteorhacks:picker
+meteorhacks:picker
 
 # Router
-#gadicohen:robots-txt
-#gadicohen:sitemaps
-#kadira:dochead
-#kadira:flow-router-ssr
+gadicohen:robots-txt
+gadicohen:sitemaps
+kadira:dochead
+kadira:flow-router-ssr
 # okgrow:analytics
