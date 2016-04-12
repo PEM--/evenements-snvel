@@ -70,6 +70,7 @@ meteorhacks:picker
 # Router
 gadicohen:robots-txt
 gadicohen:sitemaps
-kadira:dochead
-kadira:flow-router-ssr
+#kadira:dochead
+#kadira:flow-router-ssr
+kadira:flow-router
 # okgrow:analytics
