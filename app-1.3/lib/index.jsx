@@ -58,17 +58,24 @@ if (Meteor.isClient) {
       });
     }
   }
-
-  FlowRouter.route('/', {
-    name: 'home',
+  FlowRouter.route('/tests', {
+    name: 'tests',
     action() {
       mount(Layout, {
         children() {
           return (
-            <ListModel>
-              <List name='1st list' />
-              <List name='2nd list' />
-            </ListModel>
+            <div>
+              <MainApp.Views.Select
+                name='Toto' label='Titi'
+                placeholder='Choose a Titi'
+                value={1} options={[{value: 1, label: 'One'}, {value: 2, label: 'Two'}]}
+                onChange={e => console.log(e)}
+              />
+              <ListModel>
+                <List name='1st list' />
+                <List name='2nd list' />
+              </ListModel>
+            </div>
           );
         }
       });

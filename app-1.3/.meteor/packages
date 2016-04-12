@@ -15,26 +15,25 @@ tracker                 # Meteor's client-side reactive programming library
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 standard-minifier-js
+standard-minifier-css
 
 # CSS
-stylus
 natestrauser:animate-css
-juliancwirko:postcss
+mquandalle:stylus
 
 # Language & Import
 coffeescript
 mquandalle:bower
 
 # Mails
-#email
+email
 
 # Payment
-#patrickml:braintree
+patrickml:braintree
 
 # Caching
 #appcache
-#meteorhacks:fast-render
-#meteorhacks:subs-manager
+meteorhacks:fast-render
 
 # Accounts & Security
 accounts-password
@@ -44,25 +43,25 @@ browser-policy
 matteodem:easy-security
 
 # Collections
-#aldeed:collection2
-#aldeed:simple-schema
-#dburles:collection-helpers
-#tmeasday:publish-counts
-#percolate:migrations
+aldeed:collection2
+aldeed:simple-schema
+dburles:collection-helpers
+tmeasday:publish-counts
+percolate:migrations
 
 # Utils
-#dburles:google-maps
-#momentjs:moment
-#numeral:numeral
-#underscorestring:underscore.string
-#codetheweb:zxcvbn
-#mquandalle:jade
-#chuangbo:cookie
-#vsivsi:job-collection
-#tap:i18n
-#tap:i18n-bundler
-#gwendall:simple-schema-i18n
-#gadicohen:reactive-window
+dburles:google-maps
+momentjs:moment
+numeral:numeral
+underscorestring:underscore.string
+codetheweb:zxcvbn
+mquandalle:jade
+chuangbo:cookie
+vsivsi:job-collection
+tap:i18n
+tap:i18n-bundler
+gwendall:simple-schema-i18n
+gadicohen:reactive-window
 
 # Server side routes
 meteorhacks:picker
@@ -70,7 +69,6 @@ meteorhacks:picker
 # Router
 gadicohen:robots-txt
 gadicohen:sitemaps
-#kadira:dochead
-#kadira:flow-router-ssr
-kadira:flow-router
+kadira:dochead
+kadira:flow-router-ssr
 # okgrow:analytics

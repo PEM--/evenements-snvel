@@ -1,0 +1,32 @@
+// Global settings
+html, body, #react-root
+  min-height 100vh
+  width 100vw
+  overflow-x hidden
+html, body
+  font-weight 300
+  font-family defaultFont
+  background cream
+  color cream
+*, *::after, *::before
+  // Ensure font's antialising
+  text-rendering auto
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
+  -webkit-touch-callout none
+  // Remove outlining
+  outline none !important
+  // Mobile specific for iOS and Android: removes text selection
+  -webkit-tap-highlight-color rgba(0,0,0,0)
+  // Accelerate scrolling
+  backface-visibility hidden
+  &:hover, &:focus, &:active
+    outline none
+  // Force hardware acceleration on all elements
+  // transform translateZ(0)
+
+// Nice HR
+hr
+  border 0
+  height 1px
+  background-image linear-gradient(to right, alpha(cream, 0), alpha(cream, 100%), alpha(cream, 0));

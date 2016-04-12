@@ -1,0 +1,55 @@
+form
+  border 1px solid alpha(orange, .3)
+  border-radius $radius
+  padding 5px
+  background alpha(cream, 3%)
+  box-shadow 0 1px 4px black
+
+fieldset
+  border 1px solid alpha(cream, .3)
+  border-radius $radius
+  padding 5px
+  background alpha(cream, 3%)
+  box-shadow 0 1px 4px black
+  margin-bottom 5px
+
+label
+  font-weight 400
+  font-size 14px
+  text-shadow 0 0 2px black
+
+fieldset.multiline
+  label
+    display block
+
+.fieldsContainer
+  margin 0 -5px -5px -5px
+
+.linkActions
+  margin-top 10px
+  i
+    margin 0 10px 0 30px
+  i, a, span
+    font-size 80%
+
+.formError
+  display block
+  width 100%
+  height 0
+  opacity 0
+  transition height defaultTransition, opacity defaultTransition
+  i
+    display inline-block
+    width 16px
+    height 0
+    color orange
+    margin-right 10px
+  span
+    color red
+    font-weight bold
+    font-size 90%
+  &.active
+    height 60px
+    opacity 1
+    i
+      height 16px
