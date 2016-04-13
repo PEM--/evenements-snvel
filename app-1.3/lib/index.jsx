@@ -39,10 +39,13 @@ if (Meteor.isServer) {
 
 if (Meteor.isClient) {
   const Layout = ({children}) => (
-    <main style={{background: 'darkblue'}}>
-      <h1>Main</h1>
-      {children()}
-    </main>
+    <div>
+       <MainApp.Views.Alert stack={{limit: 3}} />
+        <main style={{background: 'darkblue'}}>
+          <h1>Main</h1>
+          {children()}
+        </main>
+    </div>
   );
 
   const List = ({name, tests = []}) => (
@@ -72,6 +75,7 @@ if (Meteor.isClient) {
         children() {
           return (
             <div>
+              <MainApp.Views.Spinner />
               <form>
                 <MainApp.Views.Password label='Mot de passe' onChange={e => console.log(e)} />
                 <MainApp.Views.Radio
