@@ -1,0 +1,43 @@
+form button, .btn
+  button(cream, 15px, darkViolet)
+  click-down()
+  border-radius $radius
+  margin-right 10px
+  transition all defaultTransition
+  box-shadow 0 1px 3px black
+  width 300px
+  padding 11px 3px 11px 11px
+  hover-darken()
+  i
+    display inline-block
+    font-size 22px !important
+    line-height: 12px !important;
+    width 10px
+    transition color defaultTransition
+    color orange
+    margin-left 5px
+  span
+    display inline-block
+    width calc(100% - 15px)
+  &.primary
+    background-color orange
+    color cream
+    hover-lighten()
+    i
+      color darkViolet
+  &:disabled
+    opacity .4
+    font-weight 200
+    italic()
+    pointer-events none
+    box-shadow none
+    i
+      color darkViolet
+    &.primary
+      color darkViolet
+
+@media only screen and (max-width: 720px)
+  form button, .btn
+    width 100%
+    &:not(:last-child)
+      margin-bottom 5px

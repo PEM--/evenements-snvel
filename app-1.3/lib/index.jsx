@@ -72,6 +72,10 @@ if (Meteor.isClient) {
         children() {
           return (
             <div>
+              <form>
+                <MainApp.Views.Input />
+                <MainApp.Views.Button>Hello</MainApp.Views.Button>
+              </form>
               <MainApp.Views.AnimatedLink to='/tests' />
               <MainApp.Views.Table
                 header={['Titre 1', 'Titre 2']}

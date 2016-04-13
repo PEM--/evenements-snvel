@@ -1,0 +1,78 @@
++html5-inputs()
+  autofill(alpha(orange, 30%), darkViolet)
+  input orange
+  padding 5px
+  background-color cream
+  border-color alpha(orange, 50%)
+  color darkViolet
+  font-weight 400
+  transition color defaultAnimation,
+    border-color defaultAnimation,
+    background-color defaultAnimation
+  border-width 2px
+  &:focus
+    border-width 2px
+    background-color white
+
+.formGroup
+  position relative
+  display inline-block
+  width calc(50% - 10px)
+  height 40px
+  margin 0 5px
+  transition height defaultTransition, opacity defaultTransition
+  label
+    pointer-events none
+    display inline-block
+    width 200px
+    pointer-events none
+    transition color defaultTransition
+  +html5-inputs()
+    width calc(100% - 200px)
+  span
+    position absolute
+    display inline-block
+    overflow hidden
+    top 31px
+    color light(red, 10%)
+    font-weight 900
+    font-size 14px
+    font-style italic
+    left 10px
+    opacity 0
+    transition opacity defaultTransition
+
+// Form disabled
+.formGroup.disabled
+  opacity .4
+  font-weight 200
+  italic()
+  pointer-events none
+
+// Form in error
+.formGroup.error
+  height 58px
+  field-error()
+  +html5-inputs()
+    border-width 2px
+    &:focus
+      border-width 2px
+  span
+    opacity 1
+
+@media only screen and (max-width: 800px)
+  .formGroup
+    width calc(100% - 10px)
+@media only screen and (max-width: 550px)
+  .formGroup
+    height 60px
+    label
+      display block
+      width 100%
+    +html5-inputs()
+      width 100%
+    &.error
+      height 88px
+      span
+        top 50px
+        left 10px
