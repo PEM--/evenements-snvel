@@ -1,0 +1,150 @@
+cardMargin = 35px
+
+.Welcome
+  .headlines
+    opacity 0
+    margin-bottom .5 * cardMargin
+  .headline
+    margin 0
+    padding 0
+    text-align center
+  .card
+    opacity 0
+    position relative
+    width 100vw
+    max-width 1040px
+    height 8.5 * cardMargin
+    top 0
+    left (- cardMargin)
+    .colored
+      position absolute
+      top cardMargin
+      right cardMargin
+      width "calc(100% - %s)" % (3 * cardMargin)
+      height 7 * cardMargin
+      transition transform defaultTransition, box-shadow defaultTransition
+      box-shadow 0 3px 15px black
+    .kenBurns
+      position absolute
+      width 10 * cardMargin
+      height 5 * cardMargin
+      top 2 * cardMargin
+      right 4 * cardMargin
+      transition transform defaultTransition, box-shadow defaultTransition
+      // background red
+      overflow hidden
+      z-index 2
+      box-shadow 0 3px 15px black
+      // 350x175 => 437.5x218.75
+      // 245x122 => 306.25x152.5
+      .imageWrapper
+        position absolute
+        width 438px
+        height 219px
+        top -40px
+        // left 83px
+        left 0
+        animation kenBurns 16s ease-in-out infinite
+        img
+          // opacity .5
+          width 438px
+          height 219px
+    .title
+      position absolute
+      width "calc(100% - %s)" % (8 * cardMargin)
+      height 3 * cardMargin
+      top 3 * cardMargin
+      left 3 * cardMargin
+      padding ceil(cardMargin / 2)
+      transition transform defaultTransition, box-shadow defaultTransition
+      z-index 1
+      box-shadow 0 3px 15px black
+      background cream
+      color darkViolet
+      h2
+        font-size 32px
+    &:hover
+      .colored
+        transform translate3d(cardMargin, - cardMargin, 0)
+        box-shadow 0 10px 30px black
+      .kenBurns
+        transform translate3d((3 * cardMargin), -(2 * cardMargin), 0)
+        box-shadow 0 10px 30px black
+      .title
+        transform translate3d(- cardMargin, -(2 * cardMargin), 0)
+        box-shadow 0 10px 30px black
+
+@media only screen and (max-width: 737px)
+  .Welcome .card
+    .kenBurns
+      right 2 * cardMargin
+    &:hover
+      .colored
+        transform translate3d(cardMargin, - cardMargin, 0)
+        box-shadow 0 10px 30px black
+      .kenBurns
+        transform translate3d(cardMargin, -(2 * cardMargin), 0)
+        box-shadow 0 10px 30px black
+      .title
+        transform translate3d(- cardMargin, -(2 * cardMargin), 0)
+        box-shadow 0 10px 30px black
+
+@media only screen and (max-width: 668px)
+  .Welcome .card
+    .kenBurns
+      right cardMargin
+
+@media only screen and (max-width: 569px)
+  .Welcome .card
+    height 6.75 * cardMargin
+    .colored
+      width "calc(100% - %s)" % (3 * cardMargin)
+      height 5.5 * cardMargin
+    .kenBurns
+      right cardMargin
+      width 7 * cardMargin
+      height 3.5 * cardMargin
+    .title
+      height 2 * cardMargin
+      padding 10px
+      h2
+        font-size 28
+
+kenBurnsInitial =  translate3d(-44px, 24px, 0) scale3d(0.9, 0.9, 1)
+@keyframes kenBurns
+  from
+  	transform kenBurnsInitial
+  50%
+    transform none
+  to
+    transform kenBurnsInitial
+
+cardMarginPhone = 17px
+@media only screen and (max-width: 415px)
+  .Welcome .card
+    height 8.5 * cardMarginPhone
+    .colored
+      top cardMarginPhone
+      right cardMarginPhone
+      width "calc(100% - %s)" % (3 * cardMarginPhone)
+      height 7 * cardMarginPhone
+    .kenBurns
+      width 10 * cardMarginPhone
+      height 5 * cardMarginPhone
+      top 2 * cardMarginPhone
+      right 2 * cardMarginPhone
+    .title
+      width "calc(100% - %s)" % (8 * cardMarginPhone)
+      height (3 * cardMarginPhone)
+      top 3 * cardMarginPhone
+      left 3 * cardMarginPhone
+      padding ceil(cardMarginPhone / 2)
+      h2
+        font-size 24px
+    &:hover
+      .title
+        transform translate3d(- cardMarginPhone, -(2 * cardMarginPhone), 0)
+      .kenBurns
+        transform translate3d((3 * cardMarginPhone), -(2 * cardMarginPhone), 0)
+      .colored
+        transform translate3d(cardMarginPhone, - cardMarginPhone, 0)

@@ -1,0 +1,52 @@
+.Subscribe
+  table
+    .title
+      max-width 100%
+      width 100%
+      .priceDescription
+        font-size 18px
+        line-height 20px
+    .price
+      font-family monospace
+      &:first-of-type
+        font-size 12px
+        font-weight bold
+      &:not(:first-of-type)
+        font-size 10px
+    input[type='checkbox'], label
+      margin-top 0
+    thead tr th, tbody tr td
+      &:nth-child(2)
+        width 130px
+      &:nth-child(3)
+        width 150px
+  form.attendant
+    margin-bottom 12px
+
+@media only screen and (max-width: 480px)
+  .Subscribe
+    table
+      max-width 100%
+      width 100%
+      thead tr th, tbody tr td
+        &:nth-child(2), &:nth-child(3)
+          width 100%
+          >div
+            width 100%
+      thead
+        display none
+      label
+        width 100%
+      tbody, tr, td
+        border none
+    .prices .price
+      display inline-block
+      width initial
+      &:first-of-type::after
+        content ','
+        margin-right 1em
+    table, tbody, tr, td
+      display block
+    table tbody, table tbody tr, table tbody tr td, table tbody tr td div
+      width 100%
+      max-width 100%

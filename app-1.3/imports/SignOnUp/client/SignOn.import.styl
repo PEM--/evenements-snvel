@@ -1,0 +1,20 @@
+// Styles used for SignOn, PasswordForgotten, PasswordChange
+.MainContent.SignOn
+  width 300px
+  .formGroup
+    width calc(100% - 10px)
+    height 60px
+    label
+      display block
+      width 100%
+    +html5-inputs()
+      width 100%
+    &.error
+      height 98px
+      span
+        top 50px
+        left 10px
+  form button, .btn
+    width 100%
+    &:not(:first-of-type)
+      margin-top 5px

@@ -1,0 +1,87 @@
+.Admin
+  form
+    margin-bottom 10px
+  .griddle table tbody tr.standard-row td
+    cursor pointer
+
+.AdminUser
+  .content
+    display flex
+    .unverifiedEmail
+      color red
+    .profile
+      flex 0 0 auto
+      border 1px solid cream
+      border-radius $radius
+      background alpha(cream, 5%)
+      margin-top 30px
+      margin-right 10px
+      padding 30px 15px 15px 15px
+      position relative
+      box-shadow 0 3px 15px black
+      h2
+        color mix(cream, orange)
+      &:before
+        position absolute
+        top -30px
+        left calc(50% - 30px)
+        width 60px
+        height 60px
+        border 2px solid cream
+        border-radius 50%
+        font-family FontAwesome
+        font-size 40px
+        line-height 60px
+        content '\f007'
+        text-align center
+        background darkViolet
+      .address, .email, .mobile, .phone
+        position relative
+        padding-left 30px
+        span
+          display block
+          width 100%
+        &:before
+          position absolute
+          left 0
+          color orange
+          font-family FontAwesome
+          font-size 140%
+      .address:before
+        content '\f015'          
+      .email:before
+        content '\f003'
+      .mobile:before
+        content '\f10b'
+      .phone:before
+        content '\f095'
+      .mobile, .phone
+        a
+          font-family defaultMonoFont
+          font-weight normal
+      .roles
+        span
+          margin-right 10px
+          border 1px solid cream
+          border-radius $radius
+          font-size 70%
+          font-weight bold
+          padding 5px
+          &.admin
+            color orange
+            border-color orange
+      .csoNumber
+        font-family defaultMonoFont
+        font-size 80%
+        margin-left 10px
+    .actions
+      flex 1 0 auto
+      border 1px solid cream
+      border-radius $radius
+      background alpha(cream, 5%)
+      margin-top 30px
+      padding 15px
+      position relative
+      box-shadow 0 3px 15px black
+      button.btn
+        margin-bottom 10px

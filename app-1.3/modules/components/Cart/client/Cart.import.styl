@@ -1,0 +1,63 @@
+cartWidth = 145px
+cartIconWidth = 32px
+cartNumberWidth = 32px
+
+.Cart-container
+  position relative
+  width 100%
+  .Cart
+    position absolute
+    top 0
+    right 0
+    width cartWidth
+    height 36px
+    background cream
+    color mix(orange, cream)
+    border-radius $radius
+    border 2px solid mix(orange, cream)
+    .icon
+      position absolute
+      top 0
+      left 0
+      display inline-block
+      width cartIconWidth
+      font-size 30px
+      line-height 30px
+      text-align center
+    .number
+      position absolute
+      top 0
+      left cartIconWidth
+      display inline-block
+      color orange
+      width cartNumberWidth
+      font-size 30px
+      line-height 30px
+      text-align center
+      font-family Impact
+    .legend
+      position absolute
+      display inline-block
+      text-align right
+      top 2px
+      right 4px
+      width cartWidth - (cartIconWidth + cartNumberWidth)
+      font-size 10px
+      line-height 10px
+      font-weight 500
+      height 10px
+    .amount
+      position absolute
+      bottom 6px
+      right 4px
+      text-align right
+      width cartWidth - (cartIconWidth + cartNumberWidth)
+      font-family monospace
+      font-size 15px
+      font-weight 500
+      height 14px
+      color darkViolet
+
+@media only screen and (max-width: 380px)
+  .Cart-container .Cart
+    position relative

@@ -1,0 +1,95 @@
+buttonSize = 30px
+thickness = 4px
+radius = $radius
+
+header
+  padding 2px 0 0 0
+  margin-bottom 8px
+  img
+    display inline-block
+    transform translate3d(20px, 0, 0)
+  button
+    margin 0
+    padding 15px 20px 15px 10px
+    width 100%
+    height 100%
+    position relative
+    display inline-block
+    border none
+    outline none
+    background none
+    text-align right
+
+  icon($height, $buttonSize)
+    transition inherit
+    position absolute
+    width ($buttonSize / 2)
+    height $height
+    background darkViolet
+    top ceil(($buttonSize - $height) / 2)
+
+  icon-before($top)
+    transition inherit
+    position absolute
+    width inherit
+    height inherit
+    background darkViolet
+    content ""
+    top $top
+
+  icon-after($top)
+    transition inherit
+    position absolute
+    width inherit
+    height inherit
+    background darkViolet
+    content ""
+    top $top
+
+  .hamburger
+    position relative
+    display inline-block
+    width buttonSize
+    height buttonSize
+    top 0
+    left 0
+    transition transform .3s ease-in-out, background-color .3s ease-in-out
+    &:hover
+      cursor pointer
+    .left
+      icon(thickness, buttonSize)
+      border-top-left-radius radius
+      border-bottom-left-radius radius
+      left 1px
+      &:before
+        icon-before((- ceil(buttonSize / 3)))
+      &:after
+        icon-before((ceil(buttonSize / 3)))
+      &:after, &:before
+        border-radius inherit
+        left 0
+    .right
+      icon(thickness, buttonSize)
+      right 2px
+      border-top-right-radius radius
+      border-bottom-right-radius radius
+      &:before
+        icon-before((- ceil(buttonSize / 3)))
+      &:after
+        icon-before((ceil(buttonSize / 3)))
+      &:after, &:before
+        border-radius inherit
+        right 0
+    &.open
+      .left
+        background transparent
+        &:before
+          transform rotateZ(45deg) scaleX(1.4) translate(ceil(thickness/2), ceil(thickness/2))
+        &:after
+          transform rotateZ(-45deg) scaleX(1.4) translate(ceil(thickness/2), - ceil(thickness/2))
+      .right
+        background transparent
+        &:before
+          transform rotateZ(-45deg) scaleX(1.4) translate(- ceil(thickness/2), ceil(thickness/2))
+        &:after
+          transform rotateZ(45deg) scaleX(1.4) translate(- ceil(thickness/2), - ceil(thickness/2))
