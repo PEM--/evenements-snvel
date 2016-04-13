@@ -1,0 +1,42 @@
+// Checkbox
+input[type='checkbox']
+  position absolute
+  left -9999px
+  & + label
+    display inline-block
+    position relative
+    margin 5px 0
+    padding-left 25px
+    min-width 16px
+    min-height 16px
+    cursor pointer
+    no-select()
+    &::before, &::after
+      position absolute
+    &::before
+      top 2px
+      left 0
+      width 16px
+      height 16px
+      border-radius $radius
+      border 2px solid cream
+      background transparent
+      content ' '
+      transition border-color defaultTransition
+    &::after
+      top 4px
+      left 2px
+      width 12px
+      height 12px
+      background transparent
+      color cream
+      font-family FontAwesome
+      content $fa-var-check
+      line-height 11px
+      transition transform defaultTransition, background-color .3s .3s ease-in-out
+      transform scale3d(0, 0, 1)
+  &:checked + label::after
+    background orange
+    transform scale3d(1, 1, 1)
+  &:focus + label::before
+    border-color mix(orange, cream)

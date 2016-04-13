@@ -73,6 +73,11 @@ if (Meteor.isClient) {
           return (
             <div>
               <form>
+                <MainApp.Views.Radio
+                  label='Test'
+                  value={1} options={[{value: 1, label: 'One'}, {value: 2, label: 'Two'}]}
+                />
+                <MainApp.Views.CheckBox>Test</MainApp.Views.CheckBox>
                 <MainApp.Views.Input />
                 <MainApp.Views.Button>Hello</MainApp.Views.Button>
               </form>
