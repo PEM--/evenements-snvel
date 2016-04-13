@@ -73,6 +73,7 @@ if (Meteor.isClient) {
           return (
             <div>
               <form>
+                <MainApp.Views.Password label='Mot de passe' onChange={e => console.log(e)} />
                 <MainApp.Views.Radio
                   label='Test'
                   value={1} options={[{value: 1, label: 'One'}, {value: 2, label: 'Two'}]}
