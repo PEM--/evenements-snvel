@@ -1,3 +1,5 @@
+import React from 'react';
+
 let reactKey = 0;
 
 const TableHeader = ({header}) => (

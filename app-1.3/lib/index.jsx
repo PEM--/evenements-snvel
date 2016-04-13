@@ -71,7 +71,12 @@ if (Meteor.isClient) {
       mount(Layout, {
         children() {
           return (
-            <div>
+            <div style={{background: 'blue'}}>
+              <MainApp.Views.Table
+                header={['Titre 1', 'Titre 2']}
+                items={[[1, 2]]}
+                footer={['Footer 1', 'Footer 2']}
+              />
               <MainApp.Views.MeteorGriddle
                 publication='countedTests'
                 collection={Tests}

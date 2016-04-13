@@ -10,40 +10,41 @@ class MeteorGriddle extends MainApp.Views.BaseReactComponent {
       externalResultsPerPage: this.props.externalResultsPerPage,
       externalSortColumn: this.props.externalSortColumn,
       externalSortAscending: this.props.externalSortAscending,
-      filter: null
+      filter: null,
+      results: [],
+      matchingResults: 0
     };
     let query = {};
     // get a count of the number of items matching the current filter
     // if no filter is set it will return the total number of items in the collection
-    var matchingResults = Meteor.isClient ? Counts.get(this.props.matchingResultsCount) :
-      this.props.collection.find().count();
-    var options = {
-      limit: this.state.externalResultsPerPage, sort: {},
-    };
-    // filtering
-    if (this.state.filter) {
-      // if filteredFields are not defined, default to using columns
-      var filteredFields = this.props.filteredFields || this.props.columns;
-      // if necessary, limit the cursor to number of matching results to avoid displaying results from other publications
-      options.limit = _.min([options.limit, matchingResults]);
-      // build array for filtering using regex
-      var orArray = filteredFields.map((field) => {
-        var filterItem = {};
-        filterItem[field] = {$regex: this.state.filter, $options: 'i'};
-        return filterItem;
-      });
-      query = {$or: orArray};
-    }
-    // sorting
-    options.sort[this.state.externalSortColumn] = this.state.externalSortAscending ? 1 : -1;
-    // skipping
-    var skip = this.state.currentPage * this.state.externalResultsPerPage;
-    // we extend options with skip before passing them to publication
-    Meteor.subscribe(this.props.publication, query, _.extend({skip: skip}, options));
-    // create the cursor
-    var results = this.props.collection.find(query, options).fetch();
-    this.state = Object.assign(this.state, {
-      results, matchingResults
+    this.autorun(() => {
+      this.setState({matchingResults: Meteor.isClient ? Counts.get(this.props.matchingResultsCount) :
+        this.props.collection.find().count()});
+      let options = {
+        limit: this.state.externalResultsPerPage, sort: {},
+      };
+      // filtering
+      if (this.state.filter) {
+        // if filteredFields are not defined, default to using columns
+        let filteredFields = this.props.filteredFields || this.props.columns;
+        // if necessary, limit the cursor to number of matching results to avoid displaying results from other publications
+        options.limit = _.min([options.limit, this.state.matchingResults]);
+        // build array for filtering using regex
+        let orArray = filteredFields.map((field) => {
+          let filterItem = {};
+          filterItem[field] = {$regex: this.state.filter, $options: 'i'};
+          return filterItem;
+        });
+        query = {$or: orArray};
+      }
+      // sorting
+      options.sort[this.state.externalSortColumn] = this.state.externalSortAscending ? 1 : -1;
+      // skipping
+      let skip = this.state.currentPage * this.state.externalResultsPerPage;
+      // we extend options with skip before passing them to publication
+      this.subscribe(this.props.publication, query, _.extend({skip: skip}, options));
+      // create the cursor
+      this.setState({results: this.props.collection.find(query, options).fetch()});
     });
   }
   //what page is currently viewed
