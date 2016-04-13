@@ -39,7 +39,7 @@ if (Meteor.isServer) {
 
 if (Meteor.isClient) {
   const Layout = ({children}) => (
-    <main>
+    <main style={{background: 'darkblue'}}>
       <h1>Main</h1>
       {children()}
     </main>
@@ -71,7 +71,8 @@ if (Meteor.isClient) {
       mount(Layout, {
         children() {
           return (
-            <div style={{background: 'blue'}}>
+            <div>
+              <MainApp.Views.AnimatedLink to='/tests' />
               <MainApp.Views.Table
                 header={['Titre 1', 'Titre 2']}
                 items={[[1, 2]]}

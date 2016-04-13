@@ -1,0 +1,32 @@
+// Links with an animated underline on hovering
+.AnimatedLink
+  font-weight 900
+  text-decoration none
+  position relative
+  transition color defaultTransition
+  position relative
+  &::after
+    content ' '
+    position absolute
+    bottom 0
+    left 0
+    width 100%
+    height 1px
+    transform scale3d(0, 1, 1)
+    transition transform defaultTransition
+  // Animated underline links
+  &:hover
+    &::after
+      transform scale3d(1, 1, 1)
+  &.basic
+    color orange
+    &::after
+      background-image linear-gradient(to right, alpha(orange, 20%), alpha(orange, 100%), alpha(orange, 20%));
+    &:hover
+      color lighten(orange, 20%)
+  &.cream
+    color cream
+    &::after
+      background-image linear-gradient(to right, alpha(cream, 20%), alpha(cream, 100%), alpha(cream, 20%));
+    &:hover
+      color lighten(cream, 20%)
